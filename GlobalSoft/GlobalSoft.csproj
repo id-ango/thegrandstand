@@ -149,10 +149,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SetupAgenController.cs" />
+    <Compile Include="Controllers\SetupCategorieController.cs" />
+    <Compile Include="Controllers\SetupCustomerController.cs" />
+    <Compile Include="Controllers\SetupMarketingController.cs" />
+    <Compile Include="Controllers\SetupPaymentController.cs" />
+    <Compile Include="Controllers\SetupStatusController.cs" />
+    <Compile Include="Controllers\SetupTransController.cs" />
+    <Compile Include="Controllers\SetupTrsNoController.cs" />
+    <Compile Include="Controllers\SetupTypeController.cs" />
+    <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApartmentInitializer.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
+    <Compile Include="Models\GlobalDbContext.cs" />
+    <Compile Include="Models\MenuMaster.cs" />
+    <Compile Include="Models\ReceivableModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +206,57 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\SKUP.cshtml" />
+    <Content Include="Views\SetupMarketing\Create.cshtml" />
+    <Content Include="Views\SetupMarketing\Delete.cshtml" />
+    <Content Include="Views\SetupMarketing\Details.cshtml" />
+    <Content Include="Views\SetupMarketing\Edit.cshtml" />
+    <Content Include="Views\SetupMarketing\Index.cshtml" />
+    <Content Include="Views\SetupAgen\Create.cshtml" />
+    <Content Include="Views\SetupAgen\Delete.cshtml" />
+    <Content Include="Views\SetupAgen\Details.cshtml" />
+    <Content Include="Views\SetupAgen\Edit.cshtml" />
+    <Content Include="Views\SetupAgen\Index.cshtml" />
+    <Content Include="Views\SetupPayment\Create.cshtml" />
+    <Content Include="Views\SetupPayment\Delete.cshtml" />
+    <Content Include="Views\SetupPayment\Details.cshtml" />
+    <Content Include="Views\SetupPayment\Edit.cshtml" />
+    <Content Include="Views\SetupPayment\Index.cshtml" />
+    <Content Include="Views\SetupCustomer\Create.cshtml" />
+    <Content Include="Views\SetupCustomer\Delete.cshtml" />
+    <Content Include="Views\SetupCustomer\Details.cshtml" />
+    <Content Include="Views\SetupCustomer\Edit.cshtml" />
+    <Content Include="Views\SetupCustomer\Index.cshtml" />
+    <Content Include="Views\SetupType\Create.cshtml" />
+    <Content Include="Views\SetupType\Delete.cshtml" />
+    <Content Include="Views\SetupType\Details.cshtml" />
+    <Content Include="Views\SetupType\Edit.cshtml" />
+    <Content Include="Views\SetupType\Index.cshtml" />
+    <Content Include="Views\SetupCategorie\Create.cshtml" />
+    <Content Include="Views\SetupCategorie\Delete.cshtml" />
+    <Content Include="Views\SetupCategorie\Details.cshtml" />
+    <Content Include="Views\SetupCategorie\Edit.cshtml" />
+    <Content Include="Views\SetupCategorie\Index.cshtml" />
+    <Content Include="Views\SetupStatus\Create.cshtml" />
+    <Content Include="Views\SetupStatus\Delete.cshtml" />
+    <Content Include="Views\SetupStatus\Details.cshtml" />
+    <Content Include="Views\SetupStatus\Edit.cshtml" />
+    <Content Include="Views\SetupStatus\Index.cshtml" />
+    <Content Include="Views\SetupTrans\Create.cshtml" />
+    <Content Include="Views\SetupTrans\Delete.cshtml" />
+    <Content Include="Views\SetupTrans\Details.cshtml" />
+    <Content Include="Views\SetupTrans\Edit.cshtml" />
+    <Content Include="Views\SetupTrans\Index.cshtml" />
+    <Content Include="Views\SetupTrsNo\Create.cshtml" />
+    <Content Include="Views\SetupTrsNo\Delete.cshtml" />
+    <Content Include="Views\SetupTrsNo\Details.cshtml" />
+    <Content Include="Views\SetupTrsNo\Edit.cshtml" />
+    <Content Include="Views\SetupTrsNo\Index.cshtml" />
+    <Content Include="Views\SetupUnit\Create.cshtml" />
+    <Content Include="Views\SetupUnit\Delete.cshtml" />
+    <Content Include="Views\SetupUnit\Details.cshtml" />
+    <Content Include="Views\SetupUnit\Edit.cshtml" />
+    <Content Include="Views\SetupUnit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

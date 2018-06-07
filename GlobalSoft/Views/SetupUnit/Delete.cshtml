@@ -1,0 +1,80 @@
+﻿@model GlobalSoft.Models.AptUnit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AptUnit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AptCategorie.Categorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptCategorie.Categorie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptStatus.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptStatus.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lantai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lantai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inhouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inhouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceKPR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceKPR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatOld)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatOld)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

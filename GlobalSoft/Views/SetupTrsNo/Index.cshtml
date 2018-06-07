@@ -1,0 +1,33 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptTrsNo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TransNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TransNoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TransNoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TransNoID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,74 @@
+﻿@model GlobalSoft.Models.AptUnit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AptUnit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AptCategorie.Categorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptCategorie.Categorie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptStatus.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptStatus.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lantai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lantai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inhouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inhouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceKPR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceKPR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatOld)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatOld)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UnitID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

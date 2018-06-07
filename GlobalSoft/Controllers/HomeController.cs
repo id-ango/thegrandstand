@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GlobalSoft.Models;
+
 
 namespace GlobalSoft.Controllers
 {
@@ -10,6 +12,8 @@ namespace GlobalSoft.Controllers
     {
         public ActionResult Index()
         {
+           
+
             return View();
         }
 
@@ -26,5 +30,11 @@ namespace GlobalSoft.Controllers
 
             return View();
         }
+        public ActionResult Skup()
+        {
+
+            return View();
+        }
+
     }
 }

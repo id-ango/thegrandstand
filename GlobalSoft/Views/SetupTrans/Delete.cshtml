@@ -1,0 +1,112 @@
+﻿@model GlobalSoft.Models.AptTrans
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AptTrans</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptMarketing.MarketingName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptPayment.PaymentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptTrsNo.TransNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptTrsNo.TransNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptUnit.UnitNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArCustomer.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArCustomer.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoRef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keterangan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Payment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Payment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TglSelesai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TglSelesai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cicilan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cicilan)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

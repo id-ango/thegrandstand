@@ -1,0 +1,93 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptTrans>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AptTrsNo.TransNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArCustomer.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TglSelesai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cicilan)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptPayment.PaymentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptTrsNo.TransNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptUnit.UnitNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArCustomer.CustomerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tanggal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keterangan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TglSelesai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cicilan)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TransID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TransID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TransID })
+        </td>
+    </tr>
+}
+
+</table>

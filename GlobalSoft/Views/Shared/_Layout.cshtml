@@ -23,6 +23,33 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Apartment <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            @{ var strJudul = "Tipe";
+        var strAction = "AptTypes";
+
+        for (int i = 1; i < 2; i++)
+        {
+                        <li>@Html.ActionLink(strJudul, "Index", strAction)</li>
+
+}
+                            }
+
+                            <li>@Html.ActionLink("Unit", "Index", "SetupUnit")</li>
+                            <li>@Html.ActionLink("Kategori", "index", "SetupCategorie")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Agen", "index", "SetupAgen")</li>
+                            <li>@Html.ActionLink("Marketing", "index", "SetupMarketing")</li>
+                            <li>@Html.ActionLink("Jenis Bayar", "index", "SetupPayment")</li>
+                            <li>@Html.ActionLink("Jenis Transaksi", "index", "SetupTrsNo")</li>
+                            <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
+                            <li>@Html.ActionLink("Transaksi", "index", "SetupTrans")</li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#">Reservasi</a></li>
                 </ul>
             </div>
         </div>

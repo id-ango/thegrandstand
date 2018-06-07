@@ -1,0 +1,42 @@
+﻿@model GlobalSoft.Models.AptMarketing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AptMarketing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AptAgen.AgenName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptAgen.AgenName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketingName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarketingName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MarketingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

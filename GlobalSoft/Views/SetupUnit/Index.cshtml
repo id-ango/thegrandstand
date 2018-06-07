@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptUnit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AptCategorie.Categorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AptStatus.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lantai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inhouse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceKPR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatOld)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptCategorie.Categorie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptStatus.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lantai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inhouse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceKPR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatOld)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UnitID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UnitID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UnitID })
+        </td>
+    </tr>
+}
+
+</table>
