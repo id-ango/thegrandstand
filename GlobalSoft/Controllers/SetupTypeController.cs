@@ -12,12 +12,16 @@ namespace GlobalSoft.Controllers
 {
     public class SetupTypeController : Controller
     {
-        private GlobalDbContext db = new GlobalDbContext();
+        private ApartmentDBContext db = new ApartmentDBContext();
 
         // GET: SetupType
         public ActionResult Index()
         {
-            return View(db.AptTipes.ToList());
+            var listtipe = from e in db.AptTipes
+                           orderby e.Tipe
+                           select e;
+
+            return View(listtipe);
         }
 
         // GET: SetupType/Details/5

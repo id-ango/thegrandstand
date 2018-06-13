@@ -1,11 +1,12 @@
 ﻿@model GlobalSoft.Models.AptTrans
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
 }
 
-<h2>Details</h2>
+<h2>Delete</h2>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>AptTrans</h4>
     <hr />
@@ -25,7 +26,6 @@
         <dd>
             @Html.DisplayFor(model => model.AptPayment.PaymentName)
         </dd>
-
 
         <dt>
             @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
@@ -91,9 +91,22 @@
             @Html.DisplayFor(model => model.Cicilan)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.TransNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransNo)
+        </dd>
+
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TransID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

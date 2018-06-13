@@ -14,7 +14,7 @@ namespace GlobalSoft
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new ApartmentInitializer());    // Initializer nanti dihapus
+           // Database.SetInitializer(new ApartmentInitializer());    // Initializer nanti dihapus
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

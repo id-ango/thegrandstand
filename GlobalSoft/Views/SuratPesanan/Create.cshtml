@@ -1,13 +1,13 @@
 ﻿@model GlobalSoft.Models.AptTrans
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
@@ -15,8 +15,6 @@
         <h4>AptTrans</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.TransID)
-
         <div class="form-group">
             @Html.LabelFor(model => model.NoRef, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -98,8 +96,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.TransNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TransNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TransNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

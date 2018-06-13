@@ -10,18 +10,18 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
-    public class SetupTransController : Controller
+    public class SuratPesananController : Controller
     {
         private ApartmentDBContext db = new ApartmentDBContext();
 
-        // GET: SetupTrans
+        // GET: SuratPesanan
         public ActionResult Index()
         {
             var aptTranss = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
             return View(aptTranss.ToList());
         }
 
-        // GET: SetupTrans/Details/5
+        // GET: SuratPesanan/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace GlobalSoft.Controllers
             return View(aptTrans);
         }
 
-        // GET: SetupTrans/Create
+        // GET: SuratPesanan/Create
         public ActionResult Create()
         {
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
@@ -46,7 +46,7 @@ namespace GlobalSoft.Controllers
             return View();
         }
 
-        // POST: SetupTrans/Create
+        // POST: SuratPesanan/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace GlobalSoft.Controllers
             return View(aptTrans);
         }
 
-        // GET: SetupTrans/Edit/5
+        // GET: SuratPesanan/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,12 +86,12 @@ namespace GlobalSoft.Controllers
             return View(aptTrans);
         }
 
-        // POST: SetupTrans/Edit/5
+        // POST: SuratPesanan/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNoID")] AptTrans aptTrans)
+        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace GlobalSoft.Controllers
             return View(aptTrans);
         }
 
-        // GET: SetupTrans/Delete/5
+        // GET: SuratPesanan/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,7 +121,7 @@ namespace GlobalSoft.Controllers
             return View(aptTrans);
         }
 
-        // POST: SetupTrans/Delete/5
+        // POST: SuratPesanan/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

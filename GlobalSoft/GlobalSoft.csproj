@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
     <Compile Include="Controllers\SetupCategorieController.cs" />
@@ -159,13 +160,28 @@
     <Compile Include="Controllers\SetupTrsNoController.cs" />
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
+    <Compile Include="Controllers\SuratPesananController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApartmentInitializer.cs" />
+    <Compile Include="Migrations\201806101636541_InitialCreate.cs" />
+    <Compile Include="Migrations\201806101636541_InitialCreate.Designer.cs">
+      <DependentUpon>201806101636541_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806101711228_statusold.cs" />
+    <Compile Include="Migrations\201806101711228_statusold.Designer.cs">
+      <DependentUpon>201806101711228_statusold.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806101736167_statold.cs" />
+    <Compile Include="Migrations\201806101736167_statold.Designer.cs">
+      <DependentUpon>201806101736167_statold.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806111605560_tanggal.cs" />
+    <Compile Include="Migrations\201806111605560_tanggal.Designer.cs">
+      <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
-    <Compile Include="Models\GlobalDbContext.cs" />
-    <Compile Include="Models\MenuMaster.cs" />
     <Compile Include="Models\ReceivableModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -247,16 +263,26 @@
     <Content Include="Views\SetupTrans\Details.cshtml" />
     <Content Include="Views\SetupTrans\Edit.cshtml" />
     <Content Include="Views\SetupTrans\Index.cshtml" />
-    <Content Include="Views\SetupTrsNo\Create.cshtml" />
-    <Content Include="Views\SetupTrsNo\Delete.cshtml" />
-    <Content Include="Views\SetupTrsNo\Details.cshtml" />
-    <Content Include="Views\SetupTrsNo\Edit.cshtml" />
-    <Content Include="Views\SetupTrsNo\Index.cshtml" />
     <Content Include="Views\SetupUnit\Create.cshtml" />
     <Content Include="Views\SetupUnit\Delete.cshtml" />
     <Content Include="Views\SetupUnit\Details.cshtml" />
     <Content Include="Views\SetupUnit\Edit.cshtml" />
     <Content Include="Views\SetupUnit\Index.cshtml" />
+    <Content Include="Views\SetupTrsNo\Create.cshtml" />
+    <Content Include="Views\SetupTrsNo\Delete.cshtml" />
+    <Content Include="Views\SetupTrsNo\Details.cshtml" />
+    <Content Include="Views\SetupTrsNo\Edit.cshtml" />
+    <Content Include="Views\SetupTrsNo\Index.cshtml" />
+    <Content Include="Views\BookingFee\Create.cshtml" />
+    <Content Include="Views\BookingFee\Delete.cshtml" />
+    <Content Include="Views\BookingFee\Details.cshtml" />
+    <Content Include="Views\BookingFee\Edit.cshtml" />
+    <Content Include="Views\BookingFee\Index.cshtml" />
+    <Content Include="Views\SuratPesanan\Create.cshtml" />
+    <Content Include="Views\SuratPesanan\Delete.cshtml" />
+    <Content Include="Views\SuratPesanan\Details.cshtml" />
+    <Content Include="Views\SuratPesanan\Edit.cshtml" />
+    <Content Include="Views\SuratPesanan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,6 +299,20 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806101636541_InitialCreate.resx">
+      <DependentUpon>201806101636541_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101711228_statusold.resx">
+      <DependentUpon>201806101711228_statusold.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101736167_statold.resx">
+      <DependentUpon>201806101736167_statold.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806111605560_tanggal.resx">
+      <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

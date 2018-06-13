@@ -1,0 +1,118 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptTrans>
+
+@{
+    ViewBag.Title = "Booking Fee";
+}
+
+<h2>Reservasi</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NoRef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tanggal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArCustomer.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Keterangan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tanggal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptUnit.UnitNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArCustomer.CustomerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keterangan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptPayment.PaymentName)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TransID })
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    <table class="table-bordered">
+        <tr>
+            <td>Cicilan</td>
+           
+            <td> </td>
+            <td>Tanda Jadi</td>
+            
+        </tr>
+    </table>
+</div>
+<div>
+    <table class="table table-bordered">
+        
+        <tr>
+            <th>
+                inHouse
+            </th>
+            <th>
+                Cicilan
+            </th>
+            <th>
+                KPR
+            </th>
+            <th>
+                Cicilan
+            </th>
+            <th>
+                Tanda Jadi
+            </th>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        </table>
+</div>

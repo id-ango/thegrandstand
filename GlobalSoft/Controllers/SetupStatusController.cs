@@ -12,7 +12,7 @@ namespace GlobalSoft.Controllers
 {
     public class SetupStatusController : Controller
     {
-        private GlobalDbContext db = new GlobalDbContext();
+        private ApartmentDBContext db = new ApartmentDBContext();
 
         // GET: SetupStatus
         public ActionResult Index()

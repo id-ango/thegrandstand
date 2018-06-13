@@ -12,7 +12,7 @@ namespace GlobalSoft.Controllers
 {
     public class SetupUnitController : Controller
     {
-        private GlobalDbContext db = new GlobalDbContext();
+        private ApartmentDBContext db = new ApartmentDBContext();
 
         // GET: SetupUnit
         public ActionResult Index()
@@ -51,9 +51,14 @@ namespace GlobalSoft.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UnitID,UnitNo,Lantai,CategorieID,StatusID,Inhouse,PriceKPR,StatOld")] AptUnit aptUnit)
         {
+            
             if (ModelState.IsValid)
             {
+               
+                aptUnit.StatOld = aptUnit.StatusID;
+
                 db.AptUnits.Add(aptUnit);
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
