@@ -22,9 +22,10 @@ namespace GlobalSoft.Models
     public class AptStatus              // Status , 0 Available, 1 Hold, 5 Sold    not Mapped
     {
         [Key]
+        [Display(Name ="Kode")]
         public int StatusID { get; set; }
         [StringLength(20)]
-        [Display(nameof="Status Unit")]
+        [Display(Name = "Status Unit")]
         public String Status { get; set; }
         public virtual ICollection<AptUnit> AptUnit { get; set; }
 
@@ -135,18 +136,18 @@ namespace GlobalSoft.Models
         [Display(Name ="No Ref")]
         public string NoRef { get; set; }
 
-        [Display(Name ="Tanggal UTJ")]
+        [Display(Name ="Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
 
-        [Display(Name ="Unit No.")]
+        
         public int   UnitID { get; set; }         // Unit No 
         public virtual AptUnit AptUnit { get; set; }
 
-        [Display(Name = "Customer")]
+      
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
-        [Display(Name ="Marketing")]
+       
         public int MarketingID { get; set; }
         public virtual AptMarketing AptMarketing { get; set; }
 
@@ -162,8 +163,14 @@ namespace GlobalSoft.Models
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
 
-        public int TransNo { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanand,3-Batal
+        public int TransNo { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
         public virtual AptTrsNo AptTrsNo { get; set; }
+
+        public int CaraBayar { get; set; }         // 1-Angsuran,2-KPR,3-Tunai
+        public decimal Harga { get; set; }
+        public decimal Angsuran { get; set; }
+        public decimal Piutang { get; set; }
+
     }
 
     public class AptTrsNo
@@ -193,5 +200,6 @@ namespace GlobalSoft.Models
         public DbSet<AptTrans> AptTranss { get; set; }
         public DbSet<AptTrsNo> AptTrsNo { get; set; }
         public DbSet<ArCustomer> ArCustomers { get; set; }
+        public DbSet<ArPiutang> ArPiutangs { get; set; }
     }
 }

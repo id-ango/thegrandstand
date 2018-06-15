@@ -149,6 +149,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
+    <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
     <Compile Include="Controllers\SetupCategorieController.cs" />
@@ -180,6 +181,22 @@
     <Compile Include="Migrations\201806111605560_tanggal.Designer.cs">
       <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806130344533_tambahnourutdistatus.cs" />
+    <Compile Include="Migrations\201806130344533_tambahnourutdistatus.Designer.cs">
+      <DependentUpon>201806130344533_tambahnourutdistatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806141515108_piutang.cs" />
+    <Compile Include="Migrations\201806141515108_piutang.Designer.cs">
+      <DependentUpon>201806141515108_piutang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806141537289_piutang1.cs" />
+    <Compile Include="Migrations\201806141537289_piutang1.Designer.cs">
+      <DependentUpon>201806141537289_piutang1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806141542233_piutang2.cs" />
+    <Compile Include="Migrations\201806141542233_piutang2.Designer.cs">
+      <DependentUpon>201806141542233_piutang2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\ReceivableModels.cs" />
@@ -188,10 +205,18 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.index.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\gambar-header-1.jpg" />
+    <Content Include="Images\gambar-header-2.jpg" />
+    <Content Include="Images\info2.jpg" />
+    <Content Include="Images\info3.jpg" />
+    <Content Include="Images\inquire-left.png" />
+    <Content Include="Images\inquire-right.png" />
+    <Content Include="Images\logo-full.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -286,6 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Fungsi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -312,6 +338,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806111605560_tanggal.resx">
       <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806130344533_tambahnourutdistatus.resx">
+      <DependentUpon>201806130344533_tambahnourutdistatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806141515108_piutang.resx">
+      <DependentUpon>201806141515108_piutang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806141537289_piutang1.resx">
+      <DependentUpon>201806141537289_piutang1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806141542233_piutang2.resx">
+      <DependentUpon>201806141542233_piutang2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

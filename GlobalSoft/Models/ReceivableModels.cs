@@ -44,8 +44,35 @@ namespace GlobalSoft.Models
         public string AccounSet { get; set; }
 
         public virtual ICollection<AptUnit> AptUnit { get; set; }
+        public virtual ICollection<ArPiutang> ArPiutang { get; set; }
     }
 
-   
+    public class ArPiutang
+    {
+        [Key]
+        public int PiutangID { get; set; }
+        [StringLength(20)]
+        public string Dokumen { get; set; }
+
+        public DateTime Tanggal { get; set; }
+        public DateTime Duedate { get; set; }
+        
+        public int KodeTrans { get; set; }     // 1-invoice, 2- pembayaran
+        public string LPB { get; set; }
+
+        [StringLength(200)]
+        public string Keterangan { get; set; }
+
+        public decimal Jumlah { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Sisa { get; set; }
+        public decimal SldSisa { get; set; }
+        public decimal Diskon { get; set; }    
+        
+        public int CustomerID { get; set; }
+        public virtual ArCustomer ArCustomer { get; set; }
+
+
+    }
 
 }

@@ -17,7 +17,10 @@ namespace GlobalSoft.Controllers
         // GET: SuratPesanan
         public ActionResult Index()
         {
-            var aptTranss = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            var aptTranss = from e in aptTranss2
+                            where e.TransNo == 2
+                            select e;
             return View(aptTranss.ToList());
         }
 
@@ -39,9 +42,19 @@ namespace GlobalSoft.Controllers
         // GET: SuratPesanan/Create
         public ActionResult Create()
         {
+            List<SelectListItem> CaraBayar = new List<SelectListItem>();
+            CaraBayar.Add(new SelectListItem { Value = "1", Text = "Angsuran" });
+            CaraBayar.Add(new SelectListItem { Value = "2", Text = "KPA" });
+            CaraBayar.Add(new SelectListItem { Value = "3", Text = "Cash Keras" });
+
+            var unitList = from e in db.AptUnits
+                           where e.StatusID == 2
+                           select e;
+
+            ViewBag.CaraBayar = CaraBayar;
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName");
-            ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo");
+            ViewBag.UnitID = new SelectList(unitList, "UnitID", "UnitNo");
             ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName");
             return View();
         }
@@ -51,13 +64,35 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,CaraBayar,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
-                db.AptTranss.Add(aptTrans);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var validUnit = (from e in db.AptUnits
+                                 where e.UnitID == aptTrans.UnitID && e.StatusID == 2   //status hold
+                                 select e).FirstOrDefault();
+
+                if (validUnit != null)     // jika tidak ketemu dengan unit yang hold
+                {
+
+                    
+                    aptTrans.TransNo = 2;        //surat Pesanan Transaksi
+                    aptTrans.TglSelesai =  FungsiController.fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
+
+
+                    //update to sold
+                    (from u in db.AptUnits
+                     where u.UnitID == aptTrans.UnitID
+                     select u).ToList().ForEach(x => x.StatusID = 3);
+
+                    db.AptTranss.Add(aptTrans);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "This unit is Not Yet Reservasi!");
+                }
             }
 
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
@@ -127,6 +162,19 @@ namespace GlobalSoft.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AptTrans aptTrans = db.AptTranss.Find(id);
+
+            int nRec = (from e in db.AptTranss
+                        where e.UnitID == aptTrans.UnitID
+                        select e).Count();
+
+            if (nRec == 1)
+            {
+                (from e in db.AptUnits
+                 where e.UnitID == aptTrans.UnitID
+                 select e).ToList().ForEach(x => x.StatusID = 2);
+            }
+
+
             db.AptTranss.Remove(aptTrans);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -140,5 +188,7 @@ namespace GlobalSoft.Controllers
             }
             base.Dispose(disposing);
         }
-    }
+
+     
+ }
 }

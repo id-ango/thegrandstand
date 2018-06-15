@@ -1,24 +1,25 @@
 ﻿@model IEnumerable<GlobalSoft.Models.AptCategorie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Kategori";
 }
 
-<h2>Index</h2>
+<h2>Setup Kategori</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AptType.Tipe)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Categorie)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Luas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AptType.Tipe)
         </th>
         <th></th>
     </tr>
@@ -26,18 +27,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AptType.Tipe)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Categorie)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Luas)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategorieID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategorieID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategorieID })
+            @Html.DisplayFor(modelItem => item.AptType.Tipe)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CategorieID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CategorieID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CategorieID })
         </td>
     </tr>
 }
