@@ -209,5 +209,10 @@ namespace GlobalSoft.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult TandaTerima()
+        {
+            return View();
+        }
     }
 }

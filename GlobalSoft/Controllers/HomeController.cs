@@ -35,6 +35,11 @@ namespace GlobalSoft.Controllers
 
             return View();
         }
+        public ActionResult TandaTerima()
+        {
+
+            return View();
+        }
 
     }
 }
