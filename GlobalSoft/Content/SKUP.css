@@ -1,0 +1,19 @@
+﻿body {
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 0.675em;
+}
+
+
+
+#judul {
+    text-align: center;
+}
+
+p, ul, ol, dl, address {
+    font-size: 1.1em;
+}
+
+p, li, dd, dt, address {
+    line-height: 1.3;
+}
