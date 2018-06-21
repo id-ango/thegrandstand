@@ -64,7 +64,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,CaraBayar,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,CaraBayar,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,8 @@ namespace GlobalSoft.Controllers
 
                     
                     aptTrans.TransNo = 2;        //surat Pesanan Transaksi
-                    aptTrans.TglSelesai =  FungsiController.fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
+                    aptTrans.TglSelesai =  FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
+                    aptTrans.PaymentID = 1;
 
 
                     //update to sold
@@ -189,6 +190,22 @@ namespace GlobalSoft.Controllers
             base.Dispose(disposing);
         }
 
-     
- }
+        public ActionResult SPesanan(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AptTrans aptTrans = db.AptTranss.Find(id);
+            if (aptTrans == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
+
+            return View(aptTrans);
+        }
+
+
+    }
 }

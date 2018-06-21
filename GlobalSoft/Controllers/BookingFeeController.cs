@@ -210,9 +210,18 @@ namespace GlobalSoft.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult TandaTerima()
+        public ActionResult TandaTerima(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AptTrans aptTrans = db.AptTranss.Find(id);
+            if (aptTrans == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aptTrans);
         }
     }
 }

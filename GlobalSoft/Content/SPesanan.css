@@ -1,0 +1,18 @@
+﻿table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.judul {
+    text-align: center;
+}
+
+.kotak1 {
+    font-size: 0.775em;
+}
+
+p, ul, ol, dl, address {
+    font-size: 0.975em;
+    margin-top: 0px;
+    margin-bottom: 3px;
+}

@@ -166,7 +166,7 @@ namespace GlobalSoft.Models
         public int TransNo { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
         public virtual AptTrsNo AptTrsNo { get; set; }
 
-        public int CaraBayar { get; set; }         // 1-Angsuran,2-KPR,3-Tunai
+        public int CaraBayar { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
         public decimal Harga { get; set; }
         public decimal Angsuran { get; set; }
         public decimal Piutang { get; set; }

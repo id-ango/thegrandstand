@@ -1,0 +1,59 @@
+﻿div {
+    text-align: left
+}
+
+.alamat {
+    font-size: 0.675em;
+}
+
+div.container {
+    position: relative;
+}
+
+div.judul {
+    padding-top: 1px;
+    text-align: center;
+}
+
+div.Perusahaan {
+    position: absolute;
+    top: 10;
+    right: 20;
+    font-size: 1.7em;
+}
+
+div.sales {
+    position: absolute;
+    top: 0;
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding-bottom: 70px;
+}
+
+
+p, ul, ol, dl, address {
+    font-size: 0.775em;
+    margin-top: 0px;
+    margin-bottom: 3px;
+}
+
+p, li, dd, dt, address {
+    line-height: 1.3;
+}
+
+span {
+    font-size: 0.9em;
+}

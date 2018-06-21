@@ -1,7 +1,7 @@
-﻿body {
-    max-width: 100%;
-    margin: 0 auto;
-    font-size: 0.675em;
+﻿div.kontainer {
+    max-width: 120%;
+    margin: 0;
+    font-size: 0.875em;
 }
 
 
@@ -16,4 +16,8 @@ p, ul, ol, dl, address {
 
 p, li, dd, dt, address {
     line-height: 1.3;
+}
+
+ol.b {
+    font-size: 1.1em;
 }
