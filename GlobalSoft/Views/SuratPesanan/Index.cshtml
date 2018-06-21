@@ -28,13 +28,13 @@
                 @Html.DisplayNameFor(model => model.Keterangan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Payment)
+                @Html.DisplayNameFor(model => model.Piutang)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
+                @Html.DisplayNameFor(model => model.CaraBayar)
             </th>
 
             <th></th>
@@ -59,20 +59,20 @@
                 @Html.DisplayFor(modelItem => item.Keterangan)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payment)
+                @Html.DisplayFor(modelItem => item.Piutang)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AptPayment.PaymentName)
+            <td> var Cara = from e in viewdata["Carabayar"] where e.
+                @Html.DisplayFor(modelItem => item.CaraBayar)
             </td>
 
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
-                @Html.ActionLink("Surat Pesanan", "SKUP", new { id = item.TransID })
+                @Html.ActionLink("Surat Pesanan", "sPesanan", new { id = item.TransID })
             </td>
         </tr>
     }

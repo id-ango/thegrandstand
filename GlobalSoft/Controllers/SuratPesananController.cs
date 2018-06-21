@@ -17,10 +17,19 @@ namespace GlobalSoft.Controllers
         // GET: SuratPesanan
         public ActionResult Index()
         {
-            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            List<SelectListItem> CaraBayar = new List<SelectListItem>();
+            CaraBayar.Add(new SelectListItem { Value = "1", Text = "Angsuran" });
+            CaraBayar.Add(new SelectListItem { Value = "2", Text = "KPA" });
+            CaraBayar.Add(new SelectListItem { Value = "3", Text = "Cash Keras" });
+
+            
+            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.ArCustomer);
             var aptTranss = from e in aptTranss2
                             where e.TransNo == 2
                             select e;
+
+            
+
             return View(aptTranss.ToList());
         }
 
@@ -53,7 +62,7 @@ namespace GlobalSoft.Controllers
 
             ViewBag.CaraBayar = CaraBayar;
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
-            ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName");
+    //        ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName");
             ViewBag.UnitID = new SelectList(unitList, "UnitID", "UnitNo");
             ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName");
             return View();
@@ -64,7 +73,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,CaraBayar,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,CaraBayar,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -115,8 +124,10 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            
+
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
-            ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
+          //  ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
             ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
             return View(aptTrans);
@@ -127,8 +138,12 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,Cicilan,TransNo")] AptTrans aptTrans)
         {
+            aptTrans.TransNo = 2;        //surat Pesanan Transaksi
+            aptTrans.TglSelesai = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, aptTrans.Cicilan);
+            aptTrans.PaymentID = 1;
+
             if (ModelState.IsValid)
             {
                 db.Entry(aptTrans).State = EntityState.Modified;
@@ -136,7 +151,7 @@ namespace GlobalSoft.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
-            ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
+    //        ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
             ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
             return View(aptTrans);
@@ -201,11 +216,48 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            (from e in db.AptTranss
+             where e.UnitID == aptTrans.UnitID && e.CustomerID == aptTrans.CustomerID
+             select e).ToList();
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
 
             return View(aptTrans);
         }
 
+        public ActionResult ProsesPesanan(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AptTrans aptTrans = db.AptTranss.Find(id);
+            if (aptTrans == null)
+            {
+                return HttpNotFound();
+            }
 
+           if (aptTrans.CaraBayar==1)
+            {
+                decimal PPN =  (aptTrans.Piutang * (decimal)0.1);
+                decimal DPP = aptTrans.Piutang + PPN;
+                decimal angsuran = DPP / aptTrans.Cicilan;
+                
+                (from e in db.AptTranss
+                 where e.TransID == id
+                 select e).ToList().ForEach(x => x.Angsuran = angsuran);
+
+            }
+            else if(aptTrans.CaraBayar==2)
+            {
+
+            }else if(aptTrans.CaraBayar==3)
+            {
+
+            }
+                                              
+            ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
+
+            return View(aptTrans);
+        }
     }
 }
