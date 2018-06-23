@@ -1,0 +1,56 @@
+﻿@model GlobalSoft.Models.GlAccount
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Account Master</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GlTipe.GlTipeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlTipe.GlTipeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

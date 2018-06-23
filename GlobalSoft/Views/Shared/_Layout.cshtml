@@ -20,20 +20,45 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Tipe", "Index", "SetupType")</li>
-                            <li>@Html.ActionLink("Kategori", "index", "SetupCategorie")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Sales<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Booking Fee", "index", "BookingFee")</li>
+                            <li>@Html.ActionLink("Surat Pesanan", "index", "SuratPesanan")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">KasBank<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Setup Bank", "index", "SetupBank")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Ledger<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Setup Akun", "index", "SetupGlAccounts")</li>
+                            <li>@Html.ActionLink("Setup Tipe Akun", "index", "SetupGlTipes")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Setup<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Tipe Ruangan", "Index", "SetupType")</li>
+                            <li>@Html.ActionLink("Kategori Unit", "index", "SetupCategorie")</li>
                             <li>@Html.ActionLink("Status Unit", "index", "SetupStatus")</li>
                             <li>@Html.ActionLink("Unit", "Index", "SetupUnit")</li>
                             <li>@Html.ActionLink("Agen", "index", "SetupAgen")</li>
                             <li>@Html.ActionLink("Marketing", "index", "SetupMarketing")</li>
-                            <li>@Html.ActionLink("Jenis Bayar", "index", "SetupPayment")</li>
+                            <li>@Html.ActionLink("Pembayaran", "index", "SetupPayment")</li>
+                            <li>@Html.ActionLink("Cara Bayar", "index", "SetupBayar")</li>
                             <li>@Html.ActionLink("Jenis Transaksi", "index", "SetupTrsNo")</li>
                             <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
-                            <li>@Html.ActionLink("Booking Fee", "index", "BookingFee")</li>
-                            <li>@Html.ActionLink("Surat Pesanan", "index", "SuratPesanan")</li>
-                    <li><a href="#">Reservasi</a></li>
+                            @*    <li><a href="#">Reservasi</a></li> *@
+                        </ul>
+                    </li>
                 </ul>
-            </div>
+</div>
         </div>
     </div>
     <div class="container body-content">

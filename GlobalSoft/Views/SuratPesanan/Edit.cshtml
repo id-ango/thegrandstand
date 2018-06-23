@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UnitID, "UnitID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.UnitID, "Unit", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CustomerID, "CustomerID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.MarketingID, "MarketingID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MarketingID, "Marketing", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("MarketingID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.MarketingID, "", new { @class = "text-danger" })
@@ -66,6 +66,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.BayarID, "Cara Bayar", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("BayarID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BayarID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.Piutang, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Piutang, new { htmlAttributes = new { @class = "form-control" } })
@@ -74,7 +82,7 @@
     </div>
 
 
-    
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.Cicilan, htmlAttributes: new { @class = "control-label col-md-2" })

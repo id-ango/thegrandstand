@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Pembayaran</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.PaymentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BankID)
+            @Html.DisplayNameFor(model => model.CbBank.BankName)
         </th>
         <th></th>
     </tr>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.PaymentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BankID)
+            @Html.DisplayFor(modelItem => item.CbBank.BankName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PaymentID }) |

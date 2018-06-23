@@ -63,10 +63,10 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CaraBayar, "Cara Bayar", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.BayarID, "Cara Bayar", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("CaraBayar", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CaraBayar, "", new { @class = "text-danger" })
+            @Html.DropDownList("BayarID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BayarID, "", new { @class = "text-danger" })
         </div>
     </div>
 

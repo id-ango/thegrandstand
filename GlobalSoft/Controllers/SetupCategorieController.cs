@@ -12,7 +12,7 @@ namespace GlobalSoft.Controllers
 {
     public class SetupCategorieController : Controller
     {
-        private ApartmentDBContext db = new ApartmentDBContext();
+        private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: SetupCategorie
         public ActionResult Index()
@@ -39,7 +39,7 @@ namespace GlobalSoft.Controllers
         // GET: SetupCategorie/Create
         public ActionResult Create()
         {
-            ViewBag.TipeID = new SelectList(db.AptTipes, "TipeID", "Tipe");
+            ViewBag.TipeID = new SelectList(db.AptTipes.OrderBy( y => y.Tipe), "TipeID", "Tipe");
             return View();
         }
 

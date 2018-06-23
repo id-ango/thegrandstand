@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GlobalSoft.Models.GlAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Account Master</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GlTipe.GlTipeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkun)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkun2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlTipe.GlTipeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkunName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GlAKunID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GlAKunID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GlAKunID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -73,9 +73,8 @@ namespace GlobalSoft.Models
         [DisplayFormat(DataFormatString ="{0:n}")]
         public decimal Inhouse { get; set; }
         [DisplayFormat(DataFormatString = "{0:n}"),Display(Name ="KPR")]
-
         public decimal PriceKPR { get; set; }
-        public int StatOld { get; set; }
+        public int StatOld { get; set; } = 0;
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
     }
@@ -120,21 +119,25 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int PaymentID { get; set; }
+
         [StringLength(20)]
         [Display(Name = "Cara Bayar")]
         public string PaymentName { get; set; }
+
         public int BankID { get; set; }
-       public virtual ICollection<AptTrans> AptTrans { get; set; }
+        public virtual CbBank CbBank { get; set; }
+
+        public virtual ICollection<AptTrans> AptTrans { get; set; }
     }
 
     public class AptTrans
     {
         [Key]
-        public int TransID { get; set; }
+        public int TransID { get; set; }    // sama dengan no kodetrans ArPiutang
 
         [StringLength(20)]
         [Display(Name ="No Ref")]
-        public string NoRef { get; set; }
+        public string NoRef { get; set; }    //sama dengan no LPB di ARPiutang
 
         [Display(Name ="Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
@@ -163,16 +166,30 @@ namespace GlobalSoft.Models
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
 
-        public int TransNo { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
+        public int TransNoID { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
         public virtual AptTrsNo AptTrsNo { get; set; }
 
-        public int CaraBayar { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
+        public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
+        public virtual AptBayar AptBayar { get; set; }
 
         public decimal Harga { get; set; }
 
         public decimal Angsuran { get; set; }
 
         public decimal Piutang { get; set; }
+
+    }
+
+    public class AptBayar
+    {
+        [Key]
+        public int BayarID { get; set; }
+        [StringLength(20)]
+        public string CaraBayar { get; set; }   //Inhouse,KPR,Tunai
+
+        public decimal Bunga { get; set; } = 0;
+
+        public virtual ICollection<AptTrans> AptTrans { get; set; }
 
     }
 
@@ -189,9 +206,9 @@ namespace GlobalSoft.Models
         public virtual ICollection<AptTrans> AptTrans { get; set; }
     }
 
-    public class ApartmentDBContext : DbContext
+    public class GlobalsoftDBContext : DbContext
     {
-        public ApartmentDBContext() { }
+        public GlobalsoftDBContext() { }
 
         public DbSet<AptType> AptTipes { get; set; }
         public DbSet<AptCategorie> AptCategories { get; set; }
@@ -204,5 +221,10 @@ namespace GlobalSoft.Models
         public DbSet<AptTrsNo> AptTrsNo { get; set; }
         public DbSet<ArCustomer> ArCustomers { get; set; }
         public DbSet<ArPiutang> ArPiutangs { get; set; }
+        public DbSet<CbBank> CbBanks { get; set; }
+        public DbSet<GlAccount> GlAccounts { get; set; }
+        public DbSet<GlTipe> GlTipes { get; set; }
+        public DbSet<AptBayar> AptBayars { get; set; }
+
     }
 }

@@ -1,0 +1,50 @@
+﻿@model GlobalSoft.Models.GlAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account Master</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GlTipe.GlTipeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlTipe.GlTipeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GlAKunID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -43,25 +43,27 @@ namespace GlobalSoft.Models
         [StringLength(11)]
         public string AccounSet { get; set; }
 
-        public virtual ICollection<AptUnit> AptUnit { get; set; }
         public virtual ICollection<ArPiutang> ArPiutang { get; set; }
     }
 
     public class ArPiutang
     {
         [Key]
-        public int PiutangID { get; set; }
+        public int PiutangID { get; set; }         // ID Transaksi
         [StringLength(20)]
-        public string Dokumen { get; set; }
+        public string Dokumen { get; set; }      // No Piutang
 
         public DateTime Tanggal { get; set; }
         public DateTime Duedate { get; set; }
-        
-        public int KodeTrans { get; set; }     // 1-invoice, 2- pembayaran
-        public string LPB { get; set; }
+     
+        // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
+        public int KodeTrans { get; set; } = 0;    //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
+        [StringLength(20)]
+        public string LPB { get; set; }        // sama dengan noRef Surat Pesanan
+        /// batas tutp
 
         [StringLength(200)]
-        public string Keterangan { get; set; }
+        public string Keterangan { get; set; }       // keterangan uang angsuran unit 1010 
 
         public decimal Jumlah { get; set; }
         public decimal Bayar { get; set; }

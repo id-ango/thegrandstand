@@ -152,8 +152,12 @@
     <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
+    <Compile Include="Controllers\SetupBankController.cs" />
+    <Compile Include="Controllers\SetupBayarController.cs" />
     <Compile Include="Controllers\SetupCategorieController.cs" />
     <Compile Include="Controllers\SetupCustomerController.cs" />
+    <Compile Include="Controllers\SetupGlAccountsController.cs" />
+    <Compile Include="Controllers\SetupGlTipesController.cs" />
     <Compile Include="Controllers\SetupMarketingController.cs" />
     <Compile Include="Controllers\SetupPaymentController.cs" />
     <Compile Include="Controllers\SetupStatusController.cs" />
@@ -165,40 +169,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806101636541_InitialCreate.cs" />
-    <Compile Include="Migrations\201806101636541_InitialCreate.Designer.cs">
-      <DependentUpon>201806101636541_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806101711228_statusold.cs" />
-    <Compile Include="Migrations\201806101711228_statusold.Designer.cs">
-      <DependentUpon>201806101711228_statusold.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806101736167_statold.cs" />
-    <Compile Include="Migrations\201806101736167_statold.Designer.cs">
-      <DependentUpon>201806101736167_statold.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806111605560_tanggal.cs" />
-    <Compile Include="Migrations\201806111605560_tanggal.Designer.cs">
-      <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806130344533_tambahnourutdistatus.cs" />
-    <Compile Include="Migrations\201806130344533_tambahnourutdistatus.Designer.cs">
-      <DependentUpon>201806130344533_tambahnourutdistatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141515108_piutang.cs" />
-    <Compile Include="Migrations\201806141515108_piutang.Designer.cs">
-      <DependentUpon>201806141515108_piutang.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141537289_piutang1.cs" />
-    <Compile Include="Migrations\201806141537289_piutang1.Designer.cs">
-      <DependentUpon>201806141537289_piutang1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806141542233_piutang2.cs" />
-    <Compile Include="Migrations\201806141542233_piutang2.Designer.cs">
-      <DependentUpon>201806141542233_piutang2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
+    <Compile Include="Models\CashBankModels.cs" />
+    <Compile Include="Models\GledgerModels.cs" />
     <Compile Include="Models\ReceivableModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -334,6 +307,26 @@
     <Content Include="Views\Home\TandaTerima.cshtml" />
     <Content Include="Views\BookingFee\TandaTerima.cshtml" />
     <Content Include="Views\SuratPesanan\SPesanan.cshtml" />
+    <Content Include="Views\SetupBank\Create.cshtml" />
+    <Content Include="Views\SetupBank\Delete.cshtml" />
+    <Content Include="Views\SetupBank\Details.cshtml" />
+    <Content Include="Views\SetupBank\Edit.cshtml" />
+    <Content Include="Views\SetupBank\Index.cshtml" />
+    <Content Include="Views\SetupBayar\Create.cshtml" />
+    <Content Include="Views\SetupBayar\Delete.cshtml" />
+    <Content Include="Views\SetupBayar\Details.cshtml" />
+    <Content Include="Views\SetupBayar\Edit.cshtml" />
+    <Content Include="Views\SetupBayar\Index.cshtml" />
+    <Content Include="Views\SetupGlTipes\Create.cshtml" />
+    <Content Include="Views\SetupGlTipes\Delete.cshtml" />
+    <Content Include="Views\SetupGlTipes\Details.cshtml" />
+    <Content Include="Views\SetupGlTipes\Edit.cshtml" />
+    <Content Include="Views\SetupGlTipes\Index.cshtml" />
+    <Content Include="Views\SetupGlAccounts\Create.cshtml" />
+    <Content Include="Views\SetupGlAccounts\Delete.cshtml" />
+    <Content Include="Views\SetupGlAccounts\Details.cshtml" />
+    <Content Include="Views\SetupGlAccounts\Edit.cshtml" />
+    <Content Include="Views\SetupGlAccounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,32 +334,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806101636541_InitialCreate.resx">
-      <DependentUpon>201806101636541_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806101711228_statusold.resx">
-      <DependentUpon>201806101711228_statusold.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806101736167_statold.resx">
-      <DependentUpon>201806101736167_statold.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806111605560_tanggal.resx">
-      <DependentUpon>201806111605560_tanggal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806130344533_tambahnourutdistatus.resx">
-      <DependentUpon>201806130344533_tambahnourutdistatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141515108_piutang.resx">
-      <DependentUpon>201806141515108_piutang.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141537289_piutang1.resx">
-      <DependentUpon>201806141537289_piutang1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806141542233_piutang2.resx">
-      <DependentUpon>201806141542233_piutang2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -12,7 +12,7 @@ namespace GlobalSoft.Controllers
 {
     public class SetupAgenController : Controller
     {
-        private ApartmentDBContext db = new ApartmentDBContext();
+        private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: SetupAgen
         public ActionResult Index()

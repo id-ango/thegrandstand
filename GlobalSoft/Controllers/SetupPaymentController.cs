@@ -12,12 +12,13 @@ namespace GlobalSoft.Controllers
 {
     public class SetupPaymentController : Controller
     {
-        private ApartmentDBContext db = new ApartmentDBContext();
+        private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: SetupPayment
         public ActionResult Index()
         {
-            return View(db.AptPayments.ToList());
+            var AptBayar = db.AptPayments.Include(a => a.CbBank);
+            return View(AptBayar.ToList());
         }
 
         // GET: SetupPayment/Details/5
@@ -38,6 +39,7 @@ namespace GlobalSoft.Controllers
         // GET: SetupPayment/Create
         public ActionResult Create()
         {
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace GlobalSoft.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName",aptPayment.BankID);
             return View(aptPayment);
         }
 
@@ -70,6 +73,8 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName",aptPayment.BankID);
             return View(aptPayment);
         }
 
@@ -86,6 +91,8 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName",aptPayment.BankID);
             return View(aptPayment);
         }
 

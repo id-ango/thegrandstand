@@ -12,14 +12,14 @@ namespace GlobalSoft.Controllers
 {
     public class BookingFeeController : Controller
     {
-        private ApartmentDBContext db = new ApartmentDBContext();
+        private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: BookingFee
         public ActionResult Index()
         {
             var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
             var aptTranss = from e in aptTranss2
-                            where e.TransNo == 1
+                            where e.TransNoID == 1
                             select e;
             return View(aptTranss.ToList());
         }
@@ -63,7 +63,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TransNoID")] AptTrans aptTrans)
         {
             
             if (ModelState.IsValid)
@@ -79,11 +79,12 @@ namespace GlobalSoft.Controllers
 
                 if (validUnit == null)  // berarti unit ini  dalam posisi hold
                 {
-                    aptTrans.TransNo = 1;        //Booking Transaksi
+                    aptTrans.TransNoID = 1;        //Booking Transaksi
                     aptTrans.TglSelesai = aptTrans.Tanggal;
+                    aptTrans.BayarID = 1;
 
                     db.AptTranss.Add(aptTrans);
-
+                    
                     //update to hold
                     (from u in db.AptUnits
                      where u.UnitID == aptTrans.UnitID
@@ -135,9 +136,10 @@ namespace GlobalSoft.Controllers
         {
             if (ModelState.IsValid)
             {
-                aptTrans.TransNo = 1;        //Booking Transaksi
+                aptTrans.TransNoID = 1;        //Booking Transaksi
                 aptTrans.TglSelesai = aptTrans.Tanggal;
-                
+                aptTrans.BayarID = 1;
+
                 db.Entry(aptTrans).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
