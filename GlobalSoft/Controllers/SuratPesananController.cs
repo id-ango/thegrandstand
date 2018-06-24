@@ -18,7 +18,7 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             
-            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.ArCustomer).Include(a => a.AptBayar);
             var aptTranss = from e in aptTranss2
                             where e.TransNoID == 2
                             select e;
@@ -62,7 +62,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,Cicilan")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -76,8 +76,8 @@ namespace GlobalSoft.Controllers
                     
                     aptTrans.TransNoID = 2;        //surat Pesanan Transaksi
                     aptTrans.TglSelesai =  FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
-                    aptTrans.PaymentID = 1;
-
+                    aptTrans.PaymentID = 2;
+                 //   aptTrans.BayarID = 1;
 
                     //update to sold
                     (from u in db.AptUnits
@@ -127,7 +127,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Edit([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,BayarID,Keterangan,Piutang,Cicilan")] AptTrans aptTrans)
         {
             aptTrans.TransNoID = 2;        //surat Pesanan Transaksi
             aptTrans.TglSelesai = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, aptTrans.Cicilan);
@@ -140,7 +140,7 @@ namespace GlobalSoft.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
-            ViewBag.BayarID = new SelectList(db.AptPayments, "BayarID", "CaraBayar", aptTrans.BayarID);
+            ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
             ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
             return View(aptTrans);
@@ -209,14 +209,15 @@ namespace GlobalSoft.Controllers
                             where e.UnitID == aptTrans.UnitID && e.CustomerID == aptTrans.CustomerID
                             select e.Payment).Sum();
 
+            
             ViewBag.UangMuka = Uangmuka;
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
-
-           var ListUangMuka = (from e in db.AptTranss
+            var Transaksi = db.AptTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
+           var ListUangMuka = (from e in Transaksi
                             where e.UnitID == aptTrans.UnitID && e.CustomerID == aptTrans.CustomerID
                             select e).ToList();
 
-            
+            ViewBag.ListUangMuka = ListUangMuka;
             return View(aptTrans);
         }
 

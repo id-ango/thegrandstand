@@ -28,14 +28,27 @@
         <tr><td width="10%">Lantai</td><td>:</td><td width="50%">@Model.AptUnit.Lantai</td><td width ="10%"></td><td></td><td></td></tr>
         <tr><td width="10%">Tipe</td><td>:</td><td width="50%">@Model.AptUnit.AptCategorie.AptType.Tipe</td><td width="10%">Harga Jual</td><td>:</td><td>@string.Format("{0:n0}", @Model.Piutang)</td></tr>
         <tr><td width="10%">Luas Unit</td><td>:</td><td width="50%">@Model.AptUnit.AptCategorie.Luas</td><td width="10%"></td><td></td><td></td></tr>
-        <tr><td width="10%">Cara Pembayaran</td><td>:</td><td width="50%">@Model.CaraBayar</td><td width="10%"></td><td></td><td></td></tr>
+        <tr><td width="10%">Cara Pembayaran</td><td>:</td><td width="50%">@Model.AptBayar.CaraBayar</td><td width="10%"></td><td></td><td></td></tr>
         <tr><td width="10%">Terbilang</td><td>:</td><td width="50%">@ViewBag.Num2Char</td><td width="10%"></td><td></td><td></td></tr>
     </table>
 </div>
    <br /> 
 <div>
     Bersama Surat Pemesanan ini, telah membayar Uang Booking Fee(**) sebesar: @string.Format("{0:n0}",@ViewBag.UangMuka)
-    
+   @{ 
+       foreach (var category in (ViewBag.ListUangMuka))
+       {
+           <table>
+               <tr>
+                   <td width="40%">@string.Format("{0:d}", @category.Tanggal)</td>
+                   <td width="40%">@category.NoRef</td>
+                   <td width="40%">@category.AptPayment.PaymentName</td>
+
+               </tr>
+           </table>
+           
+       }
+   }
 
 </div>
 
