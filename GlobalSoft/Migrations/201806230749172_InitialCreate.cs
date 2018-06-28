@@ -106,13 +106,13 @@ namespace GlobalSoft.Migrations
                 "dbo.GlAccounts",
                 c => new
                     {
-                        GlAKunID = c.Int(nullable: false, identity: true),
+                        GlAkunID = c.Int(nullable: false, identity: true),
                         GlAkun = c.String(maxLength: 10),
                         GlAkun2 = c.String(maxLength: 10),
                         GlAkunName = c.String(maxLength: 100),
                         GlTipeID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.GlAKunID)
+                .PrimaryKey(t => t.GlAkunID)
                 .ForeignKey("dbo.GlTipes", t => t.GlTipeID, cascadeDelete: true)
                 .Index(t => t.GlAkun)
                 .Index(t => t.GlTipeID);

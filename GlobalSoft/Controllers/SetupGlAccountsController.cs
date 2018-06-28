@@ -48,7 +48,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GlAKunID,GlAkun,GlAkun2,GlAkunName,GlTipeID")] GlAccount glAccount)
+        public ActionResult Create([Bind(Include = "GlAkunID,GlAkun,GlAkun2,GlAkunName,GlTipeID")] GlAccount glAccount)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GlAKunID,GlAkun,GlAkun2,GlAkunName,GlTipeID")] GlAccount glAccount)
+        public ActionResult Edit([Bind(Include = "GlAkunID,GlAkun,GlAkun2,GlAkunName,GlTipeID")] GlAccount glAccount)
         {
             if (ModelState.IsValid)
             {

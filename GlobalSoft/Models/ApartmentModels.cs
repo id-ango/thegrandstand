@@ -177,7 +177,47 @@ namespace GlobalSoft.Models
         public decimal Angsuran { get; set; }
 
         public decimal Piutang { get; set; }
+/*
+        public DateTime Tgl1 { get; set; }
+        [StringLength(50)]
+        public string ket1 { get; set; }
+        public decimal Angsur1 { get; set; }
 
+        public DateTime Tgl2 { get; set; }
+        [StringLength(50)]
+        public string ket2 { get; set; }
+        public decimal Angsur2 { get; set; }
+
+        public DateTime Tgl3 { get; set; }
+        [StringLength(50)]
+        public string ket3 { get; set; }
+        public decimal Angsur3 { get; set; }
+      
+        public DateTime Tgl4 { get; set; }
+        [StringLength(50)]
+        public string ket4 { get; set; }
+        public decimal Angsur4 { get; set; }
+     
+        public DateTime Tgl5 { get; set; }
+        [StringLength(50)]
+        public string ket5 { get; set; }
+        public decimal Angsur5 { get; set; }
+       
+        public DateTime Tgl6 { get; set; }
+        [StringLength(50)]
+        public string ket6 { get; set; }
+        public decimal Angsur6 { get; set; }
+      
+        public DateTime Tgl7 { get; set; }
+        [StringLength(50)]
+        public string ket7 { get; set; }
+        public decimal Angsur7 { get; set; }
+
+        public DateTime Tgl8 { get; set; }
+        [StringLength(50)]
+        public string ket8 { get; set; }
+        public decimal Angsur8 { get; set; } 
+    */
     }
 
     public class AptBayar

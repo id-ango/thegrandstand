@@ -19,7 +19,7 @@ namespace GlobalSoft.Controllers
         {
             var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
             var aptTranss = from e in aptTranss2
-                            where e.TransNoID == 1
+                            where e.AptTrsNo.TransNo.Trim() == "BookingFee"
                             select e;
             return View(aptTranss.ToList());
         }
@@ -44,11 +44,12 @@ namespace GlobalSoft.Controllers
         // GET: BookingFee/Create
         public ActionResult Create()
         {
+            var maxvalue = db.AptTranss.Max(x => x.NoRef.Substring(0, 3));
             var unitList = from e in db.AptUnits
                             where e.StatusID == 1
                         select e;
-            string thnbln = DateTime.Now.ToString("YYYYMM");
-            string cNoref = "BF-" + thnbln;
+            string thnbln = DateTime.Now.ToString("yyMM");
+            string cNoref = "BF-" + thnbln+maxvalue;
             ViewBag.NoRef = cNoref;
 
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");

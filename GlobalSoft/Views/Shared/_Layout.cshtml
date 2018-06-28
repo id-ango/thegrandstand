@@ -25,7 +25,10 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Booking Fee", "index", "BookingFee")</li>
                             <li>@Html.ActionLink("Surat Pesanan", "index", "SuratPesanan")</li>
-                            <li>@Html.ActionLink("Calculator Property", "index", "SuratPesanan")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
+                            <li>@Html.ActionLink("Cara Bayar", "index", "SetupBayar")</li>
+                            <li>@Html.ActionLink("Syarat SKUP", "SKUP", "Home", new { target = "_blank" })</li>
 
                         </ul>
                     </li>
@@ -53,9 +56,7 @@
                             <li>@Html.ActionLink("Agen", "index", "SetupAgen")</li>
                             <li>@Html.ActionLink("Marketing", "index", "SetupMarketing")</li>
                             <li>@Html.ActionLink("Pembayaran", "index", "SetupPayment")</li>
-                            <li>@Html.ActionLink("Cara Bayar", "index", "SetupBayar")</li>
                             <li>@Html.ActionLink("Jenis Transaksi", "index", "SetupTrsNo")</li>
-                            <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
                             @*    <li><a href="#">Reservasi</a></li> *@
                         </ul>
                     </li>

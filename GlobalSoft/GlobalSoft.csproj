@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201806231439367_test1.Designer.cs">
       <DependentUpon>201806231439367_test1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806280220301_rubahbank.cs" />
+    <Compile Include="Migrations\201806280220301_rubahbank.Designer.cs">
+      <DependentUpon>201806280220301_rubahbank.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -350,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806231439367_test1.resx">
       <DependentUpon>201806231439367_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806280220301_rubahbank.resx">
+      <DependentUpon>201806280220301_rubahbank.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

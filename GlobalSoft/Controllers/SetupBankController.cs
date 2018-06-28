@@ -39,7 +39,11 @@ namespace GlobalSoft.Controllers
         // GET: SetupBank/Create
         public ActionResult Create()
         {
-            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAKunID", "GlAkun");
+            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+      {
+          Text = p.GlAkun + "-" + p.GlAkunName,
+          Value = p.GlAkunID.ToString()
+      });
             return View();
         }
 
@@ -48,7 +52,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BankID,BankName,BankAccount,BankType,Saldo,GlAkunID")] CbBank cbBank)
+        public ActionResult Create([Bind(Include = "BankID,BankName,BankAccount,Saldo,GlAkunID")] CbBank cbBank)
         {
             if (ModelState.IsValid)
             {
@@ -56,8 +60,12 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAKunID", "GlAkun", cbBank.GlAkunID);
+            ViewBag.GlAkunID = db.GlAccounts.Where(p=>p.GlAkunID == cbBank.GlAkunID).Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString()
+            });
+    //        ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAkunID", "GlAkun", cbBank.GlAkunID);
             return View(cbBank);
         }
 
@@ -73,7 +81,15 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAKunID", "GlAkun", cbBank.GlAkunID);
+            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString(),
+                Selected  = p.GlAkunID == cbBank.GlAkunID
+                
+            });
+
+//            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAkunID", "GlAkun", cbBank.GlAkunID);
             return View(cbBank);
         }
 
@@ -82,7 +98,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BankID,BankName,BankAccount,BankType,Saldo,GlAkunID")] CbBank cbBank)
+        public ActionResult Edit([Bind(Include = "BankID,BankName,BankAccount,Saldo,GlAkunID")] CbBank cbBank)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +106,15 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAKunID", "GlAkun", cbBank.GlAkunID);
+            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString(),
+                Selected = p.GlAkunID == cbBank.GlAkunID
+
+            });
+
+//            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAkunID", "GlAkun", cbBank.GlAkunID);
             return View(cbBank);
         }
 

@@ -4,7 +4,7 @@
     ViewBag.Title = "Booking Fee";
 }
 
-<h2>Reservasi</h2>
+<h2>Booking Fee</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -71,7 +71,7 @@
             @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
             @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
-            @Html.ActionLink("Print", "Tandaterima", new { id = item.TransID })
+            @Html.ActionLink("Print", "Tandaterima", new { id = item.TransID },new { target = "_blank" })
         </td>
     </tr>
 }

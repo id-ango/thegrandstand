@@ -10,13 +10,7 @@
     <h4>Account Master</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GlTipe.GlTipeName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GlTipe.GlTipeName)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.GlAkun)
@@ -41,10 +35,16 @@
         <dd>
             @Html.DisplayFor(model => model.GlAkunName)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GlTipe.GlTipeName)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.GlTipe.GlTipeName)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GlAKunID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GlAkunID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

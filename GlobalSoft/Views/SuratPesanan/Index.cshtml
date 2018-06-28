@@ -72,49 +72,10 @@
                     @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
-                    @Html.ActionLink("Surat Pesanan", "sPesanan", new { id = item.TransID })
+                    @Html.ActionLink("Surat Pesanan", "sPesanan", new { id = item.TransID }, new { target = "_blank" })
                 </td>
             </tr>
         }
 
     </table>
-    <div>
-        <table class="table-bordered">
-            <tr>
-                <td>Cicilan</td>
-
-                <td> </td>
-                <td>Tanda Jadi</td>
-
-            </tr>
-        </table>
-    </div>
-    <div>
-        <table class="table table-bordered">
-
-            <tr>
-                <th>
-                    inHouse
-                </th>
-                <th>
-                    Cicilan
-                </th>
-                <th>
-                    KPR
-                </th>
-                <th>
-                    Cicilan
-                </th>
-                <th>
-                    Tanda Jadi
-                </th>
-            </tr>
-            <tr>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-            </tr>
-        </table>
-    </div>
+   

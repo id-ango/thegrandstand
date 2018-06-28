@@ -7,7 +7,7 @@
 <h2>Tipe Akun</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*Html.ActionLink("Create New", "Create")*@
 </p>
 <table class="table">
     <tr>
@@ -22,7 +22,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.GlTipeName)
         </td>
-        <td>
+          <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.GlTipeID }) |
             @Html.ActionLink("Details", "Details", new { id=item.GlTipeID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.GlTipeID })
