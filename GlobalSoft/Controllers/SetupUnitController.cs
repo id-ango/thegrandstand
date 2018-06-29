@@ -22,10 +22,10 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new AptUnit { UnitNo = "0502", CategorieID = 4, Lantai = 5, StatusID = 1 });
             TipeGl.Add(new AptUnit { UnitNo = "0503", CategorieID = 9, Lantai = 5, StatusID = 1 });
             TipeGl.Add(new AptUnit { UnitNo = "0505", CategorieID = 5, Lantai = 5, StatusID = 1 });
-            TipeGl.Add(new AptUnit { UnitNo = "0505", CategorieID = 5, Lantai = 5, StatusID = 1 });
-            TipeGl.Add(new AptUnit { UnitNo = "0506", CategorieID = 9, Lantai = 5, StatusID = 1 });
-            TipeGl.Add(new AptUnit { UnitNo = "0507", CategorieID = 4, Lantai = 5, StatusID = 1 });
-            TipeGl.Add(new AptUnit { UnitNo = "0508", CategorieID = 3, Lantai = 5, StatusID = 1 });
+            TipeGl.Add(new AptUnit { UnitNo = "0506", CategorieID = 5, Lantai = 5, StatusID = 1 });
+            TipeGl.Add(new AptUnit { UnitNo = "0507", CategorieID = 9, Lantai = 5, StatusID = 1 });
+            TipeGl.Add(new AptUnit { UnitNo = "0508", CategorieID = 4, Lantai = 5, StatusID = 1 });
+            TipeGl.Add(new AptUnit { UnitNo = "0509", CategorieID = 3, Lantai = 5, StatusID = 1 });
             TipeGl.Add(new AptUnit { UnitNo = "0701", CategorieID = 4, Lantai = 7, StatusID = 1 });
             TipeGl.Add(new AptUnit { UnitNo = "0702", CategorieID = 3, Lantai = 7, StatusID = 1 });
             TipeGl.Add(new AptUnit { UnitNo = "0703", CategorieID = 2, Lantai = 7, StatusID = 1 });
