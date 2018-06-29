@@ -137,7 +137,7 @@ namespace GlobalSoft.Models
 
         [StringLength(20)]
         [Display(Name ="No Ref")]
-        public string NoRef { get; set; }    //sama dengan no LPB di ARPiutang
+        public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
 
         [Display(Name ="Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
@@ -246,6 +246,38 @@ namespace GlobalSoft.Models
         public virtual ICollection<AptTrans> AptTrans { get; set; }
     }
 
+    public class AptSPesanan
+    {
+        [Key]
+        public int SPesananID { get; set; }         // ID Transaksi
+        [StringLength(20)]
+        public string SPesanan { get; set; }      // No Piutang
+
+        public DateTime Tanggal { get; set; }
+        public DateTime Duedate { get; set; }
+
+        // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
+        public int KodeTrans { get; set; } = 0;    //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
+        [StringLength(20)]
+        public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
+        /// batas tutp
+
+        [StringLength(200)]
+        public string Keterangan { get; set; }       // keterangan uang angsuran unit 1010 
+        [StringLength(200)]
+        public string KetBayar { get; set; }       // keterangan uang angsuran unit 1010 
+
+        public decimal Jumlah { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Sisa { get; set; }
+        public decimal SldSisa { get; set; }
+        public decimal Diskon { get; set; }
+
+        public int CaraBayarID { get; set; }
+        public virtual AptBayar AptBayar { get; set; }
+
+
+    }
     public class GlobalsoftDBContext : DbContext
     {
         public GlobalsoftDBContext() { }
