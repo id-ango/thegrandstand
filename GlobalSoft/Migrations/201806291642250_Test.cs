@@ -3,7 +3,7 @@ namespace GlobalSoft.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Test : DbMigration
     {
         public override void Up()
         {
@@ -76,6 +76,30 @@ namespace GlobalSoft.Migrations
                 .PrimaryKey(t => t.BayarID);
             
             CreateTable(
+                "dbo.AptSPBayars",
+                c => new
+                    {
+                        SPBayarID = c.Int(nullable: false, identity: true),
+                        BuktiByr = c.String(maxLength: 20),
+                        Tanggal = c.DateTime(nullable: false),
+                        Duedate = c.DateTime(nullable: false),
+                        SPesananID = c.Int(nullable: false),
+                        LPB = c.String(maxLength: 20),
+                        Keterangan = c.String(maxLength: 200),
+                        KetBayar = c.String(maxLength: 200),
+                        Jumlah = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Bayar = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Sisa = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        SldSisa = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Diskon = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CaraBayarID = c.Int(nullable: false),
+                        AptBayar_BayarID = c.Int(),
+                    })
+                .PrimaryKey(t => t.SPBayarID)
+                .ForeignKey("dbo.AptBayars", t => t.AptBayar_BayarID)
+                .Index(t => t.AptBayar_BayarID);
+            
+            CreateTable(
                 "dbo.AptPayments",
                 c => new
                     {
@@ -94,7 +118,6 @@ namespace GlobalSoft.Migrations
                         BankID = c.Int(nullable: false, identity: true),
                         BankName = c.String(maxLength: 100),
                         BankAccount = c.String(maxLength: 50),
-                        BankType = c.Int(nullable: false),
                         Saldo = c.Decimal(nullable: false, precision: 18, scale: 2),
                         GlAkunID = c.Int(nullable: false),
                     })
@@ -125,6 +148,29 @@ namespace GlobalSoft.Migrations
                         GlTipeName = c.String(maxLength: 100),
                     })
                 .PrimaryKey(t => t.GlTipeID);
+            
+            CreateTable(
+                "dbo.AptSPesanans",
+                c => new
+                    {
+                        SPesananID = c.Int(nullable: false, identity: true),
+                        SPesanan = c.String(maxLength: 20),
+                        Tanggal = c.DateTime(nullable: false),
+                        Duedate = c.DateTime(nullable: false),
+                        KodeTrans = c.Int(nullable: false),
+                        LPB = c.String(maxLength: 20),
+                        Keterangan = c.String(maxLength: 200),
+                        KetBayar = c.String(maxLength: 200),
+                        Jumlah = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Bayar = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Sisa = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        SldSisa = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Diskon = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        AptTrans_TransID = c.Int(),
+                    })
+                .PrimaryKey(t => t.SPesananID)
+                .ForeignKey("dbo.AptTrans", t => t.AptTrans_TransID)
+                .Index(t => t.AptTrans_TransID);
             
             CreateTable(
                 "dbo.AptTrsNoes",
@@ -240,12 +286,14 @@ namespace GlobalSoft.Migrations
             DropForeignKey("dbo.AptUnits", "CategorieID", "dbo.AptCategories");
             DropForeignKey("dbo.AptCategories", "TipeID", "dbo.AptTypes");
             DropForeignKey("dbo.AptTrans", "TransNoID", "dbo.AptTrsNoes");
+            DropForeignKey("dbo.AptSPesanans", "AptTrans_TransID", "dbo.AptTrans");
             DropForeignKey("dbo.GlAccounts", "GlTipeID", "dbo.GlTipes");
             DropForeignKey("dbo.CbBanks", "GlAkunID", "dbo.GlAccounts");
             DropForeignKey("dbo.AptPayments", "BankID", "dbo.CbBanks");
             DropForeignKey("dbo.AptTrans", "PaymentID", "dbo.AptPayments");
             DropForeignKey("dbo.AptTrans", "MarketingID", "dbo.AptMarketings");
             DropForeignKey("dbo.AptTrans", "BayarID", "dbo.AptBayars");
+            DropForeignKey("dbo.AptSPBayars", "AptBayar_BayarID", "dbo.AptBayars");
             DropForeignKey("dbo.AptMarketings", "AgenID", "dbo.AptAgens");
             DropIndex("dbo.ArPiutangs", new[] { "CustomerID" });
             DropIndex("dbo.ArCustomers", new[] { "ShortName" });
@@ -254,10 +302,12 @@ namespace GlobalSoft.Migrations
             DropIndex("dbo.AptUnits", new[] { "StatusID" });
             DropIndex("dbo.AptUnits", new[] { "CategorieID" });
             DropIndex("dbo.AptUnits", new[] { "UnitNo" });
+            DropIndex("dbo.AptSPesanans", new[] { "AptTrans_TransID" });
             DropIndex("dbo.GlAccounts", new[] { "GlTipeID" });
             DropIndex("dbo.GlAccounts", new[] { "GlAkun" });
             DropIndex("dbo.CbBanks", new[] { "GlAkunID" });
             DropIndex("dbo.AptPayments", new[] { "BankID" });
+            DropIndex("dbo.AptSPBayars", new[] { "AptBayar_BayarID" });
             DropIndex("dbo.AptTrans", new[] { "BayarID" });
             DropIndex("dbo.AptTrans", new[] { "TransNoID" });
             DropIndex("dbo.AptTrans", new[] { "PaymentID" });
@@ -272,10 +322,12 @@ namespace GlobalSoft.Migrations
             DropTable("dbo.AptCategories");
             DropTable("dbo.AptUnits");
             DropTable("dbo.AptTrsNoes");
+            DropTable("dbo.AptSPesanans");
             DropTable("dbo.GlTipes");
             DropTable("dbo.GlAccounts");
             DropTable("dbo.CbBanks");
             DropTable("dbo.AptPayments");
+            DropTable("dbo.AptSPBayars");
             DropTable("dbo.AptBayars");
             DropTable("dbo.AptTrans");
             DropTable("dbo.AptMarketings");

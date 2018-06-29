@@ -177,47 +177,8 @@ namespace GlobalSoft.Models
         public decimal Angsuran { get; set; }
 
         public decimal Piutang { get; set; }
-/*
-        public DateTime Tgl1 { get; set; }
-        [StringLength(50)]
-        public string ket1 { get; set; }
-        public decimal Angsur1 { get; set; }
 
-        public DateTime Tgl2 { get; set; }
-        [StringLength(50)]
-        public string ket2 { get; set; }
-        public decimal Angsur2 { get; set; }
-
-        public DateTime Tgl3 { get; set; }
-        [StringLength(50)]
-        public string ket3 { get; set; }
-        public decimal Angsur3 { get; set; }
-      
-        public DateTime Tgl4 { get; set; }
-        [StringLength(50)]
-        public string ket4 { get; set; }
-        public decimal Angsur4 { get; set; }
-     
-        public DateTime Tgl5 { get; set; }
-        [StringLength(50)]
-        public string ket5 { get; set; }
-        public decimal Angsur5 { get; set; }
-       
-        public DateTime Tgl6 { get; set; }
-        [StringLength(50)]
-        public string ket6 { get; set; }
-        public decimal Angsur6 { get; set; }
-      
-        public DateTime Tgl7 { get; set; }
-        [StringLength(50)]
-        public string ket7 { get; set; }
-        public decimal Angsur7 { get; set; }
-
-        public DateTime Tgl8 { get; set; }
-        [StringLength(50)]
-        public string ket8 { get; set; }
-        public decimal Angsur8 { get; set; } 
-    */
+        public ICollection<AptSPesanan> AptSPesanan { get; set; }
     }
 
     public class AptBayar
@@ -230,6 +191,7 @@ namespace GlobalSoft.Models
         public decimal Bunga { get; set; } = 0;
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
+        public virtual ICollection<AptSPBayar> AptSPBayar { get; set; }
 
     }
 
@@ -257,7 +219,8 @@ namespace GlobalSoft.Models
         public DateTime Duedate { get; set; }
 
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
-        public int KodeTrans { get; set; } = 0;    //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
+        public int KodeTrans { get; set; }   
+        public virtual AptTrans AptTrans { get; set; }
         [StringLength(20)]
         public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
         /// batas tutp
@@ -287,7 +250,7 @@ namespace GlobalSoft.Models
         public DateTime Duedate { get; set; }
 
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
-        public int SPesananID { get; set; } ;    //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
+        public int SPesananID { get; set; }     //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
         [StringLength(20)]
         public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
         /// batas tutp
@@ -327,6 +290,8 @@ namespace GlobalSoft.Models
         public DbSet<GlAccount> GlAccounts { get; set; }
         public DbSet<GlTipe> GlTipes { get; set; }
         public DbSet<AptBayar> AptBayars { get; set; }
+        public DbSet<AptSPesanan> AptSPesanans { get; set; }
+        public DbSet<AptSPBayar> AptSPBayars { get; set; }
 
     }
 }

@@ -221,80 +221,184 @@ namespace GlobalSoft.Controllers
 
       
             List<ArPiutang> Transaksi = new List<ArPiutang>();
-            List<ArPiutang> Transaksi2 = new List<ArPiutang>();
+            List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
 
             if (aptTrans.AptBayar.CaraBayar.Substring(0, 7) == "Inhouse")
             {
-                decimal PPN = (aptTrans.Piutang * (decimal)0.1);
-                decimal DPP = (aptTrans.Piutang + PPN) - Uangmuka;
+               
+                var cekNull = (from e in db.AptSPesanans where e.SPesanan==aptTrans.NoRef select e).Count();
+                if (cekNull == 0)
+                {
+                    decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    decimal DPP = (aptTrans.Piutang + PPN) - Uangmuka;
 
-                decimal angsuran = DPP / aptTrans.Cicilan;
-                decimal JumAngsur = 0;
+                    decimal angsuran = DPP / aptTrans.Cicilan;
+                    decimal JumAngsur = 0;
 
-                
-                var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
-                var Ket7 = "Angsuran 7";
 
-                for (int i = 0; i < aptTrans.Cicilan; i++)
+                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
+                    var Ket7 = "Angsuran 7";
+
+                    for (int i = 0; i < aptTrans.Cicilan; i++)
                     {
-                    var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
-               //     TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
+                        var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
+                        //     TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                    Transaksi2.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID,Duedate=TglAngsuran });
 
-                    if (i < 7)
+                        if (i < 7)
                         {
-                        Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
 
-                    }
-                    else if (i >= 7)
-                    {
-                       
-                        Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
-                        JumAngsur = JumAngsur + angsuran;
-                    }
-                    
+                        }
+                        else if (i >= 7)
+                        {
+
+                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            JumAngsur = JumAngsur + angsuran;
+                        }
+
                     };
                     Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
 
+                    foreach (var values in Transaksi2)
+                    {
+                        
+                        db.AptSPesanans.Add(values);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    var ListTrans = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).ToList();
+                    var nTotal = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).Count();
+
+                    int i = 1;
+                    decimal JumAngsur = 0;
+                    var dTgl1 = DateTime.Now;
+                    var dTgl2 = DateTime.Now;
+                    string Ket7 = " ";
+                    foreach ( var e in ListTrans)
+                    {
+                        if (i <= 7)
+                        {
+                            Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
+
+                        }
+
+                        else
+                        {
+                            if (i==8)
+                            {
+                                dTgl1 = e.Tanggal;
+                                dTgl2 = e.Tanggal;
+                            }
+                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            JumAngsur = JumAngsur + e.Jumlah;
+                            if (i == nTotal)
+                            {
+                                Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
+
+                            }
+                        }
+                        i++;
+                    }
+
+                }
 
             }
             else if (aptTrans.AptBayar.CaraBayar.Substring(0, 3) == "KPR")
             {
-                decimal PPN = (aptTrans.Piutang * (decimal)0.1);
-                decimal DPP = (aptTrans.Piutang + PPN);
-                decimal DpKPR =(DPP*(aptTrans.AptBayar.Bunga/100))-Uangmuka;
-                decimal SisaKPR = DPP - (DPP * (aptTrans.AptBayar.Bunga / 100));
-
-                decimal angsuran = DpKPR / aptTrans.Cicilan;
-                decimal JumAngsur = 0;
-                var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
-                var Ket7 = "Angsuran 7";
-                var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 1);
-
-                for (int i = 0; i < aptTrans.Cicilan; i++)
+                var cekNull = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).Count();
+                if (cekNull == 0)
                 {
-                    TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
-                 //   TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                    Transaksi2.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                    decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    decimal DPP = (aptTrans.Piutang + PPN);
+                    decimal DpKPR = (DPP * (aptTrans.AptBayar.Bunga / 100)) - Uangmuka;
+                    decimal SisaKPR = DPP - (DPP * (aptTrans.AptBayar.Bunga / 100));
 
-                    if (i < 7)
+                    decimal angsuran = DpKPR / aptTrans.Cicilan;
+                    decimal JumAngsur = 0;
+                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
+                    var Ket7 = "Angsuran 7";
+                    var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 1);
+
+                    for (int i = 0; i < aptTrans.Cicilan; i++)
                     {
-                        Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                        TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
+                        //   TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                    }
-                    else if (i >= 7)
+                        
+                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
+
+                        if (i < 7)
+                        {
+                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+
+                        }
+                        else if (i >= 7)
+                        {
+
+                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            JumAngsur = JumAngsur + angsuran;
+                        }
+
+                    };
+                    Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
+                    Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = SisaKPR });
+                    Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Tanggal = TglAngsuran, Jumlah = SisaKPR, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
+
+                    foreach (var values in Transaksi2)
                     {
 
-                        Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
-                        JumAngsur = JumAngsur + angsuran;
+                        db.AptSPesanans.Add(values);
+                        db.SaveChanges();
                     }
 
-                };
-                Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
-                Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = SisaKPR });
-                Transaksi2.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = SisaKPR });
+                }
+                else
+                {
+                    var ListTrans = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).ToList();
+                    var nTotal = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).Count();
+
+                    int i = 1;
+                    decimal JumAngsur = 0;
+                    var dTgl1 = DateTime.Now;
+                    var dTgl2 = DateTime.Now;
+                    string Ket7 = " ";
+                    foreach (var e in ListTrans)
+                    {
+                        if (i <= 7)
+                        {
+                            Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
+
+                        }
+
+                        else
+                        {
+                            if (i == 8)
+                            {
+                                dTgl1 = e.Tanggal;
+                                dTgl2 = e.Tanggal;
+                            }
+                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            JumAngsur = JumAngsur + e.Jumlah;
+                            if (i == (nTotal-1))
+                            {
+                                Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
+
+                            }
+                            if (i== nTotal)
+                            {
+                                Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
+
+                            }
+                        }
+                        i++;
+                    }
+
+                }
 
 
 

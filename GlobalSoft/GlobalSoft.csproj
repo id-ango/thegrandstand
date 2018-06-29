@@ -148,6 +148,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AptSPBayarsController.cs" />
+    <Compile Include="Controllers\AptSPesanansController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -169,17 +171,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806230749172_InitialCreate.cs" />
-    <Compile Include="Migrations\201806230749172_InitialCreate.Designer.cs">
-      <DependentUpon>201806230749172_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806231439367_test1.cs" />
-    <Compile Include="Migrations\201806231439367_test1.Designer.cs">
-      <DependentUpon>201806231439367_test1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806280220301_rubahbank.cs" />
-    <Compile Include="Migrations\201806280220301_rubahbank.Designer.cs">
-      <DependentUpon>201806280220301_rubahbank.cs</DependentUpon>
+    <Compile Include="Migrations\201806291642250_Test.cs" />
+    <Compile Include="Migrations\201806291642250_Test.Designer.cs">
+      <DependentUpon>201806291642250_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -340,6 +334,16 @@
     <Content Include="Views\SetupGlAccounts\Details.cshtml" />
     <Content Include="Views\SetupGlAccounts\Edit.cshtml" />
     <Content Include="Views\SetupGlAccounts\Index.cshtml" />
+    <Content Include="Views\AptSPesanans\Create.cshtml" />
+    <Content Include="Views\AptSPesanans\Delete.cshtml" />
+    <Content Include="Views\AptSPesanans\Details.cshtml" />
+    <Content Include="Views\AptSPesanans\Edit.cshtml" />
+    <Content Include="Views\AptSPesanans\Index.cshtml" />
+    <Content Include="Views\AptSPBayars\Create.cshtml" />
+    <Content Include="Views\AptSPBayars\Delete.cshtml" />
+    <Content Include="Views\AptSPBayars\Details.cshtml" />
+    <Content Include="Views\AptSPBayars\Edit.cshtml" />
+    <Content Include="Views\AptSPBayars\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,14 +353,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806230749172_InitialCreate.resx">
-      <DependentUpon>201806230749172_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806231439367_test1.resx">
-      <DependentUpon>201806231439367_test1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806280220301_rubahbank.resx">
-      <DependentUpon>201806280220301_rubahbank.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806291642250_Test.resx">
+      <DependentUpon>201806291642250_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

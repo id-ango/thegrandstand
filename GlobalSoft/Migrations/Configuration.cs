@@ -10,7 +10,6 @@ namespace GlobalSoft.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "GlobalSoft.Models.GlobalsoftDBContext";
         }
 
         protected override void Seed(GlobalSoft.Models.GlobalsoftDBContext context)

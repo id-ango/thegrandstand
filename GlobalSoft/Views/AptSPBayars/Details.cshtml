@@ -1,0 +1,122 @@
+﻿@model GlobalSoft.Models.AptSPBayar
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AptSPBayar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BuktiByr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuktiByr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duedate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duedate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SPesananID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SPesananID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LPB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LPB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keterangan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KetBayar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KetBayar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jumlah)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jumlah)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bayar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bayar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sisa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sisa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SldSisa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SldSisa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diskon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diskon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaraBayarID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaraBayarID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SPBayarID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

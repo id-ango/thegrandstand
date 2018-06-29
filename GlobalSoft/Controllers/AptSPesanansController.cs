@@ -10,127 +10,107 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
-    public class SetupStatusController : Controller
+    public class AptSPesanansController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
-        // GET: SetupStatus
+        // GET: AptSPesanans
         public ActionResult Index()
         {
-            List<AptStatus> TipeGl = new List<AptStatus>
-            {
-                new AptStatus { Status = "Available" },
-                new AptStatus { Status = "Hold" },
-                new AptStatus { Status = "Sold" }
-            };
-
-            var cekNull = (from e in db.AptStatuses select e).Count();
-            if (cekNull == 0)
-            {
-
-
-                foreach (var values in TipeGl)
-                {
-                    db.AptStatuses.Add(values);
-                    db.SaveChanges();
-                }
-
-
-            }
-            return View(db.AptStatuses.ToList());
+            return View(db.AptSPesanans.ToList());
         }
 
-        // GET: SetupStatus/Details/5
+        // GET: AptSPesanans/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptStatus aptStatus = db.AptStatuses.Find(id);
-            if (aptStatus == null)
+            AptSPesanan aptSPesanan = db.AptSPesanans.Find(id);
+            if (aptSPesanan == null)
             {
                 return HttpNotFound();
             }
-            return View(aptStatus);
+            return View(aptSPesanan);
         }
 
-        // GET: SetupStatus/Create
+        // GET: AptSPesanans/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SetupStatus/Create
+        // POST: AptSPesanans/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StatusID,Status")] AptStatus aptStatus)
+        public ActionResult Create([Bind(Include = "SPesananID,SPesanan,Tanggal,Duedate,KodeTrans,LPB,Keterangan,KetBayar,Jumlah,Bayar,Sisa,SldSisa,Diskon")] AptSPesanan aptSPesanan)
         {
             if (ModelState.IsValid)
             {
-                db.AptStatuses.Add(aptStatus);
+                db.AptSPesanans.Add(aptSPesanan);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(aptStatus);
+            return View(aptSPesanan);
         }
 
-        // GET: SetupStatus/Edit/5
+        // GET: AptSPesanans/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptStatus aptStatus = db.AptStatuses.Find(id);
-            if (aptStatus == null)
+            AptSPesanan aptSPesanan = db.AptSPesanans.Find(id);
+            if (aptSPesanan == null)
             {
                 return HttpNotFound();
             }
-            return View(aptStatus);
+            return View(aptSPesanan);
         }
 
-        // POST: SetupStatus/Edit/5
+        // POST: AptSPesanans/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StatusID,Status")] AptStatus aptStatus)
+        public ActionResult Edit([Bind(Include = "SPesananID,SPesanan,Tanggal,Duedate,KodeTrans,LPB,Keterangan,KetBayar,Jumlah,Bayar,Sisa,SldSisa,Diskon")] AptSPesanan aptSPesanan)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(aptStatus).State = EntityState.Modified;
+                db.Entry(aptSPesanan).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(aptStatus);
+            return View(aptSPesanan);
         }
 
-        // GET: SetupStatus/Delete/5
+        // GET: AptSPesanans/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptStatus aptStatus = db.AptStatuses.Find(id);
-            if (aptStatus == null)
+            AptSPesanan aptSPesanan = db.AptSPesanans.Find(id);
+            if (aptSPesanan == null)
             {
                 return HttpNotFound();
             }
-            return View(aptStatus);
+            return View(aptSPesanan);
         }
 
-        // POST: SetupStatus/Delete/5
+        // POST: AptSPesanans/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AptStatus aptStatus = db.AptStatuses.Find(id);
-            db.AptStatuses.Remove(aptStatus);
+            AptSPesanan aptSPesanan = db.AptSPesanans.Find(id);
+            db.AptSPesanans.Remove(aptSPesanan);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
