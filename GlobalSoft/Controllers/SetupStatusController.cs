@@ -17,6 +17,24 @@ namespace GlobalSoft.Controllers
         // GET: SetupStatus
         public ActionResult Index()
         {
+            List<AptStatus> TipeGl = new List<AptStatus>();
+            TipeGl.Add(new AptStatus {Status = "Available" });
+            TipeGl.Add(new AptStatus { Status = "Hold" });
+            TipeGl.Add(new AptStatus { Status = "Sold" });
+
+            var cekNull = (from e in db.AptStatuses select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptStatuses.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
             return View(db.AptStatuses.ToList());
         }
 

@@ -17,6 +17,24 @@ namespace GlobalSoft.Controllers
         // GET: SetupType
         public ActionResult Index()
         {
+            List<AptType> TipeApt = new List<AptType>();
+            TipeApt.Add(new AptType { Tipe = "1BR" });
+            TipeApt.Add(new AptType { Tipe = "2BR" });
+            TipeApt.Add(new AptType { Tipe = "3BR" });
+
+            var cekNull = (from e in db.AptTipes select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeApt)
+                {
+                    db.AptTipes.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
             var listtipe = from e in db.AptTipes
                            orderby e.Tipe
                            select e;
