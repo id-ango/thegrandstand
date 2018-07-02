@@ -40,10 +40,25 @@ namespace GlobalSoft.Models
         [StringLength(50),Display(Name = "NPWP")]
         public string Npwp { get; set; }
 
-        [StringLength(11)]
-        public string AccounSet { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun1 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun2 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun3 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun4 { get; set; }
 
         public virtual ICollection<ArPiutang> ArPiutang { get; set; }
+
+        public static implicit operator ArCustomer(CbTrans v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ArPiutang

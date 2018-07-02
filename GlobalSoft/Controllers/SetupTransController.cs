@@ -17,7 +17,7 @@ namespace GlobalSoft.Controllers
         // GET: SetupTrans
         public ActionResult Index()
         {
-            var aptTranss = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            var aptTranss = db.CbTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit);
             return View(aptTranss.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -51,11 +51,11 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNo")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TglSelesai,Cicilan,TransNo")] CbTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
-                db.AptTranss.Add(aptTrans);
+                db.CbTranss.Add(aptTrans);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -63,7 +63,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
             return View(aptTrans);
         }
 
@@ -74,7 +74,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
             return View(aptTrans);
         }
 
@@ -113,7 +113,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -126,8 +126,8 @@ namespace GlobalSoft.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AptTrans aptTrans = db.AptTranss.Find(id);
-            db.AptTranss.Remove(aptTrans);
+            CbTrans aptTrans = db.CbTranss.Find(id);
+            db.CbTranss.Remove(aptTrans);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

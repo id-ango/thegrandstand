@@ -18,7 +18,7 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             
-            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.ArCustomer).Include(a => a.AptBayar);
+            var aptTranss2 = db.CbTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.AptBayar);
             var aptTranss = from e in aptTranss2
                             where e.AptTrsNo.TransNo.Trim() == "SuratPesanan"
                             select e;
@@ -34,7 +34,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,7 @@ namespace GlobalSoft.Controllers
         // GET: SuratPesanan/Create
         public ActionResult Create()
         {
-            var maxvalue = db.AptTranss.Max(x => x.NoRef.Substring(0, 7));
+            var maxvalue = db.CbTranss.Max(x => x.NoRef.Substring(0, 7));
             
             string thnbln = DateTime.Now.ToString("yyMM");
             string cNoref = "SP-" + thnbln+maxvalue;
@@ -69,7 +69,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,Cicilan")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,Cicilan")] CbTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace GlobalSoft.Controllers
                      where u.UnitID == aptTrans.UnitID
                      select u).ToList().ForEach(x => x.StatusID = 3);
 
-                    db.AptTranss.Add(aptTrans);
+                    db.CbTranss.Add(aptTrans);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -105,7 +105,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
             return View(aptTrans);
         }
 
@@ -116,7 +116,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -126,7 +126,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
             return View(aptTrans);
         }
 
@@ -163,7 +163,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -176,9 +176,9 @@ namespace GlobalSoft.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
 
-            int nRec = (from e in db.AptTranss
+            int nRec = (from e in db.CbTranss
                         where e.UnitID == aptTrans.UnitID
                         select e).Count();
 
@@ -190,7 +190,7 @@ namespace GlobalSoft.Controllers
             }
 
 
-            db.AptTranss.Remove(aptTrans);
+            db.CbTranss.Remove(aptTrans);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -210,13 +210,13 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
             }
-            var Uangmuka = (from e in db.AptTranss
-                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.CustomerID == aptTrans.CustomerID
+            var Uangmuka = (from e in db.CbTranss
+                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.PersonID
                             select e.Payment).Sum();
 
       
@@ -412,9 +412,9 @@ namespace GlobalSoft.Controllers
 
             ViewBag.UangMuka = Uangmuka;
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
-            var TransUTJ = db.AptTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
+            var TransUTJ = db.CbTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
            var ListUangMuka = (from e in TransUTJ
-                               where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.CustomerID == aptTrans.CustomerID
+                               where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.PersonID
                                select e).ToList();
 
             ViewBag.ListUangMuka = ListUangMuka;

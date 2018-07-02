@@ -26,6 +26,9 @@ namespace GlobalSoft.Models
         public int GlTipeID { get; set; }                   // Cash/bank
         public virtual GlTipe GlTipe { get; set; }
 
+        public int GlGroupID { get; set; }
+        public virtual GlGroup GlGroup { get; set; }
+
         public virtual ICollection<CbBank> CbBank { get; set; }
     }
 
@@ -37,6 +40,32 @@ namespace GlobalSoft.Models
         [StringLength(100)]
         [Display(Name = "Tipe Akun")]
         public string GlTipeName { get; set; }
+        public int GlClassID { get; set; }
+        public virtual GlClass GlClass { get; set; }
+
+        public virtual ICollection<GlAccount> GlAccount { get; set; }
+    }
+
+    public class GlClass
+    {
+        [Key]
+        public int GlClassID { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Class Akun")]
+        public string GlClassName { get; set; }
+
+        public virtual ICollection<GlTipe> GlTipe { get; set; }
+    }
+
+    public class GlGroup
+    {
+        [Key]
+        public int GlGroupID { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Tipe Akun")]
+        public string GlGroupName { get; set; }
 
         public virtual ICollection<GlAccount> GlAccount { get; set; }
     }

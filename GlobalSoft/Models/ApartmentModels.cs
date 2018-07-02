@@ -76,6 +76,19 @@ namespace GlobalSoft.Models
         public decimal PriceKPR { get; set; }
         public int StatOld { get; set; } = 0;
 
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun1 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun2 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun3 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun4 { get; set; }
+
         public virtual ICollection<AptTrans> AptTrans { get; set; }
     }
 
@@ -191,7 +204,7 @@ namespace GlobalSoft.Models
         public decimal Bunga { get; set; } = 0;
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
-        public virtual ICollection<AptSPBayar> AptSPBayar { get; set; }
+       
 
     }
 
@@ -239,38 +252,7 @@ namespace GlobalSoft.Models
 
     }
 
-    public class AptSPBayar
-    {
-        [Key]
-        public int SPBayarID { get; set; }         // ID Transaksi
-        [StringLength(20)]
-        public string BuktiByr { get; set; }      // No Piutang
-
-        public DateTime Tanggal { get; set; }
-        public DateTime Duedate { get; set; }
-
-        // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
-        public int SPesananID { get; set; }     //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
-        [StringLength(20)]
-        public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
-        /// batas tutp
-
-        [StringLength(200)]
-        public string Keterangan { get; set; }       // keterangan uang angsuran unit 1010 
-        [StringLength(200)]
-        public string KetBayar { get; set; }       // keterangan uang angsuran unit 1010 
-
-        public decimal Jumlah { get; set; }
-        public decimal Bayar { get; set; }
-        public decimal Sisa { get; set; }
-        public decimal SldSisa { get; set; }
-        public decimal Diskon { get; set; }
-
-        public int CaraBayarID { get; set; }
-        public virtual AptBayar AptBayar { get; set; }
-
-
-    }
+   
     public class GlobalsoftDBContext : DbContext
     {
         public GlobalsoftDBContext() { }
@@ -287,11 +269,12 @@ namespace GlobalSoft.Models
         public DbSet<ArCustomer> ArCustomers { get; set; }
         public DbSet<ArPiutang> ArPiutangs { get; set; }
         public DbSet<CbBank> CbBanks { get; set; }
+        public DbSet<CbTrans> CbTranss { get; set; }
         public DbSet<GlAccount> GlAccounts { get; set; }
         public DbSet<GlTipe> GlTipes { get; set; }
         public DbSet<AptBayar> AptBayars { get; set; }
         public DbSet<AptSPesanan> AptSPesanans { get; set; }
-        public DbSet<AptSPBayar> AptSPBayars { get; set; }
+
 
     }
 }

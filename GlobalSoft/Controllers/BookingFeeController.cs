@@ -17,11 +17,15 @@ namespace GlobalSoft.Controllers
         // GET: BookingFee
         public ActionResult Index()
         {
-            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit).Include(a => a.ArCustomer);
-            var aptTranss = from e in aptTranss2
+            var aptTranss2 = db.CbTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit);
+            var ArCustomer1 = db.ArCustomers;
+            var bookingViewModel = from e in aptTranss2
+                            join y in ArCustomer1 
+                            on e.PersonID equals y.CustomerID
                             where e.AptTrsNo.TransNo.Trim() == "BookingFee"
-                            select e;
-            return View(aptTranss.ToList());
+                            select new BookCustModels { CustView = e, CbView = y };
+
+            return View(bookingViewModel.ToList());
         }
 
         // GET: BookingFee/Details/5
@@ -33,18 +37,18 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
-            if (aptTrans == null)
+            CbTrans cbTrans = db.CbTranss.Find(id);
+            if (cbTrans == null)
             {
                 return HttpNotFound();
             }
-            return View(aptTrans);
+            return View(cbTrans);
         }
 
         // GET: BookingFee/Create
         public ActionResult Create()
         {
-            var maxvalue = db.AptTranss.Max(x => x.NoRef.Substring(0, 3));
+            var maxvalue = db.CbTranss.Max(x => x.NoRef.Substring(0, 3));
             var unitList = from e in db.AptUnits
                             where e.StatusID == 1
                         select e;
@@ -64,14 +68,14 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Payment,PaymentID,TransNoID")] AptTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,PersonID,MarketingID,Keterangan,Payment,PaymentID,TransNoID")] CbTrans cbTrans)
         {
             
             if (ModelState.IsValid)
             {
 
                 var validUnit = (from e in db.AptUnits
-                                where e.UnitID == aptTrans.UnitID  &&  e.StatusID==3
+                                where e.UnitID == cbTrans.UnitID  &&  e.StatusID==3
                                 select e).FirstOrDefault();
 
                // var validUnit = (from x in db.Units where x.UnitId == rental.UnitId && x.Status != 2 select x).FirstOrDefault();
@@ -80,15 +84,15 @@ namespace GlobalSoft.Controllers
 
                 if (validUnit == null)  // berarti unit ini  dalam posisi hold
                 {
-                    aptTrans.TransNoID = 1;        //Booking Transaksi
-                    aptTrans.TglSelesai = aptTrans.Tanggal;
-                    aptTrans.BayarID = 1;
+                    cbTrans.TransNoID = 1;        //Booking Transaksi
+                    cbTrans.TglSelesai = cbTrans.Tanggal;
+                    cbTrans.BayarID = 1;
 
-                    db.AptTranss.Add(aptTrans);
+                    db.CbTranss.Add(cbTrans);
                     
                     //update to hold
                     (from u in db.AptUnits
-                     where u.UnitID == aptTrans.UnitID
+                     where u.UnitID == cbTrans.UnitID
                      select u).ToList().ForEach(x => x.StatusID = 2);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -102,11 +106,11 @@ namespace GlobalSoft.Controllers
 
             }
 
-            ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
-            ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
-            ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
-            return View(aptTrans);
+            ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", cbTrans.MarketingID);
+            ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", cbTrans.PaymentID);
+            ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", cbTrans.UnitID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", cbTrans.PersonID);
+            return View(cbTrans);
         }
 
         // GET: BookingFee/Edit/5
@@ -116,7 +120,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -124,7 +128,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName", aptTrans.PaymentID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
             return View(aptTrans);
         }
 
@@ -161,7 +165,7 @@ namespace GlobalSoft.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
 
             var test = (from e in db.AptUnits
                        where e.StatusID == 3 && e.UnitID == aptTrans.UnitID   // jika sudah laku tidak bisa dihapus transaksinya
@@ -186,9 +190,9 @@ namespace GlobalSoft.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
 
-            int nRec = (from e in db.AptTranss
+            int nRec = (from e in db.CbTranss
                         where e.UnitID == aptTrans.UnitID
                         select e).Count();
 
@@ -199,7 +203,7 @@ namespace GlobalSoft.Controllers
                  select e).ToList().ForEach(x => x.StatusID = 1);
             }
 
-            db.AptTranss.Remove(aptTrans);
+            db.CbTranss.Remove(aptTrans);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -219,7 +223,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrans aptTrans = db.AptTranss.Find(id);
+            CbTrans aptTrans = db.CbTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
