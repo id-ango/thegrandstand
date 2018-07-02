@@ -252,6 +252,12 @@ namespace GlobalSoft.Models
 
     }
 
+    public class AptUrut
+    {
+        public int AptUrutID { get; set; }
+        public int TipeTrans { get; set; }
+    }
+
    
     public class GlobalsoftDBContext : DbContext
     {
