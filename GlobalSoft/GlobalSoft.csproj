@@ -170,9 +170,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807030348137_pertama.cs" />
-    <Compile Include="Migrations\201807030348137_pertama.Designer.cs">
-      <DependentUpon>201807030348137_pertama.cs</DependentUpon>
+    <Compile Include="Migrations\201807030904175_Pertama.cs" />
+    <Compile Include="Migrations\201807030904175_Pertama.Designer.cs">
+      <DependentUpon>201807030904175_Pertama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807030929497_glakun.cs" />
+    <Compile Include="Migrations\201807030929497_glakun.Designer.cs">
+      <DependentUpon>201807030929497_glakun.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -217,6 +221,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\Grandstand.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -348,8 +353,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807030348137_pertama.resx">
-      <DependentUpon>201807030348137_pertama.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807030904175_Pertama.resx">
+      <DependentUpon>201807030904175_Pertama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807030929497_glakun.resx">
+      <DependentUpon>201807030929497_glakun.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

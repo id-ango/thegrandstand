@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class pertama : IMigrationMetadata
+    public sealed partial class glakun : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(pertama));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(glakun));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807030348137_pertama"; }
+            get { return "201807030929497_glakun"; }
         }
         
         string IMigrationMetadata.Source
