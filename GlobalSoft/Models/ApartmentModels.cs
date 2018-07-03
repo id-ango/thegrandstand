@@ -255,7 +255,9 @@ namespace GlobalSoft.Models
     public class AptUrut
     {
         public int AptUrutID { get; set; }
-        public int TipeTrans { get; set; }
+        public int TipeTrans { get; set; }        // 1-BookingFee,2-SuratPesanan,3-BayarAngsuran
+        public DateTime Tanggal { get; set; }
+        public int NoUrut { get; set; }
     }
 
    
@@ -280,6 +282,7 @@ namespace GlobalSoft.Models
         public DbSet<GlTipe> GlTipes { get; set; }
         public DbSet<AptBayar> AptBayars { get; set; }
         public DbSet<AptSPesanan> AptSPesanans { get; set; }
+        public DbSet<AptUrut> AptUruts { get; set; }
 
 
     }

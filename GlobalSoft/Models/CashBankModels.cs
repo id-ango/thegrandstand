@@ -40,6 +40,7 @@ namespace GlobalSoft.Models
         public decimal SaldoAwal { get; set; }
         public decimal SaldoAkhir { get; set; }
         public decimal Saldo { get; set; }
+         public int BankID { get; set; }
 
     }
 
@@ -47,15 +48,17 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int CbTransdID { get; set; }
-        public int CbTransh { get; set; }
+        public int CbTranshID { get; set; }
         [StringLength(20)]
         public string NoRef { get; set; }
         public DateTime Tanggal { get; set; }
         public decimal Jumlah { get; set; }
+
         [StringLength(10)]
-        public string SourceCode { get; set; }
+        public string KodeAkun { get; set; }
+        [StringLength(100)]
         public string Label { get; set; }
-        public int BankID { get; set; }
+       
 
     }
 
@@ -91,6 +94,8 @@ namespace GlobalSoft.Models
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
         public virtual AptPayment AptPayment { get; set; }
 
+        public int BankID { get; set; }
+
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
 
@@ -111,7 +116,9 @@ namespace GlobalSoft.Models
 
         public decimal Piutang { get; set; }
         public decimal Diskon { get; set; }
+
         public int SPesananID { get; set; }
+
         [StringLength(20)]
         public string NoSPesanan { get; set; }
         [StringLength(20)]

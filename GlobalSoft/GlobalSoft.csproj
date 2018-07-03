@@ -170,9 +170,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806291642250_Test.cs" />
-    <Compile Include="Migrations\201806291642250_Test.Designer.cs">
-      <DependentUpon>201806291642250_Test.cs</DependentUpon>
+    <Compile Include="Migrations\201807030348137_pertama.cs" />
+    <Compile Include="Migrations\201807030348137_pertama.Designer.cs">
+      <DependentUpon>201807030348137_pertama.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -348,8 +348,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806291642250_Test.resx">
-      <DependentUpon>201806291642250_Test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807030348137_pertama.resx">
+      <DependentUpon>201807030348137_pertama.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
