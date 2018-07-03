@@ -48,12 +48,20 @@ namespace GlobalSoft.Controllers
         // GET: BookingFee/Create
         public ActionResult Create()
         {
-            var maxvalue = db.CbTranss.Max(x => x.NoRef.Substring(0, 3));
+            var maxvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault().NoUrut;
+            int NoUrut = 0;
+            if (maxvalue == 0)
+            {
+                NoUrut = 1;
+            }else
+            {
+                NoUrut = maxvalue + 1;
+            }
             var unitList = from e in db.AptUnits
                             where e.StatusID == 1
                         select e;
             string thnbln = DateTime.Now.ToString("yyMM");
-            string cNoref = "BF-" + thnbln+maxvalue;
+            string cNoref = "BF-" + thnbln+maxvalue.ToString();
             ViewBag.NoRef = cNoref;
 
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
