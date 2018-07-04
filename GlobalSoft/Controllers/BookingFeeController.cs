@@ -23,8 +23,10 @@ namespace GlobalSoft.Controllers
                             join y in ArCustomer1 
                             on e.PersonID equals y.CustomerID
                             where e.AptTrsNo.TransNo.Trim() == "BookingFee"
-                            select new BookCustModels { CustView = e, CbView = y };
+                            select new  { e.TransID,e.NoRef,e.Tanggal,e.UnitID,e.PersonID,y.CustomerName,e.Keterangan,e.PaymentID,e.Payment,e.MarketingID };
 
+            ViewBag.BookingModel = bookingViewModel;
+            
             return View(bookingViewModel.ToList());
         }
 

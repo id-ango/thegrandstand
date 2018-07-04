@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GlobalSoft.Models.BookCustModels>
+﻿@model IEnumerable<GlobalSoft.Models.CbTrans>
 
 @{
     ViewBag.Title = "Booking Fee";
@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.NoRef)
+                @Html.DisplayNameFor(model => model.NoRef)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.Tanggal)
+                @Html.DisplayNameFor(model => model.Tanggal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.AptUnit.UnitNo)
+                @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.PersonID)
+                @Html.DisplayNameFor(model => model.PersonID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.Keterangan)
+                @Html.DisplayNameFor(model => model.Keterangan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.Payment)
+                @Html.DisplayNameFor(model => model.Payment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.AptMarketing.MarketingName)
+                @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CbView.AptPayment.PaymentName)
+                @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
             </th>
 
             <th></th>
@@ -43,35 +43,35 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.NoRef)
+            @Html.DisplayFor(modelItem => item.NoRef)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.Tanggal)
+            @Html.DisplayFor(modelItem => item.Tanggal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.AptUnit.UnitNo)
+            @Html.DisplayFor(modelItem => item.AptUnit.UnitNo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CustView.CustomerName)
+            @Html.DisplayFor(modelItem => item.PersonID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.Keterangan)
+            @Html.DisplayFor(modelItem => item.Keterangan)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.Payment)
+            @Html.DisplayFor(modelItem => item.Payment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.AptMarketing.MarketingName)
+            @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CbView.AptPayment.PaymentName)
+            @Html.DisplayFor(modelItem => item.AptPayment.PaymentName)
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CbView.TransID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.CbView.TransID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CbView.TransID }) |
-            @Html.ActionLink("Print", "Tandaterima", new { id = item.CbView.TransID },new { target = "_blank" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
+            @Html.ActionLink("Print", "Tandaterima", new { id = item.TransID },new { target = "_blank" })
         </td>
     </tr>
 }
