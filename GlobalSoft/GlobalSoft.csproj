@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201807030929497_glakun.Designer.cs">
       <DependentUpon>201807030929497_glakun.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807040554091_baru.cs" />
+    <Compile Include="Migrations\201807040554091_baru.Designer.cs">
+      <DependentUpon>201807040554091_baru.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\BookCustModels.cs" />
@@ -221,7 +225,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\Grandstand.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\WebSite2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -358,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807030929497_glakun.resx">
       <DependentUpon>201807030929497_glakun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807040554091_baru.resx">
+      <DependentUpon>201807040554091_baru.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
