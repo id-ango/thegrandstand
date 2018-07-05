@@ -18,26 +18,23 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             List<AptCategorie> TipeGl = new List<AptCategorie>();
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-A",TipeID=1,Luas=35.90M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-B", TipeID = 1, Luas = 35.90M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-C", TipeID = 1, Luas = 23.90M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-D", TipeID = 1, Luas = 28.00M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-E", TipeID = 1, Luas = 27.40M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-F", TipeID = 1, Luas = 34.80M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-G", TipeID = 1, Luas = 39.90M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-H", TipeID = 1, Luas = 28.50M });
-            TipeGl.Add(new AptCategorie { Categorie = "EMERALD-I", TipeID = 1, Luas = 39.60M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-A1", TipeID = 2, Luas = 87.10M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-A2", TipeID = 2, Luas = 87.10M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-B1", TipeID = 2, Luas = 84.50M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-B2", TipeID = 2, Luas = 84.50M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-C", TipeID = 2, Luas = 71.70M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-D", TipeID = 2, Luas = 95.30M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-E1", TipeID = 2, Luas = 94.40M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-E2", TipeID = 2, Luas = 94.40M });
-            TipeGl.Add(new AptCategorie { Categorie = "SAPPHIRE-F", TipeID = 2, Luas = 74.90M });
-            TipeGl.Add(new AptCategorie { Categorie = "DIAMOND-A", TipeID = 3, Luas = 123.60M });
-            TipeGl.Add(new AptCategorie { Categorie = "DIAMOND-B", TipeID = 3, Luas = 130.70M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald A",TipeID=1,Luas=35.90M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald B", TipeID = 1, Luas = 23.90M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald C", TipeID = 1, Luas = 28.00M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald D", TipeID = 1, Luas = 27.40M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald E", TipeID = 1, Luas = 35.30M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald F", TipeID = 1, Luas = 39.90M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald G", TipeID = 1, Luas = 22.10M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald H", TipeID = 1, Luas = 28.50M });
+            TipeGl.Add(new AptCategorie { Categorie = "Emerald I", TipeID = 1, Luas = 39.60M });
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire A", TipeID = 2, Luas = 87.10M });
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire B", TipeID = 2, Luas = 84.50M });            
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire C", TipeID = 2, Luas = 71.70M });
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire D", TipeID = 2, Luas = 95.30M });
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire E", TipeID = 2, Luas = 94.40M });
+            TipeGl.Add(new AptCategorie { Categorie = "Sapphire F", TipeID = 2, Luas = 74.90M });
+            TipeGl.Add(new AptCategorie { Categorie = "Diamond A", TipeID = 3, Luas = 123.60M });
+            TipeGl.Add(new AptCategorie { Categorie = "Diamond B", TipeID = 3, Luas = 130.70M });
 
             var cekNull = (from e in db.AptCategories select e).Count();
             if (cekNull == 0)

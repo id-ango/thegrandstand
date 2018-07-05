@@ -27,7 +27,7 @@ namespace GlobalSoft.Controllers
 
             ViewBag.BookingModel = bookingViewModel;
             
-            return View(bookingViewModel.ToList());
+            return View();
         }
 
         // GET: BookingFee/Details/5
@@ -50,20 +50,28 @@ namespace GlobalSoft.Controllers
         // GET: BookingFee/Create
         public ActionResult Create()
         {
-            var maxvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault().NoUrut;
-            int NoUrut = 0;
-            if (maxvalue == 0)
+            int maxvalue = 0;
+            var Cekvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault();
+            if (Cekvalue != null)
             {
-                NoUrut = 1;
-            }else
-            {
-                NoUrut = maxvalue + 1;
+                maxvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault().NoUrut;
             }
+            else
+            {
+                AptUrut TipeGl = new AptUrut { TipeTrans = 1, NoUrut=0,Tanggal=DateTime.Now};
+                db.AptUruts.Add(TipeGl);
+                db.SaveChanges();
+                
+            }
+            
+           
+                maxvalue = maxvalue + 1;
+            
             var unitList = from e in db.AptUnits
                             where e.StatusID == 1
                         select e;
             string thnbln = DateTime.Now.ToString("yyMM");
-            string cNoref = "BF-" + thnbln+maxvalue.ToString();
+            string cNoref = "BF-" + thnbln+maxvalue.ToString().PadLeft(4,'0');
             ViewBag.NoRef = cNoref;
 
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");

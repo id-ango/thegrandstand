@@ -40,31 +40,31 @@
             <th></th>
         </tr>
     </thead>
-@foreach (var item in Model) {
+@foreach (var item in ViewBag.BookingModel) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NoRef)
+            @(item.NoRef)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Tanggal)
+            @(item.Tanggal)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AptUnit.UnitNo)
+            @(item.AptUnit.UnitNo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PersonID)
+            @(item.CustomerName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Keterangan)
+            @(item.Keterangan)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Payment)
+            @(item.Payment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
+            @(item.AptMarketing.MarketingName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AptPayment.PaymentName)
+            @(item.AptPayment.PaymentName)
         </td>
 
         <td>

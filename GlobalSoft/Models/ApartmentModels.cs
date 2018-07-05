@@ -70,9 +70,9 @@ namespace GlobalSoft.Models
         public int StatusID { get; set; }                   // Status Available/Pending/Sold
         public virtual AptStatus AptStatus { get; set; }
 
-        [DisplayFormat(DataFormatString ="{0:n}")]
+        [DisplayFormat(DataFormatString ="{0:n0}")]
         public decimal Inhouse { get; set; }
-        [DisplayFormat(DataFormatString = "{0:n}"),Display(Name ="KPR")]
+        [DisplayFormat(DataFormatString = "{0:n0}"),Display(Name ="KPR")]
         public decimal PriceKPR { get; set; }
         public int StatOld { get; set; } = 0;
 
@@ -153,7 +153,8 @@ namespace GlobalSoft.Models
         public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
 
         [Display(Name ="Tanggal")]
-        public DateTime Tanggal { get; set; }       // Tanggal Transaksi
+      
+        public DateTime  Tanggal { get; set; }       // Tanggal Transaksi
 
         
         public int   UnitID { get; set; }         // Unit No 
