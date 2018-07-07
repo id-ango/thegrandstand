@@ -68,7 +68,7 @@ namespace GlobalSoft.Models
         public int TransID { get; set; }    // sama dengan no kodetrans ArPiutang
 
         [StringLength(20)]
-        [Display(Name = "No Ref")]
+        [Display(Name = "No Bukti")]
         public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
 
         [Display(Name = "Tanggal")]
@@ -88,9 +88,11 @@ namespace GlobalSoft.Models
         public string Keterangan { get; set; }
 
         [Display(Name = "Jumlah Bayar")]
+      
+ 
         public decimal Payment { get; set; }            // Jumlah Pembayaran
 
-        [Display(Name = "Cara Bayar")]
+        [Display(Name = "Pembayaran")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
         public virtual AptPayment AptPayment { get; set; }
 

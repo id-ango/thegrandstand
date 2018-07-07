@@ -205,7 +205,8 @@ namespace GlobalSoft.Models
         public decimal Bunga { get; set; } = 0;
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
-       
+
+
 
     }
 
@@ -220,6 +221,7 @@ namespace GlobalSoft.Models
         public int NoUrut { get; set; }
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
+        public virtual ICollection<CbTrans> CbTrans { get; set; }
     }
 
     public class AptSPesanan
@@ -274,7 +276,7 @@ namespace GlobalSoft.Models
         public DbSet<AptMarketing> AptMarketings { get; set; }
         public DbSet<AptPayment> AptPayments { get; set; }
         public DbSet<AptTrans> AptTranss { get; set; }
-        public DbSet<AptTrsNo> AptTrsNo { get; set; }
+        public DbSet<AptTrsNo> AptTrsNoes { get; set; }
         public DbSet<ArCustomer> ArCustomers { get; set; }
         public DbSet<ArPiutang> ArPiutangs { get; set; }
         public DbSet<CbBank> CbBanks { get; set; }

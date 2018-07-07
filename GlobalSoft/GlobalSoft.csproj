@@ -182,6 +182,26 @@
     <Compile Include="Migrations\201807040554091_baru.Designer.cs">
       <DependentUpon>201807040554091_baru.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807070608481_akunset.cs" />
+    <Compile Include="Migrations\201807070608481_akunset.Designer.cs">
+      <DependentUpon>201807070608481_akunset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807070617184_akunset1.cs" />
+    <Compile Include="Migrations\201807070617184_akunset1.Designer.cs">
+      <DependentUpon>201807070617184_akunset1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807070951214_aptbayar.cs" />
+    <Compile Include="Migrations\201807070951214_aptbayar.Designer.cs">
+      <DependentUpon>201807070951214_aptbayar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807070952269_aptbayar2.cs" />
+    <Compile Include="Migrations\201807070952269_aptbayar2.Designer.cs">
+      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807070956566_aptbayar3.cs" />
+    <Compile Include="Migrations\201807070956566_aptbayar3.Designer.cs">
+      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\BookCustModels.cs" />
@@ -410,6 +430,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807040554091_baru.resx">
       <DependentUpon>201807040554091_baru.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070608481_akunset.resx">
+      <DependentUpon>201807070608481_akunset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070617184_akunset1.resx">
+      <DependentUpon>201807070617184_akunset1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070951214_aptbayar.resx">
+      <DependentUpon>201807070951214_aptbayar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070952269_aptbayar2.resx">
+      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070956566_aptbayar3.resx">
+      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -39,19 +39,8 @@ namespace GlobalSoft.Models
 
         [StringLength(50),Display(Name = "NPWP")]
         public string Npwp { get; set; }
-
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
-        public string GlAkun1 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
-        public string GlAkun2 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
-        public string GlAkun3 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
-        public string GlAkun4 { get; set; }
+        [StringLength(20)]
+        public string AkunSet { get; set; }
 
         public virtual ICollection<ArPiutang> ArPiutang { get; set; }
 
@@ -89,6 +78,28 @@ namespace GlobalSoft.Models
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
+
+    }
+
+    public class ArAkunSet
+    {
+        public int AkunsetID { get; set; }
+
+        [StringLength(20)]
+        public string AkunSet { get; set; }
+
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun1 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun2 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun3 { get; set; }
+        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
+        [Display(Name = "Kode Akun")]
+        public string GlAkun4 { get; set; }
 
     }
 

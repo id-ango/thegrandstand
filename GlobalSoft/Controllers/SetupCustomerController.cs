@@ -15,9 +15,33 @@ namespace GlobalSoft.Controllers
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: SetupCustomer
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.ArCustomers.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AddressSortParm = String.IsNullOrEmpty(sortOrder) ? "address_desc" : "";
+
+            var customers = from s in db.ArCustomers select s;
+
+            if (!String.IsNullOrEmpty(searchString) )
+            {
+                customers = customers.Where(s => s.CustomerName.Contains(searchString)
+                || s.AlamatSekarang.Contains(searchString)
+                || s.Alamat.Contains(searchString)
+                || s.Email.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customers = customers.OrderByDescending(s => s.CustomerName);
+                    break;
+                case "address_desc":
+                    customers = customers.OrderBy(s => s.AlamatSekarang);
+                    break;
+                default:              
+                    customers = customers.OrderBy(s => s.CustomerName);
+                    break;
+            }
+            return View(customers.ToList());
         }
 
         // GET: SetupCustomer/Details/5
@@ -46,7 +70,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AccounSet")] ArCustomer arCustomer)
+        public ActionResult Create([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AkunSet")] ArCustomer arCustomer)
         {
             if (ModelState.IsValid)
             {

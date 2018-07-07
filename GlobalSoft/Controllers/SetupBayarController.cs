@@ -17,6 +17,25 @@ namespace GlobalSoft.Controllers
         // GET: SetupBayar
         public ActionResult Index()
         {
+            List<AptBayar> TipeGl = new List<AptBayar>
+            {
+                 new AptBayar { CaraBayar="InHouse"}
+               
+            };
+
+            var cekNull = (from e in db.AptBayars select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptBayars.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
             return View(db.AptBayars.ToList());
         }
 

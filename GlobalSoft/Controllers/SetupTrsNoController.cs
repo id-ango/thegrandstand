@@ -17,7 +17,27 @@ namespace GlobalSoft.Controllers
         // GET: SetupTrsNo
         public ActionResult Index()
         {
-            return View(db.AptTrsNo.ToList());
+            List<AptTrsNo> TipeGl = new List<AptTrsNo>
+            {
+                 new AptTrsNo { TransNo="BookingFee"},
+                 new AptTrsNo { TransNo = "SuratPesanan" }
+            };
+
+            var cekNull = (from e in db.AptTrsNoes select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptTrsNoes.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
+
+            return View(db.AptTrsNoes.ToList());
         }
 
         // GET: SetupTrsNo/Details/5
@@ -27,7 +47,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrsNo aptTrsNo = db.AptTrsNo.Find(id);
+            AptTrsNo aptTrsNo = db.AptTrsNoes.Find(id);
             if (aptTrsNo == null)
             {
                 return HttpNotFound();
@@ -50,7 +70,7 @@ namespace GlobalSoft.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AptTrsNo.Add(aptTrsNo);
+                db.AptTrsNoes.Add(aptTrsNo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +85,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrsNo aptTrsNo = db.AptTrsNo.Find(id);
+            AptTrsNo aptTrsNo = db.AptTrsNoes.Find(id);
             if (aptTrsNo == null)
             {
                 return HttpNotFound();
@@ -96,7 +116,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AptTrsNo aptTrsNo = db.AptTrsNo.Find(id);
+            AptTrsNo aptTrsNo = db.AptTrsNoes.Find(id);
             if (aptTrsNo == null)
             {
                 return HttpNotFound();
@@ -109,8 +129,8 @@ namespace GlobalSoft.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AptTrsNo aptTrsNo = db.AptTrsNo.Find(id);
-            db.AptTrsNo.Remove(aptTrsNo);
+            AptTrsNo aptTrsNo = db.AptTrsNoes.Find(id);
+            db.AptTrsNoes.Remove(aptTrsNo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
