@@ -18,7 +18,7 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             
-            var aptTranss2 = db.CbTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.AptBayar);
+            var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.AptBayar);
             var aptTranss = from e in aptTranss2
                             where e.AptTrsNo.TransNo.Trim() == "SuratPesanan"
                             select e;
@@ -34,7 +34,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CbTrans aptTrans = db.CbTranss.Find(id);
+            AptTrans aptTrans = db.AptTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,7 @@ namespace GlobalSoft.Controllers
         // GET: SuratPesanan/Create
         public ActionResult Create()
         {
-            var maxvalue = db.CbTranss.Max(x => x.NoRef.Substring(0, 7));
+            var maxvalue = db.AptTranss.Max(x => x.NoRef.Substring(0, 7));
             
             string thnbln = DateTime.Now.ToString("yyMM");
             string cNoref = "SP-" + thnbln+maxvalue;
@@ -69,7 +69,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,Cicilan")] CbTrans aptTrans)
+        public ActionResult Create([Bind(Include = "TransID,NoRef,Tanggal,UnitID,CustomerID,MarketingID,Keterangan,Piutang,BayarID,Cicilan")] AptTrans aptTrans)
         {
             if (ModelState.IsValid)
             {
@@ -83,16 +83,16 @@ namespace GlobalSoft.Controllers
                     
                     aptTrans.TransNoID = 2;        //surat Pesanan Transaksi
                     aptTrans.TglSelesai =  FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
-                    var CekID = db.AptPayments.FirstOrDefault(x => x.PaymentName.Trim() == "Tunai");
+                    //var CekID = db.AptPayments.FirstOrDefault(x => x.PaymentName.Trim() == "Tunai");
                     //                aptTrans.PaymentID 
-                    aptTrans.PaymentID = CekID.PaymentID;
+                    aptTrans.PaymentID = 1;
 
                     //update to sold
                     (from u in db.AptUnits
                      where u.UnitID == aptTrans.UnitID
                      select u).ToList().ForEach(x => x.StatusID = 3);
 
-                    db.CbTranss.Add(aptTrans);
+                    db.AptTranss.Add(aptTrans);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -105,7 +105,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
             return View(aptTrans);
         }
 
@@ -116,7 +116,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CbTrans aptTrans = db.CbTranss.Find(id);
+            AptTrans aptTrans = db.AptTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -126,7 +126,7 @@ namespace GlobalSoft.Controllers
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
-            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.PersonID);
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", aptTrans.CustomerID);
             return View(aptTrans);
         }
 
@@ -163,7 +163,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CbTrans aptTrans = db.CbTranss.Find(id);
+            AptTrans aptTrans = db.AptTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
@@ -176,7 +176,7 @@ namespace GlobalSoft.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CbTrans aptTrans = db.CbTranss.Find(id);
+            AptTrans aptTrans = db.AptTranss.Find(id);
 
             int nRec = (from e in db.CbTranss
                         where e.UnitID == aptTrans.UnitID
@@ -190,7 +190,7 @@ namespace GlobalSoft.Controllers
             }
 
 
-            db.CbTranss.Remove(aptTrans);
+            db.AptTranss.Remove(aptTrans);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -223,13 +223,14 @@ namespace GlobalSoft.Controllers
             List<ArPiutang> Transaksi = new List<ArPiutang>();
             List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
 
-            if (aptTrans.AptBayar.CaraBayar.Substring(0, 7) == "Inhouse")
+            if (aptTrans.AptBayar.CaraBayar.Substring(0, 7) == "InHouse")
             {
                
                 var cekNull = (from e in db.AptSPesanans where e.SPesanan==aptTrans.NoRef select e).Count();
                 if (cekNull == 0)
                 {
-                    decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    //decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    decimal PPN = 0;
                     decimal DPP = (aptTrans.Piutang + PPN) - Uangmuka;
 
                     decimal angsuran = DPP / aptTrans.Cicilan;
@@ -307,13 +308,14 @@ namespace GlobalSoft.Controllers
                 }
 
             }
-            else if (aptTrans.AptBayar.CaraBayar.Substring(0, 3) == "KPR")
+            else if (aptTrans.AptBayar.CaraBayar.Substring(0, 3) == "KPA")
             {
                 var cekNull = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).Count();
                 if (cekNull == 0)
                 {
 
-                    decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    // decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+                    decimal PPN = 0;
                     decimal DPP = (aptTrans.Piutang + PPN);
                     decimal DpKPR = (DPP * (aptTrans.AptBayar.Bunga / 100)) - Uangmuka;
                     decimal SisaKPR = DPP - (DPP * (aptTrans.AptBayar.Bunga / 100));

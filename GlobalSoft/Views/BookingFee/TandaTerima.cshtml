@@ -1,4 +1,4 @@
-﻿@model GlobalSoft.Models.AptTrans
+﻿@model GlobalSoft.Models.CbTrans
 @{ 
     Layout = null;
 }
@@ -25,7 +25,7 @@
 
 
     <div class="container">
-        <span style="margin-left:15px">Nama : @Model.ArCustomer.CustomerName</span> 
+        <span style="margin-left:15px">Nama : @Model.PersonID</span> 
         <div class="sales">
             <span style="margin-right:15px;text-align:right">@Model.AptMarketing.MarketingName</span>
             <div>
@@ -38,9 +38,10 @@
                             <tr>
                             <tr>
                                 <td colspan="2">
-                                    Booking Fee Unit @Model.AptUnit.UnitNo Tipe @Model.AptUnit.AptCategorie.Categorie Luas @Model.AptUnit.AptCategorie.Luas M<sup>2</sup><br/>
-                                    Cara  Bayar : @Model.AptPayment.PaymentName<br/>
-                                    @Model.Keterangan<br/>
+                                    Booking Fee Unit @Model.AptUnit.UnitNo <br />
+                                    Cara  Bayar : @Model.AptPayment.PaymentName<br />
+                                    Tipe @Model.AptUnit.AptCategorie.Categorie Luas @Model.AptUnit.AptCategorie.Luas M<sup>2</sup><br />
+                                    @Model.Keterangan<br />
                                 </td>
 
                                 <td>@string.Format("{0:n0}", @Model.Payment)</td>

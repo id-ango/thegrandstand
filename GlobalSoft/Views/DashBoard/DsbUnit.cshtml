@@ -1,0 +1,70 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptUnit>
+
+@{
+    ViewBag.Title = "DashBoard Unit";
+}
+
+<h2>Unit</h2>
+
+<p></p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UnitNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lantai)
+        </th>
+        <th>
+            @Html.ActionLink("Kategori", "DsbUnit", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Status", "DsbUnit", new { sortOrder = ViewBag.AddressSortParm })
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inhouse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceKPR)
+        </th>
+
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lantai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptCategorie.Categorie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AptStatus.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inhouse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceKPR)
+        </td>
+       
+    </tr>
+    }
+
+</table>

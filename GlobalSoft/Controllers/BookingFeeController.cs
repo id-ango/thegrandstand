@@ -18,16 +18,16 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             var aptTranss2 = db.CbTranss.Include(a => a.AptMarketing).Include(a => a.AptPayment).Include(a => a.AptUnit);
-            var ArCustomer1 = db.ArCustomers;
-            var bookingViewModel = from e in aptTranss2
-                            join y in ArCustomer1 
-                            on e.PersonID equals y.CustomerID
-                            where e.AptTrsNo.TransNo.Trim() == "BookingFee"
-                            select new  { e.TransID,e.NoRef,e.Tanggal,e.UnitID,e.PersonID,y.CustomerName,e.Keterangan,e.PaymentID,e.Payment,e.MarketingID };
+            //var ArCustomer1 = db.ArCustomers;
+            //var bookingViewModel = from e in aptTranss2
+            //                join y in ArCustomer1 
+            //                on e.PersonID equals y.CustomerID
+            //                where e.AptTrsNo.TransNo.Trim() == "BookingFee"
+           //                 select new  { e.TransID,e.NoRef,e.Tanggal,e.UnitID,e.PersonID,y.CustomerName,e.Keterangan,e.PaymentID,e.Payment,e.MarketingID };
 
-            ViewBag.BookingModel = bookingViewModel;
+            ViewBag.BookingModel = aptTranss2;
             
-            return View();
+            return View(aptTranss2.ToList());
         }
 
         // GET: BookingFee/Details/5

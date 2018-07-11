@@ -32,7 +32,6 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new AptCategorie { Categorie = "Sapphire C", TipeID = 2, Luas = 71.70M });
             TipeGl.Add(new AptCategorie { Categorie = "Sapphire D", TipeID = 2, Luas = 95.30M });
             TipeGl.Add(new AptCategorie { Categorie = "Sapphire E", TipeID = 2, Luas = 94.40M });
-            TipeGl.Add(new AptCategorie { Categorie = "Sapphire F", TipeID = 2, Luas = 74.90M });
             TipeGl.Add(new AptCategorie { Categorie = "Diamond A", TipeID = 3, Luas = 123.60M });
             TipeGl.Add(new AptCategorie { Categorie = "Diamond B", TipeID = 3, Luas = 130.70M });
 

@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
@@ -170,39 +171,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807030904175_Pertama.cs" />
-    <Compile Include="Migrations\201807030904175_Pertama.Designer.cs">
-      <DependentUpon>201807030904175_Pertama.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807030929497_glakun.cs" />
-    <Compile Include="Migrations\201807030929497_glakun.Designer.cs">
-      <DependentUpon>201807030929497_glakun.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807040554091_baru.cs" />
-    <Compile Include="Migrations\201807040554091_baru.Designer.cs">
-      <DependentUpon>201807040554091_baru.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807070608481_akunset.cs" />
-    <Compile Include="Migrations\201807070608481_akunset.Designer.cs">
-      <DependentUpon>201807070608481_akunset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807070617184_akunset1.cs" />
-    <Compile Include="Migrations\201807070617184_akunset1.Designer.cs">
-      <DependentUpon>201807070617184_akunset1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807070951214_aptbayar.cs" />
-    <Compile Include="Migrations\201807070951214_aptbayar.Designer.cs">
-      <DependentUpon>201807070951214_aptbayar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807070952269_aptbayar2.cs" />
-    <Compile Include="Migrations\201807070952269_aptbayar2.Designer.cs">
-      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807070956566_aptbayar3.cs" />
-    <Compile Include="Migrations\201807070956566_aptbayar3.Designer.cs">
-      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\BookCustModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -413,6 +381,7 @@
     <Content Include="Views\AptSPesanans\Details.cshtml" />
     <Content Include="Views\AptSPesanans\Edit.cshtml" />
     <Content Include="Views\AptSPesanans\Index.cshtml" />
+    <Content Include="Views\DashBoard\DsbUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -420,32 +389,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807030904175_Pertama.resx">
-      <DependentUpon>201807030904175_Pertama.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807030929497_glakun.resx">
-      <DependentUpon>201807030929497_glakun.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807040554091_baru.resx">
-      <DependentUpon>201807040554091_baru.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807070608481_akunset.resx">
-      <DependentUpon>201807070608481_akunset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807070617184_akunset1.resx">
-      <DependentUpon>201807070617184_akunset1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807070951214_aptbayar.resx">
-      <DependentUpon>201807070951214_aptbayar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807070952269_aptbayar2.resx">
-      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807070956566_aptbayar3.resx">
-      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
