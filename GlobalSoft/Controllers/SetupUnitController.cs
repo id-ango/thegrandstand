@@ -15,7 +15,7 @@ namespace GlobalSoft.Controllers
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: SetupUnit
-        public ActionResult Index()
+        public ActionResult Index(int? pageNumber)
         {
             List<AptUnit> TipeGl = new List<AptUnit>
             {
@@ -370,7 +370,7 @@ namespace GlobalSoft.Controllers
 
 
             }
-
+           
 
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
             return View(aptUnits.ToList());

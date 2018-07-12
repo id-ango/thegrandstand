@@ -12,6 +12,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoRef)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptUnit.UnitNo)
+        </dd>
+        <dt>
+            Customer
+        </dt>
+
+        <dd>
+            @ViewBag.NamaCustomer
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
         </dt>
 
@@ -25,38 +54,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.AptPayment.PaymentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AptUnit.UnitNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NoRef)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NoRef)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tanggal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tanggal)
         </dd>
 
         <dt>
@@ -75,23 +72,8 @@
             @Html.DisplayFor(model => model.Payment)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TglSelesai)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TglSelesai)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cicilan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cicilan)
-        </dd>
-
-      
     </dl>
 
     @using (Html.BeginForm()) {

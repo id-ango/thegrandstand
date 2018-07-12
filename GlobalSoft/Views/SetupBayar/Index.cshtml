@@ -4,36 +4,54 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Cara Bayar</h2>
+<h2></h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CaraBayar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bunga)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Cara Pembelian</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Cara Bayar</th>
+                            <th>Bunga</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asset in Model)
+                        {
+                            <tr>
+                                <td>@asset.CaraBayar</td>
+                                <td>@asset.Bunga</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = asset.BayarID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = asset.BayarID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = asset.BayarID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CaraBayar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bunga)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BayarID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BayarID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BayarID })
-        </td>
-    </tr>
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+     $(document).ready(function () {
+
+         $('#assets-data-table').DataTable();
+     });
+    </script>
 }
-
-</table>

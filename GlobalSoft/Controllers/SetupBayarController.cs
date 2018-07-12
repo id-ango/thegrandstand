@@ -39,6 +39,29 @@ namespace GlobalSoft.Controllers
             return View(db.AptBayars.ToList());
         }
 
+        public ActionResult Index2()
+        {
+            List<AptBayar> TipeGl = new List<AptBayar>
+            {
+                 new AptBayar { CaraBayar="InHouse"}
+
+            };
+
+            var cekNull = (from e in db.AptBayars select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptBayars.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
+            return View(db.AptBayars.ToList());
+        }
         // GET: SetupBayar/Details/5
         public ActionResult Details(int? id)
         {

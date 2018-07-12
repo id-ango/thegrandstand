@@ -1,79 +1,71 @@
-﻿@model IEnumerable<GlobalSoft.Models.CbTrans>
+﻿@model IEnumerable<GlobalSoft.Models.BookViewsModels>
+
 
 @{
     ViewBag.Title = "Booking Fee";
 }
 
-<h2>Booking Fee</h2>
+<h2></h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NoRef)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tanggal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
-            </th>
-            <th>
-               Customer
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Keterangan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
-            </th>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Booking Fee</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No. Bukti</th>
+                            <th>Tanggal</th>
+                            <th>Unit</th>
+                            <th>Customer</th>
+                            <th>Keterangan</th>
+                            <th>Jumlah</th>
+                            <th>Marketing</th>
+                            <th>Cara Bayar</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asset in Model)
+                        {
+                        <tr>
+                            <td>@asset.NoRef</td>
+                            <td>@asset.Tanggal</td>
+                            <td>@asset.UnitNo</td>
+                            <td>@asset.CustomerName</td>
+                            <td>@asset.Keterangan</td>
+                            <td>@asset.Payment</td>
+                            <td>@asset.MarketingName</td>
+                            <td>@asset.PaymentName</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
+                                @Html.ActionLink("Details", "Details", new { id = asset.TransID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = asset.TransID })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <th></th>
-        </tr>
-    </thead>
-@foreach (var item in ViewBag.BookingModel) {
-    <tr>
-        <td>
-            @(item.NoRef)
-        </td>
-        <td>
-            @(item.Tanggal)
-        </td>
-        <td>
-            @(item.AptUnit.UnitNo)
-        </td>
-        <td>
-            @(item.PersonID)
-        </td>
-        <td>
-            @(item.Keterangan)
-        </td>
-        <td>
-            @(item.Payment)
-        </td>
-        <td>
-            @(item.AptMarketing.MarketingName)
-        </td>
-        <td>
-            @(item.AptPayment.PaymentName)
-        </td>
+@section Scripts
+{
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
-            @Html.ActionLink("Print", "Tandaterima", new { id = item.TransID },new { target = "_blank" })
-        </td>
-    </tr>
+    <script type="text/javascript">
+
+     $(document).ready(function () {
+
+         $('#assets-data-table').DataTable();
+     });
+    </script>
 }
 
-</table>

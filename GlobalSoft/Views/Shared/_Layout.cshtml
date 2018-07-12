@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/datatables")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +37,7 @@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
                             <li>@Html.ActionLink("Cara Pembelian", "index", "SetupBayar")</li>
-                            <li>@Html.ActionLink("Syarat SKUP", "SKUP","~/home", new { target = "_blank" })</li>
+                            <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
 
                         </ul>
                     </li>
@@ -82,7 +84,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
+    @Scripts.Render("~/bundles/datatables")
 
     @RenderSection("scripts", required: false)
 </body>
