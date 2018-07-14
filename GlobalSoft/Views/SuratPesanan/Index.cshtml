@@ -6,76 +6,74 @@
 
 <h2>Surat Pesanan</h2>
 
-    <p>
+<p>
+     
         @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NoRef)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tanggal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArCustomer.CustomerName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Keterangan)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Piutang)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AptBayar.CaraBayar)
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoRef)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tanggal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AptUnit.UnitNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArCustomer.CustomerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Keterangan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Piutang)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AptMarketing.MarketingName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AptBayar.CaraBayar)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.TransID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TransID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TransID }) |
-                    @Html.ActionLink("Surat Pesanan", "sPesanan", new { id = item.TransID }, new { target = "_blank" })
-                </td>
-            </tr>
-        }
-
-    </table>
    
+   
+    
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Surat Pesanan</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No. Bukti</th>
+                            <th>Tanggal</th>
+                            <th>Unit</th>
+                            <th>Customer</th>
+                            <th>Keterangan</th>
+                            <th>Piutang</th>
+                            <th>Marketing</th>
+                            <th>Cara Pembayaran</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asset in Model)
+                        {
+                            <tr>
+                                <td>@asset.NoRef</td>
+                                <td>@asset.Tanggal</td>
+                                <td>@asset.AptUnit.UnitNo</td>
+                                <td>@asset.ArCustomer.CustomerName</td>
+                                <td>@asset.Keterangan</td>
+                                <td>@asset.Piutang</td>
+                                <td>@asset.AptMarketing.MarketingName</td>
+                                <td>@asset.AptBayar.CaraBayar</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = asset.TransID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
+                                    @Html.ActionLink("Surat Pesanan", "sPesanan", new { id = asset.TransID }, new { target = "_blank" }) |
+                                    @Html.ActionLink("Proses", "Proses", new { id = asset.TransID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+
+     $(document).ready(function () {
+
+         $('#assets-data-table').DataTable();
+     });
+    </script>
+}
+
+
+

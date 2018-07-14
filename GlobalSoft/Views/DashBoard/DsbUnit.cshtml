@@ -48,12 +48,17 @@
 
 @section Scripts
 {
-
+ 
     <script type="text/javascript">
 
      $(document).ready(function () {
 
-         $('#assets-data-table').DataTable();
+         $('#assets-data-table').DataTable({
+             "language": {
+                 "decimal": ",",
+                 "thousands": "."
+             }
+         });
      });
     </script>
 }

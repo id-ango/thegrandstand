@@ -13,7 +13,7 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int TipeID { get; set; }
-
+       
         [StringLength(20), Required]
         public string Tipe { get; set; }
         public virtual ICollection<AptCategorie> AptCategorie { get; set; }

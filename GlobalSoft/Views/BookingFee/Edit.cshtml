@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Booking Fee</h4>
         <hr />
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NoRef, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NoRef, new { htmlAttributes = new { @class = "form-control",@readonly = "readonly" } })
+                @Html.EditorFor(model => model.NoRef, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.NoRef, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,10 +36,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control",@readonly="readonly" })
+                @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
                 @*Html.DisplayFor(model => model.AptUnit.UnitNo, new { htmlAttributes = new { @class = "form-control", disabled= "disabled"} })
-                @*Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
-      *@      </div>
+                    @*Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
+                *@
+            </div>
         </div>
 
         <div class="form-group">
@@ -82,7 +83,7 @@
             </div>
         </div>
 
- 
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -97,5 +98,19 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+    </script>
 }

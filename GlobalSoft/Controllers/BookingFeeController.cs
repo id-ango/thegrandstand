@@ -277,6 +277,13 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+
+            var NamaCustomer = (from e in db.ArCustomers
+                                where e.CustomerID == aptTrans.PersonID
+                                select e).First().CustomerName;
+
+            ViewBag.NamaCustomer = NamaCustomer;
+
             return View(aptTrans);
         }
     }

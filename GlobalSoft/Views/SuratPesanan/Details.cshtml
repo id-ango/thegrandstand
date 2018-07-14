@@ -11,6 +11,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoRef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptUnit.UnitNo)
+        </dd>
+        <dt>
+            Customer
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArCustomer.CustomerName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
         </dt>
 
@@ -27,38 +56,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AptUnit.UnitNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ArCustomer.CustomerName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArCustomer.CustomerName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NoRef)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NoRef)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tanggal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tanggal)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Keterangan)
         </dt>
 
@@ -67,21 +64,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Payment)
+            @Html.DisplayNameFor(model => model.Piutang)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Payment)
+            @Html.DisplayFor(model => model.Piutang)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TglSelesai)
+            @Html.DisplayNameFor(model => model.Angsuran)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TglSelesai)
+            @Html.DisplayFor(model => model.Angsuran)
         </dd>
+        <dt>
+            Sisa KPA
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.Harga)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Cicilan)
         </dt>
@@ -90,13 +93,7 @@
             @Html.DisplayFor(model => model.Cicilan)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TransNo)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TransNo)
-        </dd>
 
     </dl>
 </div>

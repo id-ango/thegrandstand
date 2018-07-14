@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptSPesanan>
+
+
+@{
+    ViewBag.Title = "Proses Surat Pesanan";
+}
+
+<h2></h2>
+
+<p>
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Proses Surat Pesanan</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No. SP</th>
+                            <th>Tanggal</th>
+                            <th>Jth Tempo</th>
+                            <th>Keterangan</th>
+                            <th>Jumlah</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asset in Model)
+                        {
+                            <tr>
+                                <td>@asset.SPesanan</td>
+                                <td>@asset.Tanggal</td>
+                                <td>@asset.Duedate</td>
+                                <td>@asset.Keterangan</td>
+                                <td>@asset.Jumlah</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = asset.SPesananID }) |                                   
+                                    @Html.ActionLink("Delete", "Delete", new { id = asset.SPesananID }) |
+                                    @*Html.ActionLink("Print", "SPesanan", new { id = asset.SPesananID }, new { target = "_blank" })*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            $('#assets-data-table').DataTable();
+        });
+    </script>
+}
+

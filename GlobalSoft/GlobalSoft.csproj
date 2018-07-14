@@ -620,6 +620,7 @@
     <Content Include="Views\AptSPesanans\Index.cshtml" />
     <Content Include="Views\DashBoard\DsbUnit.cshtml" />
     <Content Include="Views\SetupBayar\Index2.cshtml" />
+    <Content Include="Views\SuratPesanan\Proses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
