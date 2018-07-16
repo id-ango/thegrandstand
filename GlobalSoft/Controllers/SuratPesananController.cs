@@ -429,10 +429,10 @@ namespace GlobalSoft.Controllers
         public ActionResult Proses(int? id)
         {
             var aptTranss2 = (from e in db.AptSPesanans
-                              where e.KodeTrans == id
+                              where e.KodeTrans == id && (e.Jumlah-e.Bayar-e.Diskon) != 0 
                               select e).ToList();
            
-
+            
             return View(aptTranss2.ToList());
             
         }

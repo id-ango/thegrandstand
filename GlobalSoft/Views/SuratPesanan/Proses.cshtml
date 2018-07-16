@@ -24,24 +24,30 @@
                             <th>Jth Tempo</th>
                             <th>Keterangan</th>
                             <th>Jumlah</th>
+                            <th>Bayar</th>
+                            <th>Diskon</th>
+                            <th>Sisa</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var asset in Model)
                         {
-                            <tr>
-                                <td>@asset.SPesanan</td>
-                                <td>@asset.Tanggal</td>
-                                <td>@asset.Duedate</td>
-                                <td>@asset.Keterangan</td>
-                                <td>@asset.Jumlah</td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = asset.SPesananID }) |                                   
-                                    @Html.ActionLink("Delete", "Delete", new { id = asset.SPesananID }) |
-                                    @*Html.ActionLink("Print", "SPesanan", new { id = asset.SPesananID }, new { target = "_blank" })*@
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>@asset.SPesanan</td>
+                            <td>@asset.Tanggal</td>
+                            <td>@asset.Duedate</td>
+                            <td>@asset.Keterangan</td>
+                            <td>@asset.Jumlah</td>
+                            <td>@asset.Bayar</td>
+                            <td>@asset.Diskon</td>
+                            <td>@asset.Sisa</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = asset.SPesananID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = asset.SPesananID }) |
+                                @*Html.ActionLink("Print", "SPesanan", new { id = asset.SPesananID }, new { target = "_blank" })*@
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
