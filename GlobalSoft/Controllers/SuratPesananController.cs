@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GlobalSoft.Models;
+using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
@@ -218,7 +220,7 @@ namespace GlobalSoft.Controllers
                 return HttpNotFound();
             }
             var Uangmuka = (from e in db.CbTranss
-                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.CustomerID
+                            where e.UnitID == aptTrans.UnitID 
                             select e.Payment).Sum();
 
       
@@ -435,6 +437,49 @@ namespace GlobalSoft.Controllers
             
             return View(aptTranss2.ToList());
             
+        }
+        [HttpPost]
+        public ActionResult saveuser(int id, string propertyName, string value)
+        {
+            var status = false;
+            var message = "";
+
+            //Update data to database 
+            using (GlobalsoftDBContext dc = new GlobalsoftDBContext())
+            {
+                var Pesanan = dc.AptSPesanans.Find(id);
+
+                object updateValue = value;
+                bool isValid = true;
+
+                 if (propertyName == "DueDate")
+                {
+                    DateTime dob;
+                    if (DateTime.TryParseExact(value, "dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out dob))
+                    {
+                        updateValue = dob;
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                }
+
+                if (Pesanan != null && isValid)
+                {
+                    dc.Entry(Pesanan).Property(propertyName).CurrentValue = updateValue;
+                    dc.SaveChanges();
+                    status = true;
+                }
+                else
+                {
+                    message = "Error!";
+                }
+            }
+
+            var response = new { value = value, status = status, message = message };
+            JObject o = JObject.FromObject(response);
+            return Content(o.ToString());
         }
     }
 }
