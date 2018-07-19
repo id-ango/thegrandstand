@@ -219,9 +219,16 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
-            var Uangmuka = (from e in db.CbTranss
-                            where e.UnitID == aptTrans.UnitID 
-                            select e.Payment).Sum();
+            var ListUM = (from e in db.CbTranss
+                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.CustomerID
+                            select e.Payment).ToList();
+
+            decimal Uangmuka = 0;
+
+            if (ListUM != null)
+            {
+                Uangmuka = ListUM.Sum();   
+            }
 
       
             List<ArPiutang> Transaksi = new List<ArPiutang>();
