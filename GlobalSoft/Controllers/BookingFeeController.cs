@@ -188,7 +188,7 @@ namespace GlobalSoft.Controllers
                 aptTrans.TransNoID = 1;        //Booking Transaksi
                 aptTrans.TglSelesai = aptTrans.Tanggal;
                 aptTrans.BayarID = 1;
-
+                
                 db.Entry(aptTrans).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

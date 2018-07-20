@@ -248,8 +248,8 @@ namespace GlobalSoft.Controllers
                     decimal JumAngsur = 0;
 
 
-                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
-                    var Ket7 = "Angsuran 7";
+                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 6);
+                    var Ket7 = "Angsuran 6";
 
                     for (int i = 0; i < aptTrans.Cicilan; i++)
                     {
@@ -258,15 +258,15 @@ namespace GlobalSoft.Controllers
 
                         Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID,Duedate=TglAngsuran });
 
-                        if (i < 7)
+                        if (i < 6)
                         {
                             Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
 
                         }
-                        else if (i >= 7)
+                        else if (i >= 6)
                         {
 
-                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
                             JumAngsur = JumAngsur + angsuran;
                         }
 
@@ -293,7 +293,7 @@ namespace GlobalSoft.Controllers
                     string Ket7 = " ";
                     foreach ( var e in ListTrans)
                     {
-                        if (i <= 7)
+                        if (i <= 6)
                         {
                             Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
 
@@ -301,12 +301,12 @@ namespace GlobalSoft.Controllers
 
                         else
                         {
-                            if (i==8)
+                            if (i==7)
                             {
                                 dTgl1 = e.Tanggal;
                                 dTgl2 = e.Tanggal;
                             }
-                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
                             JumAngsur = JumAngsur + e.Jumlah;
                             if (i == nTotal)
                             {
@@ -330,12 +330,14 @@ namespace GlobalSoft.Controllers
                     decimal PPN = 0;
                     decimal DPP = (aptTrans.Piutang + PPN);
                     decimal DpKPR = (DPP * (aptTrans.AptBayar.Bunga / 100)) - Uangmuka;
-                    decimal SisaKPR = DPP - (DPP * (aptTrans.AptBayar.Bunga / 100));
+                    //decimal SisaKPR = DPP - (DPP * (aptTrans.AptBayar.Bunga / 100));
+                    decimal SisaKPR = aptTrans.Harga;
 
-                    decimal angsuran = DpKPR / aptTrans.Cicilan;
+                    //decimal angsuran = DpKPR / aptTrans.Cicilan;
+                    decimal angsuran = aptTrans.Angsuran;
                     decimal JumAngsur = 0;
-                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
-                    var Ket7 = "Angsuran 7";
+                    var TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 6);
+                    var Ket7 = "Angsuran 6";
                     var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 1);
 
                     for (int i = 0; i < aptTrans.Cicilan; i++)
@@ -346,12 +348,12 @@ namespace GlobalSoft.Controllers
                         
                         Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
 
-                        if (i < 7)
+                        if (i < 6)
                         {
                             Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
 
                         }
-                        else if (i >= 7)
+                        else if (i >= 6)
                         {
 
                             Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
@@ -383,7 +385,7 @@ namespace GlobalSoft.Controllers
                     string Ket7 = " ";
                     foreach (var e in ListTrans)
                     {
-                        if (i <= 7)
+                        if (i <= 6)
                         {
                             Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
 
@@ -391,12 +393,12 @@ namespace GlobalSoft.Controllers
 
                         else
                         {
-                            if (i == 8)
+                            if (i == 7)
                             {
                                 dTgl1 = e.Tanggal;
                                 dTgl2 = e.Tanggal;
                             }
-                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
                             JumAngsur = JumAngsur + e.Jumlah;
                             if (i == (nTotal-1))
                             {
