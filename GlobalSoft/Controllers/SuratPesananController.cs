@@ -471,6 +471,18 @@ namespace GlobalSoft.Controllers
                         isValid = false;
                     }
                 }
+                if (propertyName == "Jumlah")
+                {
+                    Decimal Jumlah;
+                    if (Decimal.TryParse(value,out Jumlah))
+                    {
+                        updateValue = Jumlah;
+                    }
+                    else
+                    {
+                        isValid = false;
+                    }
+                }
 
                 if (Pesanan != null && isValid)
                 {
