@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GlobalSoft.Models;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace GlobalSoft.Controllers
 {
@@ -47,6 +49,49 @@ namespace GlobalSoft.Controllers
 
         }
 
-        
+        public ActionResult ListUnit()
+        {
+            List<UnitVM> allUnit = new List<UnitVM>();
+
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
+            var ListCb = from e in db.CbTranss where e.AptTrsNo.TransNo.Contains("BookingFee")
+                         select new UnitPiutang { NoRef = e.NoRef,Tanggal = e.Tanggal,UnitID = e.UnitID, UnitNo=e.AptUnit.UnitNo,Angsuran=0,Bayar = e.Payment,Keterangan= (e.Keterangan==null) ? "Booking Fee": e.Keterangan };
+                
+            var ListSp = from e in db.AptSPesanans join y in db.AptTranss on e.SPesanan equals y.NoRef
+                          select new UnitPiutang { NoRef = e.SPesanan, Tanggal = e.Duedate, UnitID = y.UnitID, UnitNo = y.AptUnit.UnitNo, Angsuran = e.Jumlah, Bayar = e.Bayar, Keterangan = e.Keterangan };
+            //var ListCb = (from e in cbTrans where e.AptTrsNo.TransNo.Contains("BookingFee") select e).ToList();
+            //var ListSp = (from e in db.AptTranss where e.AptTrsNo.TransNo.Contains("SuratPesanan") select e).ToList();
+
+            var ListAll = ListCb.Concat(ListSp);
+
+            foreach( var i in aptUnits)
+            {
+                
+                var ox = ListAll.Where(a => a.UnitID.Equals(i.UnitID)).ToList();
+                allUnit.Add(new UnitVM { Unit= i,Piutang=ox});
+            }
+                return View(allUnit);
+        }
+
+        public ActionResult UnitUI()
+        {
+            return View();
+        }
+
+        public ActionResult Customers_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            return Json(GetCustomers().ToDataSourceResult(request));
+        }
+
+        private static IEnumerable<AptUnit> GetCustomers()
+        {
+            var northwind = new AptUnit();
+            return northwind.AptTrans.Select(customer => new AptUnit
+            {
+                UnitID = customer.UnitID
+                
+            });
+        }
     }
 }

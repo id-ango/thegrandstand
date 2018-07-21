@@ -60,7 +60,8 @@
     @grid.GetHtml(
     htmlAttributes: new {id="gridT", width="700px" },
     columns:grid.Columns(
-            grid.Column("Unit.UnitNo","Unit"),           
+            grid.Column("Unit.UnitNo","Unit"),
+            grid.Column("Unit.Lantai", "Lantai"),
             grid.Column("Unit.AptStatus.Status","Status"),
             grid.Column("Unit.AptCategorie.Categorie","Kategori"),
 
@@ -69,10 +70,11 @@
                 return subGrid.GetHtml(
                     htmlAttributes: new { id="subT" },
                     columns:subGrid.Columns(
-                            subGrid.Column("Product","Product"),
-                            subGrid.Column("Quantity", "Quantity"),
-                            subGrid.Column("Rate", "Rate"),
-                            subGrid.Column("Amount", "Amount")
+                            subGrid.Column("NoRef","Bukti"),
+                            subGrid.Column("Tanggal", "Tanggal"),
+                            subGrid.Column("Keterangan", "Keterangan"),
+                            subGrid.Column("Angsuran", "Piutang"),
+                            subGrid.Column("Bayar", "Pembayaran")
                         )
                     );
             })

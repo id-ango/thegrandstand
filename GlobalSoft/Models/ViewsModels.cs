@@ -69,39 +69,16 @@ namespace GlobalSoft.Models
 
 
         public int UnitID { get; set; }         // Unit No 
-        public virtual AptUnit AptUnit { get; set; }
-
-
-        public int CustomerID { get; set; }
-        public virtual ArCustomer ArCustomer { get; set; }
-
-
-        public int MarketingID { get; set; }
-        public virtual AptMarketing AptMarketing { get; set; }
-
+        [Display(Name = "Unit No")]
+        [StringLength(10)]
+        public string UnitNo { get; set; }
+        
         [StringLength(250)]
         public string Keterangan { get; set; }
-        [Display(Name = "Jumlah Bayar")]
-        public decimal Payment { get; set; }            // Jumlah Pembayaran
-
-        [Display(Name = "Cara Bayar")]
-        public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
-        public virtual AptPayment AptPayment { get; set; }
-
-        public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
-        public int Cicilan { get; set; }                // cicil berapa kali
-
-        public int TransNoID { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
-        public virtual AptTrsNo AptTrsNo { get; set; }
-
-        public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
-        public virtual AptBayar AptBayar { get; set; }
-
-        public decimal Harga { get; set; }
-
+        public decimal Harga { get; set; }       
         public decimal Angsuran { get; set; }
+        public decimal Bayar { get; set; }            // Jumlah Pembayaran
 
-        public decimal Piutang { get; set; }
     }
     
     public class UnitVM
