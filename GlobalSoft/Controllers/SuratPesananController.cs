@@ -444,7 +444,7 @@ namespace GlobalSoft.Controllers
                               select e).ToList();
            
             
-            return View(aptTranss2.ToList());
+            return PartialView(aptTranss2.ToList());
             
         }
         [HttpPost]

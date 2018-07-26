@@ -7,11 +7,11 @@
 <h2>Surat Pesanan</h2>
 
 <p>
-     
-        @Html.ActionLink("Create New", "Create")
-   
-   
-    
+
+    @Html.ActionLink("Create New", "Create")
+
+
+
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -50,8 +50,8 @@
                                     @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
                                     @Html.ActionLink("Details", "Details", new { id = asset.TransID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
-                                    @Html.ActionLink("Proses SP", "sPesanan", new { id = asset.TransID }, new { target = "_blank" }) |
-                                    @Html.ActionLink("Edit Angsuran", "Proses", new { id = asset.TransID })
+                                    @Html.ActionLink("Proses SP", "sPesanan", new { id = asset.TransID }, new { target = "_blank",@class="dialog"}) |
+                                    @Html.ActionLink("Edit Angsuran", "Proses", new { id = asset.TransID }, new { target = "_blank", @class = "dialog" })
                                 </td>
                             </tr>
                         }
@@ -68,10 +68,15 @@
     <script type="text/javascript">
 
 
-     $(document).ready(function () {
+        $(document).ready(function () {
 
-         $('#assets-data-table').DataTable();
-     });
+            $('#assets-data-table').DataTable();
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#dialog").dialog();
+        });
     </script>
 }
 
