@@ -82,7 +82,7 @@ namespace GlobalSoft.Controllers
         public JsonResult GetUnit()
         {
             var dbResult = db.AptUnits.ToList();
-            var data = (from employee in dbResult
+            var employees = (from employee in dbResult
                              select new
                              {
                                  employee.UnitNo,
@@ -92,7 +92,7 @@ namespace GlobalSoft.Controllers
                                  employee.PriceKPR,
                                  employee.Inhouse
                              });
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetDetail()
@@ -101,7 +101,7 @@ namespace GlobalSoft.Controllers
             var ListCb = from e in db.CbTranss
                          where e.AptTrsNo.TransNo.Contains("BookingFee")
                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan };
-            var data = (from employee in ListCb
+            var employees = (from employee in ListCb
                              select new
                              {
                                  employee.UnitNo,
@@ -111,7 +111,7 @@ namespace GlobalSoft.Controllers
                                  employee.Angsuran,
                                  employee.Bayar
                              });
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
 
         }
     }

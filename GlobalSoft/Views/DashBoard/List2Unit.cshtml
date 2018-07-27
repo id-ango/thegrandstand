@@ -3,6 +3,15 @@
 @{
     ViewBag.Title = "DashBoard Unit";
 }
+<style>
+    td.details-control {
+        background: url('../../Content/DataTables/images/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+tr.shown td.details-control {
+    background: url('../../Content/DataTables/images/details_close.png') no-repeat center center; }
+</style>
 
 <h2></h2>
 
@@ -27,32 +36,8 @@
 
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var asset in Model)
-        {
-                <tr>
-                    <td>@asset.UnitNo</td>
-                    <td>@asset.Lantai</td>
-                    <td>@asset.AptCategorie.Categorie</td>
-                    <td>@asset.AptStatus.Status</td>
-                    <td>@asset.Inhouse</td>
-                    <td>@asset.PriceKPR</td>
 
-                </tr>
-}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Unit</th>
-                            <th>Lantai</th>
-                            <th>Kategori</th>
-                            <th>Status</th>
-                            <th>Inhouse</th>
-                            <th>KPR</th>
 
-                        </tr>
-                    </tfoot>
 
                 </table>
             </div>
@@ -92,7 +77,7 @@
             var table = $('#example').DataTable({
                 "ajax": "/dashboard/GetUnit",
                 "type": "POST",
-                "datatype": "json"  ,
+                "datatype": "json",
                 "columns": [
                     {
                         "className": 'details-control',

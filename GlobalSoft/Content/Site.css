@@ -25,11 +25,3 @@ textarea {
 td.highlight {
     background-color: whitesmoke !important;
 }
-td.details-control {
-    background: url('~/Content/DataTables/images/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-
-tr.shown td.details-control {
-    background: url('~/Content/DataTables/images/details_close.png') no-repeat center center;
-}
