@@ -14,7 +14,7 @@
                 <h1 class="panel-title list-panel-title">Unit</h1>
             </div>
             <div class="panel-body">
-                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                <table id="assets-data-table" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
                     <thead>
                         <tr>
                             <th>Unit</th>
@@ -50,17 +50,25 @@
 {
  
     <script type="text/javascript">
+        
 
      $(document).ready(function () {
-
-         $('#assets-data-table').DataTable({
+         var table = $('#assets-data-table').DataTable({
              "language": {
                  "decimal": ",",
-                 "thousands": "."                
+                 "thousands": "."
              },
-             "scrollY": 200,
+             "scrollY": 300,
              "scrollX": true
          });
+
+         $('#assets-data-table tbody')
+             .on('mouseenter', 'td', function () {
+                 var colIdx = table.cell(this).index().column;
+
+                 $(table.cells().nodes()).removeClass('highlight');
+                 $(table.column(colIdx).nodes()).addClass('highlight');
+             });
      });
     </script>
 }

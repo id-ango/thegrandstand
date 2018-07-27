@@ -46,7 +46,12 @@ namespace GlobalSoft.Controllers
 
 
         }
-
+        public ActionResult List2Unit()
+        {
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            return View(aptUnits.ToList());
+           
+        }
         public ActionResult ListUnit()
         {
             List<UnitVM> allUnit = new List<UnitVM>();
@@ -74,6 +79,40 @@ namespace GlobalSoft.Controllers
             return View(allUnit);
         }
 
+        public JsonResult GetUnit()
+        {
+            var dbResult = db.AptUnits.ToList();
+            var data = (from employee in dbResult
+                             select new
+                             {
+                                 employee.UnitNo,
+                                 employee.Lantai,
+                                 employee.AptCategorie.Categorie,
+                                 employee.AptStatus.Status,
+                                 employee.PriceKPR,
+                                 employee.Inhouse
+                             });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
+        public JsonResult GetDetail()
+        {
+            var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
+            var ListCb = from e in db.CbTranss
+                         where e.AptTrsNo.TransNo.Contains("BookingFee")
+                         select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan };
+            var data = (from employee in ListCb
+                             select new
+                             {
+                                 employee.UnitNo,
+                                 employee.NoRef,
+                                 employee.Tanggal,
+                                 employee.Keterangan,
+                                 employee.Angsuran,
+                                 employee.Bayar
+                             });
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
