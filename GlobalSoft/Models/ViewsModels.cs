@@ -69,8 +69,8 @@ namespace GlobalSoft.Models
 
 
         public int UnitID { get; set; }         // Unit No 
-        public virtual AptUnit AptUnit { get; set; }
-
+        [StringLength(20)]
+        public string UnitNo { get; set; }
 
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
@@ -83,6 +83,7 @@ namespace GlobalSoft.Models
         public string Keterangan { get; set; }
         [Display(Name = "Jumlah Bayar")]
         public decimal Payment { get; set; }            // Jumlah Pembayaran
+        public decimal Bayar { get; set; }
 
         [Display(Name = "Cara Bayar")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
