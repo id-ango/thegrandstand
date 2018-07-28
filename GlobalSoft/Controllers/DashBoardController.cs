@@ -95,24 +95,17 @@ namespace GlobalSoft.Controllers
             return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDetail()
+        public JsonResult GetDetail(string unitNo)
         {
             var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
             var ListCb = from e in db.CbTranss
-                         where e.AptTrsNo.TransNo.Contains("BookingFee")
+                         where e.AptTrsNo.TransNo.Contains("BookingFee") && e.AptUnit.UnitNo.Contains(unitNo)
                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan };
-            var employees = (from employee in ListCb
-                             select new
-                             {
-                                 employee.UnitNo,
-                                 employee.NoRef,
-                                 employee.Tanggal,
-                                 employee.Keterangan,
-                                 employee.Angsuran,
-                                 employee.Bayar
-                             });
-            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+            
+            return Json(new { data = ListCb }, JsonRequestBehavior.AllowGet);
 
         }
+
+        
     }
 }
