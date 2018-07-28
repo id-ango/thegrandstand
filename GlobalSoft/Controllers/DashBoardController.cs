@@ -46,11 +46,18 @@ namespace GlobalSoft.Controllers
 
 
         }
-        public ActionResult List2Unit()
+        public ActionResult List3Unit()
         {
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
             return View(aptUnits.ToList());
            
+        }
+
+        public ActionResult List2Unit()
+        {
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            return View(aptUnits.ToList());
+
         }
         public ActionResult ListUnit()
         {
@@ -98,9 +105,9 @@ namespace GlobalSoft.Controllers
         public JsonResult GetDetail(string unitNo)
         {
             var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
-            var ListCb = from e in db.CbTranss
+            var ListCb = (from e in db.CbTranss
                          where e.AptTrsNo.TransNo.Contains("BookingFee") && e.AptUnit.UnitNo.Contains(unitNo)
-                         select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan };
+                         select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan }).ToList();
             
             return Json(new { data = ListCb }, JsonRequestBehavior.AllowGet);
 

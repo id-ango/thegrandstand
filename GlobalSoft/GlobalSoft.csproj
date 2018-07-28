@@ -630,6 +630,7 @@
     <Content Include="Views\SuratPesanan\Proses.cshtml" />
     <Content Include="Views\DashBoard\ListUnit.cshtml" />
     <Content Include="Views\DashBoard\List2Unit.cshtml" />
+    <Content Include="Views\DashBoard\List3Unit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
