@@ -101,18 +101,53 @@ namespace GlobalSoft.Controllers
                              });
             return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
-
+      
         public JsonResult GetDetail(string unitNo)
         {
-            var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
-            var ListCb = (from e in db.CbTranss
-                         where e.AptTrsNo.TransNo.Contains("BookingFee") && e.AptUnit.UnitNo.Contains(unitNo)
-                         select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan }).ToList();
-            
-            return Json(new { data = ListCb }, JsonRequestBehavior.AllowGet);
+            var testUnit = unitNo;
+
+              var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
+              var ListCb = (from e in db.CbTranss
+                            where e.AptUnit.UnitNo == testUnit && e.AptTrsNo.TransNo.Contains("BookingFee")
+                           select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan }).ToList();
+
+ //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
+            var employees = (from employee in ListCb
+                             select new
+                             {
+                                 employee.NoRef,
+                                 employee.Tanggal,
+                                 employee.Keterangan,
+                                 employee.UnitNo,
+                                 employee.Angsuran,
+                                 employee.Bayar,
+                                 employee.TglString
+                             });
+           
+            return Json( employees , JsonRequestBehavior.AllowGet);
+          //  return Json(new { data2 = ListCb }, JsonRequestBehavior.AllowGet);
 
         }
 
-        
+        public JsonResult GetDetail2()
+        {
+
+
+            var dbResult = db.AptUnits.ToList();
+            var employees = (from employee in dbResult
+                             select new
+                             {
+                                 employee.UnitNo,
+                                 employee.Lantai,
+                                 employee.AptCategorie.Categorie,
+                                 employee.AptStatus.Status,
+                                 employee.PriceKPR,
+                                 employee.Inhouse
+                             });
+            return Json(employees, JsonRequestBehavior.AllowGet);
+            //  return Json(new { data2 = ListCb }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

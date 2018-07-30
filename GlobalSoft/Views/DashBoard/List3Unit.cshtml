@@ -65,8 +65,14 @@
  
 
         function format(d) {
-            var htmlResult = '<div class="slider">' +
-                '<table style="width:100%">' +
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
                 '<tr>' +
                 '<th>Bukti</th>' +
                 '<th>Tanggal</th> ' +
@@ -74,14 +80,19 @@
                 '<th>Angsuran</th>' +
                 '<th>Bayar</th>' +
                 '</tr>';
-
-            $.each(d, function () {
-                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.Tanggal + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
-           //     htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+     //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function() {
+  //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+     //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+            htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+   //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
             });
 
             htmlResult += '</table>' +
-                '</div>';
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
             return htmlResult;
         }
 
@@ -124,13 +135,14 @@
                     row.child('<p><center>Loading...</center></p>', 'no-padding').show();
                     tr.addClass('shown');
                     $('div.slider', row.child()).slideDown();
-                   // $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
+                //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
                 //        $('td', row.child()).html(format(data));
                //         $('div.slider', row.child()).show();
               //  });
 
-                    $.getJSON('/Dashboard/GetDetail'+row.data(), function (data) {
-                        $('td', row.child()).html(format(data));
+         //          $.getJSON('/Dashboard/Getunit', function (data2){
+                       $.getJSON('/Dashboard/GetDetail/?unitNo='+row.data().UnitNo, function (data2) {
+                        $('td', row.child()).html(format(data2));
                         $('div.slider', row.child()).show();
                     });
                 }
