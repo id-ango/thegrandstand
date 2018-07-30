@@ -111,8 +111,14 @@ namespace GlobalSoft.Controllers
                             where e.AptUnit.UnitNo == testUnit && e.AptTrsNo.TransNo.Contains("BookingFee")
                            select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan }).ToList();
 
+            var ListSp = (from e in db.AptTranss join
+                              y in db.AptSPesanans on e.NoRef equals y.SPesanan
+                          where e.AptUnit.UnitNo == testUnit
+                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = y.Jumlah, Bayar = y.Bayar, Keterangan =  y.Keterangan }).ToList();
+
+            var allList = ListCb.Concat(ListSp);
  //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
-            var employees = (from employee in ListCb
+            var employees = (from employee in allList
                              select new
                              {
                                  employee.NoRef,
@@ -129,25 +135,7 @@ namespace GlobalSoft.Controllers
 
         }
 
-        public JsonResult GetDetail2()
-        {
-
-
-            var dbResult = db.AptUnits.ToList();
-            var employees = (from employee in dbResult
-                             select new
-                             {
-                                 employee.UnitNo,
-                                 employee.Lantai,
-                                 employee.AptCategorie.Categorie,
-                                 employee.AptStatus.Status,
-                                 employee.PriceKPR,
-                                 employee.Inhouse
-                             });
-            return Json(employees, JsonRequestBehavior.AllowGet);
-            //  return Json(new { data2 = ListCb }, JsonRequestBehavior.AllowGet);
-
-        }
+        
 
     }
 }
