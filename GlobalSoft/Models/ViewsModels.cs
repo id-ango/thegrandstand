@@ -8,7 +8,7 @@ namespace GlobalSoft.Models
 {
     public class BookViewsModels
     {
-  
+        [Key]
         public int TransID { get; set; }    // sama dengan no kodetrans ArPiutang
 
         [StringLength(20)]
@@ -24,9 +24,12 @@ namespace GlobalSoft.Models
         [Display(Name = "Unit No")]
         [ StringLength(10)]
         public string UnitNo { get; set; }
-
-
-        public int CustomerID { get; set; }       
+        [StringLength(20)]
+        public string Categorie { get; set; }
+        [StringLength(20)]
+        public string Status { get; set; }
+        public int Lantai { get; set; }
+        public int CustomerID { get; set; }
         [StringLength(100), Display(Name = "Nama")]
         public string CustomerName { get; set; }
 
@@ -43,6 +46,9 @@ namespace GlobalSoft.Models
         public string Keterangan { get; set; }
         [Display(Name = "Jumlah Bayar")]
         public decimal Payment { get; set; }            // Jumlah Pembayaran
+        public decimal Piutang { get; set; }            // Jumlah Pembayaran
+        public decimal Pembayaran { get; set; }            // Jumlah Pembayaran
+        public decimal Sisa { get; set; }            // Jumlah Pembayaran
 
         [Display(Name = "Cara Bayar")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet

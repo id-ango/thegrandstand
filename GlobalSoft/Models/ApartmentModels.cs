@@ -52,7 +52,6 @@ namespace GlobalSoft.Models
     public class AptUnit                                // Unit Apartment
     {
         
-
         [Key]
         public int UnitID { get; set; }
 

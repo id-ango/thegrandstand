@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GlobalSoft.Models;
+using WebGrease.Css.Extensions;
 
 namespace GlobalSoft.Controllers
 {
@@ -49,7 +50,16 @@ namespace GlobalSoft.Controllers
         public ActionResult List3Unit()
         {
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
-            return View(aptUnits.ToList());
+            var listUnit = (from e in aptUnits
+                           select new BookViewsModels
+                           {
+                               UnitNo = e.UnitNo,
+                               Lantai = e.Lantai,
+                               Categorie = e.AptCategorie.Categorie,
+                               Status = e.AptStatus.Status
+                           }).ToList();
+
+            return View(listUnit);
            
         }
 
@@ -87,17 +97,87 @@ namespace GlobalSoft.Controllers
         }
 
         public JsonResult GetUnit()
-        {
-            var dbResult = db.AptUnits.ToList();
+        {           
+            
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            var listUnit = (from e in aptUnits
+                            select new BookViewsModels
+                            {
+
+                                UnitID = e.UnitID,
+                                UnitNo = e.UnitNo,
+                                Lantai = e.Lantai,
+                                Categorie = e.AptCategorie.Categorie,
+                                Status = e.AptStatus.Status,
+                                CustomerID = 0,
+                                CustomerName = "",
+                                MarketingName = "",
+                                PaymentName = "",
+                                NoRef = "",
+                                Piutang = 0,
+                                Pembayaran = 0,
+                                Sisa = 0
+ //                               CustomerName = (from y in db.AptTranss
+  //                                              where y.UnitID == y.UnitID
+  //                                              select y.ArCustomer.CustomerName).FirstOrDefault(),
+  //                              MarketingName = (from y in db.AptTranss
+  //                                               where y.UnitID == y.UnitID
+  //                                               select y.AptMarketing.MarketingName).FirstOrDefault(),
+  //                              PaymentName = (from y in db.AptTranss
+  //                                             where y.UnitID == y.UnitID
+  //                                             select y.AptBayar.CaraBayar).FirstOrDefault()
+
+                            }).ToList();
+
+            foreach(var y in db.AptTranss)
+            {
+                (from e in listUnit
+                 where e.UnitID == y.UnitID
+                 select e).ForEach( x => { x.CustomerName = y.ArCustomer.CustomerName; x.MarketingName = y.AptMarketing.MarketingName;
+                     x.PaymentName = y.AptBayar.CaraBayar;x.NoRef = y.NoRef;
+                     x.Piutang = y.Piutang;
+                     x.Sisa = y.Piutang;
+                     x.CustomerID = y.CustomerID;
+                 });
+            }
+    
+            foreach (var y in db.AptSPesanans)
+            {
+                (from e in listUnit
+                 where e.NoRef == y.SPesanan
+                 select e).ForEach(x => {
+                     x.Pembayaran = x.Pembayaran+y.Bayar; x.Sisa = x.Sisa-y.Bayar;
+                 });
+            }
+
+            foreach (var y in db.CbTranss)
+            {
+                (from e in listUnit
+                 where e.UnitID == y.UnitID 
+                 select e).ForEach(x => {
+                     x.Pembayaran = x.Pembayaran + y.Payment; x.Sisa = x.Sisa - y.Payment;
+                 });
+            }
+
+
+            var dbResult = listUnit;
             var employees = (from employee in dbResult
                              select new
                              {
                                  employee.UnitNo,
                                  employee.Lantai,
-                                 employee.AptCategorie.Categorie,
-                                 employee.AptStatus.Status,
-                                 employee.PriceKPR,
-                                 employee.Inhouse
+                                 employee.Categorie,
+                                 employee.Status,
+                                 employee.CustomerName,
+                                 employee.MarketingName,
+                                 employee.PaymentName,
+                                 employee.Piutang,
+                                 employee.Pembayaran,
+                                 employee.Sisa,
+                                 employee.NoRef
+            
+                                 
+
                              });
             return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
@@ -110,11 +190,20 @@ namespace GlobalSoft.Controllers
               var ListCb = (from e in db.CbTranss
                             where e.AptUnit.UnitNo == testUnit && e.AptTrsNo.TransNo.Contains("BookingFee")
                            select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = (e.Keterangan == null) ? "Booking Fee" : e.Keterangan }).ToList();
+            foreach (var i in ListCb)
+            {
+                i.TglString = i.Tanggal.ToString("dd/MM/yyyy");
+            }
 
             var ListSp = (from e in db.AptTranss join
                               y in db.AptSPesanans on e.NoRef equals y.SPesanan
                           where e.AptUnit.UnitNo == testUnit
-                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = y.Jumlah, Bayar = y.Bayar, Keterangan =  y.Keterangan }).ToList();
+                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = y.Duedate, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = y.Jumlah, Bayar = y.Bayar, Keterangan =  y.Keterangan }).ToList();
+
+            foreach (var i in ListSp)
+            {
+                i.TglString = i.Tanggal.ToString("dd/MM/yyyy");
+            }
 
             var allList = ListCb.Concat(ListSp);
  //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
@@ -129,7 +218,7 @@ namespace GlobalSoft.Controllers
                                  employee.Bayar,
                                  employee.TglString
                              });
-           
+          
             return Json( employees , JsonRequestBehavior.AllowGet);
           //  return Json(new { data2 = ListCb }, JsonRequestBehavior.AllowGet);
 

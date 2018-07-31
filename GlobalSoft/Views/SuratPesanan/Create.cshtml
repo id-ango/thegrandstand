@@ -25,7 +25,7 @@
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @* Date: <input type="text" id="datepicker">*@
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "true" } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false" } })
         @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -127,7 +127,7 @@
     <script>
         $(function () {
             $("#Tanggal").datepicker({
-                dateFormat: 'dd-mm-yy',
+                dateFormat: 'mm-dd-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1900:' + (new Date().getFullYear() + 60)
