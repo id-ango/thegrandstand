@@ -19,7 +19,7 @@
   background-position: center center;
   position: relative;
   z-index: -2;
-  background-image: url('/Images/gambar-header-1.jpg');
+  background-image: url('../Images/gambar-header-1.jpg');
 }
 
 .overlay {

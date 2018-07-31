@@ -5,12 +5,12 @@
 }
 <style>
     td.details-control {
-        background: url('../../Content/DataTables/images/details_open.png') no-repeat center center;
+        background: url('../../Images/details_open.png') no-repeat center center;
         cursor: pointer;
     }
 
     tr.shown td.details-control {
-        background: url('../../Content/DataTables/images/details_close.png') no-repeat center center;
+        background: url('../../Images/details_close.png') no-repeat center center;
     }
 
     div.slider {
@@ -102,7 +102,7 @@
 
         $(document).ready(function () {
             var table = $('#example').DataTable({
-                "ajax": "/dashboard/GetUnit",
+                "ajax": "../dashboard/GetUnit",
                 "type": "POST",
                 "datatype": "json",
                 "columns": [
@@ -147,7 +147,7 @@
                     //  });
 
                     //          $.getJSON('/Dashboard/Getunit', function (data2){
-                    $.getJSON('/Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                    $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
                         $('td', row.child()).html(format(data2));
                         $('div.slider', row.child()).show();
                     });

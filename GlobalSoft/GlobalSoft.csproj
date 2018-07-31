@@ -392,6 +392,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\details_close.png" />
+    <Content Include="Images\details_open.png" />
     <Content Include="Images\gambar-header-1.jpg" />
     <Content Include="Images\gambar-header-2.jpg" />
     <Content Include="Images\info2.jpg" />
