@@ -103,4 +103,42 @@ namespace GlobalSoft.Models
 
     }
 
+    public class PiutangMain
+    {
+        [Key]
+        public int MainID { get; set; }
+        public string NoBukti { get; set; }
+        public DateTime Tanggal { get; set; }
+
+        public int CustomerID { get; set; }
+        public virtual ArCustomer ArCustomer { get; set; }
+
+        public int UnitID { get; set; }
+        public virtual AptUnit AptUnit { get; set; }
+
+        public int KodeTrans { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        public decimal Jumlah { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Unapplied { get; set; }
+        public decimal Diskon { get; set; }
+        public virtual ICollection<PiutangDetail> PiutangDetail { get; set; }
+    }
+    public class PiutangDetail
+    {
+        [Key]
+        public int DetailID { get; set; }
+        public int MainID { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Diskon { get; set; }
+        public decimal Sisa { get; set; }
+        [StringLength(20)]
+        public string SPesanan { get; set; }
+        public PiutangMain PiutangMain { get; set; }
+    }
+
 }

@@ -285,6 +285,8 @@ namespace GlobalSoft.Models
         public DbSet<AptBayar> AptBayars { get; set; }
         public DbSet<AptSPesanan> AptSPesanans { get; set; }
         public DbSet<AptUrut> AptUruts { get; set; }
+        public DbSet<PiutangMain> PiutangMains { get; set; }
+        public DbSet<PiutangDetail> PiutangDetails { get; set; }
 
 
     }

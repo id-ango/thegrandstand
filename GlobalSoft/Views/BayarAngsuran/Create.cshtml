@@ -1,0 +1,34 @@
+﻿@model GlobalSoft.Models.PiutangMain
+<p></p>
+<h1>Transaksi</h1>
+@using (Html.BeginForm("Create", "BayarAngsuran", FormMethod.Post, new { id = "form1" }))
+{
+    <p><b>StudentName:</b> @Html.TextBoxFor(model => model.Tanggal)</p>
+    <p><b>PhoneNumber:</b> @Html.TextBoxFor(model => model.NoBukti)</p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div id="partial">@{Html.RenderAction("PiutangDetail");}</div>
+
+    <input type="button" value="Add new row" id="Add" />
+    <input type="submit" />
+}
+@section scripts{
+    <script>
+        var i = 1;
+        $("#Add").click(function () {
+            $.ajax({
+                url: '../BayarAngsuran/PiutangDetail',
+                data: { i: i },
+                success: function (data) {
+                    $("#partial").append(data);
+                }
+            })
+            i++;
+        })
+    </script>
+}

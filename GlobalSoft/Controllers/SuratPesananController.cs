@@ -448,7 +448,7 @@ namespace GlobalSoft.Controllers
             
         }
         [HttpPost]
-        public ActionResult saveuser(int id, string propertyName, string value)
+        public ActionResult Saveuser(int id, string propertyName, string value)
         {
             var status = false;
             var message = "";

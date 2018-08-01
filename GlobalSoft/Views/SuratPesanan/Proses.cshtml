@@ -12,11 +12,11 @@
             tableStyle: "table table-responsive table-striped table-bordered",
             columns: grid.Columns(
                 grid.Column(header: "Surat Pesanan", format: @<text><div>@item.SPesanan</div></text>),
-                        grid.Column(header: "Due Date", format:@<text><div class="editDate" data-id="@item.SPesananID" data-propertyname="DueDate">@string.Format("{0:dd-MM-yyyy}", item.DueDate)</div></text>),
-                                grid.Column(header: "Keterangan", format:@<text><div class="edit" data-id="@item.SPesananID" data-propertyname="Keterangan">@item.Keterangan</div></text>),
-                                        grid.Column(header: "Angsuran", format:@<text><div class="edit" data-id="@item.SPesananID" data-propertyname="Jumlah">@item.Jumlah</div></text>)
-                                            )
-                                        )
+                grid.Column(header: "Due Date", format:@<text><div class="editDate" data-id="@item.SPesananID" data-propertyname="DueDate">@string.Format("{0:dd-MM-yyyy}", item.DueDate)</div></text>),
+                grid.Column(header: "Keterangan", format:@<text><div class="edit" data-id="@item.SPesananID" data-propertyname="Keterangan">@item.Keterangan</div></text>),
+                grid.Column(header: "Angsuran", format:@<text><div class="edit" data-id="@item.SPesananID" data-propertyname="Jumlah">@item.Jumlah</div></text>)
+                                    )
+                  )
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -45,7 +45,7 @@
     <script>
         $(document).ready(function () {
             var oldValue = '';
-            $('.edit').editable('/SuratPesanan/saveuser', {
+            $('.edit').editable('../SuratPesanan/Saveuser', {
                 cssclass: 'jeditForm',
                 tooltip: 'click to edit me...',
                 width: 'none',
@@ -70,7 +70,7 @@
                 }
             })
 
-            $('.editSelect').editable('/home/saveuser', {
+            $('.editSelect').editable('../home/Saveuser', {
                 cssclass: 'jeditForm',
                 tooltip: 'click to edit me...',
                 width: 'none',

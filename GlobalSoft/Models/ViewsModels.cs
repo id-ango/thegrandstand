@@ -117,4 +117,6 @@ namespace GlobalSoft.Models
         public AptUnit  Unit  { get; set; }
         public List<UnitPiutang> Piutang { get; set; }
     }
+
+    
 }

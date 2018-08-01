@@ -149,6 +149,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
+    <Compile Include="Controllers\BayarAngsuranController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
@@ -633,6 +634,9 @@
     <Content Include="Views\DashBoard\ListUnit.cshtml" />
     <Content Include="Views\DashBoard\List2Unit.cshtml" />
     <Content Include="Views\DashBoard\List3Unit.cshtml" />
+    <Content Include="Views\BayarAngsuran\Create.cshtml" />
+    <Content Include="Views\BayarAngsuran\Index.cshtml" />
+    <Content Include="Views\BayarAngsuran\PiutangDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
