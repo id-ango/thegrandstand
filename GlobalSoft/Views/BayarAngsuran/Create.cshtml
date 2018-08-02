@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @* Date: <input type="text" id="datepicker">*@
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false" , @Value = ViewBag.Tanggal } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false", @Value = ViewBag.Tanggal } })
                 @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,11 +52,17 @@
         </div>
     </div>
     <p></p>
-
-    <div id="assets-data-table"></div>
-
-    <input type="button" value="Add new row" id="Add" />
-    <input type="submit" />
+    <button>Toggle</button>
+    <table id="myTable" style="border: 1px solid black; display: none">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+        </tr>
+    </table>
 }
 
 @section scripts{
@@ -76,30 +82,10 @@
     </script>
 
     <script>
-        var i = 1;
-        $("#Add").click(function () {
-            $.ajax({
-                url: '../BayarAngsuran/DetailAngsuran',
-                data: { i: i },
-                success: function (data) {
-                    $("#partial").append(data);
-                }
-            })
-            i++;
-        })
-    </script>
-
-    <script>
-        $(function () {
-            var table = $('#assets-data-table').DataTable({
-                "language": {
-                    "decimal": ",",
-                    "thousands": "."
-                },
-                "scrollY": 300,
-                "scrollX": true
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#myTable").toggle();
             });
         });
     </script>
-
 }
