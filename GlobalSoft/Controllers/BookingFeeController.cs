@@ -76,29 +76,51 @@ namespace GlobalSoft.Controllers
         // GET: BookingFee/Create
         public ActionResult Create()
         {
-            int maxvalue = 0;
-            var Cekvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault();
-            if (Cekvalue != null)
+            //   int maxvalue = 0;
+            //   var Cekvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault();
+            //    if (Cekvalue != null)
+            //   {
+            //        maxvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault().NoUrut;
+            //    }
+            //    else
+            //    {
+            //        AptUrut TipeGl = new AptUrut { TipeTrans = 1, NoUrut=0,Tanggal=DateTime.Now};
+            //        db.AptUruts.Add(TipeGl);
+            //        db.SaveChanges();
+
+            //     }
+
+
+            //        maxvalue = maxvalue + 1;
+
+                var unitList = from e in db.AptUnits
+                                where e.StatusID == 1
+                             select e;
+            //     string thnbln = DateTime.Now.ToString("yyMM");
+            //     string cNoref = "BF-" + thnbln+maxvalue.ToString().PadLeft(4,'0');
+            string thnbln = DateTime.Now.ToString("yyMM");
+            var maxvalue = (from e in db.CbTranss where e.NoRef.Substring(0, 7) == "BF-" + thnbln select e).FirstOrDefault();
+            string nourut = "000";
+            if (maxvalue == null)
             {
-                maxvalue = (from a in db.AptUruts where a.TipeTrans == 1 select a).FirstOrDefault().NoUrut;
+                nourut = "000";
             }
             else
             {
-                AptUrut TipeGl = new AptUrut { TipeTrans = 1, NoUrut=0,Tanggal=DateTime.Now};
-                db.AptUruts.Add(TipeGl);
-                db.SaveChanges();
-                
+                nourut = maxvalue.NoRef.Substring(7, 3);
             }
-            
-           
-                maxvalue = maxvalue + 1;
-            
-            var unitList = from e in db.AptUnits
-                            where e.StatusID == 1
-                        select e;
-            string thnbln = DateTime.Now.ToString("yyMM");
-            string cNoref = "BF-" + thnbln+maxvalue.ToString().PadLeft(4,'0');
+
+            //  nourut =Convert.ToString(Int32.Parse(nourut) + 1);
+
+
+
+
+
+            string cAngNo = "BF-" + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
+            // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
+            string cNoref = cAngNo;
             ViewBag.NoRef = cNoref;
+            ViewBag.Tanggal = DateTime.Now;
 
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName");

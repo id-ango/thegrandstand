@@ -3,26 +3,83 @@
 <h1>Transaksi</h1>
 @using (Html.BeginForm("Create", "BayarAngsuran", FormMethod.Post, new { id = "form1" }))
 {
-    <p><b>StudentName:</b> @Html.TextBoxFor(model => model.Tanggal)</p>
-    <p><b>PhoneNumber:</b> @Html.TextBoxFor(model => model.NoBukti)</p>
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Surat Pesanan</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoBukti, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NoBukti, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.NoRef } })
+                @Html.ValidationMessageFor(model => model.NoBukti, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* Date: <input type="text" id="datepicker">*@
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false" , @Value = ViewBag.Tanggal } })
+                @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Keterangan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Keterangan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Keterangan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+
+            </div>
+            <input type="button" value="Proses" id="Add" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
+            </div>
+            <input type="button" value="Proses" id="Add" />
         </div>
     </div>
-    <div id="partial">@{Html.RenderAction("PiutangDetail");}</div>
+    <p></p>
+
+    <div id="assets-data-table"></div>
 
     <input type="button" value="Add new row" id="Add" />
     <input type="submit" />
 }
+
 @section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#Tanggal").datepicker({
+                dateFormat: 'mm-dd-yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            });
+        });
+    </script>
+
     <script>
         var i = 1;
         $("#Add").click(function () {
             $.ajax({
-                url: '../BayarAngsuran/PiutangDetail',
+                url: '../BayarAngsuran/DetailAngsuran',
                 data: { i: i },
                 success: function (data) {
                     $("#partial").append(data);
@@ -31,4 +88,18 @@
             i++;
         })
     </script>
+
+    <script>
+        $(function () {
+            var table = $('#assets-data-table').DataTable({
+                "language": {
+                    "decimal": ",",
+                    "thousands": "."
+                },
+                "scrollY": 300,
+                "scrollX": true
+            });
+        });
+    </script>
+
 }

@@ -44,10 +44,10 @@
                             <td>@asset.MarketingName</td>
                             <td>@asset.PaymentName</td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
-                                @Html.ActionLink("Details", "Details", new { id = asset.TransID }) |
+                               
+                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |                             
                                 @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
-                                @Html.ActionLink("Print", "TandaTerima", new { id = asset.TransID }, new { target = "_blank" })                               
+                                @Html.ActionLink("Print", "TandaTerima", new { id = asset.TransID }, new { target = "_blank" })
                             </td>
                         </tr>
                         }
