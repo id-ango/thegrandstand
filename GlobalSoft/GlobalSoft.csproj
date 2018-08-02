@@ -172,6 +172,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807070952269_aptbayar2.cs" />
+    <Compile Include="Migrations\201807070952269_aptbayar2.Designer.cs">
+      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807070956566_aptbayar3.cs" />
+    <Compile Include="Migrations\201807070956566_aptbayar3.Designer.cs">
+      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808010646539_pending.cs" />
+    <Compile Include="Migrations\201808010646539_pending.Designer.cs">
+      <DependentUpon>201808010646539_pending.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
     <Compile Include="Models\GledgerModels.cs" />
@@ -644,6 +657,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807070952269_aptbayar2.resx">
+      <DependentUpon>201807070952269_aptbayar2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807070956566_aptbayar3.resx">
+      <DependentUpon>201807070956566_aptbayar3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808010646539_pending.resx">
+      <DependentUpon>201808010646539_pending.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
