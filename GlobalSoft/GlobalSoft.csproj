@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201808010646539_pending.Designer.cs">
       <DependentUpon>201808010646539_pending.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808040927137_tambahduedate.cs" />
+    <Compile Include="Migrations\201808040927137_tambahduedate.Designer.cs">
+      <DependentUpon>201808040927137_tambahduedate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -649,7 +653,7 @@
     <Content Include="Views\DashBoard\List3Unit.cshtml" />
     <Content Include="Views\BayarAngsuran\Create.cshtml" />
     <Content Include="Views\BayarAngsuran\Index.cshtml" />
-    <Content Include="Views\BayarAngsuran\PiutangDetail.cshtml" />
+    <Content Include="Views\BayarAngsuran\GetDetail.cshtml" />
     <Content Include="Views\BayarAngsuran\DetailAngsuran.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -668,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808010646539_pending.resx">
       <DependentUpon>201808010646539_pending.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808040927137_tambahduedate.resx">
+      <DependentUpon>201808040927137_tambahduedate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

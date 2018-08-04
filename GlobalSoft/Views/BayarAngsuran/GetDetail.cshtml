@@ -1,0 +1,32 @@
+﻿@model IEnumerable<GlobalSoft.Models.PiutangDetail>
+
+Testingsemua
+
+    <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>No. Bukti</th>
+                <th>Tanggal</th>
+                <th>Unit</th>
+                <th>Customer</th>
+                <th>Keterangan</th>
+                <th>Jumlah</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asset in Model)
+            {
+                <tr>
+                    <td>@asset.Duedate</td>
+                    <td>@asset.Keterangan</td>
+                    <td>@asset.Piutang</td>
+                    <td>@asset.Bayar</td>
+                    <td>@asset.Diskon</td>
+                    <td>@asset.Sisa</td>
+
+                   
+                </tr>
+            }
+        </tbody>
+    </table>

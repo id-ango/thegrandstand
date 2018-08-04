@@ -130,6 +130,9 @@ namespace GlobalSoft.Models
         [Key]
         public int DetailID { get; set; }
         public int MainID { get; set; }
+        public DateTime Duedate { get; set; }
+        [StringLength(20)]
+        public string TglString { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }
         public decimal Piutang { get; set; }

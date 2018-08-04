@@ -1,7 +1,8 @@
 ﻿@model GlobalSoft.Models.PiutangMain
 <p></p>
 <h1>Transaksi</h1>
-@using (Html.BeginForm("Create", "BayarAngsuran", FormMethod.Post, new { id = "form1" }))
+@*using (Html.BeginForm("DetailAngsuran", "BayarAngsuran", FormMethod.Post, new { id = "form1" }))*@
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -36,33 +37,27 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CustomerID", null,"--Select Customer--", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
 
             </div>
-            <input type="button" value="Proses" id="Add" />
+                                
+                    <input type="submit" value="Search" />
+          
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("UnitID", null,"--Select Unit--", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
             </div>
-            <input type="button" value="Proses" id="Add" />
+            <input type="button" value="Proses" id="Search2" />
         </div>
     </div>
     <p></p>
-    <button>Toggle</button>
-    <table id="myTable" style="border: 1px solid black; display: none">
-        <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
-        </tr>
-        <tr>
-            <td>Data 1</td>
-            <td>Data 2</td>
-        </tr>
-    </table>
+    <div id="target">
+    </div>
+   
 }
 
 @section scripts{
@@ -81,11 +76,19 @@
         });
     </script>
 
+   
+       
     <script>
-        $(document).ready(function () {
-            $("button").click(function () {
-                $("#myTable").toggle();
-            });
+  
+
+          $(document).ready(function () {
+        $("#CustomerID").change(function () {
+            var countrySelected = $("select option:selected").first().text();
+            $.get('@Url.Action("/BayarAngsuran/GetDetail")',
+                { id: countrySelected }, function (data) {
+                    $("#target").html(data);
+                });
         });
+    });
     </script>
 }

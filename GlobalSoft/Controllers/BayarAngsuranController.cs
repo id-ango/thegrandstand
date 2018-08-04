@@ -64,16 +64,21 @@ namespace GlobalSoft.Controllers
         }
 
        
-        public ActionResult PiutangDetail(int? i)
+        public PartialViewResult GetDetail(int id)
         {
-            ViewBag.i = i;
-            return PartialView();
-        }
-
-        public ActionResult DetailAngsuran(int? i)
-        {
-            ViewBag.i = i;
-            return PartialView();
+            var allList = db.AptSPesanans.Where(x => x.AptTrans.CustomerID==id && (x.Jumlah-x.Bayar-x.Diskon)!=0);
+            //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
+            var employees = (from employee in allList
+                             select new
+                             {
+                                 employee.Duedate,
+                                 employee.Keterangan,
+                                 employee.Jumlah,
+                                 employee.Bayar,
+                                 employee.Diskon,
+                                 employee.Sisa
+                             }).ToList();
+            return PartialView(employees);
         }
     }
 }
