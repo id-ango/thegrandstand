@@ -64,21 +64,20 @@ namespace GlobalSoft.Controllers
         }
 
        
-        public PartialViewResult GetDetail(int id)
+        public PartialViewResult DetailAngsuran()
         {
-            var allList = db.AptSPesanans.Where(x => x.AptTrans.CustomerID==id && (x.Jumlah-x.Bayar-x.Diskon)!=0);
+           // int Custid = 2;
+
+             var allList = db.AptSPesanans.ToList();
+            // var allList = db.AptSPesanans.Where(x => x.AptTrans.CustomerID==Custid && (x.Jumlah-x.Bayar-x.Diskon)!=0).ToList();
             //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
-            var employees = (from employee in allList
-                             select new
-                             {
-                                 employee.Duedate,
-                                 employee.Keterangan,
-                                 employee.Jumlah,
-                                 employee.Bayar,
-                                 employee.Diskon,
-                                 employee.Sisa
-                             }).ToList();
-            return PartialView(employees);
+
+            List<PiutangDetail> Transaksi = new List<PiutangDetail>();
+            foreach(var i in allList)
+            {
+                Transaksi.Add(new PiutangDetail { Duedate = i.Duedate, Keterangan = i.Keterangan, Piutang = i.Jumlah, Bayar = i.Bayar, Diskon = i.Diskon, Sisa = i.Jumlah - i.Bayar - i.Diskon });
+            }
+            return PartialView(Transaksi);
         }
     }
 }

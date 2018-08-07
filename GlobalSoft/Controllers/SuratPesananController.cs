@@ -502,5 +502,21 @@ namespace GlobalSoft.Controllers
             JObject o = JObject.FromObject(response);
             return Content(o.ToString());
         }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult GETSubType(string Typeid)
+        {
+            var listCust = (from e in db.CbTranss
+                            where e.AptUnit.UnitNo.Trim() == Typeid
+                            select new
+                            {
+                                e.UnitID
+                            });
+                               
+
+
+            return Json(listCust, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

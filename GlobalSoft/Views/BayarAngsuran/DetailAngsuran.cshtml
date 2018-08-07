@@ -1,36 +1,39 @@
-﻿<table id="assets-data-table" class="display" style="width:100%">
+﻿@model IList<GlobalSoft.Models.PiutangDetail>
+
+@{ 
+    
+    ViewBag.NoUrut = 5;
+    int y = ViewBag.NoUrut;
+    for (int i = 1; i < y; i++)
+    {
+<table class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Position</th>
-            <th>Office</th>
+            <th>Tanggal</th>
+            <th>Keterangan</th>
+            <th>Piutang</th>
+            <th>Bayar</th>
+            <th>Diskon</th>
+            <th>Sisa</th>
         </tr>
     </thead>
+  
+        <tbody>
+            @foreach (var aset in Model)
+    {
+            <tr>
+
+
+                <td>@aset.Duedate</td>
+                <td>@aset.Keterangan</td>
+                <td>@aset.Piutang</td>
+                <td>@aset.Bayar</td>
+                <td>@aset.Diskon</td>
+                <td>@aset.Sisa</td>
+
+            </tr>
+            }
+        </tbody> 
 </table>
-@section Scripts
-{
-
-    <script type="text/javascript">
-
-
-     $(document).ready(function () {
-         var table = $('#assets-data-table').DataTable({
-             "language": {
-                 "decimal": ",",
-                 "thousands": "."
-             },
-             "scrollY": 300,
-             "scrollX": true
-         });
-
-         $('#assets-data-table tbody')
-             .on('mouseenter', 'td', function () {
-                 var colIdx = table.cell(this).index().column;
-
-                 $(table.cells().nodes()).removeClass('highlight');
-                 $(table.column(colIdx).nodes()).addClass('highlight');
-             });
-     });
-    </script>
+        }
     }

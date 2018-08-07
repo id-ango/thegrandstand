@@ -1,13 +1,13 @@
 ﻿@model GlobalSoft.Models.PiutangMain
 <p></p>
 <h1>Transaksi</h1>
-@*using (Html.BeginForm("DetailAngsuran", "BayarAngsuran", FormMethod.Post, new { id = "form1" }))*@
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Surat Pesanan</h4>
+        <h4>Pembayaran Piutang</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -37,27 +37,49 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("CustomerID", null,"--Select Customer--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control", @onchange = "CallChangefunc(this)" })
                 @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
 
             </div>
-                                
-                    <input type="submit" value="Search" />
-          
+
+            <input type="submit" value="Submit" title="Get Data" id="ButCustomer" />
+
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("UnitID", null,"--Select Unit--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("UnitID", null, "--Select Unit--", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
             </div>
             <input type="button" value="Proses" id="Search2" />
         </div>
     </div>
-    <p></p>
     <div id="target">
+        <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Piutang</th>
+                    <th>Bayar</th>
+                    <th>Diskon</th>
+                    <th>Sisa</th>
+                </tr>
+            </thead>
+        </table>
     </div>
-   
+    <div id="partial">
+        @{ViewBag.NoUrut = 5;}
+        @{
+            int xy = 1;
+            if (xy == 1)
+            {
+               @Html.Action("DetailAngsuran")
+                }
+            }
+    </div>
+
+
 }
 
 @section scripts{
@@ -76,19 +98,24 @@
         });
     </script>
 
-   
-       
-    <script>
-  
 
-          $(document).ready(function () {
-        $("#CustomerID").change(function () {
-            var countrySelected = $("select option:selected").first().text();
-            $.get('@Url.Action("/BayarAngsuran/GetDetail")',
-                { id: countrySelected }, function (data) {
-                    $("#target").html(data);
-                });
-        });
-    });
+    <script>
+        function CallChangefunc(obj) {
+            alert(obj.options[obj.selectedIndex].Value);
+        }
+    </script>
+
+    <script>
+        var i = 1;
+        $("#Add").click(function () {
+            $.ajax({
+                url: '/BayarAngsuran/DetailAngsuran',
+                data: { i: i },
+                success: function (data) {
+                    $("#partial").append(data);
+                }
+            })
+            i++;
+        })
     </script>
 }
