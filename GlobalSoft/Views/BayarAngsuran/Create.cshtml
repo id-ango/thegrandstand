@@ -37,48 +37,25 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control", @onchange = "CallChangefunc(this)" })
+                @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control", @id = "dropdown" })
                 @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
 
-            </div>
-
-            <input type="submit" value="Submit" title="Get Data" id="ButCustomer" />
+            </div>         
 
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.DropDownList("UnitID", null, "--Select Unit--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("UnitID", null, "--Select Unit--", htmlAttributes: new { @class = "form-control", @id = "dropdown1" })
                 @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
             </div>
-            <input type="button" value="Proses" id="Search2" />
+            
         </div>
     </div>
-    <div id="target">
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Keterangan</th>
-                    <th>Piutang</th>
-                    <th>Bayar</th>
-                    <th>Diskon</th>
-                    <th>Sisa</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div id="partial">
-        @{ViewBag.NoUrut = 5;}
-        @{
-            int xy = 1;
-            if (xy == 1)
-            {
-               @Html.Action("DetailAngsuran")
-                }
-            }
-    </div>
+   
+    <div id="list_container">
 
+    </div>
 
 }
 
@@ -98,24 +75,48 @@
         });
     </script>
 
-
     <script>
-        function CallChangefunc(obj) {
-            alert(obj.options[obj.selectedIndex].Value);
-        }
-    </script>
+        $('#dropdown').change(function (e) {
+            var row_num = $("#dropdown option:selected").val();
+           // alert("Nama Customer : " + row_num);
 
-    <script>
-        var i = 1;
-        $("#Add").click(function () {
             $.ajax({
-                url: '/BayarAngsuran/DetailAngsuran',
-                data: { i: i },
+                type: "GET",
+                url: "/BayarAngsuran/DetailAngsuran",
+                data: {
+                    Custid: row_num,
+                    Unitid: 0
+                },
                 success: function (data) {
-                    $("#partial").append(data);
+                    $("#list_container").html(data);
+                },
+                error: function () {
+                    alert("Something went wrong in controller");
                 }
-            })
-            i++;
-        })
+            });
+        });
     </script>
+
+    <script>
+        $('#dropdown1').change(function (e) {
+            var row_num = $("#dropdown1 option:selected").val();
+          //  alert("Nama Customer : " + row_num);
+
+            $.ajax({
+                type: "GET",
+                url: "/BayarAngsuran/DetailAngsuran",
+                data: {
+                    Custid: 0,
+                    Unitid: row_num
+                },
+                success: function (data) {
+                    $("#list_container").html(data);
+                },
+                error: function () {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+    </script>
+
 }

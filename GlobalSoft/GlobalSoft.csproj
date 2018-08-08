@@ -655,6 +655,7 @@
     <Content Include="Views\BayarAngsuran\Index.cshtml" />
     <Content Include="Views\BayarAngsuran\GetDetail.cshtml" />
     <Content Include="Views\BayarAngsuran\DetailAngsuran.cshtml" />
+    <Content Include="Views\BayarAngsuran\DetailAngsuran1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
