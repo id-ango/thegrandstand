@@ -47,23 +47,5 @@
 <script type="text/javascript">
 
 
-    $(document).ready(function () {
-
-        var table = $('#assets-data-table').DataTable({
-            "language": {
-                "decimal": ",",
-                "thousands": "."
-            },
-            "scrollY": 300,
-            "scrollX": true
-        });
-
-        $('#assets-data-table tbody')
-            .on('mouseenter', 'td', function () {
-                var colIdx = table.cell(this).index().column;
-
-                $(table.cells().nodes()).removeClass('highlight');
-                $(table.column(colIdx).nodes()).addClass('highlight');
-            });
-    });
+    
 </script>
