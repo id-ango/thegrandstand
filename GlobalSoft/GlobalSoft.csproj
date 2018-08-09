@@ -188,6 +188,18 @@
     <Compile Include="Migrations\201808040927137_tambahduedate.Designer.cs">
       <DependentUpon>201808040927137_tambahduedate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808090458284_piutdetal2.cs" />
+    <Compile Include="Migrations\201808090458284_piutdetal2.Designer.cs">
+      <DependentUpon>201808090458284_piutdetal2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808090543112_piutdet3.cs" />
+    <Compile Include="Migrations\201808090543112_piutdet3.Designer.cs">
+      <DependentUpon>201808090543112_piutdet3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808090623387_spesananid.cs" />
+    <Compile Include="Migrations\201808090623387_spesananid.Designer.cs">
+      <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -676,6 +688,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808040927137_tambahduedate.resx">
       <DependentUpon>201808040927137_tambahduedate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808090458284_piutdetal2.resx">
+      <DependentUpon>201808090458284_piutdetal2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808090543112_piutdet3.resx">
+      <DependentUpon>201808090543112_piutdet3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808090623387_spesananid.resx">
+      <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

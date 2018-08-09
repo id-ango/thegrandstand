@@ -130,6 +130,7 @@ namespace GlobalSoft.Models
         [Key]
         public int DetailID { get; set; }
         public int MainID { get; set; }
+        public int SPesananID { get; set; }
         public DateTime Duedate { get; set; }
         [StringLength(20)]
         public string TglString { get; set; }
@@ -139,6 +140,12 @@ namespace GlobalSoft.Models
         public decimal Bayar { get; set; }
         public decimal Diskon { get; set; }
         public decimal Sisa { get; set; }
+        public int CustomerID { get; set; }
+        [StringLength(100)]
+        public string CustomerName { get; set; }
+        public int UnitID { get; set; }
+        [StringLength(20)]
+        public string UnitNo { get; set; }
         [StringLength(20)]
         public string SPesanan { get; set; }
         public PiutangMain PiutangMain { get; set; }
