@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class aptbayar3 : IMigrationMetadata
+    public sealed partial class InitialBaseline : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(aptbayar3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialBaseline));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807070956566_aptbayar3"; }
+            get { return "201808100549283_InitialBaseline"; }
         }
         
         string IMigrationMetadata.Source

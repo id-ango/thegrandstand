@@ -287,7 +287,7 @@ namespace GlobalSoft.Models
         public DbSet<AptUrut> AptUruts { get; set; }
         public DbSet<PiutangMain> PiutangMains { get; set; }
         public DbSet<PiutangDetail> PiutangDetails { get; set; }
-
+        
 
     }
 }

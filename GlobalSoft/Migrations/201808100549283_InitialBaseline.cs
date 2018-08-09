@@ -3,7 +3,7 @@ namespace GlobalSoft.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class aptbayar3 : DbMigration
+    public partial class InitialBaseline : DbMigration
     {
         public override void Up()
         {

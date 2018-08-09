@@ -21,7 +21,7 @@
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @* Date: <input type="text" id="datepicker">*@
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false", @Value = ViewBag.Tanggal } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi",  @Value = ViewBag.Tanggal } })
                 @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>

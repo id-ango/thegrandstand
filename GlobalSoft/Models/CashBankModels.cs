@@ -126,9 +126,6 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         public string NoJurnal { get; set; }
 
-        public static implicit operator CbTrans(ArCustomer v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
