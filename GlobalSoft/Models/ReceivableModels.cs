@@ -130,6 +130,7 @@ namespace GlobalSoft.Models
         [Key]
         public int DetailID { get; set; }
         public int MainID { get; set; }
+        public virtual PiutangMain PiutangMain { get; set; }
         public int SPesananID { get; set; }
         public DateTime Duedate { get; set; }
         [StringLength(20)]
@@ -148,7 +149,7 @@ namespace GlobalSoft.Models
         public string UnitNo { get; set; }
         [StringLength(20)]
         public string SPesanan { get; set; }
-        public PiutangMain PiutangMain { get; set; }
+       
     }
 
 }
