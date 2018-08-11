@@ -63,8 +63,20 @@ namespace GlobalSoft.Controllers
             return View();
         }
 
-       
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateBind([Bind(Include = "MainID,NoBukti,Tanggal,UnitID,CustomerID,Keterangan")] PiutangMain piutangMain )
+        {
+            if (ModelState.IsValid)
+            {
+                db.PiutangMains.Add(piutangMain);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
         public ActionResult DetailAngsuran(int Custid,int Unitid)
         {
 

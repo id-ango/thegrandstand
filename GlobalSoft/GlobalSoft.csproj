@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201808090623387_spesananid.Designer.cs">
       <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808110720110_virtualpiutangmain.cs" />
+    <Compile Include="Migrations\201808110720110_virtualpiutangmain.Designer.cs">
+      <DependentUpon>201808110720110_virtualpiutangmain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -676,6 +680,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808090623387_spesananid.resx">
       <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808110720110_virtualpiutangmain.resx">
+      <DependentUpon>201808110720110_virtualpiutangmain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
