@@ -56,6 +56,7 @@ namespace GlobalSoft.Models
         public int TranshID { get; set; }
         public virtual CbTransH CbTransH { get; set; }
         public int BankID { get; set; }
+        public Guid GuidDb { get; set; }
         public Guid GuidCb { get; set; }
         [StringLength(20)]
         public string Docno { get; set; }

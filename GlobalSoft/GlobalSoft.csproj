@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201808180728260_cbTransh2.Designer.cs">
       <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808191442320_guidcb.cs" />
+    <Compile Include="Migrations\201808191442320_guidcb.Designer.cs">
+      <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -710,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808180728260_cbTransh2.resx">
       <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808191442320_guidcb.resx">
+      <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

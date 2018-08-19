@@ -23,14 +23,8 @@ namespace GlobalSoft.Controllers
             return View();
         }
 
-        public ActionResult Create()
-        {
-            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
-            ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(string kodeNo)
+        
+        public ActionResult getBuktiOrder(string kodeNo)
         {
             // var maxvalue = db.AptTranss.Max(x =>  x.NoRef.Substring(0, 10));
 
@@ -52,12 +46,11 @@ namespace GlobalSoft.Controllers
             string cAngNo = kodeNo + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
             // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
             string cNoref = cAngNo;
-            ViewBag.NoRef = cNoref;
+            
 
-            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
-            ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            return View();
+            return Json(new { result = cNoref });
         }
+
 
         public ActionResult SaveOrder(string DocNo, String Keterangan,  CbTransD[] order)
         {
@@ -138,15 +131,15 @@ namespace GlobalSoft.Controllers
             {
                 foreach (var item in order.OrderDetails)
                 {
-                   // var detailId = Guid.NewGuid();
+                    var detailId = Guid.NewGuid();
                     var orderDetails = new CbTransD()
                     {
-                       
+                        GuidDb = detailId,
                         GuidCb = masterId,
-                        TransNoID = 2,
+                        TransNoID = item.Source,
                         Terima = decimal.Parse(item.Terima),
                         Keterangan = item.Keterangan,
-                        Bayar = int.Parse(item.Bayar)
+                        Bayar = decimal.Parse(item.Bayar)
                     };
 
                     db.CbTransDs.Add(orderDetails);
