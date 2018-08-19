@@ -17,9 +17,10 @@ namespace GlobalSoft.Controllers
         // GET: TransBank
         public ActionResult Index()
         {
-            var aptTranss2 = db.CbTransHs.Include(a =>a.Bank1).Include( a =>a.Bank2);
-            
-            return View(aptTranss2.ToList());
+           
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
+            ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+            return View();
         }
 
         public ActionResult Create()
@@ -101,12 +102,12 @@ namespace GlobalSoft.Controllers
             var model = (db.CbTransHs.ToList()
                         .Select(x => new
                         {
-                            TranshID = x.TranshID,
-                            DocNo = x.Docno,
-                            BankName = x.Bank1.BankName,
-                            Keterangan = x.Keterangan,
-                            Jumlah = x.Saldo,
-                            Tanggal = x.Tanggal.ToString("D")
+                            masterId = x.GuidCb,
+                            Docno = x.Docno,
+                            Deskripsi = x.Keterangan,
+                            Bank = (x.Bank1 == null) ? "kosong" : x.Bank1.BankName,
+                            Tanggal = x.Tanggal.ToString(),
+                            Jumlah = x.Saldo
                         })).ToList();
 
             return Json(new
@@ -124,9 +125,11 @@ namespace GlobalSoft.Controllers
             var orderMaster = new CbTransH()
             {
                 GuidCb = masterId,
-                Docno = order.CustomerName,
-                Keterangan = order.Address,
-                Tanggal = DateTime.Now
+                Docno = order.DocNo,
+                Keterangan = order.Deskripsi,
+                Tanggal = DateTime.Now,
+                BankID = 1
+                
             };
             db.CbTransHs.Add(orderMaster);
             //Process Order details
@@ -140,9 +143,10 @@ namespace GlobalSoft.Controllers
                     {
                        
                         GuidCb = masterId,
-                        Terima = decimal.Parse(item.Amount),
-                        Keterangan = item.ProductName,
-                        Bayar = int.Parse(item.Quantity)
+                        TransNoID = 2,
+                        Terima = decimal.Parse(item.Terima),
+                        Keterangan = item.Keterangan,
+                        Bayar = int.Parse(item.Bayar)
                     };
 
                     db.CbTransDs.Add(orderDetails);
@@ -169,10 +173,13 @@ namespace GlobalSoft.Controllers
             var model = (from ord in db.CbTransHs
                          where ord.GuidCb == orderId
                          select new OrderViewModel()
-                         {
+                         {                                                         
                              MasterId = ord.GuidCb,
-                             CustomerName = ord.Docno,
-                             Address = ord.Keterangan
+                             DocNo = ord.Docno,
+                             Tanggal = ord.Tanggal.ToString(),
+                             Deskripsi = ord.Keterangan,
+                             Bank = ord.BankID,
+                             Jumlah = ord.Saldo.ToString()
                          }).SingleOrDefault();
 
             if (model != null)
@@ -182,9 +189,10 @@ namespace GlobalSoft.Controllers
                                       select new OrderDetailsViewModel()
                                       {
                                           DetailId = od.GuidCb,
-                                          Amount = od.Terima.ToString(),
-                                          ProductName = od.Keterangan,
-                                          Quantity = od.Bayar.ToString()
+                                          Terima = od.Terima.ToString(),
+                                          Keterangan = od.Keterangan,
+                                          Source = od.TransNoID,
+                                          Bayar = od.Bayar.ToString()
                                       }).ToList();
             }
 
@@ -208,9 +216,10 @@ namespace GlobalSoft.Controllers
                                select new OrderDetailsViewModel()
                                {
                                    DetailId = od.GuidCb,
-                                   Amount = od.Terima.ToString(),
-                                   ProductName = od.Keterangan,
-                                   Quantity = od.Bayar.ToString()
+                                   Source = od.TransNoID,
+                                   Terima = od.Terima.ToString(),
+                                   Keterangan = od.Keterangan,
+                                   Bayar = od.Bayar.ToString()
                                }).SingleOrDefault();
 
             return Json(new { result = orderDetail }, JsonRequestBehavior.AllowGet);
