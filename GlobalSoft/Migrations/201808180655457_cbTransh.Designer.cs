@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialBaseline : IMigrationMetadata
+    public sealed partial class cbTransh : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialBaseline));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(cbTransh));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808100549283_InitialBaseline"; }
+            get { return "201808180655457_cbTransh"; }
         }
         
         string IMigrationMetadata.Source

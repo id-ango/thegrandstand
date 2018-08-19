@@ -136,27 +136,4 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#UnitID").change(function () {
-                var dID = $('#Typeid option:selected').val();
-                $.getJSON("../SuratPesanan/GETSubType", { Typeid: dID },
-                    function (data) {
-                        var select = $("#CustomerID");
-                        select.empty();
-                        select.append($('<option/>', {
-                            value: 0,
-                            text: "Select project sub-types"
-                        }));
-                        $.each(data, function (index, itemData) {
-                            select.append($('<option/>', {
-                                value: itemData.Value,
-                                text: itemData.Text
-                            }));
-                        });
-                    });
-            });
-        });
-
-    </script>
-}
+    }

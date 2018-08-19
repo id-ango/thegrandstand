@@ -1,0 +1,205 @@
+﻿@model GlobalSoft.Models.OrderVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+
+<h2>Transaksi Kas Bank</h2>
+<div class="container">
+    <div class="master">
+        <h2></h2>
+        <table class="table table-responsive">
+            <tr>
+                <td>Kode</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <input type="text" maxlength="3" size="3" id="kodeNo" class="quantity form-control" onkeydown="uppercaseF(this)" />
+                            <span class="error">Kode Urut</span>
+
+                        </div>
+                        <div class="col-md-3">
+                            <input type="submit" id="BtnKode" value="CEK" style="width:80px" class="btn btn-sm" />
+
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>No. Bukti</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+
+                            @Html.EditorFor(model => model.Docno, new { htmlAttributes = new { @class = "form-control", placeholder = "No Bukti" } })
+                            @Html.ValidationMessageFor(model => model.Docno, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </td>
+                <td>Tanggal</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false", @Value = DateTime.Now } })
+                            @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Bank</td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.DropDownList("BankID", null, "--Select Bank--", htmlAttributes: new { @class = "form-control" })
+                            <span class="error">Bank required</span>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Keterangan</td>
+                <td colspan="3">
+                    <textarea id="Description" class="form-control"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="details">
+            <h2>
+                Detail
+            </h2>
+            <table class="table table-responsive">
+                <tr>
+                    <td>Source</td>
+                    <td>Keterangan</td>
+                    <td>Terima</td>
+                    <td>Bayar</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="mycontainer" id="mainrow">
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.DropDownList("TransNoID", null, "--Source--", htmlAttributes: new { @class = "pc form-control" })
+                                <span class="error">Source Required</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.EditorFor(item => item.OrderDetails[0].Keterangan, new { htmlAttributes = new { @class = "form-control", placeholder = "No Bukti" ,@id="Keterangan"} })
+                        <input type="text" id="Keterangan2" class="quantity form-control" />
+                        <span class="error">Valid Keterangan required</span>
+                    </td>
+                    <td>
+                        <input type="text" id="Terima" class="quantity form-control" />
+                        <span class="error">Valid Terima Required</span>
+                    </td>
+                    <td>
+                        <input type="text" id="Bayar" class="rate form-control" />
+                        <span class="error">Valid Bayar Required</span>
+                    </td>
+                    <td>
+                        <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+            <div id="orderItems">
+                <table class="table table-responsive" id="orderdetailsItems"></table>
+                <span id="orderItemError" style="color:red"></span>
+            </div>
+            <div style="padding:10px 0; text-align:right">
+                <input id="submit" type="button" value="Simpan" class="btn btn-warning" style="padding:10px 20px" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/myScripts.js"></script>
+    <script>
+        $(function () {
+            $("#Tanggal").datepicker({
+                dateFormat: 'mm-dd-yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            });
+        });
+    </script>
+    <script>
+        function uppercaseF(a) {
+
+            setTimeout(function () {
+                a.value = a.value.toUpperCase();
+            }, 1);
+
+        }
+    </script>
+
+    <script>
+        /*            document.getElementById("Docno").focus = function () { myFunction() };
+
+                    function myFunction() {
+                        var x = document.getElementById("Docno");
+                        x.value = x.value.toUpperCase();
+                    }
+        */
+        addEvent(document.getElementById('kodeNo'), 'keyup', function () {
+            document.getElementById('Docno').value = this.value.replace(' ', '_');
+        });
+
+
+        function addEvent(ele, evnt, funct) {
+            if (ele.addEventListener) // W3C
+                return ele.addEventListener(evnt, funct, false);
+            else if (ele.attachEvent)  // IE
+                return ele.attachEvent("on" + evnt, funct);
+        }
+    </script>
+    <script>
+        /*            document.getElementById("Docno").focus = function () { myFunction() };
+
+                    function myFunction() {
+                        var x = document.getElementById("Docno");
+                        x.value = x.value.toUpperCase();
+                    }
+        */
+        addEvent(document.getElementById('Terima'), 'keyup', function () {
+            document.getElementById('Bayar').value = this.value.replace(' ', '_');
+        });
+
+
+        function addEvent(ele, evnt, funct) {
+            if (ele.addEventListener) // W3C
+                return ele.addEventListener(evnt, funct, false);
+            else if (ele.attachEvent)  // IE
+                return ele.attachEvent("on" + evnt, funct);
+        }
+    </script>
+    
+}

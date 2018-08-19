@@ -19,7 +19,7 @@ namespace GlobalSoft.Models
         [Display(Name = "Rekening Bank")]
         public string BankAccount { get; set; }
 
-    //    public int BankType { get; set; }    // 1: Bank, 2:Cash 3:Kasbon
+        public int BankType { get; set; }    // 1: Bank, 2:Cash 3:Kasbon
         public decimal Saldo { get; set; }
         
         public int GlAkunID { get; set; }
@@ -33,32 +33,42 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int TranshID { get; set; }
+        public Guid GuidCb { get; set; }
         [StringLength(20)]
-        public string NoRef { get; set; }
+        public string Docno { get; set; }
+        public int BankID { get; set; }
+        public virtual CbBank Bank1 { get; set; }
+        public int BankID2 { get; set; }
+        public virtual CbBank Bank2 { get; set; }
         public DateTime Tanggal { get; set; }
-        public string Keterangan { get; set; }
-        public decimal SaldoAwal { get; set; }
-        public decimal SaldoAkhir { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }        
         public decimal Saldo { get; set; }
-         public int BankID { get; set; }
+        public virtual ICollection<CbTransD> CbTransDs { get; set; }
+
 
     }
 
     public class CbTransD
     {
         [Key]
-        public int CbTransdID { get; set; }
-        public int CbTranshID { get; set; }
+        public int TransdID { get; set; }
+        public int TranshID { get; set; }
+        public virtual CbTransH CbTransH { get; set; }
+        public int BankID { get; set; }
+        public Guid GuidCb { get; set; }
         [StringLength(20)]
-        public string NoRef { get; set; }
-        public DateTime Tanggal { get; set; }
+        public string Docno { get; set; }
+        public DateTime Tanggal { get; set; }           
+        
+        public int TransNoID { get; set; }
+        public virtual AptTrsNo AptTrsNo { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
         public decimal Jumlah { get; set; }
+        public decimal Terima { get; set; }
+        public decimal Bayar { get; set; }
 
-        [StringLength(10)]
-        public string KodeAkun { get; set; }
-        [StringLength(100)]
-        public string Label { get; set; }
-       
 
     }
 
@@ -70,7 +80,7 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         [Display(Name = "No Bukti")]
         public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
-
+        
         [Display(Name = "Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
 
@@ -127,5 +137,10 @@ namespace GlobalSoft.Models
         public string NoJurnal { get; set; }
 
         
+    }
+
+    public partial class OrderMaster
+    {
+        public string OrderDateString { get; set; }
     }
 }

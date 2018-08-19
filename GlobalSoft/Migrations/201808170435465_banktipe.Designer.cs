@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class virtualpiutangmain : IMigrationMetadata
+    public sealed partial class banktipe : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(virtualpiutangmain));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(banktipe));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808110720110_virtualpiutangmain"; }
+            get { return "201808170435465_banktipe"; }
         }
         
         string IMigrationMetadata.Source

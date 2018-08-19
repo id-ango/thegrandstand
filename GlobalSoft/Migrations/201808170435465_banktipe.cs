@@ -3,16 +3,16 @@ namespace GlobalSoft.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class piutdet3 : DbMigration
+    public partial class banktipe : DbMigration
     {
         public override void Up()
         {
-            AlterColumn("dbo.PiutangDetails", "UnitNo", c => c.String(maxLength: 20));
+            AddColumn("dbo.CbBanks", "BankType", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.PiutangDetails", "UnitNo", c => c.String(maxLength: 10));
+            DropColumn("dbo.CbBanks", "BankType");
         }
     }
 }

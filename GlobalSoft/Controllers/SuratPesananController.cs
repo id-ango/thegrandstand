@@ -220,7 +220,7 @@ namespace GlobalSoft.Controllers
                 return HttpNotFound();
             }
             var ListUM = (from e in db.CbTranss
-                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.CustomerID
+                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Contains("BookingFee") && e.PersonID == aptTrans.CustomerID
                             select e.Payment).ToList();
 
             decimal Uangmuka = 0;
@@ -356,7 +356,7 @@ namespace GlobalSoft.Controllers
                         else if (i >= 6)
                         {
 
-                            Ket7 = string.Format("Angsuran 8 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
                             JumAngsur = JumAngsur + angsuran;
                         }
 
@@ -430,7 +430,7 @@ namespace GlobalSoft.Controllers
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
             var TransUTJ = db.CbTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
            var ListUangMuka = (from e in TransUTJ
-                               where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Trim() == "BookingFee" && e.PersonID == aptTrans.CustomerID
+                               where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Contains("BookingFee") && e.PersonID == aptTrans.CustomerID
                                select e).ToList();
 
             ViewBag.ListUangMuka = ListUangMuka;

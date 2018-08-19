@@ -169,28 +169,41 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
+    <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808100549283_InitialBaseline.cs" />
-    <Compile Include="Migrations\201808100549283_InitialBaseline.Designer.cs">
-      <DependentUpon>201808100549283_InitialBaseline.cs</DependentUpon>
+    <Compile Include="Migrations\201808121453137_emptyunitid2.cs" />
+    <Compile Include="Migrations\201808121453137_emptyunitid2.Designer.cs">
+      <DependentUpon>201808121453137_emptyunitid2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808090458284_piutdetal2.cs" />
-    <Compile Include="Migrations\201808090458284_piutdetal2.Designer.cs">
-      <DependentUpon>201808090458284_piutdetal2.cs</DependentUpon>
+    <Compile Include="Migrations\201808140234071_aptrsno2.cs" />
+    <Compile Include="Migrations\201808140234071_aptrsno2.Designer.cs">
+      <DependentUpon>201808140234071_aptrsno2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808090543112_piutdet3.cs" />
-    <Compile Include="Migrations\201808090543112_piutdet3.Designer.cs">
-      <DependentUpon>201808090543112_piutdet3.cs</DependentUpon>
+    <Compile Include="Migrations\201808140239261_Kasbank.cs" />
+    <Compile Include="Migrations\201808140239261_Kasbank.Designer.cs">
+      <DependentUpon>201808140239261_Kasbank.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808090623387_spesananid.cs" />
-    <Compile Include="Migrations\201808090623387_spesananid.Designer.cs">
-      <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
+    <Compile Include="Migrations\201808170415311_tambahbank1.cs" />
+    <Compile Include="Migrations\201808170415311_tambahbank1.Designer.cs">
+      <DependentUpon>201808170415311_tambahbank1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808110720110_virtualpiutangmain.cs" />
-    <Compile Include="Migrations\201808110720110_virtualpiutangmain.Designer.cs">
-      <DependentUpon>201808110720110_virtualpiutangmain.cs</DependentUpon>
+    <Compile Include="Migrations\201808170435465_banktipe.cs" />
+    <Compile Include="Migrations\201808170435465_banktipe.Designer.cs">
+      <DependentUpon>201808170435465_banktipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808180655457_cbTransh.cs" />
+    <Compile Include="Migrations\201808180655457_cbTransh.Designer.cs">
+      <DependentUpon>201808180655457_cbTransh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808180727160_cbTransh1.cs" />
+    <Compile Include="Migrations\201808180727160_cbTransh1.Designer.cs">
+      <DependentUpon>201808180727160_cbTransh1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808180728260_cbTransh2.cs" />
+    <Compile Include="Migrations\201808180728260_cbTransh2.Designer.cs">
+      <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -542,6 +555,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\myScripts.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Site.js" />
@@ -660,6 +674,10 @@
     <Content Include="Views\BayarAngsuran\GetDetail.cshtml" />
     <Content Include="Views\BayarAngsuran\DetailAngsuran.cshtml" />
     <Content Include="Views\BayarAngsuran\DetailAngsuran1.cshtml" />
+    <Content Include="Views\TransBank\Index.cshtml" />
+    <Content Include="Views\TransBank\Create.cshtml" />
+    <Content Include="Views\TransBank\Index - Copy.cshtml" />
+    <Content Include="Views\TransBank\Index - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -669,20 +687,29 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808100549283_InitialBaseline.resx">
-      <DependentUpon>201808100549283_InitialBaseline.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808121453137_emptyunitid2.resx">
+      <DependentUpon>201808121453137_emptyunitid2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808090458284_piutdetal2.resx">
-      <DependentUpon>201808090458284_piutdetal2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808140234071_aptrsno2.resx">
+      <DependentUpon>201808140234071_aptrsno2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808090543112_piutdet3.resx">
-      <DependentUpon>201808090543112_piutdet3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808140239261_Kasbank.resx">
+      <DependentUpon>201808140239261_Kasbank.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808090623387_spesananid.resx">
-      <DependentUpon>201808090623387_spesananid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808170415311_tambahbank1.resx">
+      <DependentUpon>201808170415311_tambahbank1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808110720110_virtualpiutangmain.resx">
-      <DependentUpon>201808110720110_virtualpiutangmain.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808170435465_banktipe.resx">
+      <DependentUpon>201808170435465_banktipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808180655457_cbTransh.resx">
+      <DependentUpon>201808180655457_cbTransh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808180727160_cbTransh1.resx">
+      <DependentUpon>201808180727160_cbTransh1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808180728260_cbTransh2.resx">
+      <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

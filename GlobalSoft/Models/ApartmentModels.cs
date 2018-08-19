@@ -217,7 +217,8 @@ namespace GlobalSoft.Models
         [StringLength(20),Required]
         [Display(Name ="Jenis Transaksi")]
         public string TransNo { get; set; }                // Uang "Tanda Jadi","Surat Pesanan"
-        public int NoUrut { get; set; }
+        public int GlAkunID { get; set; }
+        
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
         public virtual ICollection<CbTrans> CbTrans { get; set; }
@@ -287,7 +288,10 @@ namespace GlobalSoft.Models
         public DbSet<AptUrut> AptUruts { get; set; }
         public DbSet<PiutangMain> PiutangMains { get; set; }
         public DbSet<PiutangDetail> PiutangDetails { get; set; }
-        
+        public DbSet<CbTransH> CbTransHs { get; set; }
+        public DbSet<CbTransD> CbTransDs { get; set; }
+
+
 
     }
 }

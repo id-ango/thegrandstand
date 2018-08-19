@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class piutdetal2 : IMigrationMetadata
+    public sealed partial class emptyunitid2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(piutdetal2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(emptyunitid2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808090458284_piutdetal2"; }
+            get { return "201808121453137_emptyunitid2"; }
         }
         
         string IMigrationMetadata.Source

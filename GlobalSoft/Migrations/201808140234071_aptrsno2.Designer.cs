@@ -7,13 +7,13 @@ namespace GlobalSoft.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class spesananid : IMigrationMetadata
+    public sealed partial class aptrsno2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(spesananid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aptrsno2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808090623387_spesananid"; }
+            get { return "201808140234071_aptrsno2"; }
         }
         
         string IMigrationMetadata.Source

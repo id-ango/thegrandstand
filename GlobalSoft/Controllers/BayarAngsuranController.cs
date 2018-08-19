@@ -19,7 +19,7 @@ namespace GlobalSoft.Controllers
 
         public ActionResult Index()
         {
-            var aptTranss2 = db.PiutangMains.Include(a => a.AptUnit).Include(a => a.ArCustomer);
+            var aptTranss2 = db.PiutangMains.Include(a => a.ArCustomer);
 
             return View(aptTranss2.ToList());
         }
@@ -65,16 +65,30 @@ namespace GlobalSoft.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateBind([Bind(Include = "MainID,NoBukti,Tanggal,UnitID,CustomerID,Keterangan")] PiutangMain piutangMain )
+        public ActionResult Create([Bind(Include = " NoBukti,Tanggal,CustomerID,Keterangan")] PiutangMain piutangMain,List<PiutangDetail> piutangDetail )
         {
             if (ModelState.IsValid)
             {
                 db.PiutangMains.Add(piutangMain);
                 db.SaveChanges();
+                foreach (var e in piutangDetail)
+                {
+                    if (e.Bayar !=0 || e.Diskon!=0)
+                    {
+                        db.PiutangDetails.Add(e);
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
+            var unitList = from e in db.AptUnits
+                           where e.StatusID == 3
+                           select e;
 
-            return View();
+            
+       //     ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", piutangMain.UnitID);
+       //     ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName", piutangMain.CustomerID);
+            return View(piutangMain);
         }
 
         public ActionResult DetailAngsuran(int Custid,int Unitid)

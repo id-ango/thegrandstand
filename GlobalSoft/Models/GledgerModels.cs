@@ -29,6 +29,7 @@ namespace GlobalSoft.Models
       
 
         public virtual ICollection<CbBank> CbBank { get; set; }
+        
     }
 
     public class GlTipe

@@ -118,5 +118,85 @@ namespace GlobalSoft.Models
         public List<UnitPiutang> Piutang { get; set; }
     }
 
-    
+    public class OrderVM
+    {
+        public int OrderKey { get; set; }
+        public string Docno { get; set; }
+        public DateTime Tanggal { get; set; }
+        public int BankID { get; set; }
+        public virtual CbBank CbBank { get; set; }
+        [StringLength(100)]
+        [Display(Name = "Nama Bank")]
+        public string BankName { get; set; }      
+        public string Keterangan { get; set; }
+        //    public int BankType { get; set; }    // 1: Bank, 2:Cash 3:Kasbon
+        public decimal Saldo { get; set; }
+        [StringLength(3)]
+        public string KodeUrut { get; set; }
+        public List<CbTransD> OrderDetails { get; set; }
+    }
+
+    public class OdTransH
+    {
+        [Key]
+        public int TranshID { get; set; }
+        [StringLength(20)]
+        public string Docno { get; set; }
+        public int BankID { get; set; }
+        public int BankID2 { get; set; }
+        public DateTime Tanggal { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        public decimal Saldo { get; set; }
+        public virtual ICollection<OdTransD> OdTransDs { get; set; }
+
+
+    }
+
+    public class OdTransD
+    {
+        [Key]
+        public int TransdID { get; set; }
+        public int TranshID { get; set; }
+        public int BankID { get; set; }
+
+
+        [StringLength(20)]
+        public string Docno { get; set; }
+        public DateTime Tanggal { get; set; }
+
+        public int TransNoID { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        public decimal Jumlah { get; set; }
+        public decimal Terima { get; set; }
+        public decimal Bayar { get; set; }
+        public virtual OdTransH OdTransH { get; set; }
+
+    }
+
+    public class OrderViewModel
+    {
+        public OrderViewModel()
+        {
+            this.OrderDetails = new List<OrderDetailsViewModel>();
+        }
+
+        public System.Guid MasterId { get; set; }
+        public string CustomerName { get; set; }
+        public string Address { get; set; }
+
+        public virtual ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
+    }
+
+
+    public class OrderDetailsViewModel
+    {
+        public System.Guid DetailId { get; set; }
+        public System.Guid MasterId { get; set; }
+        public string ProductName { get; set; }
+        public string Quantity { get; set; }
+        public string Amount { get; set; }
+
+    }
 }

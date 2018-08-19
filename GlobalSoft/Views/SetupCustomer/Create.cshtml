@@ -54,7 +54,7 @@
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.AlamatSekarang, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -103,4 +103,26 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+        
+            /*            document.getElementById("Docno").focus = function () { myFunction() };
+
+                        function myFunction() {
+                            var x = document.getElementById("Docno");
+                            x.value = x.value.toUpperCase();
+                        }
+            */
+            addEvent(document.getElementById('Alamat'), 'keyup', function () {
+                document.getElementById('AlamatSekarang').value = this.value;
+            });
+
+
+            function addEvent(ele, evnt, funct) {
+                if (ele.addEventListener) // W3C
+                    return ele.addEventListener(evnt, funct, false);
+                else if (ele.attachEvent)  // IE
+                    return ele.attachEvent("on" + evnt, funct);
+            }
+
+    </script>
 }

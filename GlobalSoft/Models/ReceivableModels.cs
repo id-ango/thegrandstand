@@ -110,7 +110,10 @@ namespace GlobalSoft.Models
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
-        public int UnitID { get; set; }
+        public int BankID { get; set; }
+        
+
+        public int? UnitID { get; set; }
         public virtual AptUnit AptUnit { get; set; }
 
         public int KodeTrans { get; set; }
