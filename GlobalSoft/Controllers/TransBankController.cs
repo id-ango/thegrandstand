@@ -51,11 +51,11 @@ namespace GlobalSoft.Controllers
             return Json(new { result = cNoref });
         }
 
-
-        public ActionResult SaveOrder(string DocNo, String Keterangan,  CbTransD[] order)
+       
+        public ActionResult SaveOrder(string DocNo, String Deskripsi,  CbTransD[] order)
         {
             string result = "Error! Order Is Not Complete!";
-            if (DocNo != null && Keterangan != null && order != null)
+            if (DocNo != null && Deskripsi != null && order != null)
             {
                 var GudId = Guid.NewGuid();
 
@@ -63,7 +63,7 @@ namespace GlobalSoft.Controllers
                 {
                     GuidCb = GudId,
                     Docno = DocNo,
-                    Keterangan = Keterangan,
+                    Keterangan = Deskripsi,
                     Tanggal = DateTime.Now
                 };
                 db.CbTransHs.Add(model);
@@ -98,10 +98,12 @@ namespace GlobalSoft.Controllers
                             masterId = x.GuidCb,
                             Docno = x.Docno,
                             Deskripsi = x.Keterangan,
-                            Bank = (x.Bank1 == null) ? "kosong" : x.Bank1.BankName,
+                            Bank =  db.CbBanks.Where( y => y.BankID == x.BankID).Select(y => y.BankName).FirstOrDefault()  ,
                             Tanggal = x.Tanggal.ToString(),
                             Jumlah = x.Saldo
                         })).ToList();
+
+//            Bank = (x.Bank1.BankName == null) ? "kosong" : x.Bank1.BankName,
 
             return Json(new
             {
@@ -112,6 +114,7 @@ namespace GlobalSoft.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult saveOrder(OrderViewModel order)
         {
             var masterId = Guid.NewGuid();
@@ -120,14 +123,14 @@ namespace GlobalSoft.Controllers
                 GuidCb = masterId,
                 Docno = order.DocNo,
                 Keterangan = order.Deskripsi,
-                Tanggal = DateTime.Now,
-                BankID = 1
+                Tanggal =  DateTime.Parse(order.Tanggal),
+                BankID = int.Parse(order.Bank)
                 
             };
             db.CbTransHs.Add(orderMaster);
             //Process Order details
 
-            if (order.OrderDetails.Any())
+    /*        if (order.OrderDetails.Any())
             {
                 foreach (var item in order.OrderDetails)
                 {
@@ -136,7 +139,7 @@ namespace GlobalSoft.Controllers
                     {
                         GuidDb = detailId,
                         GuidCb = masterId,
-                        TransNoID = item.Source,
+                        TransNoID = int.Parse(item.Source),
                         Terima = decimal.Parse(item.Terima),
                         Keterangan = item.Keterangan,
                         Bayar = decimal.Parse(item.Bayar)
@@ -145,8 +148,8 @@ namespace GlobalSoft.Controllers
                     db.CbTransDs.Add(orderDetails);
 
                 }
-            }
-
+            } 
+       */
             try
             {
                 if (db.SaveChanges() > 0)
@@ -171,7 +174,7 @@ namespace GlobalSoft.Controllers
                              DocNo = ord.Docno,
                              Tanggal = ord.Tanggal.ToString(),
                              Deskripsi = ord.Keterangan,
-                             Bank = ord.BankID,
+                             Bank = Convert.ToString(ord.BankID),
                              Jumlah = ord.Saldo.ToString()
                          }).SingleOrDefault();
 
@@ -184,7 +187,7 @@ namespace GlobalSoft.Controllers
                                           DetailId = od.GuidCb,
                                           Terima = od.Terima.ToString(),
                                           Keterangan = od.Keterangan,
-                                          Source = od.TransNoID,
+                                          Source = Convert.ToString(od.TransNoID),
                                           Bayar = od.Bayar.ToString()
                                       }).ToList();
             }
@@ -209,7 +212,7 @@ namespace GlobalSoft.Controllers
                                select new OrderDetailsViewModel()
                                {
                                    DetailId = od.GuidCb,
-                                   Source = od.TransNoID,
+                                   Source = Convert.ToString(od.TransNoID),
                                    Terima = od.Terima.ToString(),
                                    Keterangan = od.Keterangan,
                                    Bayar = od.Bayar.ToString()

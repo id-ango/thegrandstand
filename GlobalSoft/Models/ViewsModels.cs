@@ -185,7 +185,7 @@ namespace GlobalSoft.Models
         public System.Guid MasterId { get; set; }
         public string DocNo { get; set; }
         public string Tanggal { get; set; }
-        public int Bank { get; set; }
+        public string Bank { get; set; }
         public string Deskripsi { get; set; }
         public string Jumlah { get; set; }
         public virtual ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
@@ -196,7 +196,7 @@ namespace GlobalSoft.Models
     {
         public System.Guid DetailId { get; set; }
         public System.Guid MasterId { get; set; }
-        public int Source { get; set; }
+        public string Source { get; set; }
         public string Keterangan { get; set; }
         public string Terima { get; set; }
         public string Bayar { get; set; }

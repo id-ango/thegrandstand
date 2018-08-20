@@ -266,15 +266,33 @@
                 $("#bayar").val('0');
             }
 
+            //After Click Save Button Pass All Data View To Controller For Save Database
             function saveOrder(data) {
-                return $.ajax({
+               return $.ajax({
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     type: 'POST',
-                    url: saveUrl,
-                    data: data
+                    url: "/TransBank/saveOrder",
+                    data: data,
+                    success: function (result) {
+                        alert(result);
+                        location.reload();
+                   },
+                    error: function () {
+                        alert("Error!")
+                    }
                 });
             }
+
+ //          function saveOrder(data) {
+ //               return $.ajax({
+ //                   contentType: 'application/json; charset=utf-8',
+ //                   dataType: 'json',
+//                    type: 'POST',
+ //                   url: saveUrl,
+ //                   data: data
+//                });
+//            }
 
 
             function getOrder(id) {
@@ -285,27 +303,7 @@
                 });
             }
 
-
-            $("#cekBukti").click(function (e) {
-                e.preventDefault();
-                var KodeNo = $("#kodeNo").val();
-                alert("Testing "+test);
-                var data = JSON.stringify({
-                    DocNo: $("#kodeNo").val()
-                });
-                $.when(getBuktiOrder(KodeNo)).then(function (res) {
-                    $("#docno").val(res.result.DocNo)
-                });
-                });
-
-
-            function getBukti(id) {
-                return $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("getBuktiOrder", "TransBank", new { area = "" })',
-                    data: "noBukti=" + id
-                });
-            }
+            
 
         function getSingleOrderDetail(id) {
             return $.ajax({
@@ -341,11 +339,13 @@
                 }
             });
 
-
+           
 
 
             $("#saveOrder").click(function (e) {
+                //console.log("Testing");
                 e.preventDefault();
+               
 
                 var orderArr = [];
                 orderArr.length = 0;
@@ -361,9 +361,9 @@
 
                 var data = JSON.stringify({
                     DocNo: $("#docno").val(),
-                    Deskripsi: $("#deskripsi").val(),
-                    Tanggal: $("#mstTanggal").val(),
-                    Bank:$("#BankID").val(),
+                    Deskripsi: $("#deskripsi").val(),                    
+                    Bank: $("#BankID :selected").val(),
+                    Tanggal: $("#mstTanggal").val(),                    
                     OrderDetails: orderArr
                 });
 
