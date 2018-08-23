@@ -114,32 +114,42 @@ namespace GlobalSoft.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        //        public ActionResult SaveOrder(string DocNo, String Deskripsi, CbTransD[] order)
+        //        public ActionResult saveOrder(OrderViewModel order)
+        //                Docno = order.DocNo,
+        //               Keterangan = order.Deskripsi,
+        //               Tanggal =  DateTime.Parse(order.Tanggal),
+        //               BankID = int.Parse(order.Bank)
+
         [HttpPost]
-        public ActionResult saveOrder(OrderViewModel order)
+        public ActionResult saveOrder(string DocNo,string Deskripsi, string Tanggal, String Bank, OrderDetailsViewModel[] order)
         {
             var masterId = Guid.NewGuid();
             var orderMaster = new CbTransH()
             {
                 GuidCb = masterId,
-                Docno = order.DocNo,
-                Keterangan = order.Deskripsi,
-                Tanggal =  DateTime.Parse(order.Tanggal),
-                BankID = int.Parse(order.Bank)
-                
+                Docno = DocNo,
+                Keterangan = Deskripsi,
+                Tanggal = DateTime.Parse(Tanggal),
+                BankID = int.Parse(Bank)
+
             };
             db.CbTransHs.Add(orderMaster);
             //Process Order details
-
-    /*        if (order.OrderDetails.Any())
+         
+            if (order.Any())
             {
-                foreach (var item in order.OrderDetails)
+                var ty = order.Count();
+                
+
+                foreach (var item in order)
                 {
                     var detailId = Guid.NewGuid();
                     var orderDetails = new CbTransD()
                     {
                         GuidDb = detailId,
                         GuidCb = masterId,
-                        TransNoID = int.Parse(item.Source),
+                        TransNoID = 1,
                         Terima = decimal.Parse(item.Terima),
                         Keterangan = item.Keterangan,
                         Bayar = decimal.Parse(item.Bayar)
@@ -149,7 +159,7 @@ namespace GlobalSoft.Controllers
 
                 }
             } 
-       */
+       
             try
             {
                 if (db.SaveChanges() > 0)
@@ -159,7 +169,8 @@ namespace GlobalSoft.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { error = true, message = ex.Message });
+                return Json(new { error = true, message = "Ada Yang salah" });
+//                return Json(new { error = true, message = ex.Message });
             }
 
             return Json(new { error = true, message = "An unknown error has occured" });

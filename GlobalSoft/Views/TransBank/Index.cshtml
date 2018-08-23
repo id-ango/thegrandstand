@@ -44,9 +44,9 @@
                 <div class="col-md-4">
                     <input type="text" maxlength="3" size="3" id="kodeNo" class="quantity form-control" onkeydown="uppercaseF(this)" />
                     </div>
-                    <div class="col-md-4">
-                        <a id="cekBukti" class="btn btn-default">Cek</a>
-                    </div>
+                <div class="col-md-4">
+                    <button id="cekBukti" type ="button" onclick="cekKode()" class="btn btn-default">Cek</button>                    
+                </div>
                     <br />
                     <hr />
                     <div class="form-horizontal">
@@ -257,7 +257,7 @@
                 clearItem();
             });
 
-
+            
 
             function clearItem() {
                 $('#TransNoID').val('');
@@ -268,7 +268,7 @@
 
             //After Click Save Button Pass All Data View To Controller For Save Database
             function saveOrder(data) {
-               return $.ajax({
+                return $.ajax({
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     type: 'POST',
@@ -277,22 +277,14 @@
                     success: function (result) {
                         alert(result);
                         location.reload();
-                   },
+                    },
                     error: function () {
                         alert("Error!")
                     }
                 });
             }
 
- //          function saveOrder(data) {
- //               return $.ajax({
- //                   contentType: 'application/json; charset=utf-8',
- //                   dataType: 'json',
-//                    type: 'POST',
- //                   url: saveUrl,
- //                   data: data
-//                });
-//            }
+
 
 
             function getOrder(id) {
@@ -351,12 +343,13 @@
                 orderArr.length = 0;
 
                 $.each($("#detailsTable tbody tr"), function () {
-                    orderArr.push({
+                    orderArr.push({                 
                         Source: $(this).find('td:eq(0)').html(),
-                        Keterangan: $(this).find('td:eq(1)').html(),
-                        Terima: $(this).find('td:eq(2)').html(),
-                        Bayar: $(this).find('td:eq(3)').html()
+                        Keterangan: $(this).find('td:eq(2)').html(), 
+                        Terima: $(this).find('td:eq(3)').html(),
+                        Bayar: $(this).find('td:eq(4)').html()
                     });
+                    alert($(this).find('td:eq(4)').html());
                 });
 
                 var data = JSON.stringify({
@@ -373,8 +366,6 @@
                     console.log(err);
                 });
             });
-
-
 
 
             $(document).on("click", '.editItem', function (e) {
@@ -430,6 +421,7 @@
         });
 
     </script>
+    
     <script>
         function uppercaseF(a) {
 
@@ -438,5 +430,24 @@
             }, 1);
 
         }
+    </script>
+
+    <script>
+        function cekKode() {
+           
+            document.getElementById('docno').value = document.getElementById('kodeNo').value;
+        }
+    </script>
+
+    <script>
+ //       function saveOrder(data) {
+ //           return $.ajax({
+ //               contentType: 'application/json; charset=utf-8',
+ //               dataType: 'json',
+ //               type: 'POST',
+ //               url: saveUrl,
+ //               data: data
+ //           });
+ //       }
     </script>
 }
