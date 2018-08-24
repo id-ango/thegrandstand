@@ -120,29 +120,31 @@ namespace GlobalSoft.Controllers
         //               Keterangan = order.Deskripsi,
         //               Tanggal =  DateTime.Parse(order.Tanggal),
         //               BankID = int.Parse(order.Bank)
+//        public ActionResult saveOrder(string DocNo, string Deskripsi, string Tanggal, String Bank, OrderDetailsViewModel[] order)
 
-        [HttpPost]
-        public ActionResult saveOrder(string DocNo,string Deskripsi, string Tanggal, String Bank, OrderDetailsViewModel[] order)
+//        [HttpPost]
+        public ActionResult saveOrder(OrderViewModel order)
         {
             var masterId = Guid.NewGuid();
             var orderMaster = new CbTransH()
             {
                 GuidCb = masterId,
-                Docno = DocNo,
-                Keterangan = Deskripsi,
-                Tanggal = DateTime.Parse(Tanggal),
-                BankID = int.Parse(Bank)
+                Docno = order.DocNo,
+                Keterangan = order.Deskripsi,
+                Tanggal = DateTime.Parse(order.Tanggal),
+                BankID = int.Parse(order.Bank)
 
             };
             db.CbTransHs.Add(orderMaster);
             //Process Order details
-         
-            if (order.Any())
+            
+            if (order.OrderDetails.Any())
             {
-                var ty = order.Count();
+                var ty = order.OrderDetails.Count();
+
                 
 
-                foreach (var item in order)
+                foreach (var item in order.OrderDetails)
                 {
                     var detailId = Guid.NewGuid();
                     var orderDetails = new CbTransD()

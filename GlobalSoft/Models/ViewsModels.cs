@@ -175,13 +175,9 @@ namespace GlobalSoft.Models
 
     }
 
-    public class OrderViewModel
+    public class  OrderViewModel
     {
-        public OrderViewModel()
-        {
-            this.OrderDetails = new List<OrderDetailsViewModel>();
-        }
-
+        
         public System.Guid MasterId { get; set; }
         public string DocNo { get; set; }
         public string Tanggal { get; set; }

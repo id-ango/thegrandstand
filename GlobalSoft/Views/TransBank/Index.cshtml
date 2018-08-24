@@ -252,7 +252,7 @@
                 }
                 var jumlah = parseFloat(terima) - parseFloat(bayar)
 
-                var productItem = '<tr><td>' + productName + '<td><td>' + keterangan + '</td><td>' + terima + '</td><td>' + bayar + '</td><td>' + jumlah + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                var productItem = '<tr><td>' + productName + '</td><td>' + keterangan + '</td><td>' + terima + '</td><td>' + bayar + '</td><td>' + jumlah + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
                 detailsTableBody.append(productItem);
                 clearItem();
             });
@@ -265,14 +265,14 @@
                 $("#terima").val('0');
                 $("#bayar").val('0');
             }
-
+//            url: "/TransBank/saveOrder",
             //After Click Save Button Pass All Data View To Controller For Save Database
             function saveOrder(data) {
                 return $.ajax({
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     type: 'POST',
-                    url: "/TransBank/saveOrder",
+                    url: saveUrl,
                     data: data,
                     success: function (result) {
                         alert(result);
@@ -343,13 +343,13 @@
                 orderArr.length = 0;
 
                 $.each($("#detailsTable tbody tr"), function () {
-                    orderArr.push({                 
+                    orderArr.push({
                         Source: $(this).find('td:eq(0)').html(),
-                        Keterangan: $(this).find('td:eq(2)').html(), 
-                        Terima: $(this).find('td:eq(3)').html(),
-                        Bayar: $(this).find('td:eq(4)').html()
+                        Keterangan: $(this).find('td:eq(1)').html(), 
+                        Terima: $(this).find('td:eq(2)').html(),
+                        Bayar: $(this).find('td:eq(3)').html()
                     });
-                    alert($(this).find('td:eq(4)').html());
+                    alert($(this).find('td:eq(0)').html());
                 });
 
                 var data = JSON.stringify({
@@ -359,6 +359,7 @@
                     Tanggal: $("#mstTanggal").val(),                    
                     OrderDetails: orderArr
                 });
+                alert( data);
 
                 $.when(saveOrder(data)).then(function (response) {
                     console.log(response);
