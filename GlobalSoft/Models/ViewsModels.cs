@@ -179,7 +179,7 @@ namespace GlobalSoft.Models
     {
         public OrderViewModel()
         {
-            this.OrderDetails = new List<OrderDetailsViewModel>();
+            this.OrderDetails = new HashSet<OrderDetailsViewModel>();
         }
 
         public System.Guid MasterId { get; set; }

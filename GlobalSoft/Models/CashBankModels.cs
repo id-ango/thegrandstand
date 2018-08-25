@@ -31,6 +31,11 @@ namespace GlobalSoft.Models
 
     public class CbTransH
     {
+        public CbTransH()
+        {
+            this.CbTransDs = new HashSet<CbTransD>() ;
+        }
+
         [Key]
         public int TranshID { get; set; }
         public Guid GuidCb { get; set; }
@@ -53,8 +58,7 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int TransdID { get; set; }
-        public int TranshID { get; set; }
-        public virtual CbTransH CbTransH { get; set; }
+        
         public int BankID { get; set; }
         public Guid GuidDb { get; set; }
         public Guid GuidCb { get; set; }
@@ -70,7 +74,8 @@ namespace GlobalSoft.Models
         public decimal Terima { get; set; }
         public decimal Bayar { get; set; }
 
-
+        public int TranshID { get; set; }
+        public virtual CbTransH CbTransH { get; set; }
     }
 
     public class CbTrans

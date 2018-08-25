@@ -288,8 +288,10 @@ namespace GlobalSoft.Models
         public DbSet<AptUrut> AptUruts { get; set; }
         public DbSet<PiutangMain> PiutangMains { get; set; }
         public DbSet<PiutangDetail> PiutangDetails { get; set; }
-        public DbSet<CbTransH> CbTransHs { get; set; }
-        public DbSet<CbTransD> CbTransDs { get; set; }
+//        public DbSet<CbTransH> CbTransHs { get; set; }
+//        public DbSet<CbTransD> CbTransDs { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Orders> Orders { get; set; }
 
 
 

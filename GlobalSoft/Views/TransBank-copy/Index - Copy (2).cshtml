@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<GlobalSoft.Models.CbTransH>
+
 <br /><br />
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
             <h2 class="panel-title pull-left" style="margin-left:10px;">
-                <strong>Order Details</strong>
+                <strong>Transaksi Kas Bank</strong>
             </h2>
             <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New Transaksi</button>
         </div>
@@ -21,8 +22,9 @@
                     <tbody>
                         <tr>
                             <td>Bukti : @item.Docno </td>
-                            <td>Tanggal : @item.Tanggal</td>
+                            <td>Tanggal : @item.Tanggal</td>                            
                             <td>Keterangan : @item.Keterangan </td>
+                            
                         </tr>
                         <tr>
                             <td colspan="3">
@@ -39,12 +41,12 @@
                                         }
                                         @foreach (var order in item.CbTransDs)
                                         {
-                                        <tr>
-                                            <td>@order.AptTrsNo.TransNo</td>
-                                            <td>@order.Keterangan</td>
-                                            <td>@order.Terima</td>
-                                            <td>@order.Bayar</td>
-                                        </tr>
+                                            <tr>
+                                                <td>@order.AptTrsNo.TransNo</td>
+                                                <td>@order.Keterangan</td>
+                                                <td>@order.Terima</td>
+                                                <td>@order.Bayar</td>
+                                            </tr>
                                             totalBill = totalBill + @Convert.ToInt32(order.Terima - order.Bayar);
                                         }
                                     </tbody>
@@ -65,7 +67,6 @@
 
     }
 </div>
-
 @*Desing Bootdtrap Modal With Order Form*@
 
 <div class="modal fade" id="newOrderModal">
@@ -78,84 +79,93 @@
             <form id="NewOrderForm">
                 <div class="modal-body">
                     @*Customer Details*@
-                    <h5 style="color:#ff6347">Transaksi Details</h5>
+                    <h5 style="color:#ff6347">Transaksi Kas/Bank</h5>
                     <hr />
+                    
                     <div class="form-horizontal">
-                        <input type="hidden" id="GuidCb" />
+                        <input type="hidden" id="TransHID" />
                         <div class="form-group">
                             <label class="control-label col-md-2">
                                 Kode
                             </label>
                             <div class="col-md-4">
                                 <input type="text" maxlength="3" size="3" id="kodeNo" class="quantity form-control" onkeydown="uppercaseF(this)" />
-
+                                
                             </div>
                             <label class="control-label col-md-2">
                                 Bukti
                             </label>
                             <div class="col-md-4">
-                                <input type="text" id="docno" name="docno" placeholder="No. Bukti" class="form-control" />
+                                <input type="text" id="DocNo" name="DocNo" placeholder="No. Bukti" class="form-control" />
                             </div>
                             <label class="control-label col-md-2">
                                 Tanggal
                             </label>
                             <div class="col-md-4">
-                                <input type="text" id="tanggal" name="tanggal" placeholder="Tanggal" class="form-control" />
+                                <input type="text" id="Tanggal" name="Tanggal" placeholder="Tanggal" class="form-control" />
                             </div>
                             <label class="control-label col-md-2">
                                 Keterangan
                             </label>
                             <div class="col-md-4">
-                                <input type="text" id="keterangan" name="keterangan" placeholder="Keterangan" class="form-control" />
+                                <input type="text" id="Keterangan" name="Keterangan" placeholder="Keterangan" class="form-control" />
                             </div>
 
                         </div>
                     </div>
 
                     @*Order Details*@
-                    <h5 style="margin-top:10px;color:#ff6347">Order Details</h5>
+                    <h5 style="margin-top:10px;color:#ff6347">Transaksi Details</h5>
                     <hr />
                     <div class="form-horizontal">
-                        <input type="hidden" id="GuidDb" />
+                        <input type="hidden" id="OrderId" />
                         <div class="form-group">
                             <label class="control-label col-md-2">
                                 Source
                             </label>
                             <div class="col-md-4">
-                                <input type="text" id="transNoId" name="transNoId" placeholder="Product Name" class="form-control" />
+                                <input type="text" id="SourceName" name="SourceName" placeholder="Source" class="form-control" />
+                            </div>
+                            <label class="control-label col-md-2">
+                                Keterangan
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="Description" name="Description" placeholder="Keterangan" class="form-control" />
                             </div>
                             <label class="control-label col-md-2">
                                 Terima
                             </label>
                             <div class="col-md-4">
-                                <input type="number" id="terima" name="terima" placeholder="Terima" class="form-control" />
+                                <input type="number" id="Terima" name="Terima" placeholder="Terima" class="form-control" />
                             </div>
-                        </div>
 
-                        <div class="form-group">
                             <label class="control-label col-md-2">
                                 Bayar
                             </label>
                             <div class="col-md-4">
-                                <input type="number" id="bayar" name="bayar" placeholder="Bayar" class="form-control" />
+                                <input type="number" id="Bayar" name="Bayar" placeholder="Bayar" class="form-control" />
                             </div>
-                            <div class="col-md-2 col-lg-offset-4">
-                                <a id="addToList" class="btn btn-primary">Add To List</a>
-                            </div>
-                        </div>
+                            
+                            <div class="form-group">
 
-                        <table id="detailsTable" class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width:20%">Source</th>     
-                                    <th style="width:15%">Terima</th>
-                                    <th style="width:25%">Bayar</th>
-                                    <th style="width:10%"></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                                <div class="col-md-offset-5">
+                                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                                    </div>
+                                </div>
+                            </div>        
+                            <table id="detailsTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">Source</th>
+                                        <th style="width:30%">Keterangan</th>
+                                        <th style="width:15%">Terima</th>
+                                        <th style="width:25%">Bayar</th>
+                                        <th style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -167,6 +177,23 @@
 </div>
 
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <script>
+        $(function () {
+            $("#Tanggal").datepicker({
+                dateFormat: 'mm-dd-yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            });
+        });
+    </script>
+
     <script>
         //Show Modal.
         function addNewOrder() {
@@ -175,25 +202,24 @@
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
-         //   alert($.trim($("#transNoId").val()));
 
-            if ($.trim($("#transNoId").val()) == "" || $.trim($("#terima").val()) == "" || $.trim($("#bayar").val()) == "") return;
-           
-            var transNoID = $("#transNoId").val(),
-                terima = $("#terima").val(),
-                bayar = $("#bayar").val(),
+            if ($.trim($("#SourceName").val()) == "" || $.trim($("#Terima").val()) == "" || $.trim($("#Bayar").val()) == "") return;
+
+            var productName = $("#SourceName").val(),
+                description = $("#Description").val(),
+                price = $("#Terima").val(),
+                quantity = $("#Bayar").val(),
                 detailsTableBody = $("#detailsTable tbody");
 
-            var productItem = '<tr><td>' + transNoID + '</td><td>' + terima + '</td><td>' + bayar + '</td><td>' + (parseFloat(terima) - parseInt(bayar)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            var productItem = '<tr><td>' + productName + '</td><td>' + description + '</td><td>' + quantity + '</td><td>' + price + '</td><td>' + (parseFloat(price) * parseFloat(quantity)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
             detailsTableBody.append(productItem);
             clearItem();
         });
-
         //After Add A New Order In The List, Clear Clean The Form For Add More Order.
         function clearItem() {
-            $("#transNoId").val('');
-            $("#terima").val('');
-            $("#bayar").val('');
+            $("#SourceName").val('');
+            $("#Terima").val('');
+            $("#Bayar").val('');
         }
         // After Add A New Order In The List, If You Want, You Can Remove It.
         $(document).on('click', 'a.deleteItem', function (e) {
@@ -230,25 +256,37 @@
             orderArr.length = 0;
 
             $.each($("#detailsTable tbody tr"), function () {
-                orderArr.push({                    
-                    keterangan: $(this).find('td:eq(0)').html(),
-                    terima: $(this).find('td:eq(1)').html(),
-                    bayar: $(this).find('td:eq(2)').html()
+                orderArr.push({
+                    SourceName: $(this).find('td:eq(0)').html(),
+                    Keterangan: $(this).find('td:eq(1)').html(),
+                    Terima: $(this).find('td:eq(2)').html(),
+                    Bayar: $(this).find('td:eq(3)').html()
                 });
             });
 
 
             var data = JSON.stringify({
-                docno: $("#docno").val(),
-                keterangan: $("#keterangan").val(),
+                DocNo: $("#DocNo").val(),
+                Keterangan: $("#Keterangan").val(),                
                 order: orderArr
             });
-            alert(data);
+
             $.when(saveOrder(data)).then(function (response) {
                 console.log(response);
             }).fail(function (err) {
                 console.log(err);
             });
         });
+
+
+    </script>
+    <script>
+        function uppercaseF(a) {
+
+            setTimeout(function () {
+                a.value = a.value.toUpperCase();
+            }, 1);
+
+    }
     </script>
 }

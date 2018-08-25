@@ -20,8 +20,7 @@ namespace GlobalSoft.Controllers
            
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
             ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            List<CbTransH> OrderAndDetailList = db.CbTransHs.ToList();
-            return View(OrderAndDetailList);
+            return View();
         }
 
         
@@ -52,30 +51,36 @@ namespace GlobalSoft.Controllers
             return Json(new { result = cNoref });
         }
 
-
-        public ActionResult SaveOrder(string docno, String keterangan, CbTransD[] order)
+       
+        public ActionResult SaveOrder(string DocNo, String Deskripsi,  CbTransD[] order)
         {
             string result = "Error! Order Is Not Complete!";
-            if (docno != null && keterangan != null && order != null)
+            if (DocNo != null && Deskripsi != null && order != null)
             {
-                var cutomerId = Guid.NewGuid();
-                CbTransH model = new CbTransH();
-                model.GuidCb = cutomerId;
-                model.Docno = docno;
-                model.Keterangan = keterangan;
-                model.Tanggal = DateTime.Now;
+                var GudId = Guid.NewGuid();
+
+                CbTransH model = new CbTransH
+                {
+                    GuidCb = GudId,
+                    Docno = DocNo,
+                    Keterangan = Deskripsi,
+                    Tanggal = DateTime.Now
+                };
                 db.CbTransHs.Add(model);
 
                 foreach (var item in order)
                 {
-                    var orderId = Guid.NewGuid();
-                    CbTransD O = new CbTransD();
-                    O.GuidCb = cutomerId;
-                    O.GuidDb = orderId;
-                    O.TransNoID = 1;
-                    O.Terima = item.Terima;
-                    O.Bayar = item.Bayar;
-                    O.Keterangan = item.Keterangan;
+
+                    CbTransD O = new CbTransD
+                    {
+                        TransNoID = 1,
+                        Keterangan = item.Keterangan,
+                        Terima = item.Terima,
+                        Bayar = item.Bayar,
+                        GuidCb = GudId,
+                        Tanggal = DateTime.Now
+                        
+                    };
                     db.CbTransDs.Add(O);
                 }
                 db.SaveChanges();

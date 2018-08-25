@@ -154,6 +154,7 @@
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
     <Compile Include="Controllers\SetupBankController.cs" />
     <Compile Include="Controllers\SetupBayarController.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
-    <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,10 +209,27 @@
     <Compile Include="Migrations\201808191442320_guidcb.Designer.cs">
       <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808250902353_hasssetcb.cs" />
+    <Compile Include="Migrations\201808250902353_hasssetcb.Designer.cs">
+      <DependentUpon>201808250902353_hasssetcb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808250939303_ordercustome.cs" />
+    <Compile Include="Migrations\201808250939303_ordercustome.Designer.cs">
+      <DependentUpon>201808250939303_ordercustome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808250948068_OrderCust2.cs" />
+    <Compile Include="Migrations\201808250948068_OrderCust2.Designer.cs">
+      <DependentUpon>201808250948068_OrderCust2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808251011291_hilangkancb.cs" />
+    <Compile Include="Migrations\201808251011291_hilangkancb.Designer.cs">
+      <DependentUpon>201808251011291_hilangkancb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
     <Compile Include="Models\GledgerModels.cs" />
+    <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\ReceivableModels.cs" />
     <Compile Include="Models\ViewsModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -682,6 +699,13 @@
     <Content Include="Views\TransBank\Create.cshtml" />
     <Content Include="Views\TransBank\Index - Copy.cshtml" />
     <Content Include="Views\TransBank\Index - Copy %282%29.cshtml" />
+    <Content Include="Views\TransBank\Index - Copy %283%29.cshtml" />
+    <Content Include="Views\TransBank-copy\Create.cshtml" />
+    <Content Include="Views\TransBank-copy\Index - Copy %282%29.cshtml" />
+    <Content Include="Views\TransBank-copy\Index - Copy %283%29.cshtml" />
+    <Content Include="Views\TransBank-copy\Index - Copy.cshtml" />
+    <Content Include="Views\TransBank-copy\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -717,6 +741,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808191442320_guidcb.resx">
       <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808250902353_hasssetcb.resx">
+      <DependentUpon>201808250902353_hasssetcb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808250939303_ordercustome.resx">
+      <DependentUpon>201808250939303_ordercustome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808250948068_OrderCust2.resx">
+      <DependentUpon>201808250948068_OrderCust2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808251011291_hilangkancb.resx">
+      <DependentUpon>201808251011291_hilangkancb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

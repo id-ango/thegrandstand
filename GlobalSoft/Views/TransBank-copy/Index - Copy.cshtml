@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GlobalSoft.Models.OrderVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Docno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CbBank.BankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saldo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Docno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CbBank.BankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tanggal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keterangan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Saldo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderKey }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderKey }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderKey })
+        </td>
+    </tr>
+}
+
+</table>
