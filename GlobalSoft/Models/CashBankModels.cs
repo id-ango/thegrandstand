@@ -41,10 +41,13 @@ namespace GlobalSoft.Models
         public Guid GuidCb { get; set; }
         [StringLength(20)]
         public string Docno { get; set; }
+
         public int BankID { get; set; }
         public virtual CbBank Bank1 { get; set; }
+
         public int BankID2 { get; set; }
-        public virtual CbBank Bank2 { get; set; }
+       
+
         public DateTime Tanggal { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }        
@@ -59,17 +62,19 @@ namespace GlobalSoft.Models
         [Key]
         public int TransdID { get; set; }
         
-        public int BankID { get; set; }
         public Guid GuidDb { get; set; }
         public Guid GuidCb { get; set; }
+
         [StringLength(20)]
         public string Docno { get; set; }
         public DateTime Tanggal { get; set; }           
         
         public int TransNoID { get; set; }
         public virtual AptTrsNo AptTrsNo { get; set; }
+
         [StringLength(250)]
         public string Keterangan { get; set; }
+        public int BankID { get; set; }
         public decimal Jumlah { get; set; }
         public decimal Terima { get; set; }
         public decimal Bayar { get; set; }
