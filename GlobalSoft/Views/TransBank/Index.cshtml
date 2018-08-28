@@ -30,27 +30,27 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Total</th>
+                                            <th>Transaksi</th>
+                                            <th>Keterangan</th>
+                                            <th>Terima</th>
+                                            <th>Bayar</th>
                                         </tr>
                                         @{
                                             var totalBill = 0;
                                         }
                                         @foreach (var order in item.CbTransDs)
                                         {
-                                            <tr>
-                                                <td>@order.Keterangan</td>
-                                                <td>@order.Terima</td>
-                                                <td>@order.Bayar</td>
-                                                <td>@order.Jumlah</td>
-                                            </tr>
+                                        <tr>
+                                            <td>@order.AptTrsNo.TransNo</td>
+                                            <td>@order.Keterangan</td>
+                                            <td>@order.Terima</td>
+                                            <td>@order.Bayar</td>                                            
+                                        </tr>
                                             totalBill = totalBill + @Convert.ToInt32(order.Jumlah);
                                         }
                                     </tbody>
                                 </table>
-                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong> @totalBill</span>
+                                <span class="pull-right" style="margin-right:100px;"><strong>Saldo :  </strong> @totalBill</span>
                             </td>
                         </tr>
                     </tbody>
@@ -79,7 +79,7 @@
             <form id="NewOrderForm">
                 <div class="modal-body">
                     @*Customer Details*@
-                    <h5 style="color:#ff6347">Customer Details</h5>
+                    <h5 style="color:#ff6347">Transaksi Details</h5>
                     <hr />
                     <div class="form-horizontal">
                         <input type="hidden" id="GidCb" />
@@ -87,32 +87,31 @@
                             <label class="control-label col-md-2">
                                 Kode
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <input type="text" maxlength="3" size="3" id="kodeno" class="quantity form-control" onkeydown="uppercaseF(this)" />
-
+                            
                             </div>
-                            <div class="col-md-4">
-                                <button id="cekbukti" type="button" onclick="cekKode()" class="btn btn-default">Cek</button>
+                            <div class="col-md-3">
+                                <a id="cekbukti"  class="btn btn-default">Cek</a>
+                            </div>
+
+                            
+                            <div class="col-md-3">
+                                <input type="text" id="docno" name="docno" placeholder="No. Bukti" class="form-control" />
                             </div>
                             <br />
                             <hr />
                             <label class="control-label col-md-2">
-                                Dokumen
-                            </label>
-                            <div class="col-md-4">
-                                <input type="text" id="docno" name="docno" placeholder="Customer Name" class="form-control" />
-                            </div>
-                            <label class="control-label col-md-2">
                                 Tanggal
                             </label>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <input type="text" id="tanggal" name="tanggal" placeholder="Tanggal" class="form-control" value="@DateTime.Now" />
                             </div>
                             <label class="control-label col-md-2">
-                                Address
+                                Deskripsi
                             </label>
                             <div class="col-md-4">
-                                <input type="text" id="deskripsi" name="deskripsi" placeholder="Customer Address" class="form-control" />
+                                <input type="text" id="deskripsi" name="deskripsi" placeholder="Deskripsi" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -280,5 +279,41 @@
             }, 1);
 
         }
+    </script>
+    <script>
+        $("#cekbukti").click(function (e) {
+            e.preventDefault();
+            var data = JSON.stringify({
+                kodeno: $("#kodeno").val()
+            });
+
+            getkode(data);
+
+            function getkode(data) {
+                return $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/TransBank/GetKode",
+                    data: data,
+                    success: function (result) {
+                       
+                        $("#docno").val(result);
+                       
+                    },
+                    error: function () {
+                        alert("Error!")
+                    }
+                });
+            }
+
+        });
+
+
+
+        
+
+        
+       
     </script>
 }

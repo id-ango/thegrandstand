@@ -17,7 +17,7 @@ namespace GlobalSoft.Controllers
         // GET: TransBank
         public ActionResult Index()
         {
-           
+
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
             ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
             List<CbTransH> OrderAndDetailList = db.CbTransHs.ToList();
@@ -57,7 +57,34 @@ namespace GlobalSoft.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetKode(string kodeno)
+        {
+            string result = "Error! Order Is Not Complete!";
 
+            // var maxvalue = db.AptTranss.Max(x =>  x.NoRef.Substring(0, 10));
+
+            string thnbln = DateTime.Now.ToString("yyMM");
+            var maxvalue = (from e in db.CbTransHs where e.Docno.Substring(0, 7) == kodeno + thnbln select e).FirstOrDefault();
+            string nourut = "000";
+            if (maxvalue == null)
+            {
+                nourut = "000";
+            }
+            else
+            {
+                nourut = maxvalue.Docno.Substring(7, 3);
+            }
+
+            //  nourut =Convert.ToString(Int32.Parse(nourut) + 1);
+
+
+            string cAngNo = kodeno + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
+            // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
+            string cNoref = cAngNo;
+
+            result = "Success! Order Is Complete!";
+            return Json(cAngNo, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
