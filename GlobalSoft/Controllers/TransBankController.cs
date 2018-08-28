@@ -24,7 +24,7 @@ namespace GlobalSoft.Controllers
             return View(OrderAndDetailList);
         }
 
-        public ActionResult SaveOrder(string docno, String keterangan, CbTransD[] order)
+        public ActionResult SaveOrder(string docno, String keterangan,int bank, CbTransD[] order)
         {
             string result = "Error! Order Is Not Complete!";
             if (docno != null && keterangan != null && order != null)
@@ -35,6 +35,7 @@ namespace GlobalSoft.Controllers
                 model.Docno = docno;
                 model.Keterangan = keterangan;
                 model.Tanggal = DateTime.Now;
+                model.BankID = bank;
                 db.CbTransHs.Add(model);
 
                 foreach (var item in order)
@@ -64,7 +65,7 @@ namespace GlobalSoft.Controllers
             // var maxvalue = db.AptTranss.Max(x =>  x.NoRef.Substring(0, 10));
 
             string thnbln = DateTime.Now.ToString("yyMM");
-            var maxvalue = (from e in db.CbTransHs where e.Docno.Substring(0, 7) == kodeno + thnbln select e).FirstOrDefault();
+            var maxvalue = (from e in db.CbTransHs where e.Docno.Substring(0, 7) == kodeno + thnbln select e).Max();
             string nourut = "000";
             if (maxvalue == null)
             {
