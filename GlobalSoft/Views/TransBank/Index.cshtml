@@ -23,18 +23,19 @@
                         <tr>
                             <td>Dokumen : @item.Docno </td>
                             <td>Tanggal : @item.Tanggal</td>
-                            @{ 
-                                if(item.BankID==0)
-                                {
-                                    <td>Bank :  "kosong" </td>
-                                }
-                                else
-                                {
-                                     <td>Bank : @item.Bank1.BankName  </td>
-                                }
+                            @{
+        if (item.BankID == 0)
+        {
+                        <td>Bank :  "kosong" </td>
+}
+else
+{
+                        <td>Bank : @item.Bank1.BankName  </td>
+}
                             }
-                           
+
                             <td>Keterangan : @item.Keterangan </td>
+                            <td>Saldo : @item.Saldo </td>
 
                         </tr>
                         <tr>
@@ -58,7 +59,7 @@
                                             <td>@order.Terima</td>
                                             <td>@order.Bayar</td>                                            
                                         </tr>
-                                            totalBill = totalBill + @Convert.ToInt32(order.Jumlah);
+                                            totalBill = totalBill + @Convert.ToInt32(order.Terima-order.Bayar);
                                         }
                                     </tbody>
                                 </table>
@@ -165,14 +166,14 @@
                                 Terima
                             </label>
                             <div class="col-md-4">
-                                <input type="number" id="terima" name="terima" placeholder="Terima" class="form-control" value=0 />
+                                <input type="number" id="terima" name="terima" placeholder="Terima" class="form-control" value=0 step="0.1"/>
                             </div>
 
                             <label class="control-label col-md-2">
                                 Bayar
                             </label>
                             <div class="col-md-4">
-                                <input type="number" id="bayar" name="bayar" placeholder="Bayar" class="form-control" value=0 />
+                                <input type="number" id="bayar" name="bayar" placeholder="Bayar" class="form-control" value=0 step="0.1"/>
                             </div>
                             <br />
                             </div>
@@ -247,8 +248,8 @@
         //After Add A New Order In The List, Clear Clean The Form For Add More Order.
         function clearItem() {
             $("#keterangan").val('');
-            $("#terima").val('');
-            $("#bayar").val('');
+            $("#terima").val(0);
+            $("#bayar").val(0);
         }
         // After Add A New Order In The List, If You Want, You Can Remove It.
         $(document).on('click', 'a.deleteItem', function (e) {
@@ -286,19 +287,21 @@
 
             $.each($("#detailsTable tbody tr"), function () {
                 orderArr.push({
-                    transno: $(this).find('td:eq(0)').html(),
-                    keterangan: $(this).find('td:eq(1)').html(),
-                    terima: $(this).find('td:eq(2)').html(),
-                    bayar: $(this).find('td:eq(3)').html(),
+                    TransNoID: $(this).find('td:eq(4)').html(),
+                    Keterangan: $(this).find('td:eq(1)').html(),
+                    Terima: $(this).find('td:eq(2)').html(),
+                    Bayar: $(this).find('td:eq(3)').html(),
+                    
   
                 });
             });
 
             
-            var data = JSON.stringify({
-                docno: $("#docno").val(),
-                keterangan: $("#deskripsi").val(),
-                bank: $("#bankid").val(),
+            var data = JSON.stringify({                
+                docno: $("#docno").val(), 
+                keterangan: $("#deskripsi").val(),                
+                tanggal: $("#tanggal").val(),
+                bank: $("#bankid").val(),       
                 order: orderArr
             });
             alert(data);

@@ -24,7 +24,7 @@ namespace GlobalSoft.Controllers
             return View(OrderAndDetailList);
         }
 
-        public ActionResult SaveOrder(string docno, String keterangan,int bank, CbTransD[] order)
+        public ActionResult SaveOrder(string docno, String keterangan,int bank, string tanggal, CbTransD[] order)
         {
             string result = "Error! Order Is Not Complete!";
             if (docno != null && keterangan != null && order != null)
@@ -34,8 +34,16 @@ namespace GlobalSoft.Controllers
                 model.GuidCb = cutomerId;
                 model.Docno = docno;
                 model.Keterangan = keterangan;
-                model.Tanggal = DateTime.Now;
+                model.Tanggal = Convert.ToDateTime(tanggal);
                 model.BankID = bank;
+                decimal nJumlah = 0;
+
+                foreach (var t in order)
+                {
+                    nJumlah = nJumlah + (t.Terima - t.Bayar);
+                }
+
+                model.Saldo = nJumlah;
                 db.CbTransHs.Add(model);
 
                 foreach (var item in order)
@@ -44,11 +52,11 @@ namespace GlobalSoft.Controllers
                     CbTransD O = new CbTransD();
                     O.GuidDb = orderId;
                     O.Keterangan = item.Keterangan;
-                    O.Tanggal = DateTime.Now;
-                    O.TransNoID = 1;
+                    O.Tanggal = model.Tanggal;
+                    O.TransNoID = item.TransNoID;
                     O.Terima = item.Terima;
                     O.Bayar = item.Bayar;
-                    O.Jumlah = item.Jumlah;
+                    O.Jumlah = item.Terima-item.Bayar;
                     O.GuidCb = cutomerId;
                     db.CbTransDs.Add(O);
                 }
@@ -65,7 +73,16 @@ namespace GlobalSoft.Controllers
             // var maxvalue = db.AptTranss.Max(x =>  x.NoRef.Substring(0, 10));
 
             string thnbln = DateTime.Now.ToString("yyMM");
-            var maxvalue = (from e in db.CbTransHs where e.Docno.Substring(0, 7) == kodeno + thnbln select e).Max();
+            string xbukti = kodeno + thnbln;
+            var maxvalue = "";
+            var maxlist = db.CbTransHs.Where(x => x.Docno.Substring(0,7).Equals(xbukti)).ToList();
+            if (maxlist!= null)
+            {
+                maxvalue = maxlist.Max(x => x.Docno);
+
+            }
+
+            //            var maxvalue = (from e in db.CbTransHs where  e.Docno.Substring(0, 7) == kodeno + thnbln select e).Max();
             string nourut = "000";
             if (maxvalue == null)
             {
@@ -73,7 +90,7 @@ namespace GlobalSoft.Controllers
             }
             else
             {
-                nourut = maxvalue.Docno.Substring(7, 3);
+                nourut = maxvalue.Substring(7, 3);
             }
 
             //  nourut =Convert.ToString(Int32.Parse(nourut) + 1);
