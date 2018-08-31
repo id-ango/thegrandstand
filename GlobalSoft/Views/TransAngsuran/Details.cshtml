@@ -1,0 +1,122 @@
+﻿@model GlobalSoft.Models.ArTransH
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ArTransH</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArHGd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArHGd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bukti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bukti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketingID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarketingID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keterangan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JthTempo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JthTempo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jumlah)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jumlah)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Piutang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Piutang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unapplied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unapplied)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diskon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diskon)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArHID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

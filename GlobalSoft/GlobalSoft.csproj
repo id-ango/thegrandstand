@@ -170,6 +170,7 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
+    <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -229,6 +230,14 @@
     <Compile Include="Migrations\201808270522113_tambahbank.cs" />
     <Compile Include="Migrations\201808270522113_tambahbank.Designer.cs">
       <DependentUpon>201808270522113_tambahbank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808310636564_piutangAr.cs" />
+    <Compile Include="Migrations\201808310636564_piutangAr.Designer.cs">
+      <DependentUpon>201808310636564_piutangAr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808310711165_kodeno.cs" />
+    <Compile Include="Migrations\201808310711165_kodeno.Designer.cs">
+      <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -712,6 +721,11 @@
     <Content Include="Views\TransBank-copy\Index.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\TransBank\Index - Copy %284%29.cshtml" />
+    <Content Include="Views\TransAngsuran\Create.cshtml" />
+    <Content Include="Views\TransAngsuran\Delete.cshtml" />
+    <Content Include="Views\TransAngsuran\Details.cshtml" />
+    <Content Include="Views\TransAngsuran\Edit.cshtml" />
+    <Content Include="Views\TransAngsuran\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -762,6 +776,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808270522113_tambahbank.resx">
       <DependentUpon>201808270522113_tambahbank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808310636564_piutangAr.resx">
+      <DependentUpon>201808310636564_piutangAr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808310711165_kodeno.resx">
+      <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

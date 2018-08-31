@@ -12,39 +12,39 @@ namespace GlobalSoft.Models
         [Key]
         public int CustomerID { get; set; }
         [Required]
-        [StringLength(100),Display(Name = "Nama")]
+        [StringLength(100), Display(Name = "Nama")]
         public string CustomerName { get; set; }
 
-        [Index]       
-        [MinLength(2,ErrorMessage = "Min 2 karakter"),MaxLength(10,ErrorMessage ="Max 10 karakter")]
+        [Index]
+        [MinLength(2, ErrorMessage = "Min 2 karakter"), MaxLength(10, ErrorMessage = "Max 10 karakter")]
         public string ShortName { get; set; }
 
         [StringLength(200), Display(Name = "Alamat KTP")]
         public string Alamat { get; set; }
 
-        [StringLength(50),Display(Name = "KTP")]
-        public string Ktp  { get; set; }
+        [StringLength(50), Display(Name = "KTP")]
+        public string Ktp { get; set; }
 
-        [StringLength(100),Display(Name = "Telpon")]
+        [StringLength(100), Display(Name = "Telpon")]
         public string Phone { get; set; }
 
         [StringLength(200), Display(Name = "Alamat Sekarang")]
         public string AlamatSekarang { get; set; }
 
-        [StringLength(20),Display(Name = "Kode Pos")]
+        [StringLength(20), Display(Name = "Kode Pos")]
         public string KodePos { get; set; }
 
         [StringLength(200)]
         public string Email { get; set; }
 
-        [StringLength(50),Display(Name = "NPWP")]
+        [StringLength(50), Display(Name = "NPWP")]
         public string Npwp { get; set; }
         [StringLength(20)]
         public string AkunSet { get; set; }
 
         public virtual ICollection<ArPiutang> ArPiutang { get; set; }
 
-       
+
     }
 
     public class ArPiutang
@@ -56,7 +56,7 @@ namespace GlobalSoft.Models
 
         public DateTime Tanggal { get; set; }
         public DateTime Duedate { get; set; }
-     
+
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
         public int KodeTrans { get; set; } = 0;    //ini kode buatan sendiri yaitu 1 untuk surat pesanan, 2- Invoice dari luar, 3-credit note
         [StringLength(20)]
@@ -70,8 +70,8 @@ namespace GlobalSoft.Models
         public decimal Bayar { get; set; }
         public decimal Sisa { get; set; }
         public decimal SldSisa { get; set; }
-        public decimal Diskon { get; set; }    
-        
+        public decimal Diskon { get; set; }
+
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
@@ -111,7 +111,7 @@ namespace GlobalSoft.Models
         public virtual ArCustomer ArCustomer { get; set; }
 
         public int BankID { get; set; }
-        
+
 
         public int? UnitID { get; set; }
         public virtual AptUnit AptUnit { get; set; }
@@ -149,7 +149,50 @@ namespace GlobalSoft.Models
         public string UnitNo { get; set; }
         [StringLength(20)]
         public string SPesanan { get; set; }
-       
+
+    }
+    //
+    //
+    //
+    public class ArTransH
+    {
+        [Key]
+        public int ArHID { get; set; }
+        public Guid ArHGd { get; set; }
+        public int kodeNo { get; set; }
+        [StringLength(20)]
+        public string Bukti { get; set; }
+        public DateTime Tanggal { get; set; }
+        public int BankID { get; set; }
+        public int CustomerID { get; set; }
+        public int MarketingID { get; set; }
+        public int UnitID { get; set; }
+        public string Keterangan { get; set; }
+        public DateTime? JthTempo { get; set; }
+        public decimal Jumlah { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Unapplied { get; set; }
+        public decimal Diskon { get; set; }
+        public virtual ICollection<ArTransD> TransDetail { get; set; }
     }
 
+    public class ArTransD
+    {
+        [Key]
+        public int ArDID { get; set; }
+        public Guid ArDGd { get; set; }
+        public DateTime Tanggal { get; set; }
+        public DateTime? Duedate { get; set; }
+        public int SPesananID { get; set; }
+        public int CustomerID { get; set; }
+        public string Keterangan { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Diskon { get; set; }
+        public decimal Sisa { get; set; }
+        public Guid ArHGd { get; set; }
+        public int ArHID { get; set; }
+        public virtual ArTransH ArTransH{ get; set; }
+
+    }
 }

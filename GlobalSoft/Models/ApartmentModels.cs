@@ -292,6 +292,8 @@ namespace GlobalSoft.Models
         public DbSet<CbTransD> CbTransDs { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<ArTransH> ArTransHs { get; set; }
+        public DbSet<ArTransD> ArTransDs { get; set; }
 
 
 

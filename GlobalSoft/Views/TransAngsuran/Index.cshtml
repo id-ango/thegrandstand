@@ -1,0 +1,105 @@
+﻿@model IEnumerable<GlobalSoft.Models.ArTransH>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArHGd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bukti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BankID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketingID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JthTempo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jumlah)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Piutang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unapplied)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diskon)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArHGd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bukti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tanggal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BankID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketingID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keterangan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JthTempo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jumlah)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Piutang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unapplied)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diskon)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArHID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArHID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArHID })
+        </td>
+    </tr>
+}
+
+</table>
