@@ -1,0 +1,32 @@
+﻿@model GlobalSoft.Models.TabularViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+    @{
+        foreach (var x in Model.Gedungs)
+        {
+            <tr >
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = x.Lantai1 }) |
+        @Html.ActionLink("Details", "Details", new { id = x.Lantai1 }) |
+        @Html.ActionLink("Delete", "Delete", new { id = x.Lantai1 })
+    </td>
+    </tr>
+}
+    }
+
+    
+    }
+
+</table>

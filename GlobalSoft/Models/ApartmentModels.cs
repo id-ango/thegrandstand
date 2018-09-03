@@ -263,6 +263,17 @@ namespace GlobalSoft.Models
         public int NoUrut { get; set; }
     }
 
+    public class AptGedung
+    {
+        [Key]
+        public int GedungID { get; set; }
+        [Display(Name ="Level")]
+        public string Gedung { get; set; }
+        [Display(Name ="Lantai")]
+        public int Lantai1 { get; set; }
+        [Display(Name ="Lantai")]
+        public int Lantai2 { get; set; }
+    }
    
     public class GlobalsoftDBContext : DbContext
     {
@@ -294,8 +305,8 @@ namespace GlobalSoft.Models
         public DbSet<Orders> Orders { get; set; }
         public DbSet<ArTransH> ArTransHs { get; set; }
         public DbSet<ArTransD> ArTransDs { get; set; }
+        public DbSet<AptGedung> AptGedungs { get; set; }
 
-
-
+        public System.Data.Entity.DbSet<GlobalSoft.Models.TabularViewModel> TabularViewModels { get; set; }
     }
 }

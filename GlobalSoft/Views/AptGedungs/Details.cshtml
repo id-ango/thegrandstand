@@ -1,0 +1,42 @@
+﻿@model GlobalSoft.Models.AptGedung
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AptGedung</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Gedung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gedung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lantai1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lantai1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lantai2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lantai2)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GedungID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

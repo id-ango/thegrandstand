@@ -65,8 +65,12 @@ namespace GlobalSoft.Controllers
 
         public ActionResult List2Unit()
         {
-            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
-            return View(aptUnits.ToList());
+           TabularViewModel TabelView = new TabularViewModel();
+            TabelView.Gedungs = db.AptGedungs.ToList();
+            TabelView.Units = db.AptUnits.ToList();
+            TabelView.Kategoris = db.AptCategories.ToList();
+
+            return View(TabelView);
 
         }
         public ActionResult ListUnit()

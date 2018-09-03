@@ -202,4 +202,14 @@ namespace GlobalSoft.Models
         public string Bayar { get; set; }
 
     }
+
+    public class TabularViewModel
+    {
+        [Key]
+        public int TabID { get; set; }
+        public List<AptUnit> Units { get; set; }
+        public List<AptGedung> Gedungs { get; set; }
+        public List<AptCategorie> Kategoris { get; set; }
+    }
+
 }

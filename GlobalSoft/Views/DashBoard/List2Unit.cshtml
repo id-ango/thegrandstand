@@ -1,7 +1,9 @@
-﻿@model IEnumerable<GlobalSoft.Models.AptUnit>
+﻿@model GlobalSoft.Models.TabularViewModel
 
 @{
-    ViewBag.Title = "DashBoard Unit";
+                /**/
+
+                ViewBag.Title = "DashBoard Unit";
 }
 <style>
     td.details-control {
@@ -9,41 +11,50 @@
         cursor: pointer;
     }
 
-tr.shown td.details-control {
-    background: url('../../Content/DataTables/images/details_close.png') no-repeat center center; }
+    tr.shown td.details-control {
+        background: url('../../Content/DataTables/images/details_close.png') no-repeat center center;
+    }
 </style>
 
 <h2></h2>
 
 <p></p>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary list-panel" id="list-panel">
-            <div class="panel-heading list-panel-heading">
-                <h1 class="panel-title list-panel-title">Unit</h1>
-            </div>
-            <div class="panel-body">
-                <table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Unit</th>
-                            <th>Lantai</th>
-                            <th>Kategori</th>
-                            <th>Status</th>
-                            <th>Inhouse</th>
-                            <th>KPR</th>
 
-                        </tr>
-                    </thead>
+@{
+    foreach (var x in Model)
+    {
 
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary list-panel" id="list-panel">
+                    <div class="panel-heading list-panel-heading">
+                        <h1 class="panel-title list-panel-title">Unit</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Unit</th>
+                                    <th>Lantai</th>
+                                    <th>Kategori</th>
+                                    <th>Status</th>
+                                    <th>Inhouse</th>
+                                    <th>KPR</th>
 
-                </table>
+                                </tr>
+                            </thead>
+
+
+
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    }
+}
 
 @section Scripts
 {
@@ -54,30 +65,30 @@ tr.shown td.details-control {
         /* Formatting function for row details - modify as you need */
         function format(rowdata) {
 
-            return            '<div class="row">'+
-             '   <div class="col-md-12">'+
-            '      <div class="panel panel-primary list-panel" id="list-panel">' +
+            return '<div class="row">' +
+                '   <div class="col-md-12">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
                 '         <div class="panel-heading list-panel-heading">' +
                 '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
                 '       </div>' +
-                
+
                 '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
-                '<thead>'+
+                '<thead>' +
                 '<tr>' +
                 '<th>Full name:</th>' +
                 '<th>Extension number:</th>' +
                 '<th>Extra info:</th>' +
-               
+
                 '</tr>' +
-                '</thead>'+
+                '</thead>' +
                 '<tr>' +
                 '<td>' + rowdata.UnitNo + '</td>' +
                 '<td>' + rowdata.Lantai + '</td>' +
                 '<td>And any further details here (images etc)...</td>' +
                 '</tr>' +
-                
+
                 '</table>' +
-               
+
                 '  </div >' +
                 '  </div >' +
                 '</div >';
@@ -123,6 +134,6 @@ tr.shown td.details-control {
             });
         });
 
-       
+
     </script>
 }

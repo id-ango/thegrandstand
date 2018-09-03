@@ -1,0 +1,70 @@
+﻿@model GlobalSoft.Models.TabularViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    td.details-control {
+        background: url('../../Content/DataTables/images/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('../../Content/DataTables/images/details_close.png') no-repeat center center;
+    }
+</style>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>TabularViewModel</h4>
+    <hr />
+    @{
+        foreach (var x in Model.Gedungs)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary list-panel" id="list-panel">
+                        <div class="panel-heading list-panel-heading">
+                            <h1 class="panel-title list-panel-title">Unit</h1>
+                        </div>
+                        <div class="panel-body">
+                            <table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Unit</th>
+                                        <th>Lantai</th>
+                                        <th>Kategori</th>
+                                        <th>Status</th>
+                                        <th>Inhouse</th>
+                                        <th>KPR</th>
+
+                                    </tr>
+                                </thead>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

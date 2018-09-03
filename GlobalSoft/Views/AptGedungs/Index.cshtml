@@ -1,0 +1,45 @@
+﻿@model IEnumerable<GlobalSoft.Models.AptGedung>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Gedung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lantai1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lantai2)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gedung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lantai1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lantai2)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GedungID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GedungID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GedungID })
+        </td>
+    </tr>
+}
+
+</table>

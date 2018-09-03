@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AptGedungsController.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
     <Compile Include="Controllers\BayarAngsuranController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
+    <Compile Include="Controllers\TabularViewModelsController.cs" />
     <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +240,14 @@
     <Compile Include="Migrations\201808310711165_kodeno.cs" />
     <Compile Include="Migrations\201808310711165_kodeno.Designer.cs">
       <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809030244346_gedung.cs" />
+    <Compile Include="Migrations\201809030244346_gedung.Designer.cs">
+      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809030640329_newbaru.cs" />
+    <Compile Include="Migrations\201809030640329_newbaru.Designer.cs">
+      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -726,6 +736,16 @@
     <Content Include="Views\TransAngsuran\Details.cshtml" />
     <Content Include="Views\TransAngsuran\Edit.cshtml" />
     <Content Include="Views\TransAngsuran\Index.cshtml" />
+    <Content Include="Views\AptGedungs\Create.cshtml" />
+    <Content Include="Views\AptGedungs\Delete.cshtml" />
+    <Content Include="Views\AptGedungs\Details.cshtml" />
+    <Content Include="Views\AptGedungs\Edit.cshtml" />
+    <Content Include="Views\AptGedungs\Index.cshtml" />
+    <Content Include="Views\TabularViewModels\Create.cshtml" />
+    <Content Include="Views\TabularViewModels\Delete.cshtml" />
+    <Content Include="Views\TabularViewModels\Details.cshtml" />
+    <Content Include="Views\TabularViewModels\Edit.cshtml" />
+    <Content Include="Views\TabularViewModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -782,6 +802,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808310711165_kodeno.resx">
       <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809030244346_gedung.resx">
+      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809030640329_newbaru.resx">
+      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
