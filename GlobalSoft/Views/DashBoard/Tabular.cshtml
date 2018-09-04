@@ -21,28 +21,21 @@
 <p></p>
 
 @{
-    foreach (var x in Model)
-    {
-
-        ViewBag.Testing = x.GedungID;
-
-        <div class="row">
+            <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-primary list-panel" id="list-panel">
                     <div class="panel-heading list-panel-heading">
-                        <h1 class="panel-title list-panel-title">@x.Gedung</h1>
+                        <h1 class="panel-title list-panel-title">Gedung</h1>
                     </div>
                     <div class="panel-body">
                         <table id="" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Unit</th>
+                                    <th>Level</th>
                                     <th>Lantai</th>
-                                    <th>Kategori</th>
-                                    <th>Luas</th>
-                                    <th>Status</th>
-
+                                    <th>sd Lantai</th>
+                                 
                                 </tr>
                             </thead>
 
@@ -65,20 +58,17 @@
 
         $(document).ready(function () {
             var table = $('table.table').DataTable({
-                "ajax": "/dashboard/GetTabular/?Level="+@ViewBag.Testing,
+                "ajax": "/dashboard/GetLevel",
                 "type": "POST",
                 "datatype": "json",                     
                 "columns": [                   
-                    { "data": "UnitNo" },
-                    { "data": "Lantai" },
-                    { "data": "Categorie" },
-                    { "data": "Luas" },
-                    { "data": "Status" }
+                    { "data": "Gedung" },
+                    { "data": "Lantai1" },
+                    { "data": "Lantai2" }
                 ],
                 "order": [[1, 'asc']]
             });
-            var row = table.row(tr);
-
+           
             $('table.tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);

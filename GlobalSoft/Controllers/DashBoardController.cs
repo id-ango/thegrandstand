@@ -65,12 +65,12 @@ namespace GlobalSoft.Controllers
 
         public ActionResult List2Unit()
         {
-           TabularViewModel TabelView = new TabularViewModel();
-            TabelView.Gedungs = db.AptGedungs.ToList();
-            TabelView.Units = db.AptUnits.ToList();
-            TabelView.Kategoris = db.AptCategories.ToList();
+          // TabularViewModel TabelView = new TabularViewModel();
+          //  TabelView.Gedungs = db.AptGedungs.ToList();
+         //   TabelView.Units = db.AptUnits.ToList();
+         //   TabelView.Kategoris = db.AptCategories.ToList();
 
-            return View(TabelView);
+            return View(db.AptGedungs.ToList());
 
         }
         public ActionResult ListUnit()
@@ -228,7 +228,177 @@ namespace GlobalSoft.Controllers
 
         }
 
-        
+        public JsonResult GetTabular(int Level)
+        {
+            
+            var Gedung = db.AptGedungs.Where(x => x.GedungID == Level).First();
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            var listUnit = (from e in aptUnits where( e.Lantai >= Gedung.Lantai1 && e.Lantai <= Gedung.Lantai2)
+                            select new BookViewsModels
+                            {
 
+                                UnitID = e.UnitID,
+                                UnitNo = e.UnitNo,
+                                Lantai = e.Lantai,
+                                Categorie = e.AptCategorie.Categorie,
+                                Status = e.AptStatus.Status,
+                                Luas = e.AptCategorie.Luas,
+                                CustomerID = 0,
+                                CustomerName = "",
+                                MarketingName = "",
+                                PaymentName = "",
+                                NoRef = "",
+                                Piutang = 0,
+                                Pembayaran = 0,
+                                Sisa = 0
+                                //                               CustomerName = (from y in db.AptTranss
+                                //                                              where y.UnitID == y.UnitID
+                                //                                              select y.ArCustomer.CustomerName).FirstOrDefault(),
+                                //                              MarketingName = (from y in db.AptTranss
+                                //                                               where y.UnitID == y.UnitID
+                                //                                               select y.AptMarketing.MarketingName).FirstOrDefault(),
+                                //                              PaymentName = (from y in db.AptTranss
+                                //                                             where y.UnitID == y.UnitID
+                                //                                             select y.AptBayar.CaraBayar).FirstOrDefault()
+
+                            }).ToList();
+
+ /*           foreach (var y in db.AptTranss)
+            {
+                (from e in listUnit
+                 where e.UnitID == y.UnitID
+                 select e).ForEach(x => {
+                     x.CustomerName = y.ArCustomer.CustomerName; x.MarketingName = y.AptMarketing.MarketingName;
+                     x.PaymentName = y.AptBayar.CaraBayar; x.NoRef = y.NoRef;
+                     x.Piutang = y.Piutang;
+                     x.Sisa = y.Piutang;
+                     x.CustomerID = y.CustomerID;
+                 });
+            }
+
+            foreach (var y in db.AptSPesanans)
+            {
+                (from e in listUnit
+                 where e.NoRef == y.SPesanan
+                 select e).ForEach(x => {
+                     x.Pembayaran = x.Pembayaran + y.Bayar; x.Sisa = x.Sisa - y.Bayar;
+                 });
+            }
+
+            foreach (var y in db.CbTranss)
+            {
+                (from e in listUnit
+                 where e.UnitID == y.UnitID
+                 select e).ForEach(x => {
+                     x.Pembayaran = x.Pembayaran + y.Payment; x.Sisa = x.Sisa - y.Payment;
+                 });
+            }
+
+    */
+            var dbResult = listUnit; 
+
+            var employees = (from employee in dbResult
+                             select new
+                             {
+                                 employee.UnitNo,
+                                 employee.Lantai,
+                                 employee.Categorie,
+                                 employee.Status,      
+                                 employee.Luas,
+                                 employee.CustomerName,
+                                 employee.MarketingName,
+                                 employee.PaymentName,
+                                 employee.Piutang,
+                                 employee.Pembayaran,
+                                 employee.Sisa,
+                                 employee.NoRef
+
+
+
+                             });
+            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Tabular()
+        {
+            // TabularViewModel TabelView = new TabularViewModel();
+            //  TabelView.Gedungs = db.AptGedungs.ToList();
+            //   TabelView.Units = db.AptUnits.ToList();
+            //   TabelView.Kategoris = db.AptCategories.ToList();
+
+            return View(db.AptGedungs.ToList());
+
+        }
+
+        public JsonResult GetLevel()
+        {
+
+            var Gedung = db.AptGedungs.ToList();
+            var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
+            var listUnit = (from e in Gedung
+                            select new GedungViewsModels
+                            {
+
+                                GedungID = e.GedungID,
+                                Gedung = e.Gedung,
+                                Lantai1 = e.Lantai1,
+                                Lantai2 = e.Lantai2
+                            }).ToList();
+
+            /*           foreach (var y in db.AptTranss)
+                       {
+                           (from e in listUnit
+                            where e.UnitID == y.UnitID
+                            select e).ForEach(x => {
+                                x.CustomerName = y.ArCustomer.CustomerName; x.MarketingName = y.AptMarketing.MarketingName;
+                                x.PaymentName = y.AptBayar.CaraBayar; x.NoRef = y.NoRef;
+                                x.Piutang = y.Piutang;
+                                x.Sisa = y.Piutang;
+                                x.CustomerID = y.CustomerID;
+                            });
+                       }
+
+                       foreach (var y in db.AptSPesanans)
+                       {
+                           (from e in listUnit
+                            where e.NoRef == y.SPesanan
+                            select e).ForEach(x => {
+                                x.Pembayaran = x.Pembayaran + y.Bayar; x.Sisa = x.Sisa - y.Bayar;
+                            });
+                       }
+
+                       foreach (var y in db.CbTranss)
+                       {
+                           (from e in listUnit
+                            where e.UnitID == y.UnitID
+                            select e).ForEach(x => {
+                                x.Pembayaran = x.Pembayaran + y.Payment; x.Sisa = x.Sisa - y.Payment;
+                            });
+                       }
+
+               */
+            var dbResult = listUnit;
+
+            var employees = (from employee in dbResult
+                             select new
+                             {
+                                 employee.UnitNo,
+                                 employee.Lantai,
+                                 employee.Categorie,
+                                 employee.Status,
+                                 employee.Luas,
+                                 employee.CustomerName,
+                                 employee.MarketingName,
+                                 employee.PaymentName,
+                                 employee.Piutang,
+                                 employee.Pembayaran,
+                                 employee.Sisa,
+                                 employee.NoRef
+
+
+
+                             });
+            return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

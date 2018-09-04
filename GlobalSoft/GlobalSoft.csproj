@@ -746,6 +746,7 @@
     <Content Include="Views\TabularViewModels\Details.cshtml" />
     <Content Include="Views\TabularViewModels\Edit.cshtml" />
     <Content Include="Views\TabularViewModels\Index.cshtml" />
+    <Content Include="Views\DashBoard\Tabular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
