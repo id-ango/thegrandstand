@@ -263,7 +263,7 @@ namespace GlobalSoft.Controllers
 
                             }).ToList();
 
- /*           foreach (var y in db.AptTranss)
+            foreach (var y in db.AptTranss)
             {
                 (from e in listUnit
                  where e.UnitID == y.UnitID
@@ -294,7 +294,7 @@ namespace GlobalSoft.Controllers
                  });
             }
 
-    */
+    
             var dbResult = listUnit; 
 
             var employees = (from employee in dbResult

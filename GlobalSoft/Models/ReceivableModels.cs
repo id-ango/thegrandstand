@@ -163,9 +163,12 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         public string Bukti { get; set; }
         public DateTime Tanggal { get; set; }
+        [Display(Name ="Bank")]
         public int BankID { get; set; }
+        [Display(Name ="Customer")]
         public int CustomerID { get; set; }
         public int MarketingID { get; set; }
+        [Display(Name = "Unit")]
         public int UnitID { get; set; }
         public string Keterangan { get; set; }
         public DateTime? JthTempo { get; set; }

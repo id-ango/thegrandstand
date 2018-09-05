@@ -68,7 +68,7 @@ namespace GlobalSoft.Controllers
 
         public ActionResult GetKode(string kodeno)
         {
-            string result = "Error! Order Is Not Complete!";
+           // string result = "Error! Order Is Not Complete!";
 
             // var maxvalue = db.AptTranss.Max(x =>  x.NoRef.Substring(0, 10));
 
@@ -100,7 +100,7 @@ namespace GlobalSoft.Controllers
             // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
             string cNoref = cAngNo;
 
-            result = "Success! Order Is Complete!";
+         //   result = "Success! Order Is Complete!";
             return Json(cAngNo, JsonRequestBehavior.AllowGet);
         }
     }

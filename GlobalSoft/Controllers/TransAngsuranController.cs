@@ -67,6 +67,7 @@ namespace GlobalSoft.Controllers
             // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
             ViewBag.NoRef = cAngNo;
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
+            ViewBag.CustomerID = new SelectList(db.ArCustomers, "CustomerID", "CustomerName");
             return View();
         }
 

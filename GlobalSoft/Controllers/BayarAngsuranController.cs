@@ -19,9 +19,8 @@ namespace GlobalSoft.Controllers
 
         public ActionResult Index()
         {
-            var aptTranss2 = db.PiutangMains.Include(a => a.ArCustomer);
-
-            return View(aptTranss2.ToList());
+            
+            return View(db.PiutangMains.ToList());
         }
         
         public ActionResult Create()

@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<GlobalSoft.Models.AptGedung>
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "DashBoard Unit";
+    ViewBag.Title = "DashBoard Unit";
 }
 <style>
     td.details-control {
@@ -15,89 +15,90 @@
         background: url('../../Content/DataTables/images/details_close.png') no-repeat center center;
     }
 </style>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+        var table = $('table.table').DataTable({
+            "ajax": "/dashboard/GetLevel",
+            "type": "POST",
+            "datatype": "json",
+            "columns": [
+                { "data": "Gedung" },
+                { "data": "Lantai1" },
+                { "data": "Lantai2" }
+            ],
+            "order": [[1, 'asc']]
+        });
+
+        $('table.tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child('<p><center>Loading...</center></p>', 'no-padding').show();
+                tr.addClass('shown');
+                $('div.slider', row.child()).slideDown();
+                //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
+                //        $('td', row.child()).html(format(data));
+                //         $('div.slider', row.child()).show();
+                //  });
+
+                //          $.getJSON('/Dashboard/Getunit', function (data2){
+                $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                    $('td', row.child()).html(format(data2));
+                    $('div.slider', row.child()).show();
+                });
+            }
+        });
+
+    });
+
+
+</script>
 
 <h2></h2>
 
 <p></p>
 
 @{
-            <div class="row">
-            <div class="col-md-8">
-                <div class="panel panel-primary list-panel" id="list-panel">
-                    <div class="panel-heading list-panel-heading">
-                        <h1 class="panel-title list-panel-title">Gedung</h1>
-                    </div>
-                    <div class="panel-body">
-                        <table id="" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Level</th>
-                                    <th>Lantai</th>
-                                    <th>sd Lantai</th>
-                                 
-                                </tr>
-                            </thead>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary list-panel" id="list-panel">
+                <div class="panel-heading list-panel-heading">
+                    <h1 class="panel-title list-panel-title">Gedung</h1>
+                </div>
+                <div class="panel-body">
+                    <table id="" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Level</th>
+                                <th>Lantai</th>
+                                <th>sd Lantai</th>
+
+                            </tr>
+                        </thead>
 
 
 
-                        </table>
-                    </div>
+                    </table>
                 </div>
             </div>
         </div>
-    }
+    </div>
+}
 }
 
 @section Scripts
 {
 
-    <script type="text/javascript">
 
-
-
-        $(document).ready(function () {
-            var table = $('table.table').DataTable({
-                "ajax": "/dashboard/GetLevel",
-                "type": "POST",
-                "datatype": "json",                     
-                "columns": [                   
-                    { "data": "Gedung" },
-                    { "data": "Lantai1" },
-                    { "data": "Lantai2" }
-                ],
-                "order": [[1, 'asc']]
-            });
-           
-            $('table.tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row(tr);
-
-                if (row.child.isShown()) {
-                    // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
-                    // Open this row
-                    row.child('<p><center>Loading...</center></p>', 'no-padding').show();
-                    tr.addClass('shown');
-                    $('div.slider', row.child()).slideDown();
-                    //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
-                    //        $('td', row.child()).html(format(data));
-                    //         $('div.slider', row.child()).show();
-                    //  });
-
-                    //          $.getJSON('/Dashboard/Getunit', function (data2){
-                    $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
-                        $('td', row.child()).html(format(data2));
-                        $('div.slider', row.child()).show();
-                    });
-                }
-            });
-            
-        });
-
-
-    </script>
 }

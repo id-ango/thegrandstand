@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<GlobalSoft.Models.AptGedung>
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "DashBoard Unit";
+    ViewBag.Title = "DashBoard Unit";
 }
 <style>
     td.details-control {
@@ -14,7 +14,13 @@
     tr.shown td.details-control {
         background: url('../../Content/DataTables/images/details_close.png') no-repeat center center;
     }
+
+    td.highlight {
+        background-color: whitesmoke !important;
+    }
 </style>
+
+
 
 <h2></h2>
 
@@ -27,13 +33,13 @@
         ViewBag.Testing = x.GedungID;
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="panel panel-primary list-panel" id="list-panel">
                     <div class="panel-heading list-panel-heading">
                         <h1 class="panel-title list-panel-title">@x.Gedung</h1>
                     </div>
                     <div class="panel-body">
-                        <table id="" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
+                        <table id="@x.GedungID" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,6 +48,12 @@
                                     <th>Kategori</th>
                                     <th>Luas</th>
                                     <th>Status</th>
+                                    <th>Customer</th>
+                                    <th>Marketing</th>
+                                    <th>Pembayaran</th>
+                                    <th>Piutang</th>
+                                    <th>Pembayaran</th>
+                                    <th>Sisa</th>
 
                                 </tr>
                             </thead>
@@ -58,28 +70,263 @@
 
 @section Scripts
 {
-
     <script type="text/javascript">
+        function format(d) {
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                '<tr>' +
+                '<th>Bukti</th>' +
+                '<th>Tanggal</th> ' +
+                '<th>Keterangan</th>' +
+                '<th>Angsuran</th>' +
+                '<th>Bayar</th>' +
+                '</tr>';
+            //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function () {
+                //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+                //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+            });
 
+            htmlResult += '</table>' +
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
+            return htmlResult;
+        }
 
 
         $(document).ready(function () {
-            var table = $('table.table').DataTable({
-                "ajax": "/dashboard/GetTabular/?Level="+@ViewBag.Testing,
+        var table = $('#1').DataTable({
+            "ajax": "/dashboard/GetTabular/?Level=" + 1,
+            "type": "POST",
+            "datatype": "json",
+            "columns": [
+                {
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": ''
+                },
+                { "data": "UnitNo" },
+                { "data": "Lantai" },
+                { "data": "Categorie" },
+                { "data": "Status" },
+                { "data": "Luas" },
+                { "data": "CustomerName" },
+                { "data": "MarketingName" },
+                { "data": "PaymentName" },
+                { "data": "Piutang" },
+                { "data": "Pembayaran" },
+                { "data": "Sisa" }
+            ],
+            "order": [[1, 'asc']]
+        });
+
+        $('table tbody')
+            .on('mouseenter', 'td', function () {
+                var colIdx = table.cell(this).index().column;
+
+                $(table.cells().nodes()).removeClass('highlight');
+                $(table.column(colIdx).nodes()).addClass('highlight');
+            });
+
+        $('#1 tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child('<p><center>Loading...</center></p>', 'no-padding').show();
+                tr.addClass('shown');
+                $('div.slider', row.child()).slideDown();
+                //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
+                //        $('td', row.child()).html(format(data));
+                //         $('div.slider', row.child()).show();
+                //  });
+
+                //          $.getJSON('/Dashboard/Getunit', function (data2){
+                $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                    $('td', row.child()).html(format(data2));
+                    $('div.slider', row.child()).show();
+                });
+            }
+        });
+
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        function format(d) {
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                '<tr>' +
+                '<th>Bukti</th>' +
+                '<th>Tanggal</th> ' +
+                '<th>Keterangan</th>' +
+                '<th>Angsuran</th>' +
+                '<th>Bayar</th>' +
+                '</tr>';
+            //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function () {
+                //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+                //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+            });
+
+            htmlResult += '</table>' +
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
+            return htmlResult;
+        }
+
+        $(document).ready(function () {
+            var table = $('#2').DataTable({
+                "ajax": "/dashboard/GetTabular/?Level=" + 2,
                 "type": "POST",
-                "datatype": "json",                     
-                "columns": [                   
+                "datatype": "json",
+                "columns": [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
                     { "data": "UnitNo" },
                     { "data": "Lantai" },
                     { "data": "Categorie" },
+                    { "data": "Status" },
                     { "data": "Luas" },
-                    { "data": "Status" }
+                    { "data": "CustomerName" },
+                    { "data": "MarketingName" },
+                    { "data": "PaymentName" },
+                    { "data": "Piutang" },
+                    { "data": "Pembayaran" },
+                    { "data": "Sisa" }
                 ],
                 "order": [[1, 'asc']]
             });
-            var row = table.row(tr);
+        
 
-            $('table.tbody').on('click', 'td.details-control', function () {
+            $('#2 tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child('<p><center>Loading...</center></p>', 'no-padding').show();
+                    tr.addClass('shown');
+                    $('div.slider', row.child()).slideDown();
+                    //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
+                    //        $('td', row.child()).html(format(data));
+                    //         $('div.slider', row.child()).show();
+                    //  });
+
+                    //          $.getJSON('/Dashboard/Getunit', function (data2){
+                    $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                        $('td', row.child()).html(format(data2));
+                        $('div.slider', row.child()).show();
+                    });
+                }
+            });
+
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        function format(d) {
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                '<tr>' +
+                '<th>Bukti</th>' +
+                '<th>Tanggal</th> ' +
+                '<th>Keterangan</th>' +
+                '<th>Angsuran</th>' +
+                '<th>Bayar</th>' +
+                '</tr>';
+            //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function () {
+                //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+                //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+            });
+
+            htmlResult += '</table>' +
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
+            return htmlResult;
+        }
+
+        $(document).ready(function () {
+            var table = $('#3').DataTable({
+                "ajax": "/dashboard/GetTabular/?Level=" + 3,
+                "type": "POST",
+                "datatype": "json",
+                "columns": [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "UnitNo" },
+                    { "data": "Lantai" },
+                    { "data": "Categorie" },
+                    { "data": "Status" },
+                    { "data": "Luas" },
+                    { "data": "CustomerName" },
+                    { "data": "MarketingName" },
+                    { "data": "PaymentName" },
+                    { "data": "Piutang" },
+                    { "data": "Pembayaran" },
+                    { "data": "Sisa" }
+                ],
+                "order": [[1, 'asc']]
+            });
+
+
+            $('#3 tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);
 
@@ -105,9 +352,108 @@
                     });
                 }
             });
-            
+
         });
 
 
     </script>
+
+    <script type="text/javascript">
+        function format(d) {
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                '<tr>' +
+                '<th>Bukti</th>' +
+                '<th>Tanggal</th> ' +
+                '<th>Keterangan</th>' +
+                '<th>Angsuran</th>' +
+                '<th>Bayar</th>' +
+                '</tr>';
+            //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function () {
+                //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+                //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+            });
+
+            htmlResult += '</table>' +
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
+            return htmlResult;
+        }
+
+        $(document).ready(function () {
+            var table = $('#4').DataTable({
+                "ajax": "/dashboard/GetTabular/?Level=" + 4,
+                "type": "POST",
+                "datatype": "json",
+                "columns": [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "UnitNo" },
+                    { "data": "Lantai" },
+                    { "data": "Categorie" },
+                    { "data": "Status" },
+                    { "data": "Luas" },
+                    { "data": "CustomerName" },
+                    { "data": "MarketingName" },
+                    { "data": "PaymentName" },
+                    { "data": "Piutang" },
+                    { "data": "Pembayaran" },
+                    { "data": "Sisa" }
+                ],
+                "order": [[1, 'asc']]
+            });
+       
+
+            $('#4 tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child('<p><center>Loading...</center></p>', 'no-padding').show();
+                    tr.addClass('shown');
+                    $('div.slider', row.child()).slideDown();
+                    //    $.getJSON('https://api.myjson.com/bins/1cuzu', function (data) {
+                    //        $('td', row.child()).html(format(data));
+                    //         $('div.slider', row.child()).show();
+                    //  });
+
+                    //          $.getJSON('/Dashboard/Getunit', function (data2){
+                    $.getJSON('../Dashboard/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                        $('td', row.child()).html(format(data2));
+                        $('div.slider', row.child()).show();
+                    });
+                }
+            });
+
+        });
+
+       
+         
+               
+          
+        
+    </script>
+
+   
 }
