@@ -497,6 +497,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\WebSite2.pubxml" />
     <Content Include="Images\pm.png" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
