@@ -171,83 +171,22 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
-    <Compile Include="Controllers\TabularViewModelsController.cs" />
     <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808121453137_emptyunitid2.cs" />
-    <Compile Include="Migrations\201808121453137_emptyunitid2.Designer.cs">
-      <DependentUpon>201808121453137_emptyunitid2.cs</DependentUpon>
+    <Compile Include="Migrations\201809060851294_first.cs" />
+    <Compile Include="Migrations\201809060851294_first.Designer.cs">
+      <DependentUpon>201809060851294_first.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808140234071_aptrsno2.cs" />
-    <Compile Include="Migrations\201808140234071_aptrsno2.Designer.cs">
-      <DependentUpon>201808140234071_aptrsno2.cs</DependentUpon>
+    <Compile Include="Migrations\201809060855022_second.cs" />
+    <Compile Include="Migrations\201809060855022_second.Designer.cs">
+      <DependentUpon>201809060855022_second.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808140239261_Kasbank.cs" />
-    <Compile Include="Migrations\201808140239261_Kasbank.Designer.cs">
-      <DependentUpon>201808140239261_Kasbank.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808170415311_tambahbank1.cs" />
-    <Compile Include="Migrations\201808170415311_tambahbank1.Designer.cs">
-      <DependentUpon>201808170415311_tambahbank1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808170435465_banktipe.cs" />
-    <Compile Include="Migrations\201808170435465_banktipe.Designer.cs">
-      <DependentUpon>201808170435465_banktipe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808180655457_cbTransh.cs" />
-    <Compile Include="Migrations\201808180655457_cbTransh.Designer.cs">
-      <DependentUpon>201808180655457_cbTransh.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808180727160_cbTransh1.cs" />
-    <Compile Include="Migrations\201808180727160_cbTransh1.Designer.cs">
-      <DependentUpon>201808180727160_cbTransh1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808180728260_cbTransh2.cs" />
-    <Compile Include="Migrations\201808180728260_cbTransh2.Designer.cs">
-      <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808191442320_guidcb.cs" />
-    <Compile Include="Migrations\201808191442320_guidcb.Designer.cs">
-      <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808250902353_hasssetcb.cs" />
-    <Compile Include="Migrations\201808250902353_hasssetcb.Designer.cs">
-      <DependentUpon>201808250902353_hasssetcb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808250939303_ordercustome.cs" />
-    <Compile Include="Migrations\201808250939303_ordercustome.Designer.cs">
-      <DependentUpon>201808250939303_ordercustome.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808250948068_OrderCust2.cs" />
-    <Compile Include="Migrations\201808250948068_OrderCust2.Designer.cs">
-      <DependentUpon>201808250948068_OrderCust2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808251011291_hilangkancb.cs" />
-    <Compile Include="Migrations\201808251011291_hilangkancb.Designer.cs">
-      <DependentUpon>201808251011291_hilangkancb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808270522113_tambahbank.cs" />
-    <Compile Include="Migrations\201808270522113_tambahbank.Designer.cs">
-      <DependentUpon>201808270522113_tambahbank.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808310636564_piutangAr.cs" />
-    <Compile Include="Migrations\201808310636564_piutangAr.Designer.cs">
-      <DependentUpon>201808310636564_piutangAr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808310711165_kodeno.cs" />
-    <Compile Include="Migrations\201808310711165_kodeno.Designer.cs">
-      <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809030244346_gedung.cs" />
-    <Compile Include="Migrations\201809030244346_gedung.Designer.cs">
-      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809030640329_newbaru.cs" />
-    <Compile Include="Migrations\201809030640329_newbaru.Designer.cs">
-      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
+    <Compile Include="Migrations\201809060856423_third.cs" />
+    <Compile Include="Migrations\201809060856423_third.Designer.cs">
+      <DependentUpon>201809060856423_third.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -758,59 +697,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808121453137_emptyunitid2.resx">
-      <DependentUpon>201808121453137_emptyunitid2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809060851294_first.resx">
+      <DependentUpon>201809060851294_first.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808140234071_aptrsno2.resx">
-      <DependentUpon>201808140234071_aptrsno2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809060855022_second.resx">
+      <DependentUpon>201809060855022_second.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808140239261_Kasbank.resx">
-      <DependentUpon>201808140239261_Kasbank.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808170415311_tambahbank1.resx">
-      <DependentUpon>201808170415311_tambahbank1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808170435465_banktipe.resx">
-      <DependentUpon>201808170435465_banktipe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808180655457_cbTransh.resx">
-      <DependentUpon>201808180655457_cbTransh.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808180727160_cbTransh1.resx">
-      <DependentUpon>201808180727160_cbTransh1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808180728260_cbTransh2.resx">
-      <DependentUpon>201808180728260_cbTransh2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808191442320_guidcb.resx">
-      <DependentUpon>201808191442320_guidcb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808250902353_hasssetcb.resx">
-      <DependentUpon>201808250902353_hasssetcb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808250939303_ordercustome.resx">
-      <DependentUpon>201808250939303_ordercustome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808250948068_OrderCust2.resx">
-      <DependentUpon>201808250948068_OrderCust2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808251011291_hilangkancb.resx">
-      <DependentUpon>201808251011291_hilangkancb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808270522113_tambahbank.resx">
-      <DependentUpon>201808270522113_tambahbank.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808310636564_piutangAr.resx">
-      <DependentUpon>201808310636564_piutangAr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808310711165_kodeno.resx">
-      <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809030244346_gedung.resx">
-      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809030640329_newbaru.resx">
-      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809060856423_third.resx">
+      <DependentUpon>201809060856423_third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
