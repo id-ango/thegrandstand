@@ -153,5 +153,102 @@ namespace GlobalSoft.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult DetailAngsuran(int Custid, int Unitid)
+        {
+
+            var allList = (from e in db.AptTranss
+                           join
+                           y in db.AptSPesanans on e.NoRef equals y.SPesanan
+                           where e.CustomerID == Custid
+                           select new
+                           {
+                               e.UnitID,
+                               e.AptUnit.UnitNo,
+                               e.CustomerID,
+                               e.ArCustomer.CustomerName,
+                               y.SPesananID,
+                               y.SPesanan,
+                               y.Duedate,
+                               y.Keterangan,
+                               y.Jumlah,
+                               y.Bayar,
+                               y.Diskon,
+                               y.Sisa
+                           });
+
+            if (Custid != 0)
+            {
+                allList = (from e in db.AptTranss
+                           join
+                           y in db.AptSPesanans on e.NoRef equals y.SPesanan
+                           where e.CustomerID == Custid
+                           select new
+                           {
+                               e.UnitID,
+                               e.AptUnit.UnitNo,
+                               e.CustomerID,
+                               e.ArCustomer.CustomerName,
+                               y.SPesananID,
+                               y.SPesanan,
+                               y.Duedate,
+                               y.Keterangan,
+                               y.Jumlah,
+                               y.Bayar,
+                               y.Diskon,
+                               y.Sisa
+                           });
+            }
+            else
+            {
+                allList = (from e in db.AptTranss
+                           join
+                           y in db.AptSPesanans on e.NoRef equals y.SPesanan
+                           where e.UnitID == Unitid
+                           select new
+                           {
+                               e.UnitID,
+                               e.AptUnit.UnitNo,
+                               e.CustomerID,
+                               e.ArCustomer.CustomerName,
+                               y.SPesananID,
+                               y.SPesanan,
+                               y.Duedate,
+                               y.Keterangan,
+                               y.Jumlah,
+                               y.Bayar,
+                               y.Diskon,
+                               y.Sisa
+                           });
+            }
+
+            //   var allList = db.AptSPesanans.Where(x => x.AptTrans.CustomerID == Custid && (x.Jumlah-x.Bayar-x.Diskon)!=0).ToList();
+            // && (x.Jumlah-x.Bayar-x.Diskon)!=0
+            // var ListTrans = db.AptTranss.Where(x=>x.CustomerID==Custid).ToList();
+            //   var allList = db.AptSPesanans.Where(x => x.AptTrans.CustomerID == Custid).ToList();
+            //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
+
+            List<PiutangDetail> Transaksi = new List<PiutangDetail>();
+            foreach (var i in allList)
+            {
+                Transaksi.Add(new PiutangDetail
+                {
+                    UnitID = i.UnitID,
+                    UnitNo = i.UnitNo,
+                    CustomerID = i.CustomerID,
+                    CustomerName = i.CustomerName,
+                    SPesananID = i.SPesananID,
+                    SPesanan = i.SPesanan,
+                    Duedate = i.Duedate,
+                    Keterangan = i.Keterangan,
+                    Piutang = i.Jumlah,
+                    Bayar = i.Bayar,
+                    Diskon = i.Diskon,
+                    Sisa = i.Jumlah - i.Bayar - i.Diskon
+                });
+                //    Transaksi.Add(new PiutangDetail { SPesanan = i.NoRef, Duedate = i.Tanggal, Keterangan = i.Keterangan, Piutang = i.Piutang, Bayar = i.Payment });
+            }
+            return PartialView(Transaksi);
+        }
     }
 }
