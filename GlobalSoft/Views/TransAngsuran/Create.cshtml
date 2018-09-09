@@ -6,9 +6,8 @@
 
 <h2>Pembayaran Piutang</h2>
 
-@using (Html.BeginForm())
-{
     @Html.AntiForgeryToken()
+
 
     <div class="form-horizontal">
         <h4></h4>
@@ -19,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Bukti, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Bukti, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.NoRef } } )
+                @Html.EditorFor(model => model.Bukti, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.NoRef } })
                 @Html.ValidationMessageFor(model => model.Bukti, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,28 +26,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now } })
                 @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BankID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BankID",null,"--Select Bank--", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CustomerID",null,"--Select Customer--", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.Keterangan, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,16 +38,35 @@
                 @Html.ValidationMessageFor(model => model.Keterangan, "", new { @class = "text-danger" })
             </div>
         </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("BankID", null, "--Select Bank--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+  
+ 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
             </div>
         </div>
+  </div>
+
+    <div id="list_container">
     </div>
-}
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -87,4 +87,56 @@
             });
         });
     </script>
+
+    <script>
+        $('#CustomerID').change(function (e) {
+            var row_num = $("#CustomerID option:selected").val();
+            // alert("Nama Customer : " + row_num);
+
+            $.ajax({
+                type: "GET",
+                url: "/TransAngsuran/DetailAngsuran",
+                data: {
+                    Custid: row_num,
+                    Unitid: 0
+                },
+                success: function (data) {
+                    $("#list_container").html(data);
+                },
+                error: function () {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $('#UnitID').change(function (e) {
+            var row_num = $("#UnitID option:selected").val();
+            //  alert("Nama Customer : " + row_num);
+
+            $.ajax({
+                type: "GET",
+                url: "/TransAngsuran/DetailAngsuran",
+                data: {
+                    Custid: 0,
+                    Unitid: row_num
+                },
+                success: function (data) {
+                    $("#list_container").html(data);
+                },
+                error: function () {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+
+
+    </script>
+
+    <script>
+       
+       
+    </script>
+
 }

@@ -255,7 +255,7 @@ else
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
             var $self = $(this);
-            if ($(this).attr('data-itemId') == "0") {
+            if ($(this).attr('data-itemId') === "0") {
                 $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
                     $(this).remove();
                 });
@@ -274,7 +274,7 @@ else
                     location.reload();
                 },
                 error: function () {
-                    alert("Error!")
+                    alert("Error!");
                 }
             });
         }
@@ -290,7 +290,7 @@ else
                     TransNoID: $(this).find('td:eq(4)').html(),
                     Keterangan: $(this).find('td:eq(1)').html(),
                     Terima: $(this).find('td:eq(2)').html(),
-                    Bayar: $(this).find('td:eq(3)').html(),
+                    Bayar: $(this).find('td:eq(3)').html()
                     
   
                 });
@@ -344,7 +344,7 @@ else
                        
                     },
                     error: function () {
-                        alert("Error!")
+                        alert("Error!");
                     }
                 });
             }

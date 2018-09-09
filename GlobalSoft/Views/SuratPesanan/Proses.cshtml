@@ -57,7 +57,7 @@
                     return {
                         id: $(this).data('id'),
                         PropertyName: $(this).data('propertyname')
-                    }
+                    };
                 },
                 callback: function (value, settings) {
                     var jsonData = $.parseJSON(value);
@@ -68,7 +68,7 @@
                         $(this).text(oldValue);
                     }
                 }
-            })
+            });
 
             $('.editSelect').editable('../home/Saveuser', {
                 cssclass: 'jeditForm',
@@ -88,7 +88,7 @@
                     return {
                         id: $(this).data('id'),
                         PropertyName: $(this).data('propertyname')
-                    }
+                    };
                 },
                 callback: function (value, settings) {
                     var jsonData = $.parseJSON(value);
@@ -99,12 +99,12 @@
                         $(this).text(oldValue);
                     }
                 }
-            })
+            });
 
             $('.editSelect').click(function () {
                 $('select', this).addClass('form-control pull-left w100');
-                $('button', this).addClass('btn btn-sm btn-success margin10')
-            })
+                $('button', this).addClass('btn btn-sm btn-success margin10');
+            });
 
             $('.editDate').editable('/SuratPesanan/saveuser', {
                 cssclass: 'jeditForm',
@@ -123,7 +123,7 @@
                     return {
                         id: $(this).data('id'),
                         PropertyName: $(this).data('propertyname')
-                    }
+                    };
                 },
                 callback: function (value, settings) {
                     var jsonData = $.parseJSON(value);
@@ -134,7 +134,7 @@
                         $(this).text(oldValue);
                     }
                 }
-            })
-        })
+            });
+        });
     </script>
 }

@@ -1,105 +1,68 @@
 ﻿@model IEnumerable<GlobalSoft.Models.ArTransH>
 
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Angsuran";
 }
 
-<h2>Index</h2>
+<h2></h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ArHGd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bukti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tanggal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BankID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MarketingID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Keterangan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JthTempo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Jumlah)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Piutang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Unapplied)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Diskon)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Pembayaran Angsuran</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No. Bukti</th>
+                            <th>Tanggal</th>
+                            <th>Bank</th>
+                            <th>Customer</th>
+                            <th>Keterangan</th>
+                            <th>Jumlah</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var asset in ViewBag.Transaksi)
+                        {
+                            <tr>
+                                <td>@asset.Bukti</td>
+                                <td>@asset.Tanggal</td>
+                                <td>@asset.BankName</td>
+                                <td>@asset.CustomerName</td>
+                                <td>@asset.Keterangan</td>
+                                <td>@asset.Jumlah</td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArHGd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bukti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tanggal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BankID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarketingID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Keterangan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JthTempo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Jumlah)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Piutang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Unapplied)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Diskon)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ArHID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArHID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArHID })
-        </td>
-    </tr>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = asset.ArHID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = asset.ArHID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = asset.ArHID }) |
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+
+
+    </script>
 }
 
-</table>
+
+

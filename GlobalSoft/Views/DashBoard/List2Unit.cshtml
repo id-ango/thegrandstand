@@ -105,33 +105,36 @@
 
 
         $(document).ready(function () {
-        var table = $('#1').DataTable({
-            "ajax": "/dashboard/GetTabular/?Level=" + 1,
-            "type": "POST",
-            "datatype": "json",
-            "columns": [
-                {
-                    "className": 'details-control',
-                    "orderable": false,
-                    "data": null,
-                    "defaultContent": ''
-                },
-                { "data": "UnitNo" },
-                { "data": "Lantai" },
-                { "data": "Categorie" },
-                { "data": "Status" },
-                { "data": "Luas" },
-                { "data": "CustomerName" },
-                { "data": "MarketingName" },
-                { "data": "PaymentName" },
-                { "data": "Piutang" },
-                { "data": "Pembayaran" },
-                { "data": "Sisa" }
-            ],
-            "order": [[1, 'asc']]
-        });
-
-        $('table tbody')
+          
+            var y = $("table").attr('id');
+          
+            var table = $('#1').DataTable({
+                "ajax": "/dashboard/GetTabular/?Level=" + 1,
+                    "type": "POST",
+                    "datatype": "json",
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { "data": "UnitNo" },
+                        { "data": "Lantai" },
+                        { "data": "Categorie" },
+                        { "data": "Status" },
+                        { "data": "Luas" },
+                        { "data": "CustomerName" },
+                        { "data": "MarketingName" },
+                        { "data": "PaymentName" },
+                        { "data": "Piutang" },
+                        { "data": "Pembayaran" },
+                        { "data": "Sisa" }
+                    ],
+                    "order": [[1, 'asc']]
+                });
+            
+       $('table tbody')
             .on('mouseenter', 'td', function () {
                 var colIdx = table.cell(this).index().column;
 
@@ -139,7 +142,7 @@
                 $(table.column(colIdx).nodes()).addClass('highlight');
             });
 
-        $('#1 tbody').on('click', 'td.details-control', function () {
+            $('#1 tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
 
@@ -168,10 +171,10 @@
 
 
         });
-
+        
     </script>
-
-    <script type="text/javascript">
+   
+   <script type="text/javascript">
         function format(d) {
             var htmlResult = '<div class="row">' +
                 '   <div class="col-md-8">' +
@@ -455,5 +458,4 @@
         
     </script>
 
-   
 }

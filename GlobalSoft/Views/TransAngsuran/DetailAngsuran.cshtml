@@ -1,0 +1,100 @@
+﻿@model IList<GlobalSoft.Models.PiutangDetail>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Detail Angsuran</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Unit</th>
+                            <th>Customer</th>
+                            <th>Surat Pesanan</th>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                            <th>Piutang</th>
+                            <th>Bayar</th>
+                            <th>Diskon</th>
+                            <th>Sisa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var aset in Model)
+                        {
+                        <tr data-id="@aset.SPesananID">
+                            <td>@aset.SPesananID</td>
+                            <td>@aset.UnitNo</td>
+                            <td>@aset.CustomerName</td>
+                            <td>@aset.SPesanan</td>
+                            <td>@aset.Duedate</td>
+                            <td>@aset.Keterangan</td>
+                            <td style="display:none">@aset.Piutang</td>
+                            <td>@string.Format("{0:n0}", @aset.Piutang)</td>
+
+                            <td class="bayar">
+                                @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td class="diskon">
+                                @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+
+                            <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
+                            <td><button data-id="@aset.SPesananID">Hitung</button></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+   
+<script>
+    $("button").click(function (e) {
+        e.preventDefault();
+        price = $(this).data('id');
+    //    alert(price);
+        var orderArr = [];
+        orderArr.length = 0;
+
+      //  var Row = document.getElementById("assets-data-table");
+      //  var Cells = Row.getElementsByTagName("td");
+
+      //  alert(Cells[5].innerText);
+
+        var piutang = $(this).parents('tr').find('td:eq(6)').html();
+        var pembayaran = $(this).parents('tr').find(".bayar input").val();
+        var diskon = $(this).parents('tr').find(".diskon input").val();
+        var sisa = parseFloat(piutang) - parseFloat(pembayaran) - parseFloat(diskon);
+        //  var col_index = $(this).parents('td').index();
+        var n = sisa.toFixed(2);
+         $(this).parents('tr').find('td:eq(10)').html(n);
+
+   //     alert(sisa);
+      //  alert(piutang2);
+      
+    });
+
+    $('table tbody')
+        .on('mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+
+            $(table.cells().nodes()).removeClass('highlight');
+            $(table.column(colIdx).nodes()).addClass('highlight');
+        });
+
+   
+ 
+</script>
+   
