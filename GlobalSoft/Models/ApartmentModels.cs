@@ -307,6 +307,6 @@ namespace GlobalSoft.Models
         public DbSet<ArTransD> ArTransDs { get; set; }
         public DbSet<AptGedung> AptGedungs { get; set; }
 
-        public System.Data.Entity.DbSet<GlobalSoft.Models.TabularViewModel> TabularViewModels { get; set; }
+   //     public System.Data.Entity.DbSet<GlobalSoft.Models.TabularViewModel> TabularViewModels { get; set; }
     }
 }
