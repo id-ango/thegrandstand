@@ -135,7 +135,60 @@
     </script>
 
     <script>
-       
+        function saveOrder(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/TransAngsuran/SaveOrder",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#assets-data-table tbody tr"), function () {
+                orderArr.push({
+                    SPesananID: $(this).find('td:eq(0)').html(),
+                    CustomerID: $(this).find('td:eq(12)').html(),
+                    duedate: $(this).find('td:eq(4)').html(),
+                    keterangan: $(this).find('td:eq(5)').html(),
+                    bayar: $(this).parents('tr').find(".bayar input").val(),
+                    diskon: $(this).parents('tr').find(".bayar input").val()
+                    
+
+
+                });
+            });
+
+
+            var data = JSON.stringify({
+                bukti: $("#Bukti").val(),
+                keterangan: $("#Keterangan").val(),
+                tanggal: $("#Tanggal").val(),
+                bank: $("#BankID").val(),
+                customer: $("#CustomerID").val(),
+                order: orderArr
+            });
+            //            alert(data);
+
+            $.when(saveOrder(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
        
     </script>
 

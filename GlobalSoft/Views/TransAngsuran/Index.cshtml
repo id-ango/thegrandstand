@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GlobalSoft.Models.ArTransH>
+﻿@model IEnumerable<GlobalSoft.Models.ArHView>
 
 
 @{
@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var asset in ViewBag.Transaksi)
+                        @foreach (var asset in Model)
                         {
                             <tr>
                                 <td>@asset.Bukti</td>

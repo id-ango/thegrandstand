@@ -185,7 +185,7 @@ namespace GlobalSoft.Models
         public int ArDID { get; set; }
         public Guid ArDGd { get; set; }
         public DateTime Tanggal { get; set; }
-        public DateTime? Duedate { get; set; }
+        public DateTime? duedate { get; set; }
         public int SPesananID { get; set; }
         public int CustomerID { get; set; }
         public string Keterangan { get; set; }

@@ -19,23 +19,23 @@ namespace GlobalSoft.Controllers
         {
             var Transaksi = from e in db.ArTransHs
                             join y in db.ArCustomers on e.CustomerID equals y.CustomerID                    
-                            select new
+                            select new ArHView
                             {
-                                e.ArHID,
-                                e.Bukti,
-                                e.Tanggal,
-                                e.BankID,
+                                ArHID = e.ArHID,
+                                Bukti = e.Bukti,
+                                Tanggal = e.Tanggal,
+                                BankID = e.BankID,
                                 BankName = (from r in db.CbBanks where r.BankID==e.BankID select r.BankName).FirstOrDefault(),
-                                test = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
-                                e.CustomerID,
-                                y.CustomerName,
-                                e.Keterangan,
-                                e.Jumlah
+//                                BankName = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
+                                CustomerID = e.CustomerID,
+                                CustomerName = y.CustomerName,
+                                Keterangan = e.Keterangan,
+                                Jumlah = e.Jumlah
                             };
-
             
-            ViewBag.Transaksi = Transaksi.ToList();
-            return View(db.ArTransHs.ToList());
+            
+            
+            return View(Transaksi);
         }
 
         // GET: TransAngsuran/Details/5
@@ -259,7 +259,7 @@ namespace GlobalSoft.Controllers
                     SPesanan = i.SPesanan,
                     Duedate = i.Duedate,
                     Keterangan = i.Keterangan,
-                    Piutang = i.Jumlah,
+                    Piutang = (from r in db.CbTranss where r.SPesananID == i.SPesananID).FirstOrDefault(),
                     Bayar = i.Bayar,
                     Diskon = i.Diskon,
                     Sisa = i.Jumlah - i.Bayar - i.Diskon
@@ -267,6 +267,67 @@ namespace GlobalSoft.Controllers
                 //    Transaksi.Add(new PiutangDetail { SPesanan = i.NoRef, Duedate = i.Tanggal, Keterangan = i.Keterangan, Piutang = i.Piutang, Bayar = i.Payment });
             }
             return PartialView(Transaksi);
+        }
+
+        public ActionResult SaveOrder(string bukti, String keterangan,  string tanggal, int bank, int customer, ArTransD[] order)
+        {
+            string result = "Error! Pembayaran Is Not Complete!";
+            if (bukti != null && keterangan != null && order != null)
+            {
+                var cutomerId = Guid.NewGuid();
+                ArTransH model = new ArTransH();
+                model.ArHGd = cutomerId;
+                model.Bukti = bukti;
+                model.Keterangan = keterangan;
+                model.Tanggal = Convert.ToDateTime(tanggal);
+                model.BankID = bank;
+                model.CustomerID = customer;
+                decimal nJumlah = 0;
+
+                foreach (var t in order)
+                {
+                    nJumlah = nJumlah + (t.Bayar + t.Diskon);
+                }
+
+                model.Jumlah = nJumlah;
+                db.ArTransHs.Add(model);
+
+                foreach (var item in order)
+                {
+                    if (item.Bayar != 0 || item.Diskon != 0)
+                    {
+                        var orderId = Guid.NewGuid();
+                        ArTransD O = new ArTransD();
+                        O.ArDGd = orderId;
+                        O.Keterangan = item.Keterangan;
+                        O.Tanggal = model.Tanggal;
+                        O.SPesananID = item.SPesananID;
+                        O.CustomerID = item.CustomerID;
+                        O.Bayar = item.Bayar;
+                        O.Diskon = item.Diskon;
+                        O.ArHGd = cutomerId;
+                        db.ArTransDs.Add(O);
+
+                        CbTrans C = new CbTrans();
+                        C.BankID = model.BankID;
+                        C.NoRef = model.Bukti;
+                        C.Tanggal = model.Tanggal;
+                        C.UnitID = model.UnitID;
+                        C.PersonID = model.CustomerID;
+                        C.Keterangan = item.Keterangan;
+                        C.SPesananID = item.SPesananID;
+                        C.TglSelesai = Convert.ToDateTime(item.duedate);
+                        C.TransNoID = 2;
+                        db.CbTranss.Add(C);
+
+                    }
+                }
+
+
+                db.SaveChanges();
+                result = "Success! Order Is Complete!";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

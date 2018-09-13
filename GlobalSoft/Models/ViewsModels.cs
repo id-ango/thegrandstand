@@ -270,4 +270,28 @@ namespace GlobalSoft.Models
 
     }
 
+    public class ArHView
+    {
+        public int ArHID { get; set; }
+        public Guid ArHGd { get; set; }
+        public int kodeNo { get; set; }
+        [StringLength(20)]
+        public string Bukti { get; set; }
+        public DateTime Tanggal { get; set; }
+        [Display(Name = "Bank")]
+        public int BankID { get; set; }
+        public string BankName { get; set; }
+        [Display(Name = "Customer")]
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public int MarketingID { get; set; }
+        [Display(Name = "Unit")]
+        public int UnitID { get; set; }
+        public string Keterangan { get; set; }
+        public DateTime JthTempo { get; set; }
+        public decimal Jumlah { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Unapplied { get; set; }
+        public decimal Diskon { get; set; }
+    }
 }
