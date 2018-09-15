@@ -1,0 +1,357 @@
+﻿@model IEnumerable<GlobalSoft.Models.CbTransH>
+
+<br /><br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <h2 class="panel-title pull-left" style="margin-left:10px;">
+                <strong>Transaksi KasBank</strong>
+            </h2>
+            <button style="margin-right:10px" class="btn btn-primary pull-right" onclick="addNewOrder()">New Transaksi</button>
+        </div>
+    </div>
+
+    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
+
+    @if (Model.Count() != 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="panel-body">
+                <table class="table table-striped table-responsive">
+                    <tbody>
+                        <tr>
+                            <td>Dokumen : @item.Docno </td>
+                            <td>Tanggal : @item.Tanggal</td>
+                            @{
+        if (item.BankID == 0)
+        {
+                        <td>Bank :  "kosong" </td>
+}
+else
+{
+                        <td>Bank : @item.Bank1.BankName  </td>
+}
+                            }
+
+                            <td>Keterangan : @item.Keterangan </td>
+                            <td>Saldo : @item.Saldo </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Transaksi</th>
+                                            <th>Keterangan</th>
+                                            <th>Terima</th>
+                                            <th>Bayar</th>
+                                        </tr>
+                                        @{
+                                            var totalBill = 0;
+                                        }
+                                        @foreach (var order in item.CbTransDs)
+                                        {
+                                        <tr>
+                                            <td>@order.AptTrsNo.TransNo</td>
+                                            <td>@order.Keterangan</td>
+                                            <td>@order.Terima</td>
+                                            <td>@order.Bayar</td>                                            
+                                        </tr>
+                                            totalBill = totalBill + @Convert.ToInt32(order.Terima-order.Bayar);
+                                        }
+                                    </tbody>
+                                </table>
+                                <span class="pull-right" style="margin-right:100px;"><strong>Saldo :  </strong> @totalBill</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="panel-body">
+            <h3 style="color:red;">Empty!</h3>
+        </div>
+
+    }
+</div>
+
+@*Desing Bootdtrap Modal With Order Form*@
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Add New Transaksi</h4>
+            </div>
+            <form id="NewOrderForm">
+                <div class="modal-body">
+                    @*Customer Details*@
+                    <h5 style="color:#ff6347">Transaksi</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <input type="hidden" id="GidCb" />
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Kode
+                            </label>
+                            <div class="col-md-2">
+                                <input type="text" maxlength="3" size="3" id="kodeno" class="quantity form-control" onkeydown="uppercaseF(this)" />
+
+                            </div>
+                            <div class="col-md-3">
+                                <a id="cekbukti" class="btn btn-default">Cek</a>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <input type="text" id="docno" name="docno" placeholder="No. Bukti" class="form-control" />
+                            </div>
+                            <br />
+                            <hr />
+                            <label class="control-label col-md-2">
+                                Tanggal
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" id="tanggal" name="tanggal" placeholder="Tanggal" class="form-control" value="@DateTime.Now" />
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                Bank
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownList("BankID", null, "--Select Bank--", htmlAttributes: new { @class = "form-control", @id="bankid"  })
+                            </div>
+                            <br />
+                            <br />
+                            <label class="control-label col-md-2">
+                                Deskripsi
+                            </label>
+                            <div class="col-md-5">
+                                <input type="text" id="deskripsi" name="deskripsi" placeholder="Deskripsi" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Order Details*@
+                    <h5 style="margin-top:10px;color:#ff6347">Transaksi Details</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <input type="hidden" id="GuidDb" />
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Tipe
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("TransNoID", null, "--Tipe Transaksi--", htmlAttributes: new { @class = "form-control", @id = "transid" })
+                            </div>
+
+
+                            <label class="control-label col-md-2">
+                                Keterangan
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="keterangan" name="keterangan" placeholder="Keterangan" class="form-control" />
+                            </div>
+                            <br />
+                           
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Terima
+                            </label>
+                            <div class="col-md-4">
+                                <input type="number" id="terima" name="terima" placeholder="Terima" class="form-control" value=0 step="0.1"/>
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                Bayar
+                            </label>
+                            <div class="col-md-4">
+                                <input type="number" id="bayar" name="bayar" placeholder="Bayar" class="form-control" value=0 step="0.1"/>
+                            </div>
+                            <br />
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-lg-offset-10">
+                                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                                </div>
+                            </div>
+
+                            <table id="detailsTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:30%">Transaksi</th>
+                                        <th style="width:20%">Keterangan</th>
+                                        <th style="width:15%">Terima</th>
+                                        <th style="width:25%">Bayar</th>
+                                        <th style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <script>
+        $(function () {
+            $("#tanggal").datepicker({
+                dateFormat: 'mm-dd-yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            });
+        });
+    </script>
+    <script>
+        //Show Modal.
+        function addNewOrder() {
+            $("#newOrderModal").modal();
+        }
+        //Add Multiple Order.
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#keterangan").val()) == "" && $.trim($("#terima").val()) == "" || $.trim($("#bayar").val()) == "") return;
+
+            var productName = $("#keterangan").val(),
+                price = $("#terima").val(),
+                quantity = $("#bayar").val(),
+                transval = $("#transid").val(),
+                transtext = $("#transid option:selected").text(),
+                detailsTableBody = $("#detailsTable tbody");
+
+            var productItem = '<tr><td>' + transtext + '</td><td>' + productName + '</td><td>' + price + '</td><td>' + quantity + '</td><td style="display:none">'+transval+  '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem();
+        });
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#keterangan").val('');
+            $("#terima").val(0);
+            $("#bayar").val(0);
+        }
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') === "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/TransBank/SaveOrder",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!");
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    TransNoID: $(this).find('td:eq(4)').html(),
+                    Keterangan: $(this).find('td:eq(1)').html(),
+                    Terima: $(this).find('td:eq(2)').html(),
+                    Bayar: $(this).find('td:eq(3)').html()
+                    
+  
+                });
+            });
+
+            
+            var data = JSON.stringify({                
+                docno: $("#docno").val(), 
+                keterangan: $("#deskripsi").val(),                
+                tanggal: $("#tanggal").val(),
+                bank: $("#bankid").val(),       
+                order: orderArr
+            });
+//            alert(data);
+
+            $.when(saveOrder(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+    <script>
+        function uppercaseF(a) {
+
+            setTimeout(function () {
+                a.value = a.value.toUpperCase();
+            }, 1);
+
+        }
+    </script>
+    <script>
+        $("#cekbukti").click(function (e) {
+            e.preventDefault();
+            var data = JSON.stringify({
+                kodeno: $("#kodeno").val()
+            });
+
+            getkode(data);
+
+            function getkode(data) {
+                return $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/TransBank/GetKode",
+                    data: data,
+                    success: function (result) {
+                        
+                        $("#docno").val(result);
+                       
+                    },
+                    error: function () {
+                        alert("Error!");
+                    }
+                });
+            }
+
+        });
+
+               
+       
+    </script>
+}

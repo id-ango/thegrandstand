@@ -92,7 +92,7 @@ namespace GlobalSoft.Controllers
         // POST: TransAngsuran/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+  /*      [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ArHID,ArHGd,Bukti,Tanggal,BankID,CustomerID,MarketingID,UnitID,Keterangan,JthTempo,Jumlah,Piutang,Unapplied,Diskon")] ArTransH arTransH)
         {
@@ -105,7 +105,7 @@ namespace GlobalSoft.Controllers
 
             return View(arTransH);
         }
-
+*/
         // GET: TransAngsuran/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -189,7 +189,7 @@ namespace GlobalSoft.Controllers
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               y.Jumlah,
+                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -211,7 +211,7 @@ namespace GlobalSoft.Controllers
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               y.Jumlah,
+                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -233,7 +233,7 @@ namespace GlobalSoft.Controllers
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               y.Jumlah,
+                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -259,7 +259,7 @@ namespace GlobalSoft.Controllers
                     SPesanan = i.SPesanan,
                     Duedate = i.Duedate,
                     Keterangan = i.Keterangan,
-                    Piutang = (from r in db.CbTranss where r.SPesananID == i.SPesananID).FirstOrDefault(),
+                    Piutang = i.Jumlah,
                     Bayar = i.Bayar,
                     Diskon = i.Diskon,
                     Sisa = i.Jumlah - i.Bayar - i.Diskon
@@ -307,18 +307,7 @@ namespace GlobalSoft.Controllers
                         O.Diskon = item.Diskon;
                         O.ArHGd = cutomerId;
                         db.ArTransDs.Add(O);
-
-                        CbTrans C = new CbTrans();
-                        C.BankID = model.BankID;
-                        C.NoRef = model.Bukti;
-                        C.Tanggal = model.Tanggal;
-                        C.UnitID = model.UnitID;
-                        C.PersonID = model.CustomerID;
-                        C.Keterangan = item.Keterangan;
-                        C.SPesananID = item.SPesananID;
-                        C.TglSelesai = Convert.ToDateTime(item.duedate);
-                        C.TransNoID = 2;
-                        db.CbTranss.Add(C);
+                 
 
                     }
                 }

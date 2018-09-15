@@ -41,8 +41,8 @@
                             <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
                             <li>@Html.ActionLink("Cara Pembelian", "index", "SetupBayar")</li>
                             <li>@Html.ActionLink("Pembayaran", "index", "SetupPayment")</li>
-                            <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
-
+                           @* <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
+                            *@
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -50,6 +50,8 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Setup Bank", "index", "SetupBank")</li>
                             <li>@Html.ActionLink("Transaksi", "index", "TransBank")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Rek. Koran", "rekkoran", "Laporan")</li>
 
 
                         </ul>
