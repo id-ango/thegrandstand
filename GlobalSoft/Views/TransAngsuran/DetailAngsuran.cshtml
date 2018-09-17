@@ -29,28 +29,28 @@
                     <tbody>
                         @foreach (var aset in Model)
                         {
-                        <tr data-id="@aset.SPesananID">
-                            <td>@aset.SPesananID</td>
-                            <td>@aset.UnitNo</td>
-                            <td>@aset.CustomerName</td>
-                            <td>@aset.SPesanan</td>
-                            <td>@aset.Duedate</td>
-                            <td>@aset.Keterangan</td>
-                            <td style="display:none">@aset.Piutang</td>
-                            <td>@string.Format("{0:n0}", @aset.Piutang)</td>
+                            <tr data-id="@aset.SPesananID">
+                                <td>@aset.SPesananID</td>
+                                <td>@aset.UnitNo</td>
+                                <td>@aset.CustomerName</td>
+                                <td>@aset.SPesanan</td>
+                                <td>@aset.Duedate</td>
+                                <td>@aset.Keterangan</td>
+                                <td style="display:none">@aset.Piutang</td>
+                                <td>@string.Format("{0:n0}", @aset.Piutang)</td>
 
-                            <td class="bayar">
-                                @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
-                            </td>
-                            <td class="diskon">
-                                @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
-                            </td>
+                                <td class="bayar">
+                                    @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td class="diskon">
+                                    @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
 
-                            <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
-                            <td><button data-id="@aset.SPesananID">Hitung</button></td>
-                            <td style="display:none">@aset.UnitID</td>
-                            <td style="display:none">@aset.CustomerID</td>
-                        </tr>
+                                <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
+                                <td><button data-id="@aset.SPesananID">Hitung</button></td>
+                                <td style="display:none">@aset.UnitID</td>
+                                <td style="display:none">@aset.CustomerID</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -61,19 +61,19 @@
 
 
 
-   
+
 <script>
     $("button").click(function (e) {
         e.preventDefault();
         price = $(this).data('id');
-    //    alert(price);
+        //    alert(price);
         var orderArr = [];
         orderArr.length = 0;
 
-      //  var Row = document.getElementById("assets-data-table");
-      //  var Cells = Row.getElementsByTagName("td");
+        //  var Row = document.getElementById("assets-data-table");
+        //  var Cells = Row.getElementsByTagName("td");
 
-      //  alert(Cells[5].innerText);
+        //  alert(Cells[5].innerText);
 
         var piutang = $(this).parents('tr').find('td:eq(6)').html();
         var pembayaran = $(this).parents('tr').find(".bayar input").val();
@@ -81,11 +81,11 @@
         var sisa = parseFloat(piutang) - parseFloat(pembayaran) - parseFloat(diskon);
         //  var col_index = $(this).parents('td').index();
         var n = sisa.toFixed(2);
-         $(this).parents('tr').find('td:eq(10)').html(n);
+        $(this).parents('tr').find('td:eq(10)').html(n);
 
-   //     alert(sisa);
-      //  alert(piutang2);
-      
+        //     alert(sisa);
+        //  alert(piutang2);
+
     });
 
     $('table tbody')
@@ -96,7 +96,65 @@
             $(table.column(colIdx).nodes()).addClass('highlight');
         });
 
-   
- 
+
+
 </script>
-   
+
+<script>
+    function saveOrder(data) {
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/TransAngsuran/SaveOrder",
+            data: data,
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function () {
+                alert("Error!");
+            }
+        });
+    }
+    //Collect Multiple Order List For Pass To Controller
+    $("#saveOrder").click(function (e) {
+        e.preventDefault();
+
+        var orderArr = [];
+        orderArr.length = 0;
+
+        $.each($("#assets-data-table tbody tr"), function () {
+            orderArr.push({
+                SPesananID: $(this).find('td:eq(0)').html(),
+                CustomerID: $(this).find('td:eq(12)').html(),
+                duedate: $(this).find('td:eq(4)').html(),
+                keterangan: $(this).find('td:eq(5)').html(),
+                bayar: $(this).find(".bayar input").val(),
+                diskon: $(this).find(".diskon input").val()
+
+
+
+            });
+        });
+
+
+        var data = JSON.stringify({
+            bukti: $("#Bukti").val(),
+            keterangan: $("#Keterangan").val(),
+            tanggal: $("#Tanggal").val(),
+            bank: $("#BankID").val(),
+            customer: $("#CustomerID").val(),
+            order: orderArr
+        });
+        alert(data);
+
+        $.when(saveOrder(data)).then(function (response) {
+            console.log(response);
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+
+</script>
+

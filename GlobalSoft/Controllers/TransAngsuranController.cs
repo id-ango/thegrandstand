@@ -185,11 +185,12 @@ namespace GlobalSoft.Controllers
                                e.AptUnit.UnitNo,
                                e.CustomerID,
                                e.ArCustomer.CustomerName,
+                               e.Piutang,
                                y.SPesananID,
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
+                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -207,11 +208,12 @@ namespace GlobalSoft.Controllers
                                e.AptUnit.UnitNo,
                                e.CustomerID,
                                e.ArCustomer.CustomerName,
+                               e.Piutang,
                                y.SPesananID,
                                y.SPesanan,
                                y.Duedate,
-                               y.Keterangan,
-                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
+                               y.Keterangan,                               
+                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -229,11 +231,12 @@ namespace GlobalSoft.Controllers
                                e.AptUnit.UnitNo,
                                e.CustomerID,
                                e.ArCustomer.CustomerName,
+                               e.Piutang,
                                y.SPesananID,
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               Jumlah = db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).Sum(),
+                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x =>x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -249,6 +252,8 @@ namespace GlobalSoft.Controllers
             List<PiutangDetail> Transaksi = new List<PiutangDetail>();
             foreach (var i in allList)
             {
+                if (i.Jumlah != 0)
+                { 
                 Transaksi.Add(new PiutangDetail
                 {
                     UnitID = i.UnitID,
@@ -264,6 +269,7 @@ namespace GlobalSoft.Controllers
                     Diskon = i.Diskon,
                     Sisa = i.Jumlah - i.Bayar - i.Diskon
                 });
+            }
                 //    Transaksi.Add(new PiutangDetail { SPesanan = i.NoRef, Duedate = i.Tanggal, Keterangan = i.Keterangan, Piutang = i.Piutang, Bayar = i.Payment });
             }
             return PartialView(Transaksi);

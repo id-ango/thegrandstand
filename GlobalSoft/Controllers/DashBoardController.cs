@@ -150,7 +150,9 @@ namespace GlobalSoft.Controllers
                 (from e in listUnit
                  where e.NoRef == y.SPesanan
                  select e).ForEach(x => {
-                     x.Pembayaran = x.Pembayaran+y.Bayar; x.Sisa = x.Sisa-y.Bayar;
+                     y.Bayar = db.ArTransDs.Where(r => r.SPesananID == y.SPesananID).Select(r => r.Bayar + r.Diskon).DefaultIfEmpty(0).Sum();
+                     x.Pembayaran = x.Pembayaran+y.Bayar;
+                     x.Sisa = x.Sisa-y.Bayar;
                  });
             }
 
@@ -202,7 +204,14 @@ namespace GlobalSoft.Controllers
             var ListSp = (from e in db.AptTranss join
                               y in db.AptSPesanans on e.NoRef equals y.SPesanan
                           where e.AptUnit.UnitNo == testUnit
-                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = y.Duedate, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = y.Jumlah, Bayar = y.Bayar, Keterangan =  y.Keterangan }).ToList();
+                          select new UnitPiutang {
+                              NoRef = e.NoRef,
+                              Tanggal = y.Duedate,
+                              UnitID = e.UnitID,
+                              UnitNo = e.AptUnit.UnitNo,
+                              Angsuran = y.Jumlah,
+                              Bayar =  db.ArTransDs.Where(x =>x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                              Keterangan =  y.Keterangan });
 
             foreach (var i in ListSp)
             {
@@ -210,7 +219,7 @@ namespace GlobalSoft.Controllers
             }
 
             var allList = ListCb.Concat(ListSp);
- //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
+            //           TglString = Convert.ToDateTime(e.Tanggal).ToString("dd-MM-yyyy")
             var employees = (from employee in allList
                              select new
                              {
@@ -281,7 +290,9 @@ namespace GlobalSoft.Controllers
                 (from e in listUnit
                  where e.NoRef == y.SPesanan
                  select e).ForEach(x => {
-                     x.Pembayaran = x.Pembayaran + y.Bayar; x.Sisa = x.Sisa - y.Bayar;
+                     y.Bayar = db.ArTransDs.Where(r => r.SPesananID == y.SPesananID).Select(r => r.Bayar + r.Diskon).DefaultIfEmpty(0).Sum();
+                     x.Pembayaran = x.Pembayaran + y.Bayar;
+                     x.Sisa = x.Sisa - y.Bayar;
                  });
             }
 

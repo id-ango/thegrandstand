@@ -78,7 +78,7 @@ namespace GlobalSoft.Models
         public int UnitID { get; set; }         // Unit No 
         [StringLength(20)]
         public string UnitNo { get; set; }
-
+        public int SPesananID { get; set; }
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
