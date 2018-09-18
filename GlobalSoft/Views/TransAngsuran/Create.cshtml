@@ -6,75 +6,77 @@
 
 <h2>Pembayaran Piutang</h2>
 
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
 
-    <div class="form-horizontal">
-        <h4></h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Bukti, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Bukti, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.NoRef } })
-                @Html.ValidationMessageFor(model => model.Bukti, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Bukti, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Bukti, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.NoRef } })
+            @Html.ValidationMessageFor(model => model.Bukti, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now } })
-                @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Keterangan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Keterangan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Keterangan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    
-        <div class="form-group">
-            @Html.LabelFor(model => model.BankID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BankID", null, "--Select Bank--", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-  
- 
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
-            </div>
-        </div>
-  </div>
-
-    <div id="list_container">
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now } })
+            @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Keterangan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Keterangan, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Keterangan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BankID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("BankID", null, "--Select Bank--", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BankID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CustomerID", null, "--Select Customer--", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button id="saveOrder" type="submit" class="btn btn-danger">Save Order</button>
+        </div>
+    </div>
+</div>
+
+<div id="list_container">
+</div>
 
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+@*<link rel="stylesheet" href="~/Content/style.css">*@
+
 @section scripts{
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -110,29 +112,7 @@
         });
     </script>
 
-    <script>
-        $('#UnitID').change(function (e) {
-            var row_num = $("#UnitID option:selected").val();
-            //  alert("Nama Customer : " + row_num);
-
-            $.ajax({
-                type: "GET",
-                url: "/TransAngsuran/DetailAngsuran",
-                data: {
-                    Custid: 0,
-                    Unitid: row_num
-                },
-                success: function (data) {
-                    $("#list_container").html(data);
-                },
-                error: function () {
-                    alert("Something went wrong in controller");
-                }
-            });
-        });
+   
 
 
-    </script>
-
-    
 }

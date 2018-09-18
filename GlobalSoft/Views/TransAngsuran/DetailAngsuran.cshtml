@@ -88,13 +88,7 @@
 
     });
 
-    $('table tbody')
-        .on('mouseenter', 'td', function () {
-            var colIdx = table.cell(this).index().column;
-
-            $(table.cells().nodes()).removeClass('highlight');
-            $(table.column(colIdx).nodes()).addClass('highlight');
-        });
+  
 
 
 
@@ -110,7 +104,7 @@
             data: data,
             success: function (result) {
                 alert(result);
-                location.reload();
+                location.reload(true);
             },
             error: function () {
                 alert("Error!");
@@ -147,7 +141,7 @@
             customer: $("#CustomerID").val(),
             order: orderArr
         });
-        alert(data);
+//        alert(data);
 
         $.when(saveOrder(data)).then(function (response) {
             console.log(response);

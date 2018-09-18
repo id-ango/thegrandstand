@@ -320,7 +320,7 @@ namespace GlobalSoft.Controllers
 
 
                 db.SaveChanges();
-                result = "Success! Order Is Complete!";
+                result = "Success! Pembayaran Is Complete!";
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
