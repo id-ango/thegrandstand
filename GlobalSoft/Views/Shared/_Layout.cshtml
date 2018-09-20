@@ -41,7 +41,7 @@
                             <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
                             <li>@Html.ActionLink("Cara Pembelian", "index", "SetupBayar")</li>
                             <li>@Html.ActionLink("Pembayaran", "index", "SetupPayment")</li>
-                           @* <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
+                            @* <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
                             *@
                         </ul>
                     </li>
@@ -79,6 +79,7 @@
                         </ul>
                     </li>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

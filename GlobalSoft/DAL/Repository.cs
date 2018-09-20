@@ -1,9 +1,10 @@
-﻿using System;
+﻿using GlobalSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GlobalSoft.DAL
+namespace GlobalSoft.Models
 {
     public static class Repository
     {
