@@ -159,7 +159,7 @@ namespace GlobalSoft.Models
         [Key]
         public int ArHID { get; set; }
         public Guid ArHGd { get; set; }
-        public int kodeNo { get; set; }
+        public int KodeNo { get; set; }
         [StringLength(20)]
         public string Bukti { get; set; }
         public DateTime Tanggal { get; set; }
@@ -185,7 +185,7 @@ namespace GlobalSoft.Models
         public int ArDID { get; set; }
         public Guid ArDGd { get; set; }
         public DateTime Tanggal { get; set; }
-        public DateTime? duedate { get; set; }
+        public DateTime? Duedate { get; set; }
         public int SPesananID { get; set; }
         public int CustomerID { get; set; }
         public string Keterangan { get; set; }

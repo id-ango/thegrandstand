@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using proLogin.Models;
+using GlobalSoft.Models;
 
-namespace proLogin.Controllers
+namespace GlobalSoft.Controllers
 {
     [Authorize]
     public class AccountController : Controller

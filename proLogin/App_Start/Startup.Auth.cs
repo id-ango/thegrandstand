@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using proLogin.Models;
+using GlobalSoft.Models;
 
-namespace proLogin
+namespace GlobalSoft
 {
     public partial class Startup
     {
