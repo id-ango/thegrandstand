@@ -59,7 +59,7 @@
 @section Scripts
 {
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
         /* Formatting function for row details - modify as you need */
@@ -86,9 +86,9 @@
             $.each(d, function () {
                 //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
                 //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
-                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
-                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
-            });
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' +this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+    //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+});
 
             htmlResult += '</table>' +
                 '</div>' +
@@ -119,14 +119,14 @@
                     { "data": "CustomerName" },
                     { "data": "MarketingName" },
                     { "data": "PaymentName" },
-                    { "data": "Piutang" },
-                    { "data": "Pembayaran" },
-                    { "data": "Sisa" }
+                    { "data": "Piutang", render: $.fn.dataTable.render.number(',', '.', 2, '') },
+                    { "data": "Pembayaran", render: $.fn.dataTable.render.number(',', '.', 2, '')  },
+                    { "data": "Sisa", render: $.fn.dataTable.render.number(',', '.', 2, '')  }
                 ],
                 "order": [[1, 'asc']]
-               
+
             });
-            
+
 
             // Add event listener for opening and closing details
             $('#example tbody').on('click', 'td.details-control', function () {
@@ -158,5 +158,5 @@
         });
 
 
-    </script>
+</script>
 }

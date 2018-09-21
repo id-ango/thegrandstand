@@ -216,7 +216,9 @@ namespace GlobalSoft.Controllers
                  where e.UnitID == aptTrans.UnitID
                  select e).ToList().ForEach(x => x.StatusID = 2);
             }
-
+            List<AptSPesanan> aptsp = db.AptSPesanans.Where(e => e.KodeTrans == aptTrans.TransID).ToList();
+            foreach(var i in aptsp)
+               db.AptSPesanans.Remove(i);
 
             db.AptTranss.Remove(aptTrans);
             db.SaveChanges();
