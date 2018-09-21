@@ -16,6 +16,7 @@ namespace GlobalSoft.Controllers
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
         // GET: DashBoard
+        [Authorize]
         public ActionResult DsbUnit(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "kategori_desc" : "";
@@ -47,6 +48,7 @@ namespace GlobalSoft.Controllers
 
 
         }
+        [Authorize(Roles ="Admin,Marketing")]
         public ActionResult List3Unit()
         {
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
@@ -62,7 +64,7 @@ namespace GlobalSoft.Controllers
             return View(listUnit);
            
         }
-
+        [Authorize(Roles = "Admin,Marketing")]
         public ActionResult List2Unit()
         {
           // TabularViewModel TabelView = new TabularViewModel();
@@ -73,6 +75,7 @@ namespace GlobalSoft.Controllers
             return View(db.AptGedungs.ToList());
 
         }
+        [Authorize(Roles = "Admin,Marketing")]
         public ActionResult ListUnit()
         {
             List<UnitVM> allUnit = new List<UnitVM>();

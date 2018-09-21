@@ -34,8 +34,8 @@
                             <td>@asset.Lantai</td>
                             <td>@asset.AptCategorie.Categorie</td>
                             <td>@asset.AptStatus.Status</td>
-                            <td>@asset.Inhouse</td>
-                            <td>@asset.PriceKPR</td>
+                            <td>@string.Format("{0:#,#.00}", asset.Inhouse)</td>
+                            <td>@string.Format("{0:#,#.00}", asset.PriceKPR)</td>
                             
                         </tr>
                         }

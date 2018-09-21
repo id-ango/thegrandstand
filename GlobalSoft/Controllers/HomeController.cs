@@ -11,7 +11,7 @@ namespace GlobalSoft.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        [Authorize(Roles ="Admin")]
+        [Authorize]
         public ActionResult Index()
         {
            
