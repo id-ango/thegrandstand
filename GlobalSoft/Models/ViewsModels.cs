@@ -72,7 +72,8 @@ namespace GlobalSoft.Models
         [Display(Name = "Tanggal")]
 
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
-        [StringLength(20)]
+        public DateTime Duedate { get; set; }       // Tanggal Transaksi
+        [StringLength(100)]
         public string TglString { get; set; }
 
         public int UnitID { get; set; }         // Unit No 

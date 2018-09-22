@@ -214,7 +214,7 @@ namespace GlobalSoft.Models
         [Key]
         public int TransNoID { get; set; }
 
-        [StringLength(20),Required]
+        [StringLength(50),Required]
         [Display(Name ="Jenis Transaksi")]
         public string TransNo { get; set; }                // Uang "Tanda Jadi","Surat Pesanan"
         public int GlAkunID { get; set; }

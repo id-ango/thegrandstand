@@ -293,6 +293,10 @@
     <Compile Include="Migrations\201809150559288_new.Designer.cs">
       <DependentUpon>201809150559288_new.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809220809425_tambahtrs.cs" />
+    <Compile Include="Migrations\201809220809425_tambahtrs.Designer.cs">
+      <DependentUpon>201809220809425_tambahtrs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -881,6 +885,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809150559288_new.resx">
       <DependentUpon>201809150559288_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809220809425_tambahtrs.resx">
+      <DependentUpon>201809220809425_tambahtrs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -198,7 +198,14 @@ namespace GlobalSoft.Controllers
               var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
               var ListCb = (from e in db.CbTranss
                             where e.AptUnit.UnitNo == testUnit && e.AptTrsNo.TransNo.Contains("BookingFee")
-                           select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = e.Keterangan ?? "Booking Fee" }).ToList();
+                           select new UnitPiutang {
+                               NoRef = e.NoRef,
+                               Tanggal = e.Tanggal,
+                               UnitID = e.UnitID,
+                               UnitNo = e.AptUnit.UnitNo,
+                               Angsuran = 0,
+                               Bayar = e.Payment,
+                               Keterangan = e.Keterangan ?? "Booking Fee" }).ToList();
             foreach (var i in ListCb)
             {
                 i.TglString = i.Tanggal.ToString("dd/MM/yyyy");
@@ -209,16 +216,16 @@ namespace GlobalSoft.Controllers
                           where e.AptUnit.UnitNo == testUnit
                           select new UnitPiutang {
                               NoRef = e.NoRef,
-                              Tanggal = y.Duedate,
+                              Duedate = y.Duedate,                              
                               UnitID = e.UnitID,
                               UnitNo = e.AptUnit.UnitNo,
                               Angsuran = y.Jumlah,
                               Bayar =  db.ArTransDs.Where(x =>x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
                               Keterangan =  y.Keterangan });
 
-            foreach (var i in ListSp)
+            foreach (var gt in ListSp)
             {
-                i.TglString = i.Tanggal.ToString("dd/MM/yyyy");
+                gt.TglString = gt.Duedate.ToString();
             }
 
             var allList = ListCb.Concat(ListSp);

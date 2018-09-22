@@ -51,7 +51,7 @@ namespace GlobalSoft.Models
         public DateTime Tanggal { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+       
         public decimal Saldo { get; set; }
         public virtual ICollection<CbTransD> CbTransDs { get; set; }
 
@@ -111,7 +111,7 @@ namespace GlobalSoft.Models
 
         [Display(Name = "Jumlah Bayar")]
 
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+
         public decimal Payment { get; set; }            // Jumlah Pembayaran
 
         [Display(Name = "Pembayaran")]
@@ -129,21 +129,21 @@ namespace GlobalSoft.Models
         public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
         public virtual AptBayar AptBayar { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+       
         public decimal Jumlah { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+      
         public decimal Bayar { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+       
         public decimal Sisa { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        
         public decimal SldSisa { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+      
         public decimal Harga { get; set; }
 
         public decimal Angsuran { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+     
         public decimal Piutang { get; set; }
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+      
         public decimal Diskon { get; set; }
 
         public int SPesananID { get; set; }
