@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GlobalSoft.Models.AptTrsNo>
+﻿@model IEnumerable<GlobalSoft.Models.TrsnoVM>
 
 @{
     ViewBag.Title = "Index";
@@ -14,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.TransNo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunName)
+        </th>
         <th></th>
     </tr>
 
@@ -23,9 +26,12 @@
             @Html.DisplayFor(modelItem => item.TransNo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TransNoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TransNoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TransNoID })
+            @Html.DisplayFor(modelItem => item.GlAkunName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TransNoID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TransNoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TransNoID })
         </td>
     </tr>
 }

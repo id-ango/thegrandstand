@@ -295,4 +295,19 @@ namespace GlobalSoft.Models
         public decimal Unapplied { get; set; }
         public decimal Diskon { get; set; }
     }
+
+    public class TrsnoVM
+    {
+        [Key]
+        public int TransNoID { get; set; }
+
+        [StringLength(50), Required]
+        [Display(Name = "Jenis Transaksi")]
+        public string TransNo { get; set; }                // Uang "Tanda Jadi","Surat Pesanan"
+        public int GlAkunID { get; set; }
+        [Display(Name = "Nama Akun")]
+        public string GlAkunName { get; set; }
+
+        
+    }
 }

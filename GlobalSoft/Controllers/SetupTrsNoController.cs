@@ -37,8 +37,22 @@ namespace GlobalSoft.Controllers
 
 
             }
+            var aptTranss2 = db.AptTrsNoes.ToList();
 
-            return View(db.AptTrsNoes.ToList());
+            var Booking = (from e in aptTranss2
+                           join y in db.GlAccounts
+                           on e.GlAkunID equals y.GlAkunID
+                           select new TrsnoVM
+                           {
+                              TransNoID= e.TransNoID,
+                              TransNo = e.TransNo,
+                              GlAkunID = e.GlAkunID,
+                              GlAkunName = y.GlAkunName                               
+                           }).ToList();
+
+          
+
+                return View(Booking);
         }
 
         // GET: SetupTrsNo/Details/5
@@ -59,6 +73,12 @@ namespace GlobalSoft.Controllers
         // GET: SetupTrsNo/Create
         public ActionResult Create()
         {
+            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString()
+            });
+
             return View();
         }
 
@@ -67,7 +87,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransNoID,TransNo")] AptTrsNo aptTrsNo)
+        public ActionResult Create([Bind(Include = "TransNoID,TransNo,GlAkunID")] AptTrsNo aptTrsNo)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +95,11 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.GlAkunID = db.GlAccounts.Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString()
+            });
 
             return View(aptTrsNo);
         }
@@ -91,6 +116,13 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString(),
+                Selected = p.GlAkunID == aptTrsNo.GlAkunID
+
+            });
             return View(aptTrsNo);
         }
 
@@ -99,7 +131,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TransNoID,TransNo")] AptTrsNo aptTrsNo)
+        public ActionResult Edit([Bind(Include = "TransNoID,TransNo,GlAkunID")] AptTrsNo aptTrsNo)
         {
             if (ModelState.IsValid)
             {
@@ -107,6 +139,11 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.GlAkunID = db.GlAccounts.Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
+            {
+                Text = p.GlAkun + "-" + p.GlAkunName,
+                Value = p.GlAkunID.ToString()
+            });
             return View(aptTrsNo);
         }
 
