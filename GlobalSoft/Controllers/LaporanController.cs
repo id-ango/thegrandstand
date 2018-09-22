@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class LaporanController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
@@ -19,9 +20,41 @@ namespace GlobalSoft.Controllers
         // GET: Laporan
         public ActionResult RekKoran()
         {
-            var banks = db.CbBanks.ToList();
+
+            List<CbBank> bank = new List<CbBank>();
             
-            return View(banks);
+
+            foreach (var bb in db.CbBanks)
+            {
+                decimal saldobf = (from b in db.CbTranss
+                          join y in db.AptPayments
+                             on b.PaymentID equals y.PaymentID
+                          where y.BankID == bb.BankID
+                          select b.Payment).DefaultIfEmpty(0).Sum();
+
+                decimal saldosp = (from b in db.ArTransDs
+                          join y in db.ArTransHs
+                             on b.ArHGd equals y.ArHGd
+                          where y.BankID == bb.BankID
+                          select b.Bayar).DefaultIfEmpty(0).Sum();
+
+                decimal saldocb = (from b in db.CbTransDs
+                          join y in db.CbTransHs
+                            on b.GuidCb equals y.GuidCb
+                          where y.BankID == bb.BankID
+                          select (b.Terima- b.Bayar)).DefaultIfEmpty(0).Sum();
+
+               decimal tempbank = 0;
+
+                tempbank = saldobf + saldosp + saldocb;
+
+                bank.Add(new CbBank { BankID = bb.BankID, BankName = bb.BankName, BankAccount = bb.BankAccount, Saldo = tempbank });
+
+            }
+
+          //  var banks = bank;
+            
+            return View(bank);
         }
         
     

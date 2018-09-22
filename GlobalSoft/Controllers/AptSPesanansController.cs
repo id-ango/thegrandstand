@@ -10,6 +10,7 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class AptSPesanansController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();

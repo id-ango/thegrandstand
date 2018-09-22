@@ -37,7 +37,7 @@
                                 <td>@aset.Duedate</td>
                                 <td>@aset.Keterangan</td>
                                 <td style="display:none">@aset.Piutang</td>
-                                <td>@string.Format("{0:n0}", @aset.Piutang)</td>
+                                <td>@string.Format("{0:n}", @aset.Piutang)</td>
 
                                 <td class="bayar">
                                     @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
@@ -95,6 +95,8 @@
 </script>
 
 <script>
+
+
     function saveOrder(data) {
         return $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -104,7 +106,7 @@
             data: data,
             success: function (result) {
                 alert(result);
-                location.reload(true);
+                //location.reload(true);
             },
             error: function () {
                 alert("Error!");

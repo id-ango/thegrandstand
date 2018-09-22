@@ -10,6 +10,7 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize]
     public class SetupBankController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();

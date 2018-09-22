@@ -10,6 +10,7 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class SetupCategorieController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();

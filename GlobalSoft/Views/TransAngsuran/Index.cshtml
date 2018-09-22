@@ -38,7 +38,7 @@
                                 <td>@asset.BankName</td>
                                 <td>@asset.CustomerName</td>
                                 <td>@asset.Keterangan</td>
-                                <td>@asset.Jumlah</td>
+                                <td>@string.Format("{0:#,#.00}", asset.Jumlah)</td>
 
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = asset.ArHID }) |

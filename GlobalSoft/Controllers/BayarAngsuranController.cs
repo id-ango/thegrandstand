@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class BayarAngsuranController : Controller
     {
         // GET: BayarAngsuran

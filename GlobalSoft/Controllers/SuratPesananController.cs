@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class SuratPesananController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
@@ -202,6 +203,7 @@ namespace GlobalSoft.Controllers
         // POST: SuratPesanan/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             AptTrans aptTrans = db.AptTranss.Find(id);
@@ -250,6 +252,8 @@ namespace GlobalSoft.Controllers
                             where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Contains("BookingFee") && e.PersonID == aptTrans.CustomerID
                             select e.Payment).ToList();
 
+            var unitNo = db.AptUnits.Find(aptTrans.UnitID).UnitNo;
+
             decimal Uangmuka = 0;
 
             if (ListUM != null)
@@ -283,17 +287,17 @@ namespace GlobalSoft.Controllers
                         var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
                         //     TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID,Duedate=TglAngsuran });
+                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1,unitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID,Duedate=TglAngsuran });
 
                         if (i < 6)
                         {
-                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, unitNo), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
 
                         }
                         else if (i >= 6)
                         {
 
-                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            Ket7 = string.Format("Angsuran  sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
                             JumAngsur = JumAngsur + angsuran;
                         }
 
@@ -333,7 +337,7 @@ namespace GlobalSoft.Controllers
                                 dTgl1 = e.Tanggal;
                                 dTgl2 = e.Tanggal;
                             }
-                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            Ket7 = string.Format("Angsuran   sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
                             JumAngsur = JumAngsur + e.Jumlah;
                             if (i == nTotal)
                             {
@@ -373,24 +377,24 @@ namespace GlobalSoft.Controllers
                         //   TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
                         
-                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
+                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, unitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
 
                         if (i < 6)
                         {
-                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0}", i + 1), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
+                            Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, unitNo), Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = angsuran });
 
                         }
                         else if (i >= 6)
                         {
 
-                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
+                            Ket7 = string.Format("Angsuran  sd {0} dr Tgl {1:d} sd Tgl {2:d}", i + 1, TglAwal, TglAngsuran);
                             JumAngsur = JumAngsur + angsuran;
                         }
 
                     };
                     Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
-                    Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = SisaKPR });
-                    Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = "Yang Lewat KPA", Tanggal = TglAngsuran, Jumlah = SisaKPR, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
+                    Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = "Dengan KPA", Duedate = TglAngsuran, Tanggal = aptTrans.Tanggal, Jumlah = SisaKPR });
+                    Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = "Dengan KPA", Tanggal = TglAngsuran, Jumlah = SisaKPR, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
 
                     foreach (var values in Transaksi2)
                     {
@@ -425,7 +429,7 @@ namespace GlobalSoft.Controllers
                                 dTgl1 = e.Tanggal;
                                 dTgl2 = e.Tanggal;
                             }
-                            Ket7 = string.Format("Angsuran 7 sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
+                            Ket7 = string.Format("Angsuran  sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
                             JumAngsur = JumAngsur + e.Jumlah;
                             if (i == (nTotal-1))
                             {

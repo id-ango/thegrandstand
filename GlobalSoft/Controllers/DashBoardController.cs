@@ -48,7 +48,7 @@ namespace GlobalSoft.Controllers
 
 
         }
-        [Authorize(Roles ="Admin,Marketing")]
+        [Authorize(Roles = "Admin,Manager,Employee,Marketing")]
         public ActionResult List3Unit()
         {
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
@@ -64,7 +64,7 @@ namespace GlobalSoft.Controllers
             return View(listUnit);
            
         }
-        [Authorize(Roles = "Admin,Marketing")]
+        [Authorize(Roles = "Admin,Manager,Employee,Marketing")]
         public ActionResult List2Unit()
         {
           // TabularViewModel TabelView = new TabularViewModel();
