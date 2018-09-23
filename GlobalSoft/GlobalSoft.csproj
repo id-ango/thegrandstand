@@ -210,6 +210,7 @@
     <Compile Include="Controllers\SuratPesananController.cs" />
     <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
+    <Compile Include="Controllers\TransLedgerController.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -282,6 +283,10 @@
     <Compile Include="Migrations\201809220809425_tambahtrs.cs" />
     <Compile Include="Migrations\201809220809425_tambahtrs.Designer.cs">
       <DependentUpon>201809220809425_tambahtrs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809230647128_tambahgl.cs" />
+    <Compile Include="Migrations\201809230647128_tambahgl.Designer.cs">
+      <DependentUpon>201809230647128_tambahgl.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -771,11 +776,6 @@
     <Content Include="Views\AptGedungs\Details.cshtml" />
     <Content Include="Views\AptGedungs\Edit.cshtml" />
     <Content Include="Views\AptGedungs\Index.cshtml" />
-    <Content Include="Views\TabularViewModels\Create.cshtml" />
-    <Content Include="Views\TabularViewModels\Delete.cshtml" />
-    <Content Include="Views\TabularViewModels\Details.cshtml" />
-    <Content Include="Views\TabularViewModels\Edit.cshtml" />
-    <Content Include="Views\TabularViewModels\Index.cshtml" />
     <Content Include="Views\TransAngsuran\DetailAngsuran.cshtml" />
     <Content Include="Views\TransBank\Index - Copy %285%29.cshtml" />
     <Content Include="Views\Laporan\RekKoran.cshtml" />
@@ -802,6 +802,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\TransBank\Details.cshtml" />
     <Content Include="Views\TransBank\Delete.cshtml" />
+    <Content Include="Views\TransLedger\Index.cshtml" />
+    <Content Include="Views\TransLedger\Details.cshtml" />
+    <Content Include="Views\TransLedger\Delete.cshtml" />
+    <Content Include="Views\TransLedger\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -861,6 +865,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809220809425_tambahtrs.resx">
       <DependentUpon>201809220809425_tambahtrs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809230647128_tambahgl.resx">
+      <DependentUpon>201809230647128_tambahgl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

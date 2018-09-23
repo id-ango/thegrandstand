@@ -275,7 +275,7 @@ namespace GlobalSoft.Models
     {
         public int ArHID { get; set; }
         public Guid ArHGd { get; set; }
-        public int kodeNo { get; set; }
+        public int KodeNo { get; set; }
         [StringLength(20)]
         public string Bukti { get; set; }
         public DateTime Tanggal { get; set; }

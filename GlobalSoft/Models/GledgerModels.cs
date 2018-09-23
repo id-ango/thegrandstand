@@ -74,7 +74,7 @@ namespace GlobalSoft.Models
         public Guid GlHGd { get; set; }
         public int KodeNo { get; set; }
         [StringLength(20)]
-        public string Bukti { get; set; }
+        public string Docno { get; set; }
         public DateTime Tanggal { get; set; }      
         public string Keterangan { get; set; }
         public decimal Debet { get; set; }
