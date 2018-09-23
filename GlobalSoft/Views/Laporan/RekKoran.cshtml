@@ -5,35 +5,32 @@
 }
 
 <h2>Rekening Koran</h2>
-<p>
-    <br />
-    <br />
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-md-2">
-                    Dari Tanggal
-                </label>
-                <div class="col-md-3">
-                    <input type="text" id="tanggal1" name="tanggal" placeholder="Tanggal" class="tanggal" value="@DateTime.Now" />
-                </div>
-            </div>
+<br />
+<br />
 
-            <div class="form-group">
-                <label class="control-label col-md-2">
-                    Sampai Tanggal
-                </label>
-                <div class="col-md-3">
-                    <input type="text" id="tanggal2" name="tanggal" placeholder="Tanggal" class="tanggal" value="@DateTime.Now" />
-                </div>
-            </div>
-
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Dari Tanggal
+        </label>
+        <div class="col-md-3">
+            <input type="text" id="tanggal1" name="tanggal1" placeholder="Tanggal" class="tanggal" value="@DateTime.Now" />
         </div>
-    }
-    </p>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Sampai Tanggal
+        </label>
+        <div class="col-md-3">
+            <input type="text" id="tanggal2" name="tanggal2" placeholder="Tanggal" class="tanggal" value="@DateTime.Now" />
+        </div>
+    </div>
+
+</div>
+
+
 <table class="table">
     <tr>
         <th>
@@ -43,7 +40,7 @@
             @Html.DisplayNameFor(model => model.BankAccount)
         </th>
         <th>
-           Saldo
+            Saldo
         </th>
         <th></th>
     </tr>
@@ -61,13 +58,14 @@
                 @Html.DisplayFor(modelItem => item.Saldo)
             </td>
             <td>
-                @Html.ActionLink("Cetak", "Cetak", new { id = item.BankID  }) 
+
+                @Html.ActionLink("Cetak", "Cetak", new { id = item.BankID }, new { target = "_blank" })
             </td>
         </tr>
     }
 
 </table>
-        
+
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryui")

@@ -89,17 +89,22 @@ namespace GlobalSoft.Controllers
             //        db.SaveChanges();
 
             //     }
+            var unitList = from e in db.AptUnits
+                           where e.StatusID == 1
+                           select e;
 
-
-            //        maxvalue = maxvalue + 1;
-
-                var unitList = from e in db.AptUnits
-                                where e.StatusID == 1
-                             select e;
-            //     string thnbln = DateTime.Now.ToString("yyMM");
-            //     string cNoref = "BF-" + thnbln+maxvalue.ToString().PadLeft(4,'0');
+            var kodeno = "BF-";
             string thnbln = DateTime.Now.ToString("yyMM");
-            var maxvalue = (from e in db.CbTranss where e.NoRef.Substring(0, 7) == "BF-" + thnbln select e).FirstOrDefault();
+            string xbukti = kodeno + thnbln;
+            var maxvalue = "";
+            var maxlist = db.CbTranss.Where(x => x.NoRef.Substring(0, 7).Equals(xbukti)).ToList();
+            if (maxlist != null)
+            {
+                maxvalue = maxlist.Max(x => x.NoRef);
+
+            }
+
+            //            var maxvalue = (from e in db.CbTransHs where  e.Docno.Substring(0, 7) == kodeno + thnbln select e).Max();
             string nourut = "000";
             if (maxvalue == null)
             {
@@ -107,21 +112,19 @@ namespace GlobalSoft.Controllers
             }
             else
             {
-                nourut = maxvalue.NoRef.Substring(7, 3);
+                nourut = maxvalue.Substring(7, 3);
             }
 
             //  nourut =Convert.ToString(Int32.Parse(nourut) + 1);
 
 
-
-
-
-            string cAngNo = "BF-" + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
+            string cAngNo = kodeno + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
             // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
             string cNoref = cAngNo;
-            ViewBag.NoRef = cNoref;
-            ViewBag.Tanggal = DateTime.Now;
 
+            ViewBag.NoRef = cNoref;
+
+  
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName");
             ViewBag.PaymentID = new SelectList(db.AptPayments, "PaymentID", "PaymentName");
             ViewBag.UnitID = new SelectList(unitList, "UnitID", "UnitNo");

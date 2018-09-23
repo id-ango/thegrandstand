@@ -46,11 +46,10 @@
                                 @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
                             </td>
 
-                            <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
+                            <td class="sisa">@string.Format("{0,13:#,##0.00}", @aset.Sisa)</td>
                             <td><button data-id="@aset.SPesananID">Hitung</button></td>
                             <td style="display:none">@aset.UnitID</td>
                             <td style="display:none">@aset.CustomerID</td>
-                            <td><button class="tblcok" data-id="@aset.SPesananID">Cek</button></td>
 
                         </tr>
                         }

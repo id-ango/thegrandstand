@@ -28,12 +28,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @Value = ViewBag.Tanggal } })
-                @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
-            </div>
-
+           
+                @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @* Date: <input type="text" id="datepicker">*@
+                    @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @Value = DateTime.Now } })
+                    @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
+                </div>
+           
         </div>
 
         <div class="form-group">
@@ -114,7 +116,7 @@
 
         $(function () {
             $("#Tanggal").datepicker({    
-                dateFormat: 'dd-mm-yy',
+                dateFormat: 'mm-dd-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1900:' + (new Date().getFullYear() + 60)

@@ -1,5 +1,5 @@
 ﻿@model GlobalSoft.Models.AptTrans
-@{ 
+@{
     Layout = null;
 }
 <head>
@@ -18,7 +18,7 @@
     <tr><td width="10%">Alamat Surat</td><td>:</td><td width="50%">@Model.ArCustomer.AlamatSekarang</td><td width="10%"></td><td></td><td></td></tr>
     <tr><td width="10%">Kode Pos</td><td>:</td><td width="50%"></td><td width="10%">@Model.ArCustomer.KodePos</td><td></td><td></td></tr>
 </table>
-    <br/>
+<br />
 <div>
     Selanjutnya disebut &rdquo;PEMESAN&rdquo;, dengan ini sepakat untuk memesan Satuan Unit Rumah Susun (Peruntukan Hunian)
     di THE GRAND STAND dari PT. Multi Tower Indo Sentosa yang berkedudukan di Jl. Raya Kupang Indah No. 9, Surabaya yang nantinya
@@ -37,27 +37,27 @@
         <tr><td width="30%">Terbilang</td><td>:</td><td width="80%">@ViewBag.Num2Char</td></tr>
     </table>
 </div>
-   <br /> 
+<br />
 <div>
     Bersama Surat Pemesanan ini, telah membayar Uang Booking Fee(**) sebesar: @string.Format("{0:n0}", @ViewBag.UangMuka)
-   @{ 
-       foreach (var category in (ViewBag.ListUangMuka))
-       {
-           <table style=" width:80%;margin-left:20px;border:1px solid black; border-collapse:collapse" >
-               <tr>
-                   <td width="20%">@string.Format("{0:d}", @category.Tanggal)</td>
-                   <td width="30%">@category.NoRef</td>
-                   <td width="40%">@category.AptPayment.PaymentName</td>
-                   <td width="40%">@string.Format("{0:n0}",@category.Payment)</td>
+    @{
+        foreach (var category in (ViewBag.ListUangMuka))
+        {
+            <table style=" width:80%;margin-left:20px;border:1px solid black; border-collapse:collapse">
+                <tr>
+                    <td width="20%">@string.Format("{0:d}", @category.Tanggal)</td>
+                    <td width="30%">@category.NoRef</td>
+                    <td width="40%">@category.AptPayment.PaymentName</td>
+                    <td width="40%">@string.Format("{0:n0}", @category.Payment)</td>
 
-               </tr>
-           </table>
+                </tr>
+            </table>
 
-       }
-   }
+        }
+    }
 
 </div>
-<br/>
+<br />
 <div>
 
     Selanjutnya, Pemesan berkewajiban untuk membayar sebagai berikut:<br />
@@ -73,9 +73,9 @@
                 </tr>
             </table>
 
-            }
-     }
-    </div><br/>
+        }
+    }
+</div><br />
 
 <table class="kotak1">
     <tr>

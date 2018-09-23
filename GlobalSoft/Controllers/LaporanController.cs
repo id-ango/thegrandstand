@@ -61,6 +61,8 @@ namespace GlobalSoft.Controllers
         public ActionResult Cetak(int id)
         {
             ViewBag.Judul = db.CbBanks.Find(id).BankName;
+            
+
             //before Tanggal1
 
     /*        var bf1 = (from b in db.CbTranss
