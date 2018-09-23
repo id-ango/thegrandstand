@@ -66,4 +66,39 @@ namespace GlobalSoft.Models
         public string GlGroupName { get; set; }
 
     }
+
+    public class GlTransH
+    {
+        [Key]
+        public int GlHID { get; set; }
+        public Guid GlHGd { get; set; }
+        public int KodeNo { get; set; }
+        [StringLength(20)]
+        public string Bukti { get; set; }
+        public DateTime Tanggal { get; set; }      
+        public string Keterangan { get; set; }
+        public decimal Debet { get; set; }
+        public decimal Kredit { get; set; }
+        public decimal Saldo { get; set; }
+        public virtual ICollection<GlTransD> GlDetail { get; set; }
+    }
+
+    public class GlTransD
+    {
+        [Key]
+        public int GlDID { get; set; }
+        public Guid GlDGd { get; set; }
+        public DateTime Tanggal { get; set; }    
+        public int GlAkunID { get; set; }
+        public virtual GlAccount GlAccount { get; set; }
+        public string Keterangan { get; set; }
+        public decimal Jumlah { get; set; }
+        public decimal Debet { get; set; }
+        public decimal Kredit { get; set; }
+        public decimal Saldo { get; set; }
+        public Guid GlHGd { get; set; }
+        public int GlHID { get; set; }
+        public virtual GlTransH GlTransH { get; set; }
+
+    }
 }

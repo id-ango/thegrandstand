@@ -11,10 +11,12 @@ using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles ="Admin,Manager,Employee")]
     public class TransBankController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
         // GET: TransBank
+
         public ActionResult Index()
         {
 
@@ -24,6 +26,7 @@ namespace GlobalSoft.Controllers
             return View(OrderAndDetailList);
         }
 
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public ActionResult SaveOrder(string docno, String keterangan,int bank, string tanggal, CbTransD[] order)
         {
             string result = "Error! Order Is Not Complete!";
@@ -102,6 +105,60 @@ namespace GlobalSoft.Controllers
 
          //   result = "Success! Order Is Complete!";
             return Json(cAngNo, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Details(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CbTransH arTransH = db.CbTransHs.Find(id);
+
+            if (arTransH == null)
+            {
+                return HttpNotFound();
+            }
+            // List<ArTransH> OrderAndDetailList = arTransH;
+            ViewBag.Bank = db.CbBanks.Find(arTransH.BankID).BankName;
+            ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+            return View(arTransH);
+        }
+
+        [Authorize(Roles = "Admin,Manager")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CbTransH arTransH = db.CbTransHs.Find(id);
+            if (arTransH == null)
+            {
+                return HttpNotFound();
+            }
+            return View(arTransH);
+        }
+
+        // POST: TransAngsuran/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            CbTransH arTransH = db.CbTransHs.Find(id);
+            db.CbTransHs.Remove(arTransH);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

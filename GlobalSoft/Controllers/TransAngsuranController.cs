@@ -10,46 +10,55 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles ="Admin,Manager,Employee")]
     public class TransAngsuranController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
+        
+
         // GET: TransAngsuran
         public ActionResult Index()
         {
-            var Transaksi = from e in db.ArTransHs
-                            join y in db.ArCustomers on e.CustomerID equals y.CustomerID                    
-                            select new ArHView
-                            {
-                                ArHID = e.ArHID,
-                                Bukti = e.Bukti,
-                                Tanggal = e.Tanggal,
-                                BankID = e.BankID,
-                                BankName = (from r in db.CbBanks where r.BankID==e.BankID select r.BankName).FirstOrDefault(),
-//                                BankName = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
-                                CustomerID = e.CustomerID,
-                                CustomerName = y.CustomerName,
-                                Keterangan = e.Keterangan,
-                                Jumlah = e.Jumlah
-                            };
-            
-            
-            
+            var Transaksi = (from e in db.ArTransHs
+                             join y in db.ArCustomers on e.CustomerID equals y.CustomerID
+                             select new ArHView
+                             {
+                                 ArHID = e.ArHID,
+                                 Bukti = e.Bukti,
+                                 Tanggal = e.Tanggal,                               
+                                 BankID = e.BankID,
+                                 BankName = (from r in db.CbBanks where r.BankID == e.BankID select r.BankName).FirstOrDefault(),
+                                 //                                BankName = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
+                                 CustomerID = e.CustomerID,
+                                 CustomerName = y.CustomerName,
+                                 Keterangan = e.Keterangan,
+                                 Jumlah = e.Jumlah
+                             });
+
+
+
             return View(Transaksi);
         }
 
         // GET: TransAngsuran/Details/5
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ArTransH arTransH = db.ArTransHs.Find(id);
+
             if (arTransH == null)
             {
                 return HttpNotFound();
             }
+            // List<ArTransH> OrderAndDetailList = arTransH;
+            ViewBag.Bank = db.CbBanks.Find(arTransH.BankID).BankName;
+            ViewBag.Customer = db.ArCustomers.Find(arTransH.CustomerID).CustomerName;
+            ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
             return View(arTransH);
         }
 
@@ -118,6 +127,9 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Bank = db.CbBanks.Find(arTransH.BankID).BankName;
+            ViewBag.Customer = db.ArCustomers.Find(arTransH.CustomerID).CustomerName;
+            ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
             return View(arTransH);
         }
 
@@ -138,6 +150,7 @@ namespace GlobalSoft.Controllers
         }
 
         // GET: TransAngsuran/Delete/5
+        [Authorize(Roles ="Admin,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -307,6 +320,7 @@ namespace GlobalSoft.Controllers
                         O.ArDGd = orderId;
                         O.Keterangan = item.Keterangan;
                         O.Tanggal = model.Tanggal;
+                        O.Duedate = Convert.ToDateTime(item.Duedate);
                         O.SPesananID = item.SPesananID;
                         O.CustomerID = item.CustomerID;
                         O.Bayar = item.Bayar;

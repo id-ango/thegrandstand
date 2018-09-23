@@ -1,128 +1,92 @@
 ﻿@model GlobalSoft.Models.ArTransH
 
-@{
-    ViewBag.Title = "Delete";
-}
+<br /><br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
 
-<h2>Delete</h2>
+            <h2 style="margin-left:20px">@ViewBag.Customer</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ArTransH</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ArHGd)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArHGd)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bukti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bukti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tanggal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tanggal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BankID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MarketingID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MarketingID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UnitID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Keterangan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Keterangan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.JthTempo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.JthTempo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Jumlah)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Jumlah)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Piutang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Piutang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Unapplied)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Unapplied)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Diskon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Diskon)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
         </div>
+    </div>
+
+    @*Receive All Database Data From Controller And Display Those Data In Client Side*@
+
+
+    @{
+
+        {
+            <div class="panel-body">
+                <table class="table table-striped table-responsive">
+                    <tbody>
+                        <tr>
+                            <td>Dokumen : @Model.Bukti </td>
+                            <td>Tanggal : @Model.Tanggal</td>
+
+
+                            @{
+                                if (Model.BankID == 0)
+                                {
+                                    <td>Bank :  "kosong" </td>
+                                }
+                                else
+                                {
+                                    <td>Bank : @ViewBag.Bank  </td>
+                                }
+                            }
+
+                            <td>Keterangan : @Model.Keterangan </td>
+                            <td>Saldo : @Model.Jumlah </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>No. SP</th>
+                                            <th>Jatuh Tempo</th>
+                                            <th>Keterangan</th>
+                                            <th>Bayar</th>
+                                            <th>Diskon</th>
+                                        </tr>
+                                        @{
+                                            var totalBill = 0;
+                                        }
+                                        @foreach (var order in Model.TransDetail)
+                                        {
+
+                                            <tr>
+                                                <td>@order.SPesananID</td>
+                                                <td>@order.Duedate</td>
+                                                <td>@order.Keterangan</td>
+                                                <td>@order.Bayar</td>
+                                                <td>@order.Diskon</td>
+                                            </tr>
+                                            totalBill = totalBill + @Convert.ToInt32(order.Bayar);
+                                        }
+                                    </tbody>
+                                </table>
+                                <span class="pull-right" style="margin-right:100px;"><strong>Saldo :  </strong> @totalBill</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        }
     }
+
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
 </div>

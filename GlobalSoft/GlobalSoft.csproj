@@ -186,7 +186,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AptGedungsController.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
-    <Compile Include="Controllers\BayarAngsuranController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
@@ -209,7 +208,6 @@
     <Compile Include="Controllers\SetupTypeController.cs" />
     <Compile Include="Controllers\SetupUnitController.cs" />
     <Compile Include="Controllers\SuratPesananController.cs" />
-    <Compile Include="Controllers\TabularViewModelsController.cs" />
     <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="DAL\Repository.cs" />
@@ -280,18 +278,6 @@
     <Compile Include="Migrations\201808310711165_kodeno.cs" />
     <Compile Include="Migrations\201808310711165_kodeno.Designer.cs">
       <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809030244346_gedung.cs" />
-    <Compile Include="Migrations\201809030244346_gedung.Designer.cs">
-      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809030640329_newbaru.cs" />
-    <Compile Include="Migrations\201809030640329_newbaru.Designer.cs">
-      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809150559288_new.cs" />
-    <Compile Include="Migrations\201809150559288_new.Designer.cs">
-      <DependentUpon>201809150559288_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201809220809425_tambahtrs.cs" />
     <Compile Include="Migrations\201809220809425_tambahtrs.Designer.cs">
@@ -767,11 +753,6 @@
     <Content Include="Views\DashBoard\ListUnit.cshtml" />
     <Content Include="Views\DashBoard\List2Unit.cshtml" />
     <Content Include="Views\DashBoard\List3Unit.cshtml" />
-    <Content Include="Views\BayarAngsuran\Create.cshtml" />
-    <Content Include="Views\BayarAngsuran\Index.cshtml" />
-    <Content Include="Views\BayarAngsuran\GetDetail.cshtml" />
-    <Content Include="Views\BayarAngsuran\DetailAngsuran.cshtml" />
-    <Content Include="Views\BayarAngsuran\DetailAngsuran1.cshtml" />
     <Content Include="Views\TransBank\Index.cshtml" />
     <Content Include="Views\TransBank\Create.cshtml" />
     <Content Include="Views\TransBank-copy\Create.cshtml" />
@@ -795,7 +776,6 @@
     <Content Include="Views\TabularViewModels\Details.cshtml" />
     <Content Include="Views\TabularViewModels\Edit.cshtml" />
     <Content Include="Views\TabularViewModels\Index.cshtml" />
-    <Content Include="Views\DashBoard\Tabular.cshtml" />
     <Content Include="Views\TransAngsuran\DetailAngsuran.cshtml" />
     <Content Include="Views\TransBank\Index - Copy %285%29.cshtml" />
     <Content Include="Views\Laporan\RekKoran.cshtml" />
@@ -820,6 +800,8 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\TransBank\Details.cshtml" />
+    <Content Include="Views\TransBank\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -876,15 +858,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808310711165_kodeno.resx">
       <DependentUpon>201808310711165_kodeno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809030244346_gedung.resx">
-      <DependentUpon>201809030244346_gedung.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809030640329_newbaru.resx">
-      <DependentUpon>201809030640329_newbaru.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809150559288_new.resx">
-      <DependentUpon>201809150559288_new.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809220809425_tambahtrs.resx">
       <DependentUpon>201809220809425_tambahtrs.cs</DependentUpon>

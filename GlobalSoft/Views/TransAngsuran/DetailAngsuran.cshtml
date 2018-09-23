@@ -29,28 +29,30 @@
                     <tbody>
                         @foreach (var aset in Model)
                         {
-                            <tr data-id="@aset.SPesananID">
-                                <td>@aset.SPesananID</td>
-                                <td>@aset.UnitNo</td>
-                                <td>@aset.CustomerName</td>
-                                <td>@aset.SPesanan</td>
-                                <td>@aset.Duedate</td>
-                                <td>@aset.Keterangan</td>
-                                <td style="display:none">@aset.Piutang</td>
-                                <td>@string.Format("{0:n}", @aset.Piutang)</td>
+                        <tr data-id="@aset.SPesananID">
+                            <td>@aset.SPesananID</td>
+                            <td>@aset.UnitNo</td>
+                            <td>@aset.CustomerName</td>
+                            <td>@aset.SPesanan</td>
+                            <td>@aset.Duedate</td>
+                            <td>@aset.Keterangan</td>
+                            <td style="display:none">@aset.Piutang</td>
+                            <td>@string.Format("{0:n}", @aset.Piutang)</td>
 
-                                <td class="bayar">
-                                    @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
-                                </td>
-                                <td class="diskon">
-                                    @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
-                                </td>
+                            <td class="bayar">
+                                @Html.EditorFor(model => aset.Bayar, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td class="diskon">
+                                @Html.EditorFor(model => aset.Diskon, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
 
-                                <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
-                                <td><button data-id="@aset.SPesananID">Hitung</button></td>
-                                <td style="display:none">@aset.UnitID</td>
-                                <td style="display:none">@aset.CustomerID</td>
-                            </tr>
+                            <td class="sisa">@string.Format("{0:n}", @aset.Sisa)</td>
+                            <td><button data-id="@aset.SPesananID">Hitung</button></td>
+                            <td style="display:none">@aset.UnitID</td>
+                            <td style="display:none">@aset.CustomerID</td>
+                            <td><button class="tblcok" data-id="@aset.SPesananID">Cek</button></td>
+
+                        </tr>
                         }
                     </tbody>
                 </table>

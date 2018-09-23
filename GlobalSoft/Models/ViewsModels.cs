@@ -204,7 +204,7 @@ namespace GlobalSoft.Models
 
     }
 
-    public class TabularViewModel
+/*    public class TabularViewModel
     {
         [Key]
         public int TabID { get; set; }
@@ -212,7 +212,7 @@ namespace GlobalSoft.Models
         public List<AptGedung> Gedungs { get; set; }
         public List<AptCategorie> Kategoris { get; set; }
     }
-
+*/
     public class GedungViewsModels
     {
         [Key]

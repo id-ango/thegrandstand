@@ -8,7 +8,8 @@
 <h2></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @style = "background:url('/Images/Menu/edit.png') no-repeat center right; display:block; height: 30px; width: 50px" })
+   @* Html.ActionLink(" ", "Edit", new {id = c.ID}, new { @style = "background:url('../../Images/Menu/edit.png') no-repeat center right; display:block; height: 30px; width: 50px" }*@
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -41,7 +42,7 @@
                                 <td>@string.Format("{0:#,#.00}", asset.Jumlah)</td>
 
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = asset.ArHID }) |
+                                 
                                     @Html.ActionLink("Details", "Details", new { id = asset.ArHID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = asset.ArHID }) |
                                 </td>
