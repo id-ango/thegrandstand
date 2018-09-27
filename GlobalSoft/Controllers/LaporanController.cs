@@ -57,44 +57,65 @@ namespace GlobalSoft.Controllers
             return View(bank);
         }
         
-    
-        public ActionResult Cetak(int id)
+        [HttpGet]
+        public ActionResult Cetak(DateTime Tanggal1,DateTime Tanggal2,int KodeBank)
         {
+            int id = KodeBank;
             ViewBag.Judul = db.CbBanks.Find(id).BankName;
-            
 
+            List<CbTrans> Transaksi = new List<CbTrans>();
             //before Tanggal1
 
-    /*        var bf1 = (from b in db.CbTranss
+            var bf1 = (from b in db.CbTranss
                        join y in db.AptPayments
                         on b.PaymentID equals y.PaymentID
-                       where y.BankID == id && b.Tanggal < DateTime.Now
-                      select b.Payment).Sum();
+                       where y.BankID == id && b.Tanggal < Tanggal1
+                      select b.Payment).DefaultIfEmpty(0).Sum();
 
             var sp1 = (from b in db.ArTransDs
                        join y in db.ArTransHs
                          on b.ArHGd equals y.ArHGd
-                       where y.BankID == id && b.Tanggal < DateTime.Now
-                       select b.Bayar).Sum();
+                       where y.BankID == id && b.Tanggal < Tanggal1
+                       select b.Bayar).DefaultIfEmpty(0).Sum();
 
-    */
+            var cb1 = (from b in db.CbTransDs
+                      join y in db.CbTransHs
+                        on b.GuidCb equals y.GuidCb
+                      where y.BankID == id && b.Tanggal < Tanggal1 
+                      select   b.Terima - b.Bayar).DefaultIfEmpty(0).Sum();
+
+
+            Transaksi.Add(new CbTrans
+            {
+                BankID = id,
+                NoRef = "------",
+                Tanggal = Tanggal1,
+                Keterangan = "Saldo Awal",
+                TransNoID = 0,
+                Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
+                Diskon  = (bf1 + sp1 + cb1) > 0 ? 0 : (bf1 + sp1 + cb1)
+            });
+
+            
+            
 
 
             var bf = (from b in db.CbTranss join y in db.AptPayments
                       on b.PaymentID equals y.PaymentID
-                      where y.BankID == id select b).ToList();
+                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal<= Tanggal2) select b).ToList();
 
             var sp = (from b in db.ArTransDs join y in db.ArTransHs
                         on b.ArHGd equals y.ArHGd
-                      where y.BankID == id select new { b.Tanggal,b.Keterangan,b.SPesananID,b.Bayar, y.Bukti }).ToList();
+                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
+                      select new { b.Tanggal,b.Keterangan,b.SPesananID,b.Bayar, y.Bukti }).ToList();
 
             var cb = (from b in db.CbTransDs
                       join y in db.CbTransHs
                         on b.GuidCb equals y.GuidCb
-                      where y.BankID == id
+                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
                       select new { y.Tanggal,b.TransNoID, b.Keterangan, b.Terima, b.Bayar, y.Docno }).ToList();
 
-            List<CbTrans> Transaksi = new List<CbTrans>();
+           
 
             foreach (var t in bf)
             {
@@ -140,6 +161,10 @@ namespace GlobalSoft.Controllers
                 });
 
             }
+            ViewBag.Tgl1 = Tanggal1;
+            ViewBag.Tgl2 = Tanggal2;
+            ViewBag.Kode = KodeBank;
+
             return View(Transaksi.OrderBy(x => x.Tanggal));
         }
     }

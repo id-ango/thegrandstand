@@ -195,7 +195,7 @@
         $("#addToList").click(function (e) {
             e.preventDefault();
 
-            if ($.trim($("#keterangan").val()) == "" && ($.trim($("#terima").val()) == "" || $.trim($("#bayar").val()) == "")) return;
+            if ($.trim($("#keterangan").val()) == "" && ($.trim($("#terima").val()) == "0" || $.trim($("#bayar").val()) == "0")) return;
 
             var productName = $("#keterangan").val(),
                 price = $("#terima").val(),

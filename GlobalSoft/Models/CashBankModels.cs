@@ -92,7 +92,8 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         [Display(Name = "No Bukti")]
         public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
-        
+
+       
         [Display(Name = "Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
 

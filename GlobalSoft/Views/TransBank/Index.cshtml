@@ -189,7 +189,7 @@
     <script>
         $(function () {
             $("#tanggal").datepicker({
-                dateFormat: 'dd-mm-yy',
+                dateFormat: 'dd/mm/yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1900:' + (new Date().getFullYear() + 60)
@@ -205,7 +205,7 @@
         $("#addToList").click(function (e) {
             e.preventDefault();
 
-            if ($.trim($("#keterangan").val()) == "" && ($.trim($("#terima").val()) == "" || $.trim($("#bayar").val()) == "")) return;
+            if ($.trim($("#keterangan").val()) == "" && ($.trim($("#terima").val()) == "0" || $.trim($("#bayar").val()) == "0")) return;
 
             var productName = $("#keterangan").val(),
                 price = $("#terima").val(),

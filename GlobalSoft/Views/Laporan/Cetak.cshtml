@@ -1,24 +1,17 @@
 ﻿@model IEnumerable<GlobalSoft.Models.CbTrans>
-@{
-    Layout = null;
-}
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - GlobalSoft Application</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/datatables")
-    @Scripts.Render("~/bundles/modernizr")
 
-</head>
+
 @{
     ViewBag.Title = "Cetak";
 }
 <div class="py-5 text-center">
     <h2>@ViewBag.Judul</h2>
-
 </div>
-
+<p>
+    <div class="py-5 text-center">
+    @string.Format("{0:d/M/yyyy}", ViewBag.Tgl1) -sd- @string.Format("{0:d/M/yyyy}", ViewBag.Tgl2)
+    </div>
+</p>
 
 <table class="table">
     <tr>

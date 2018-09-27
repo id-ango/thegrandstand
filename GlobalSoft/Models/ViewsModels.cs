@@ -307,7 +307,9 @@ namespace GlobalSoft.Models
         public int GlAkunID { get; set; }
         [Display(Name = "Nama Akun")]
         public string GlAkunName { get; set; }
+        [Display(Name = "Kode Akun")]
+        public string GlAkun { get; set; }
 
-        
+
     }
 }

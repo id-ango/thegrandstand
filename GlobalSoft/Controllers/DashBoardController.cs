@@ -136,7 +136,17 @@ namespace GlobalSoft.Controllers
 
                             }).ToList();
 
-            foreach(var y in db.AptTranss)
+            foreach (var y in db.CbTranss)
+            {
+                (from e in listUnit
+                 where e.UnitID == y.UnitID
+                 select e).ForEach(x => {
+                     x.CustomerName = db.ArCustomers.Where(g => g.CustomerID == y.PersonID).Select(g => g.CustomerName).First();
+                     x.Pembayaran = x.Pembayaran + y.Payment; x.Sisa = x.Sisa - y.Payment;
+                 });
+            }
+
+            foreach (var y in db.AptTranss)
             {
                 (from e in listUnit
                  where e.UnitID == y.UnitID
@@ -159,14 +169,7 @@ namespace GlobalSoft.Controllers
                  });
             }
 
-            foreach (var y in db.CbTranss)
-            {
-                (from e in listUnit
-                 where e.UnitID == y.UnitID 
-                 select e).ForEach(x => {
-                     x.Pembayaran = x.Pembayaran + y.Payment; x.Sisa = x.Sisa - y.Payment;
-                 });
-            }
+            
 
 
             var dbResult = listUnit;
@@ -221,11 +224,11 @@ namespace GlobalSoft.Controllers
                               UnitNo = e.AptUnit.UnitNo,
                               Angsuran = y.Jumlah,
                               Bayar =  db.ArTransDs.Where(x =>x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
-                              Keterangan =  y.Keterangan });
+                              Keterangan =  y.Keterangan }).ToList();
 
             foreach (var gt in ListSp)
             {
-                gt.TglString = gt.Duedate.ToString();
+                gt.TglString = gt.Duedate.ToString("dd/MM/yyyy");
             }
 
             var allList = ListCb.Concat(ListSp);

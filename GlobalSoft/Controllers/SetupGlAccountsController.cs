@@ -183,8 +183,22 @@ namespace GlobalSoft.Controllers
 
             }
 
-            var glAccounts = db.GlAccounts;
-            return View(glAccounts.ToList());
+            var glAccounts = db.GlAccounts.ToList();
+
+            var ListAkun = (from e in glAccounts
+                           select new TrsnoVM 
+                           {
+                               GlAkunID  = e.GlAkunID,
+                               GlAkun  = e.GlAkun,
+                               GlAkunName = e.GlAkunName,
+                               TransNoID = e.GlTipeID,
+                               TransNo = db.GlTipes.Where(n => n.GlTipeID == e.GlTipeID).Select(n => n.GlTipeName).DefaultIfEmpty("").First()
+                           }).ToList();
+
+
+
+            return View(ListAkun);
+           
         }
 
         // GET: SetupGlAccounts/Details/5
