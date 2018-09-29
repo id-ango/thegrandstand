@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AptGedungsController.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
+    <Compile Include="Controllers\ArAkunSetsController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\FungsiController.cs" />
@@ -287,6 +288,10 @@
     <Compile Include="Migrations\201809230647128_tambahgl.cs" />
     <Compile Include="Migrations\201809230647128_tambahgl.Designer.cs">
       <DependentUpon>201809230647128_tambahgl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809280641131_arakunset.cs" />
+    <Compile Include="Migrations\201809280641131_arakunset.Designer.cs">
+      <DependentUpon>201809280641131_arakunset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -806,6 +811,11 @@
     <Content Include="Views\TransLedger\Details.cshtml" />
     <Content Include="Views\TransLedger\Delete.cshtml" />
     <Content Include="Views\TransLedger\Create.cshtml" />
+    <Content Include="Views\ArAkunSets\Create.cshtml" />
+    <Content Include="Views\ArAkunSets\Delete.cshtml" />
+    <Content Include="Views\ArAkunSets\Details.cshtml" />
+    <Content Include="Views\ArAkunSets\Edit.cshtml" />
+    <Content Include="Views\ArAkunSets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -868,6 +878,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809230647128_tambahgl.resx">
       <DependentUpon>201809230647128_tambahgl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809280641131_arakunset.resx">
+      <DependentUpon>201809280641131_arakunset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

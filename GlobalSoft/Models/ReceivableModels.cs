@@ -80,22 +80,26 @@ namespace GlobalSoft.Models
 
     public class ArAkunSet
     {
+        [Key]
         public int AkunsetID { get; set; }
 
         [StringLength(20)]
         public string AkunSet { get; set; }
-
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
+        [Display(Name ="AR Control")]
+        public int GlAkunID1 { get; set; }
+        public virtual GlAccount GlAkunI1 { get; set; }
+        [Display(Name ="Bank")]
+        public int GlAkunID2 { get; set; }
+        public virtual GlAccount GlAkunI2 { get; set; }
+        [Display(Name ="Sales Return")]
+        public int GlAkunID3 { get; set; }
+        public virtual GlAccount GlAkunI3 { get; set; }
+        [Display(Name ="Payment Credit")]
+        public int GlAkunID4 { get; set; }
+        public virtual GlAccount GlAkunI4 { get; set; }
         public string GlAkun1 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
         public string GlAkun2 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
         public string GlAkun3 { get; set; }
-        [StringLength(10, ErrorMessage = "Max 10 Karakter"), MinLength(2), MaxLength(10)]
-        [Display(Name = "Kode Akun")]
         public string GlAkun4 { get; set; }
 
     }

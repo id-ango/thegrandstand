@@ -1,0 +1,96 @@
+﻿@model GlobalSoft.Models.ArAkunSet
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ArAkunSet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AkunSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AkunSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkun4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkun4)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
