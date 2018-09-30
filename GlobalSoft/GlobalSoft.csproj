@@ -474,6 +474,7 @@
     <Content Include="Content\SKUP.css" />
     <Content Include="Content\SPesanan.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\RekKoran.css" />
     <Content Include="Content\Tandaterima.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -816,6 +817,8 @@
     <Content Include="Views\ArAkunSets\Details.cshtml" />
     <Content Include="Views\ArAkunSets\Edit.cshtml" />
     <Content Include="Views\ArAkunSets\Index.cshtml" />
+    <Content Include="Views\Laporan\Cetak - Copy.cshtml" />
+    <Content Include="Views\Laporan\LapBukuBesar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

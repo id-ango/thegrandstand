@@ -17,6 +17,44 @@ namespace GlobalSoft.Controllers
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
+        public ActionResult LapBukuBesar()
+        {
+            List<SelectListItem> akunGl = new List<SelectListItem>
+            {
+                new SelectListItem()
+                {
+                    Text = "---Kode Akun---",
+                    Value = "0"
+                }
+            };
+            var dbakun = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
+
+            foreach (var i in dbakun)
+            {
+                akunGl.Add(new SelectListItem() { Text = i.GlAkun + " - " + i.GlAkunName, Value = i.GlAkunID.ToString() });
+            }
+
+            ViewBag.GlAkunID1 = akunGl;
+            ViewBag.GlAkunID2 = akunGl;
+          
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CetakBukuBesar(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAKunID2)
+        {
+            List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
+            
+            foreach(var i in TransGl)
+            {
+                if(i.GlAkunID>= GlAkunID1 && i.GlAkunID<=GlAKunID2)
+                {
+
+                }
+            }
+            return View();
+        }
+
         // GET: Laporan
         public ActionResult RekKoran()
         {
@@ -88,14 +126,14 @@ namespace GlobalSoft.Controllers
             Transaksi.Add(new CbTrans
             {
                 BankID = id,
-                NoRef = "------",
+                NoRef = "",
                 Tanggal = Tanggal1,
                 Keterangan = "Saldo Awal",
-                TransNoID = 0,
-                Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
-                Diskon  = (bf1 + sp1 + cb1) > 0 ? 0 : (bf1 + sp1 + cb1)
+                TransNoID = 0,               
+                Jumlah = (bf1 + sp1 + cb1)
             });
-
+           // Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
+            //    Diskon = (bf1 + sp1 + cb1) > 0 ? 0 : (bf1 + sp1 + cb1),
             
             
 
@@ -126,8 +164,8 @@ namespace GlobalSoft.Controllers
                     Tanggal = t.Tanggal,
                     Keterangan = t.Keterangan,
                     TransNoID = t.TransNoID,
-                    Piutang = t.Payment
-                   
+                    Piutang = t.Payment,
+                    Jumlah = t.Payment
                     
                 });
                 
@@ -141,7 +179,8 @@ namespace GlobalSoft.Controllers
                     Tanggal = t.Tanggal,
                     Keterangan = t.Keterangan,
                     TransNoID = db.AptSPesanans.Where(x =>x.SPesananID == t.SPesananID).Select(x =>x.KodeTrans).FirstOrDefault(),
-                    Piutang = t.Bayar
+                    Piutang = t.Bayar,
+                    Jumlah = t.Bayar
                 });
 
             }
@@ -157,7 +196,8 @@ namespace GlobalSoft.Controllers
                     Keterangan = t.Keterangan,
                     TransNoID = t.TransNoID,
                     Piutang = t.Terima,
-                    Diskon = t.Bayar
+                    Diskon = t.Bayar,
+                    Jumlah = t.Terima - t.Bayar
                 });
 
             }

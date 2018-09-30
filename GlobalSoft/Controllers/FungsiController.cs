@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GlobalSoft.Models;
+using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
     public class FungsiController : Controller
     {
-       public class Fungsi
+        
+
+        public class Fungsi
         {
+            private GlobalsoftDBContext db = new GlobalsoftDBContext();
+
             public static DateTime HitungAngsuran(DateTime Tanggal, int Cicilan)
             {
                 decimal bulan = Tanggal.Month;
@@ -19,7 +25,7 @@ namespace GlobalSoft.Controllers
 
                 decimal dbulan = (bulan + Cicilan);
                 decimal totBulan = dbulan % 12;
-                decimal totTahun = Math.Floor(dbulan / 12) ;
+                decimal totTahun = Math.Floor(dbulan / 12);
 
                 if (totBulan == 0)
                 {
@@ -78,7 +84,52 @@ namespace GlobalSoft.Controllers
                 else
                     return NumberToText(n / 1000000000) + "Milyard " + NumberToText(n % 1000000000);
             }
+
+            public decimal SaldoawalBK(int glAkun, DateTime Tgl1)
+            {
+                List<TrsnoVM> glBK = new List<TrsnoVM>();
+
+
+               // posisi kredit 
+                    decimal saldobf1 = (from b in db.CbTranss
+                                       where b.Tanggal< Tgl1 &&  b.AptTrsNo.GlAkunID == glAkun
+                                       select b.Payment).DefaultIfEmpty(0).Sum();
+                
+                //posisi debet
+
+                decimal saldobf2 = (from b in db.CbTranss
+                                    join y in db.CbBanks
+                                    on b.BankID equals y.BankID
+                                    where b.Tanggal < Tgl1 && y.GlAccount.GlAkunID == glAkun
+                                    select b.Payment).DefaultIfEmpty(0).Sum();
+
+                //posisi kredit
+                decimal saldosp1 = (from b in db.ArTransDs
+                                    join y in db.ArTransHs
+                                       on b.ArHGd equals y.ArHGd
+                                    join t in db.ArCustomers
+                                    on y.CustomerID equals t.CustomerID
+                                    where y.Tanggal < Tgl1
+                                    select b.CustomerID).DefaultIfEmpty(0).Sum();
+                                
+
+                //posisi debet
+                decimal saldosp2 = (from b in db.ArTransDs
+                                       join y in db.ArTransHs
+                                          on b.ArHGd equals y.ArHGd
+                                        join t in db.CbBanks
+                                        on y.BankID equals t.BankID
+                                       where y.Tanggal < Tgl1 && t.GlAccount.GlAkunID == glAkun
+                                       select b.Bayar).DefaultIfEmpty(0).Sum();
+
+                    decimal saldocb = (from b in db.CbTransDs
+                                       join y in db.CbTransHs
+                                         on b.GuidCb equals y.GuidCb
+                                       where y.BankID == bb.BankID
+                                       select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+                
+                return 0;
+            }
+
         }
-       
     }
-}

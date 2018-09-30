@@ -1,0 +1,79 @@
+﻿@model IEnumerable<GlobalSoft.Models.CbTrans>
+
+
+@{
+    ViewBag.Title = "Cetak";
+}
+<div class="py-5 text-center">
+    <h2>@ViewBag.Judul</h2>
+</div>
+<p>
+    <div class="py-5 text-center">
+    @string.Format("{0:d/M/yyyy}", ViewBag.Tgl1) -sd- @string.Format("{0:d/M/yyyy}", ViewBag.Tgl2)
+    </div>
+</p>
+
+<table class="table">
+    <tr>
+
+
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </th>
+
+        <th>
+            Debet
+        </th>
+        <th>
+            Kredit
+        </th>
+        <th>
+            Saldo
+        </th>
+
+    </tr>
+    @{decimal nilai = 0; }
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @string.Format("{0,0:d}",item.Tanggal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRef)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Keterangan)
+            </td>
+
+            <td>
+                @*Html.DisplayFor(modelItem => item.Piutang)*@
+                @string.Format("{0,13:#,##0.00}", item.Piutang)
+            </td>
+            <td>
+                @string.Format("{0,13:#,##0.00}",item.Diskon)
+            </td>
+            <td>
+                @{
+                    nilai = nilai + item.Piutang - item.Diskon;
+                }
+
+                @string.Format("{0,13:#,##0.00}",nilai)
+            </td>
+
+        </tr>
+    }
+
+</table>
+

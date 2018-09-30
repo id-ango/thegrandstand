@@ -1,24 +1,28 @@
 ﻿@model IEnumerable<GlobalSoft.Models.CbTrans>
 
-
 @{
-    ViewBag.Title = "Cetak";
+    Layout = null;
 }
-<div class="py-5 text-center">
-    <h2>@ViewBag.Judul</h2>
-</div>
-<p>
-    <div class="py-5 text-center">
-    @string.Format("{0:d/M/yyyy}", ViewBag.Tgl1) -sd- @string.Format("{0:d/M/yyyy}", ViewBag.Tgl2)
-    </div>
-</p>
+
+<head>
+  <link rel="stylesheet" href="~/Content/RekKoran.css" />
+     
+</head>
+
+
 
 <table class="table">
+    <thead>
+        <tr>
+    <th colspan="6">@ViewBag.Judul</th>
+    </tr>
+        <tr>
+         <th colspan="6">   @string.Format("{0:d/M/yyyy}", ViewBag.Tgl1) -sd- @string.Format("{0:d/M/yyyy}", ViewBag.Tgl2)
+ </th>
+        </tr>
+    </thead>
+    <tbody>
     <tr>
-
-
-
-
         <th>
             @Html.DisplayNameFor(model => model.Tanggal)
         </th>
@@ -40,21 +44,25 @@
         </th>
 
     </tr>
-    @{decimal nilai = 0; }
+    @{
+        decimal nilai = 0;
+        decimal nDebet = 0;
+        decimal nKredit = 0;
+        }
 
     @foreach (var item in Model)
     {
-
+     
         <tr>
             <td>
-                @string.Format("{0,0:d}",item.Tanggal)
+                @string.Format("{0:d/M/yyyy}", item.Tanggal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NoRef)
+                @item.NoRef
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Keterangan)
+                @item.Keterangan
             </td>
 
             <td>
@@ -62,18 +70,28 @@
                 @string.Format("{0,13:#,##0.00}", item.Piutang)
             </td>
             <td>
-                @string.Format("{0,13:#,##0.00}",item.Diskon)
+                @string.Format("{0,13:#,##0.00}", item.Diskon)
             </td>
             <td>
                 @{
-                    nilai = nilai + item.Piutang - item.Diskon;
+                    nilai = nilai + item.Jumlah;
+                    nDebet = nDebet + item.Piutang;
+                    nKredit = nKredit + item.Diskon;
                 }
 
-                @string.Format("{0,13:#,##0.00}",nilai)
+                @string.Format("{0,13:#,##0.00}", nilai)
             </td>
 
         </tr>
+        
     }
+        <tr>
+            <td colspan="3"></td>            
+            <td><strong>@string.Format("{0,13:#,##0.00}", nDebet)  </strong></td>
+            <td><strong>@string.Format("{0,13:#,##0.00}", nKredit) </strong></td>
+            <td></td>
+        </tr>
+</tbody>
 
 </table>
 

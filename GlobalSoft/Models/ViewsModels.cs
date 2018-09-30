@@ -6,6 +6,8 @@ using System.Web;
 
 namespace GlobalSoft.Models
 {
+    
+
     public class BookViewsModels
     {
         [Key]
@@ -309,7 +311,16 @@ namespace GlobalSoft.Models
         public string GlAkunName { get; set; }
         [Display(Name = "Kode Akun")]
         public string GlAkun { get; set; }
-
+        [StringLength(20)]
+        public string Bukti { get; set; }
+        public DateTime Tanggal { get; set; }
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        [Display(Name = "Jumlah Bayar")]
+        public decimal Payment { get; set; }            // Jumlah Pembayaran
+        public decimal Piutang { get; set; }            // Jumlah Pembayaran
+        public decimal Pembayaran { get; set; }            // Jumlah Pembayaran
+        public decimal Sisa { get; set; }            // Jumlah Pembayaran
 
     }
 }
