@@ -293,6 +293,10 @@
     <Compile Include="Migrations\201809280641131_arakunset.Designer.cs">
       <DependentUpon>201809280641131_arakunset.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810010333230_tambahakunsetid.cs" />
+    <Compile Include="Migrations\201810010333230_tambahakunsetid.Designer.cs">
+      <DependentUpon>201810010333230_tambahakunsetid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -819,6 +823,7 @@
     <Content Include="Views\ArAkunSets\Index.cshtml" />
     <Content Include="Views\Laporan\Cetak - Copy.cshtml" />
     <Content Include="Views\Laporan\LapBukuBesar.cshtml" />
+    <Content Include="Views\Laporan\CetakBukuBesar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -884,6 +889,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809280641131_arakunset.resx">
       <DependentUpon>201809280641131_arakunset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810010333230_tambahakunsetid.resx">
+      <DependentUpon>201810010333230_tambahakunsetid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

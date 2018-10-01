@@ -64,6 +64,23 @@ namespace GlobalSoft.Controllers
         // GET: SetupCustomer/Create
         public ActionResult Create()
         {
+            List<SelectListItem> akunGl = new List<SelectListItem>
+            {
+                new SelectListItem()
+                {
+                    Text = "---Akun Set---",
+                    Value = "0"
+                }
+            };
+            var dbakun = db.ArAkunSets.OrderBy(x => x.AkunSet).ToList();
+
+            foreach (var i in dbakun)
+            {
+                akunGl.Add(new SelectListItem() { Text = i.AkunSet, Value = i.AkunsetID.ToString() });
+            }
+
+            ViewBag.AkunSetID = akunGl;
+
             return View();
         }
 
@@ -72,7 +89,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AkunSet")] ArCustomer arCustomer)
+        public ActionResult Create([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AkunSetID")] ArCustomer arCustomer)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +97,6 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(arCustomer);
         }
 
@@ -96,6 +112,26 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            List<SelectListItem> akunGl = new List<SelectListItem>
+            {
+                new SelectListItem()
+                {
+                    Text = "---Akun Set---",
+                    Value = "0"
+                }
+            };
+            var dbakun = db.ArAkunSets.OrderBy(x => x.AkunSet).ToList();
+
+            foreach (var i in dbakun)
+            {
+
+                akunGl.Add(new SelectListItem() { Text = i.AkunSet, Value = i.AkunsetID.ToString(),Selected = (i.AkunsetID == arCustomer.AkunSetID) ? true : false });
+            }
+
+            ViewBag.AkunSetID = akunGl;
+
+         //   ViewBag.AkunSetID = new SelectList(db.ArAkunSets, "AkunSetID", "AkunSet",arCustomer.AkunSetID);
+           
             return View(arCustomer);
         }
 
@@ -104,7 +140,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AccounSet")] ArCustomer arCustomer)
+        public ActionResult Edit([Bind(Include = "CustomerID,CustomerName,ShortName,Alamat,Ktp,Phone,AlamatSekarang,KodePos,Email,Npwp,AkunSetID")] ArCustomer arCustomer)
         {
             if (ModelState.IsValid)
             {

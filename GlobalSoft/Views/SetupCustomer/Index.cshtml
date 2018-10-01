@@ -9,86 +9,107 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@using (Html.BeginForm())
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Chart of Account</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CustomerName)
+                                @*Html.ActionLink("Nama", "index", new { sortOrder = ViewBag.NameSortParm })*@
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShortName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Alamat)
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ktp)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AlamatSekarang)
+                                @*Html.ActionLink("Alamat", "index", new { sortOrder = ViewBag.AddressSortParm })*@
+
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.KodePos)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Npwp)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShortName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Alamat)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ktp)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlamatSekarang)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.KodePos)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Npwp)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.CustomerID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
 {
-    <p>
-        Find by name: @Html.TextBox("searchString")
-        <input type="submit" value="Search" />
-    </p>
+
+    <script type="text/javascript">
+
+
+     $(document).ready(function () {
+
+         $('#assets-data-table').DataTable();
+     });
+    </script>
 }
-<table class="table">
-    <tr>
-        <th>
-            @*Html.DisplayNameFor(model => model.CustomerName)*@
-            @Html.ActionLink("Nama", "index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Alamat)
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ktp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @*Html.DisplayNameFor(model => model.AlamatSekarang)*@
-            @Html.ActionLink("Alamat", "index", new { sortOrder = ViewBag.AddressSortParm })
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KodePos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Npwp)
-        </th>
-        
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alamat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ktp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlamatSekarang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KodePos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Npwp)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
-        </td>
-    </tr>
-}
-
-</table>

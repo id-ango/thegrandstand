@@ -1,0 +1,97 @@
+﻿@model IEnumerable<GlobalSoft.Models.TrsnoVM>
+
+@{
+    Layout = null;
+}
+
+<head>
+  <link rel="stylesheet" href="~/Content/RekKoran.css" />
+     
+</head>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+    <th colspan="6">BUKU BESAR</th>
+    </tr>
+        <tr>
+         <th colspan="6">   @string.Format("{0:d/M/yyyy}", ViewBag.Tgl1) -sd- @string.Format("{0:d/M/yyyy}", ViewBag.Tgl2)
+ </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.GlAkun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GlAkunName)
+            </th>
+            <th>
+               Saldo Awal
+            </th>
+            <th>
+                Debet
+            </th>
+            <th>
+                Kredit
+            </th>
+            <th>
+                Saldo Akhir
+            </th>
+
+        </tr>
+    @{
+        decimal nilai = 0;
+        decimal nDebet = 0;
+        decimal nKredit = 0;
+        }
+
+    @foreach (var item in Model)
+    {
+     
+        <tr>
+
+            <td>
+                @item.GlAkun
+            </td>
+
+            <td>
+                @item.GlAkunName
+            </td>
+            <td>
+                @string.Format("{0,13:#,##0.00}", item.Sisa)
+            </td>
+            <td>
+                @*Html.DisplayFor(modelItem => item.Piutang)*@
+                @string.Format("{0,13:#,##0.00}", item.Piutang)
+            </td>
+            <td>
+                @string.Format("{0,13:#,##0.00}", item.Pembayaran)
+            </td>
+            <td>
+                @{
+            nilai =  item.Sisa+item.Piutang-item.Pembayaran;
+            nDebet = nDebet + item.Piutang;
+            nKredit = nKredit + item.Pembayaran;
+                }
+
+                @string.Format("{0,13:#,##0.00}", nilai)
+            </td>
+
+        </tr>
+        
+    }
+        <tr>
+            <td colspan="3"></td>            
+            <td><strong>@string.Format("{0,13:#,##0.00}", nDebet)  </strong></td>
+            <td><strong>@string.Format("{0,13:#,##0.00}", nKredit) </strong></td>
+            <td></td>
+        </tr>
+</tbody>
+
+</table>
+

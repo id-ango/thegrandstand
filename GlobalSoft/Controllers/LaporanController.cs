@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using GlobalSoft.Models;
 using Newtonsoft.Json.Linq;
 
+
 namespace GlobalSoft.Controllers
 {
     [Authorize(Roles = "Admin,Manager,Employee")]
@@ -36,7 +37,7 @@ namespace GlobalSoft.Controllers
 
             ViewBag.GlAkunID1 = akunGl;
             ViewBag.GlAkunID2 = akunGl;
-          
+
             return View();
         }
 
@@ -44,15 +45,21 @@ namespace GlobalSoft.Controllers
         public ActionResult CetakBukuBesar(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAKunID2)
         {
             List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
-            
-            foreach(var i in TransGl)
-            {
-                if(i.GlAkunID>= GlAkunID1 && i.GlAkunID<=GlAKunID2)
-                {
+            List<TrsnoVM> BukuBesar = new List<TrsnoVM>();
 
+            foreach (var i in TransGl)
+            {
+                
+                // Saldo awal
+                if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAKunID2)
+                {
+                  //  decimal Saldo = SaldoawalBK(i.GlAkunID, Tanggal1);
+                    BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName,Sisa = SaldoawalBK(i.GlAkunID, Tanggal1) });
                 }
             }
-            return View();
+            ViewBag.Tgl1 = Tanggal1;
+            ViewBag.Tgl2 = Tanggal2;
+            return View(BukuBesar.ToList());
         }
 
         // GET: Laporan
@@ -60,29 +67,29 @@ namespace GlobalSoft.Controllers
         {
 
             List<CbBank> bank = new List<CbBank>();
-            
+
 
             foreach (var bb in db.CbBanks)
             {
                 decimal saldobf = (from b in db.CbTranss
-                          join y in db.AptPayments
-                             on b.PaymentID equals y.PaymentID
-                          where y.BankID == bb.BankID
-                          select b.Payment).DefaultIfEmpty(0).Sum();
+                                   join y in db.AptPayments
+                                      on b.PaymentID equals y.PaymentID
+                                   where y.BankID == bb.BankID
+                                   select b.Payment).DefaultIfEmpty(0).Sum();
 
                 decimal saldosp = (from b in db.ArTransDs
-                          join y in db.ArTransHs
-                             on b.ArHGd equals y.ArHGd
-                          where y.BankID == bb.BankID
-                          select b.Bayar).DefaultIfEmpty(0).Sum();
+                                   join y in db.ArTransHs
+                                      on b.ArHGd equals y.ArHGd
+                                   where y.BankID == bb.BankID
+                                   select b.Bayar).DefaultIfEmpty(0).Sum();
 
                 decimal saldocb = (from b in db.CbTransDs
-                          join y in db.CbTransHs
-                            on b.GuidCb equals y.GuidCb
-                          where y.BankID == bb.BankID
-                          select (b.Terima- b.Bayar)).DefaultIfEmpty(0).Sum();
+                                   join y in db.CbTransHs
+                                     on b.GuidCb equals y.GuidCb
+                                   where y.BankID == bb.BankID
+                                   select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
 
-               decimal tempbank = 0;
+                decimal tempbank = 0;
 
                 tempbank = saldobf + saldosp + saldocb;
 
@@ -90,13 +97,13 @@ namespace GlobalSoft.Controllers
 
             }
 
-          //  var banks = bank;
-            
+            //  var banks = bank;
+
             return View(bank);
         }
-        
+
         [HttpGet]
-        public ActionResult Cetak(DateTime Tanggal1,DateTime Tanggal2,int KodeBank)
+        public ActionResult Cetak(DateTime Tanggal1, DateTime Tanggal2, int KodeBank)
         {
             int id = KodeBank;
             ViewBag.Judul = db.CbBanks.Find(id).BankName;
@@ -108,7 +115,7 @@ namespace GlobalSoft.Controllers
                        join y in db.AptPayments
                         on b.PaymentID equals y.PaymentID
                        where y.BankID == id && b.Tanggal < Tanggal1
-                      select b.Payment).DefaultIfEmpty(0).Sum();
+                       select b.Payment).DefaultIfEmpty(0).Sum();
 
             var sp1 = (from b in db.ArTransDs
                        join y in db.ArTransHs
@@ -117,10 +124,10 @@ namespace GlobalSoft.Controllers
                        select b.Bayar).DefaultIfEmpty(0).Sum();
 
             var cb1 = (from b in db.CbTransDs
-                      join y in db.CbTransHs
-                        on b.GuidCb equals y.GuidCb
-                      where y.BankID == id && b.Tanggal < Tanggal1 
-                      select   b.Terima - b.Bayar).DefaultIfEmpty(0).Sum();
+                       join y in db.CbTransHs
+                         on b.GuidCb equals y.GuidCb
+                       where y.BankID == id && b.Tanggal < Tanggal1
+                       select b.Terima - b.Bayar).DefaultIfEmpty(0).Sum();
 
 
             Transaksi.Add(new CbTrans
@@ -129,31 +136,32 @@ namespace GlobalSoft.Controllers
                 NoRef = "",
                 Tanggal = Tanggal1,
                 Keterangan = "Saldo Awal",
-                TransNoID = 0,               
+                TransNoID = 0,
                 Jumlah = (bf1 + sp1 + cb1)
             });
-           // Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
+            // Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
             //    Diskon = (bf1 + sp1 + cb1) > 0 ? 0 : (bf1 + sp1 + cb1),
-            
-            
 
 
-            var bf = (from b in db.CbTranss join y in db.AptPayments
-                      on b.PaymentID equals y.PaymentID
-                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal<= Tanggal2) select b).ToList();
 
-            var sp = (from b in db.ArTransDs join y in db.ArTransHs
-                        on b.ArHGd equals y.ArHGd
+
+            var bf = (from b in db.CbTranss
+                      join y in db.AptPayments on b.PaymentID equals y.PaymentID
                       where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
-                      select new { b.Tanggal,b.Keterangan,b.SPesananID,b.Bayar, y.Bukti }).ToList();
+                      select b).ToList();
+
+            var sp = (from b in db.ArTransDs
+                      join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
+                      select new { b.Tanggal, b.Keterangan, b.SPesananID, b.Bayar, y.Bukti }).ToList();
 
             var cb = (from b in db.CbTransDs
                       join y in db.CbTransHs
                         on b.GuidCb equals y.GuidCb
                       where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
-                      select new { y.Tanggal,b.TransNoID, b.Keterangan, b.Terima, b.Bayar, y.Docno }).ToList();
+                      select new { y.Tanggal, b.TransNoID, b.Keterangan, b.Terima, b.Bayar, y.Docno }).ToList();
 
-           
+
 
             foreach (var t in bf)
             {
@@ -166,9 +174,9 @@ namespace GlobalSoft.Controllers
                     TransNoID = t.TransNoID,
                     Piutang = t.Payment,
                     Jumlah = t.Payment
-                    
+
                 });
-                
+
             }
             foreach (var t in sp)
             {
@@ -178,7 +186,7 @@ namespace GlobalSoft.Controllers
                     NoRef = t.Bukti,
                     Tanggal = t.Tanggal,
                     Keterangan = t.Keterangan,
-                    TransNoID = db.AptSPesanans.Where(x =>x.SPesananID == t.SPesananID).Select(x =>x.KodeTrans).FirstOrDefault(),
+                    TransNoID = db.AptSPesanans.Where(x => x.SPesananID == t.SPesananID).Select(x => x.KodeTrans).FirstOrDefault(),
                     Piutang = t.Bayar,
                     Jumlah = t.Bayar
                 });
@@ -207,5 +215,97 @@ namespace GlobalSoft.Controllers
 
             return View(Transaksi.OrderBy(x => x.Tanggal));
         }
+
+        public decimal SaldoawalBK(int glAkun, DateTime Tgl1)
+        {
+
+
+            List<TrsnoVM> glBK = new List<TrsnoVM>();
+
+
+            // posisi kredit booking fee 
+            decimal saldobf1 = (from b in db.CbTranss
+                                where b.Tanggal < Tgl1 && b.AptTrsNo.GlAkunID == glAkun
+                                select b.Payment).DefaultIfEmpty(0).Sum();
+
+            //posisi debet booking fee
+            decimal saldobf2 = (from b in db.CbTranss
+                                join y in db.CbBanks
+                                on b.BankID equals y.BankID
+                                where b.Tanggal < Tgl1 && y.GlAccount.GlAkunID == glAkun
+                                select b.Payment).DefaultIfEmpty(0).Sum();
+
+            // posisi kredit pembayaran Angsuran
+            //   decimal saldosp1 = (from b in db.ArTransDs
+            //                        join y in db.ArTransHs
+            //                          on b.ArHGd equals y.ArHGd                                                               
+            //                     where y.Tanggal < Tgl1
+            //                       select b.Bayar,b.CustomerID);
+
+            var listsp = (from b in db.ArTransDs
+                          join y in db.ArTransHs
+                          on b.ArHGd equals y.ArHGd
+                          where y.Tanggal < Tgl1
+                          select new { b.Bayar, b.CustomerID }).ToList();
+
+            // posisi kredit
+            decimal saldosp1 = (from b in listsp
+                                join t in db.ArCustomers on b.CustomerID equals t.CustomerID
+                                join u in db.ArAkunSets on t.AkunSetID equals u.AkunsetID
+                                where u.GlAkunID1 == glAkun
+                                select b.Bayar).DefaultIfEmpty(0).Sum();
+
+
+            //posisi debet pembayaran Angsuran
+            decimal saldosp2 = (from b in db.ArTransDs
+                                join y in db.ArTransHs
+                                   on b.ArHGd equals y.ArHGd
+                                join t in db.CbBanks
+                                on y.BankID equals t.BankID
+                                where y.Tanggal < Tgl1 && t.GlAccount.GlAkunID == glAkun
+                                select b.Bayar).DefaultIfEmpty(0).Sum();
+
+
+            // posisi kredit 
+            decimal saldocb1 = 0;    //kredit
+            decimal saldocb2 = 0;    //debet
+            decimal saldotot = 0;
+
+            // transaksi
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.CbBanks on y.BankID equals r.BankID
+                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb1 += saldotot;
+            }
+            else
+            {
+                saldocb2 += saldotot;
+            }
+
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.AptTrsNoes on b.TransNoID equals r.TransNoID
+                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb2 += saldotot;
+            }
+            else
+            {
+                saldocb1 += saldotot;
+            }
+
+            return (saldobf2 - saldobf1 + saldosp2 - saldosp1 + saldocb2 - saldocb1);
+        }
+
     }
 }

@@ -41,7 +41,7 @@ namespace GlobalSoft.Models
         public string Npwp { get; set; }
         [StringLength(20)]
         public string AkunSet { get; set; }
-
+        public int AkunSetID { get; set; }
         public virtual ICollection<ArPiutang> ArPiutang { get; set; }
 
 
