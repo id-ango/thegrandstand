@@ -42,8 +42,11 @@ namespace GlobalSoft.Controllers
         }
 
         [HttpGet]
-        public ActionResult CetakBukuBesar(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAKunID2)
+        public ActionResult CetakBukuBesar(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAkunID2)
         {
+            var glAwal = db.GlAccounts.Find(GlAkunID1).GlAkun;
+            var glakhir = db.GlAccounts.Find(GlAkunID2).GlAkun;
+
             List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
             List<TrsnoVM> BukuBesar = new List<TrsnoVM>();
 
@@ -51,7 +54,7 @@ namespace GlobalSoft.Controllers
             {
                 
                 // Saldo awal
-                if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAKunID2)
+                if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
                 {
                   //  decimal Saldo = SaldoawalBK(i.GlAkunID, Tanggal1);
                     BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName,Sisa = SaldoawalBK(i.GlAkunID, Tanggal1) });
@@ -225,14 +228,16 @@ namespace GlobalSoft.Controllers
 
             // posisi kredit booking fee 
             decimal saldobf1 = (from b in db.CbTranss
-                                where b.Tanggal < Tgl1 && b.AptTrsNo.GlAkunID == glAkun
+                                join y in db.ArCustomers on b.PersonID equals y.CustomerID
+                                join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID                                
+                                where b.Tanggal < Tgl1 && t.GlAkunID1 == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
             //posisi debet booking fee
             decimal saldobf2 = (from b in db.CbTranss
-                                join y in db.CbBanks
-                                on b.BankID equals y.BankID
-                                where b.Tanggal < Tgl1 && y.GlAccount.GlAkunID == glAkun
+                                join y in db.AptPayments on b.PaymentID equals y.PaymentID
+                                join t in db.CbBanks on y.BankID equals t.BankID
+                                where b.Tanggal < Tgl1 && t.GlAkunID == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
             // posisi kredit pembayaran Angsuran

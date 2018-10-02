@@ -84,14 +84,15 @@ namespace GlobalSoft.Models
         public int AkunsetID { get; set; }
 
         [StringLength(20)]
+        [Display(Name ="Akun Set")]
         public string AkunSet { get; set; }
         [Display(Name ="AR Control")]
         public int GlAkunID1 { get; set; }
         public virtual GlAccount GlAkunI1 { get; set; }
-        [Display(Name ="Bank")]
+        [Display(Name ="Booking Fee")]
         public int GlAkunID2 { get; set; }
         public virtual GlAccount GlAkunI2 { get; set; }
-        [Display(Name ="Sales Return")]
+        [Display(Name ="Angsuran")]
         public int GlAkunID3 { get; set; }
         public virtual GlAccount GlAkunI3 { get; set; }
         [Display(Name ="Payment Credit")]

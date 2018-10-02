@@ -10,6 +10,7 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class BookingFeeController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
@@ -242,7 +243,10 @@ namespace GlobalSoft.Controllers
 
             if (test != 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);   // ada revisi untuk messagenya
+                // TempData["msg"] = "<script>alert('Change succesfully');</script>";
+             //   return JavaScript(alert("Hello this is an alert"));
+                return Content("<script language='javascript' type='text/javascript'>alert('Sudah ada Transaksi SP, tidak bisa dihapus!');</script>");
+                //  return new HttpStatusCodeResult(HttpStatusCode.BadRequest);   // ada revisi untuk messagenya
             }
 
             if (aptTrans == null)

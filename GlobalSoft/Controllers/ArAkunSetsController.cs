@@ -117,10 +117,11 @@ namespace GlobalSoft.Controllers
                 akunGl.Add(new SelectListItem() { Text = i.GlAkun + " - " + i.GlAkunName, Value = i.GlAkunID.ToString() });
             }
 
-            ViewBag.GlAkunID1 = akunGl;
-            ViewBag.GlAkunID2 = akunGl;
-            ViewBag.GlAkunID3 = akunGl;
-            ViewBag.GlAkunID4 = akunGl;
+            ViewBag.GlAkunID1 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID1.ToString() });
+            ViewBag.GlAkunID2 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID2.ToString() });
+            ViewBag.GlAkunID3 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID3.ToString() });
+            ViewBag.GlAkunID4 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID4.ToString() });
+
 
             return View(arAkunSet);
         }
@@ -167,12 +168,17 @@ namespace GlobalSoft.Controllers
             {
                 akunGl.Add(new SelectListItem() { Text = i.GlAkun + " - " + i.GlAkunName, Value = i.GlAkunID.ToString() });
             }
+           // ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            //{
+            //    Text = p.GlAkun + "-" + p.GlAkunName,
+            //    Value = p.GlAkunID.ToString(),
+            //    Selected = p.GlAkunID == cbBank.GlAkunID
 
-            ViewBag.GlAkunID1 = akunGl;
-            ViewBag.GlAkunID2 = akunGl;
-            ViewBag.GlAkunID3 = akunGl;
-            ViewBag.GlAkunID4 = akunGl;
+           // });
 
+            //            ViewBag.GlAkunID = new SelectList(db.GlAccounts, "GlAkunID", "GlAkun", cbBank.GlAkunID);
+
+           
             return View(arAkunSet);
         }
 
