@@ -151,18 +151,18 @@ namespace GlobalSoft.Controllers
 
             var bf = (from b in db.CbTranss
                       join y in db.AptPayments on b.PaymentID equals y.PaymentID
-                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
+                      where y.BankID == id && ( Tanggal1 <= b.Tanggal && b.Tanggal >= Tanggal2)
                       select b).ToList();
 
             var sp = (from b in db.ArTransDs
                       join y in db.ArTransHs on b.ArHGd equals y.ArHGd
-                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
+                      where y.BankID == id && (Tanggal1 <= b.Tanggal && b.Tanggal >= Tanggal2)
                       select new { b.Tanggal, b.Keterangan, b.SPesananID, b.Bayar, y.Bukti }).ToList();
 
             var cb = (from b in db.CbTransDs
                       join y in db.CbTransHs
                         on b.GuidCb equals y.GuidCb
-                      where y.BankID == id && (b.Tanggal >= Tanggal1 && b.Tanggal <= Tanggal2)
+                      where y.BankID == id && (Tanggal1 <= b.Tanggal && b.Tanggal >= Tanggal2)
                       select new { y.Tanggal, b.TransNoID, b.Keterangan, b.Terima, b.Bayar, y.Docno }).ToList();
 
 
@@ -328,7 +328,7 @@ namespace GlobalSoft.Controllers
             decimal saldobf2 = (from b in db.CbTranss
                                 join y in db.AptPayments on b.PaymentID equals y.PaymentID
                                 join t in db.CbBanks on y.BankID equals t.BankID
-                                where b.Tanggal >= Tgl1 && b.Tanggal <= Tgl2 && t.GlAkunID == glAkun
+                                where Tgl1 <= b.Tanggal && b.Tanggal >= Tgl2 && t.GlAkunID == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
            
@@ -339,7 +339,7 @@ namespace GlobalSoft.Controllers
             decimal saldosp2 = (from b in db.ArTransDs
                                 join y in db.ArTransHs on b.ArHGd equals y.ArHGd
                                 join t in db.CbBanks on y.BankID equals t.BankID
-                                where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && t.GlAccount.GlAkunID == glAkun
+                                where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && t.GlAccount.GlAkunID == glAkun
                                 select b.Bayar).DefaultIfEmpty(0).Sum();
 
 
@@ -352,13 +352,13 @@ namespace GlobalSoft.Controllers
             saldotot = (from b in db.CbTransDs
                         join y in db.CbTransHs on b.GuidCb equals y.GuidCb
                         join r in db.CbBanks on y.BankID equals r.BankID
-                        where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && r.GlAkunID == glAkun
+                        where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && r.GlAkunID == glAkun
 
-                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+                        select ( b.Terima)).DefaultIfEmpty(0).Sum();
 
             if (saldotot > 0)
             {
-                saldocb1 += saldotot;
+                saldocb2 += saldotot;
             }
             else
             {
@@ -368,9 +368,9 @@ namespace GlobalSoft.Controllers
             saldotot = (from b in db.CbTransDs
                         join y in db.CbTransHs on b.GuidCb equals y.GuidCb
                         join r in db.AptTrsNoes on b.TransNoID equals r.TransNoID
-                        where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && r.GlAkunID == glAkun
+                        where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && r.GlAkunID == glAkun
 
-                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+                        select (b.Bayar)).DefaultIfEmpty(0).Sum();
 
             if (saldotot > 0)
             {
@@ -396,7 +396,7 @@ namespace GlobalSoft.Controllers
             decimal saldobf1 = (from b in db.CbTranss
                                 join y in db.ArCustomers on b.PersonID equals y.CustomerID
                                 join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID
-                                where b.Tanggal < Tgl1 && t.GlAkunID2 == glAkun
+                                where Tgl1 <= b.Tanggal && b.Tanggal >= Tgl2 && t.GlAkunID2 == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
            
@@ -409,7 +409,7 @@ namespace GlobalSoft.Controllers
                                 join y in db.ArTransHs on b.ArHGd equals y.ArHGd
                                 join t in db.ArCustomers on y.CustomerID equals t.CustomerID
                                 join u in db.ArAkunSets on t.AkunSetID equals u.AkunsetID
-                                where y.Tanggal < Tgl1 && u.GlAkunID3 == glAkun
+                                where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && u.GlAkunID3 == glAkun
                                 select b.Bayar).DefaultIfEmpty(0).Sum();
 
 
@@ -423,9 +423,9 @@ namespace GlobalSoft.Controllers
             saldotot = (from b in db.CbTransDs
                         join y in db.CbTransHs on b.GuidCb equals y.GuidCb
                         join r in db.CbBanks on y.BankID equals r.BankID
-                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+                        where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && r.GlAkunID == glAkun
 
-                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+                        select (b.Bayar )).DefaultIfEmpty(0).Sum();
 
             if (saldotot > 0)
             {
@@ -439,13 +439,13 @@ namespace GlobalSoft.Controllers
             saldotot = (from b in db.CbTransDs
                         join y in db.CbTransHs on b.GuidCb equals y.GuidCb
                         join r in db.AptTrsNoes on b.TransNoID equals r.TransNoID
-                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+                        where Tgl1 <= y.Tanggal && y.Tanggal >= Tgl2 && r.GlAkunID == glAkun
 
-                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+                        select ( b.Terima)).DefaultIfEmpty(0).Sum();
 
             if (saldotot > 0)
             {
-                saldocb2 += saldotot;
+                saldocb1 += saldotot;
             }
             else
             {

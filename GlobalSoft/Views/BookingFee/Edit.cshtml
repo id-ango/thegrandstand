@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @readonly = "false" } })
+                @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", type = "date", placeholder = "Tanggal Transaksi",  @Value = Model.Tanggal.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,24 +98,24 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/cssjqryUi")
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @*Scripts.Render("~/bundles/jqueryui")*@
+    @*Styles.Render("~/Content/cssjqryUi")*@
+    <!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
 
-        $(function () {
-            $("#Tanggal").datepicker({
-                dateFormat: 'dd-mm-yy',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            $(function () {
+                $("#Tanggal").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1900:' + (new Date().getFullYear() + 60)
+                });
             });
-        });
-    </script>
-
+        </script>
+        -->
 }

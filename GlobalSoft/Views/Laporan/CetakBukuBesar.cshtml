@@ -46,8 +46,10 @@
         </tr>
     @{
         decimal nilai = 0;
+        decimal nAwal = 0;
         decimal nDebet = 0;
         decimal nKredit = 0;
+        decimal nAkhir = 0;
         }
 
     @foreach (var item in Model)
@@ -74,9 +76,11 @@
             </td>
             <td>
                 @{
-            nilai =  item.Sisa+item.Piutang-item.Pembayaran;
-            nDebet = nDebet + item.Piutang;
-            nKredit = nKredit + item.Pembayaran;
+                    nilai =  item.Sisa+item.Piutang-item.Pembayaran;
+                    nAwal = nAwal + item.Sisa;
+                    nDebet = nDebet + item.Piutang;
+                    nKredit = nKredit + item.Pembayaran;
+                    nAkhir = nAkhir + nilai;
                 }
 
                 @string.Format("{0,13:#,##0.00}", nilai)
@@ -86,9 +90,11 @@
         
     }
         <tr>
-            <td colspan="3"></td>            
+            <td colspan="2"></td>
+            <td><strong>@string.Format("{0,13:#,##0.00}", nAwal)  </strong></td>
             <td><strong>@string.Format("{0,13:#,##0.00}", nDebet)  </strong></td>
             <td><strong>@string.Format("{0,13:#,##0.00}", nKredit) </strong></td>
+            <td><strong>@string.Format("{0,13:#,##0.00}", nAkhir)  </strong></td>
             <td></td>
         </tr>
 </tbody>

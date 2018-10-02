@@ -19,11 +19,11 @@
             <table>
                 <tr>
                     <td style="padding:5px">Tanggal</td>
-                    <td style="padding:5px"><input type="text" id="Tanggal1" name="Tanggal1" value="@DateTime.Now" /></td>
+                    <td style="padding:5px"><input type="date" id="Tanggal1" name="Tanggal1" value='@DateTime.Today.ToString("yyyy-MM-dd")' /></td>
                 </tr>
                 <tr>
                     <td style="padding:5px">Tanggal</td>
-                    <td style="padding:5px"><input type="text" id="Tanggal2" name ="Tanggal2" value="@DateTime.Now" /></td>
+                    <td style="padding:5px"><input type="date" id="Tanggal2" name ="Tanggal2" value='@DateTime.Today.ToString("yyyy-MM-dd")' /></td>
                 </tr>
             </table>
         </div>
@@ -49,28 +49,5 @@
 }
 
 @section scripts{
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#Tanggal1").datepicker({
-                dateFormat: 'mm/dd/yy',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1900:' + (new Date().getFullYear() + 60)
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#Tanggal2").datepicker({
-                dateFormat: 'mm/dd/yy',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '1900:' + (new Date().getFullYear() + 60)
-            });
-        });
-    </script>
+   
 }
