@@ -42,8 +42,8 @@
                 <td>
                     @using (Html.BeginForm("Cetak", "Laporan", FormMethod.Get, new { target = "_blank" }))
                     {
-                <input type="text" id="Tanggal1" name="Tanggal1" class="tanggal" value="@DateTime.Now" />
-                <input type="text" id="Tanggal2" name="Tanggal2" class="tanggal" value="@DateTime.Now" />
+                <input type="date" id="Tanggal1" name="Tanggal1" class="tanggal"  />
+                <input type="date" id="Tanggal2" name="Tanggal2" class="tanggal"  />
                 <input hidden type="number" id="KodeBank" name="KodeBank" value="@item.BankID" />
                 <input type="submit" value="Cetak" class="btn btn-default" />
 

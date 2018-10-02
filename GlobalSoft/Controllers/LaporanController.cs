@@ -53,11 +53,12 @@ namespace GlobalSoft.Controllers
             foreach (var i in TransGl)
             {
                 
-                // Saldo awal
+               
                 if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
                 {
-                  //  decimal Saldo = SaldoawalBK(i.GlAkunID, Tanggal1);
-                    BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName,Sisa = SaldoawalBK(i.GlAkunID, Tanggal1) });
+                    // Saldo awal
+                    BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName,Sisa = SaldoAwalBK(i.GlAkunID, Tanggal1),Piutang= DebetBK(i.GlAkunID, Tanggal1,Tanggal2), Pembayaran= KreditBK(i.GlAkunID, Tanggal1,Tanggal2) });
+
                 }
             }
             ViewBag.Tgl1 = Tanggal1;
@@ -219,7 +220,10 @@ namespace GlobalSoft.Controllers
             return View(Transaksi.OrderBy(x => x.Tanggal));
         }
 
-        public decimal SaldoawalBK(int glAkun, DateTime Tgl1)
+        
+
+
+        public decimal SaldoAwalBK(int glAkun, DateTime Tgl1)
         {
 
 
@@ -229,7 +233,7 @@ namespace GlobalSoft.Controllers
             // posisi kredit booking fee 
             decimal saldobf1 = (from b in db.CbTranss
                                 join y in db.ArCustomers on b.PersonID equals y.CustomerID
-                                join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID                                
+                                join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID
                                 where b.Tanggal < Tgl1 && t.GlAkunID2 == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
@@ -311,5 +315,144 @@ namespace GlobalSoft.Controllers
             return (saldobf2 - saldobf1 + saldosp2 - saldosp1 + saldocb2 - saldocb1);
         }
 
+
+        public decimal DebetBK(int glAkun, DateTime Tgl1, DateTime Tgl2)
+        {
+
+
+            List<TrsnoVM> glBK = new List<TrsnoVM>();
+
+
+            
+            //posisi debet booking fee
+            decimal saldobf2 = (from b in db.CbTranss
+                                join y in db.AptPayments on b.PaymentID equals y.PaymentID
+                                join t in db.CbBanks on y.BankID equals t.BankID
+                                where b.Tanggal >= Tgl1 && b.Tanggal <= Tgl2 && t.GlAkunID == glAkun
+                                select b.Payment).DefaultIfEmpty(0).Sum();
+
+           
+
+
+           
+            //posisi debet pembayaran Angsuran
+            decimal saldosp2 = (from b in db.ArTransDs
+                                join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                                join t in db.CbBanks on y.BankID equals t.BankID
+                                where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && t.GlAccount.GlAkunID == glAkun
+                                select b.Bayar).DefaultIfEmpty(0).Sum();
+
+
+            // posisi kredit 
+            decimal saldocb1 = 0;    //kredit
+            decimal saldocb2 = 0;    //debet
+            decimal saldotot = 0;
+
+            // transaksi
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.CbBanks on y.BankID equals r.BankID
+                        where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb1 += saldotot;
+            }
+            else
+            {
+                saldocb2 += saldotot;
+            }
+
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.AptTrsNoes on b.TransNoID equals r.TransNoID
+                        where y.Tanggal >= Tgl1 && y.Tanggal <= Tgl2 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb2 += saldotot;
+            }
+            else
+            {
+                saldocb1 += saldotot;
+            }
+
+            return (saldobf2 + saldosp2  + saldocb2);
+        }
+
+
+        public decimal KreditBK(int glAkun, DateTime Tgl1, DateTime Tgl2)
+        {
+
+
+            List<TrsnoVM> glBK = new List<TrsnoVM>();
+
+
+            // posisi kredit booking fee 
+            decimal saldobf1 = (from b in db.CbTranss
+                                join y in db.ArCustomers on b.PersonID equals y.CustomerID
+                                join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID
+                                where b.Tanggal < Tgl1 && t.GlAkunID2 == glAkun
+                                select b.Payment).DefaultIfEmpty(0).Sum();
+
+           
+            
+
+          
+
+            // posisi kredit
+            decimal saldosp1 = (from b in db.ArTransDs
+                                join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                                join t in db.ArCustomers on y.CustomerID equals t.CustomerID
+                                join u in db.ArAkunSets on t.AkunSetID equals u.AkunsetID
+                                where y.Tanggal < Tgl1 && u.GlAkunID3 == glAkun
+                                select b.Bayar).DefaultIfEmpty(0).Sum();
+
+
+           
+            // posisi kredit 
+            decimal saldocb1 = 0;    //kredit
+            decimal saldocb2 = 0;    //debet
+            decimal saldotot = 0;
+
+            // transaksi
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.CbBanks on y.BankID equals r.BankID
+                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb1 += saldotot;
+            }
+            else
+            {
+                saldocb2 += saldotot;
+            }
+
+            saldotot = (from b in db.CbTransDs
+                        join y in db.CbTransHs on b.GuidCb equals y.GuidCb
+                        join r in db.AptTrsNoes on b.TransNoID equals r.TransNoID
+                        where y.Tanggal < Tgl1 && r.GlAkunID == glAkun
+
+                        select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+            if (saldotot > 0)
+            {
+                saldocb2 += saldotot;
+            }
+            else
+            {
+                saldocb1 += saldotot;
+            }
+
+            return ( saldobf1 + saldosp1 + saldocb1);
+        }
     }
 }
