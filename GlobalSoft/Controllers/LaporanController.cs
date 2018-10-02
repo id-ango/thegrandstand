@@ -230,7 +230,7 @@ namespace GlobalSoft.Controllers
             decimal saldobf1 = (from b in db.CbTranss
                                 join y in db.ArCustomers on b.PersonID equals y.CustomerID
                                 join t in db.ArAkunSets on y.AkunSetID equals t.AkunsetID                                
-                                where b.Tanggal < Tgl1 && t.GlAkunID1 == glAkun
+                                where b.Tanggal < Tgl1 && t.GlAkunID2 == glAkun
                                 select b.Payment).DefaultIfEmpty(0).Sum();
 
             //posisi debet booking fee
@@ -254,19 +254,18 @@ namespace GlobalSoft.Controllers
                           select new { b.Bayar, b.CustomerID }).ToList();
 
             // posisi kredit
-            decimal saldosp1 = (from b in listsp
-                                join t in db.ArCustomers on b.CustomerID equals t.CustomerID
+            decimal saldosp1 = (from b in db.ArTransDs
+                                join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                                join t in db.ArCustomers on y.CustomerID equals t.CustomerID
                                 join u in db.ArAkunSets on t.AkunSetID equals u.AkunsetID
-                                where u.GlAkunID1 == glAkun
+                                where y.Tanggal < Tgl1 && u.GlAkunID3 == glAkun
                                 select b.Bayar).DefaultIfEmpty(0).Sum();
 
 
             //posisi debet pembayaran Angsuran
             decimal saldosp2 = (from b in db.ArTransDs
-                                join y in db.ArTransHs
-                                   on b.ArHGd equals y.ArHGd
-                                join t in db.CbBanks
-                                on y.BankID equals t.BankID
+                                join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                                join t in db.CbBanks on y.BankID equals t.BankID
                                 where y.Tanggal < Tgl1 && t.GlAccount.GlAkunID == glAkun
                                 select b.Bayar).DefaultIfEmpty(0).Sum();
 
