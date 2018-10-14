@@ -8,7 +8,7 @@
     <h2>Laporan Buku Besar</h2>
 </div>
 
-@using (Html.BeginForm("CetakBukuBesar", "Laporan", FormMethod.Get, new { target = "_blank" }))
+@using (Html.BeginForm("CetakBukuBesar", "Laporan", FormMethod.Post, new { target = "_blank" }))
 {
 
     @Html.AntiForgeryToken()
@@ -28,7 +28,7 @@
             </table>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" style="display:none">
             <table>
                 <tr>
                     <td style="padding:5px">Akun</td>

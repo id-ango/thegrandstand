@@ -821,9 +821,9 @@
     <Content Include="Views\ArAkunSets\Details.cshtml" />
     <Content Include="Views\ArAkunSets\Edit.cshtml" />
     <Content Include="Views\ArAkunSets\Index.cshtml" />
-    <Content Include="Views\Laporan\Cetak - Copy.cshtml" />
     <Content Include="Views\Laporan\LapBukuBesar.cshtml" />
     <Content Include="Views\Laporan\CetakBukuBesar.cshtml" />
+    <Content Include="Views\Laporan\LapCBTransaksi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

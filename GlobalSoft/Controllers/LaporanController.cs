@@ -18,6 +18,69 @@ namespace GlobalSoft.Controllers
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
+        public ActionResult LapCBTransaksi()
+        {
+            List<CbBank> bank = new List<CbBank>();
+
+
+            foreach (var bb in db.CbBanks)
+            {
+                decimal saldobf = (from b in db.CbTranss
+                                   join y in db.AptPayments
+                                      on b.PaymentID equals y.PaymentID
+                                   where y.BankID == bb.BankID
+                                   select b.Payment).DefaultIfEmpty(0).Sum();
+
+                decimal saldosp = (from b in db.ArTransDs
+                                   join y in db.ArTransHs
+                                      on b.ArHGd equals y.ArHGd
+                                   where y.BankID == bb.BankID
+                                   select b.Bayar).DefaultIfEmpty(0).Sum();
+
+                decimal saldocb = (from b in db.CbTransDs
+                                   join y in db.CbTransHs
+                                     on b.GuidCb equals y.GuidCb
+                                   where y.BankID == bb.BankID
+                                   select (b.Terima - b.Bayar)).DefaultIfEmpty(0).Sum();
+
+                decimal tempbank = 0;
+
+                tempbank = saldobf + saldosp + saldocb;
+
+                bank.Add(new CbBank { BankID = bb.BankID, BankName = bb.BankName, BankAccount = bb.BankAccount, Saldo = tempbank });
+
+            }
+
+            //  var banks = bank;
+
+            return View(bank);
+        }
+        [HttpPost]
+        public ActionResult CetakCBTransaksi(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAkunID2)
+        {
+            //   var glAwal = db.GlAccounts.Find(GlAkunID1).GlAkun;
+            //   var glakhir = db.GlAccounts.Find(GlAkunID2).GlAkun;
+
+            List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
+            List<TrsnoVM> BukuBesar = new List<TrsnoVM>();
+
+            foreach (var i in TransGl)
+            {
+
+
+                //   if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
+                //    {
+                // Saldo awal
+                BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName, Sisa = SaldoAwalBK(i.GlAkunID, Tanggal1), Piutang = DebetBK(i.GlAkunID, Tanggal1, Tanggal2), Pembayaran = KreditBK(i.GlAkunID, Tanggal1, Tanggal2) });
+
+                //   }
+            }
+
+
+            ViewBag.Tgl1 = Tanggal1;
+            ViewBag.Tgl2 = Tanggal2;
+            return View(BukuBesar.ToList());
+        }
         public ActionResult LapBukuBesar()
         {
             List<SelectListItem> akunGl = new List<SelectListItem>
@@ -41,26 +104,28 @@ namespace GlobalSoft.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult CetakBukuBesar(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAkunID2)
         {
-            var glAwal = db.GlAccounts.Find(GlAkunID1).GlAkun;
-            var glakhir = db.GlAccounts.Find(GlAkunID2).GlAkun;
+         //   var glAwal = db.GlAccounts.Find(GlAkunID1).GlAkun;
+         //   var glakhir = db.GlAccounts.Find(GlAkunID2).GlAkun;
 
             List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
             List<TrsnoVM> BukuBesar = new List<TrsnoVM>();
-
+        
             foreach (var i in TransGl)
             {
                 
                
-                if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
-                {
+             //   if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
+            //    {
                     // Saldo awal
                     BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName,Sisa = SaldoAwalBK(i.GlAkunID, Tanggal1),Piutang= DebetBK(i.GlAkunID, Tanggal1,Tanggal2), Pembayaran= KreditBK(i.GlAkunID, Tanggal1,Tanggal2) });
 
-                }
+             //   }
             }
+            
+
             ViewBag.Tgl1 = Tanggal1;
             ViewBag.Tgl2 = Tanggal2;
             return View(BukuBesar.ToList());
@@ -106,7 +171,7 @@ namespace GlobalSoft.Controllers
             return View(bank);
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Cetak(DateTime Tanggal1, DateTime Tanggal2, int KodeBank)
         {
             int id = KodeBank;
