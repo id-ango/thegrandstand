@@ -358,7 +358,28 @@
                     }
         */
         addEvent(document.getElementById('terima'), 'keyup', function () {
-            document.getElementById('bayar').value = this.value.replace(' ', '_');
+            document.getElementById('bayar').value = 0;
+        });
+
+
+        function addEvent(ele, evnt, funct) {
+            if (ele.addEventListener) // W3C
+                return ele.addEventListener(evnt, funct, false);
+            else if (ele.attachEvent)  // IE
+                return ele.attachEvent("on" + evnt, funct);
+        }
+    </script>
+
+    <script>
+        /*            document.getElementById("Docno").focus = function () { myFunction() };
+
+                    function myFunction() {
+                        var x = document.getElementById("Docno");
+                        x.value = x.value.toUpperCase();
+                    }
+        */
+        addEvent(document.getElementById('bayar'), 'keyup', function () {
+            document.getElementById('terima').value = 0;
         });
 
 

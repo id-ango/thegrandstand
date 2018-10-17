@@ -181,6 +181,7 @@
                 return ele.attachEvent("on" + evnt, funct);
         }
     </script>
+   
     <script>
         /*            document.getElementById("Docno").focus = function () { myFunction() };
 
@@ -190,7 +191,7 @@
                     }
         */
         addEvent(document.getElementById('Terima'), 'keyup', function () {
-            document.getElementById('Bayar').value = this.value.replace(' ', '_');
+            document.getElementById('Bayar').value = 0;
         });
 
 
@@ -200,6 +201,7 @@
             else if (ele.attachEvent)  // IE
                 return ele.attachEvent("on" + evnt, funct);
         }
+
     </script>
     
 }

@@ -194,6 +194,7 @@
     <Compile Include="Controllers\LaporanController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SetupAgenController.cs" />
     <Compile Include="Controllers\SetupBankController.cs" />
     <Compile Include="Controllers\SetupBayarController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Controllers\TransAngsuranController.cs" />
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Controllers\TransLedgerController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -824,6 +826,9 @@
     <Content Include="Views\Laporan\LapBukuBesar.cshtml" />
     <Content Include="Views\Laporan\CetakBukuBesar.cshtml" />
     <Content Include="Views\Laporan\LapCBTransaksi.cshtml" />
+    <Content Include="Views\Laporan\CetakCBTransaksi.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

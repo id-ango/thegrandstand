@@ -56,31 +56,96 @@ namespace GlobalSoft.Controllers
             return View(bank);
         }
         [HttpPost]
-        public ActionResult CetakCBTransaksi(DateTime Tanggal1, DateTime Tanggal2, int GlAkunID1, int GlAkunID2)
+        public ActionResult CetakCBTransaksi(DateTime Tanggal1, DateTime Tanggal2, int KodeBank)
         {
-            //   var glAwal = db.GlAccounts.Find(GlAkunID1).GlAkun;
-            //   var glakhir = db.GlAccounts.Find(GlAkunID2).GlAkun;
+            int id = KodeBank;
+            ViewBag.Judul = db.CbBanks.Find(id).BankName;
 
-            List<GlAccount> TransGl = db.GlAccounts.OrderBy(x => x.GlAkun).ToList();
-            List<TrsnoVM> BukuBesar = new List<TrsnoVM>();
+            List<CbTrans> TransDetail = new List<CbTrans>();
+            List<CbTrans> Transaksi = new List<CbTrans>();
+            //before Tanggal1
 
-            foreach (var i in TransGl)
+
+            // Piutang = (bf1 + sp1 + cb1) > 0 ? (bf1 + sp1 + cb1) : 0,
+            //    Diskon = (bf1 + sp1 + cb1) > 0 ? 0 : (bf1 + sp1 + cb1),
+
+
+
+
+            var bf = (from b in db.CbTranss
+                      join y in db.AptPayments on b.PaymentID equals y.PaymentID
+                      where y.BankID == id && (Tanggal1 <= b.Tanggal && b.Tanggal <= Tanggal2)
+                      select b).ToList();
+
+            var sp = (from b in db.ArTransDs
+                      join y in db.ArTransHs on b.ArHGd equals y.ArHGd
+                      where y.BankID == id && (Tanggal1 <= y.Tanggal && y.Tanggal <= Tanggal2)
+                      select new { y.Tanggal, b.Keterangan, b.SPesananID, b.Bayar, y.Bukti }).ToList();
+
+            var cb = (from b in db.CbTransDs
+                      join y in db.CbTransHs
+                        on b.GuidCb equals y.GuidCb
+                      where y.BankID == id && (Tanggal1 <= y.Tanggal && y.Tanggal <= Tanggal2)
+                      select new { y.Tanggal, b.TransNoID, b.Keterangan, b.Terima, b.Bayar, y.Docno }).ToList();
+
+
+
+            foreach (var t in bf)
             {
+                TransDetail.Add(new CbTrans
+                {
+                    BankID = id,
+                    NoRef = t.NoRef,
+                    Tanggal = t.Tanggal,
+                    Keterangan = db.AptTrsNoes.Where(x => x.TransNoID == t.TransNoID).Select(x => x.TransNo).FirstOrDefault(),
+                    TransNoID = t.TransNoID,
+                    Piutang = t.Payment,
+                    Jumlah = t.Payment
 
+                });
 
-                //   if (i.GlAkunID >= GlAkunID1 && i.GlAkunID <= GlAkunID2)
-                //    {
-                // Saldo awal
-                BukuBesar.Add(new TrsnoVM { GlAkunID = i.GlAkunID, GlAkun = i.GlAkun, GlAkunName = i.GlAkunName, Sisa = SaldoAwalBK(i.GlAkunID, Tanggal1), Piutang = DebetBK(i.GlAkunID, Tanggal1, Tanggal2), Pembayaran = KreditBK(i.GlAkunID, Tanggal1, Tanggal2) });
+            }
+            foreach (var t in sp)
+            {
+                TransDetail.Add(new CbTrans
+                {
+                    BankID = id,
+                    NoRef = t.Bukti,
+                    Tanggal = t.Tanggal,
+                    Keterangan = db.AptTrsNoes.Where(r => r.TransNoID == db.AptTranss.Where(y => y.TransID == (db.AptSPesanans.Where(x => x.SPesananID == t.SPesananID).Select(x => x.KodeTrans).FirstOrDefault())).Select(y => y.TransNoID).FirstOrDefault()).Select(r => r.TransNo).FirstOrDefault(),
+                    TransNoID = db.AptTranss.Where(y => y.TransID == (db.AptSPesanans.Where(x => x.SPesananID == t.SPesananID).Select(x => x.KodeTrans).FirstOrDefault())).Select(y =>y.TransNoID).FirstOrDefault(),
+                    Piutang = t.Bayar,
+                    Jumlah = t.Bayar
+                });
 
-                //   }
+            }
+            //antara tanggal
+
+            foreach (var t in cb)
+            {
+                TransDetail.Add(new CbTrans
+                {
+                    BankID = id,
+                    NoRef = t.Docno,
+                    Tanggal = t.Tanggal,
+                    Keterangan = db.AptTrsNoes.Where(x => x.TransNoID == t.TransNoID).Select(x => x.TransNo).FirstOrDefault(),
+                    TransNoID = t.TransNoID,
+                    Piutang = t.Terima,
+                    Diskon = t.Bayar,
+                    Jumlah = t.Terima - t.Bayar
+                });
+
             }
 
+            Transaksi = TransDetail.ToList();
 
             ViewBag.Tgl1 = Tanggal1;
             ViewBag.Tgl2 = Tanggal2;
-            return View(BukuBesar.ToList());
+            ViewBag.Kode = KodeBank;
+
+            return View(Transaksi.ToList());
         }
+
         public ActionResult LapBukuBesar()
         {
             List<SelectListItem> akunGl = new List<SelectListItem>
