@@ -1,0 +1,146 @@
+﻿@model GlobalSoft.Models.ApHutangH
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ApHutangH</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApHGd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApHGd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KodeNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KodeNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bukti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bukti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keterangan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JthTempo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JthTempo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPnpersen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPnpersen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brutto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brutto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jumlah)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jumlah)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hutang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hutang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unapplied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unapplied)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diskon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diskon)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ApHID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

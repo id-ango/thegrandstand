@@ -184,8 +184,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApDistribSetsController.cs" />
+    <Compile Include="Controllers\ApHutangHsController.cs" />
     <Compile Include="Controllers\AptGedungsController.cs" />
     <Compile Include="Controllers\AptSPesanansController.cs" />
+    <Compile Include="Controllers\ApAkunSetsController.cs" />
     <Compile Include="Controllers\ArAkunSetsController.cs" />
     <Compile Include="Controllers\BookingFeeController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
@@ -199,6 +202,7 @@
     <Compile Include="Controllers\SetupBankController.cs" />
     <Compile Include="Controllers\SetupBayarController.cs" />
     <Compile Include="Controllers\SetupCategorieController.cs" />
+    <Compile Include="Controllers\SetupSupplierController.cs" />
     <Compile Include="Controllers\SetupCustomerController.cs" />
     <Compile Include="Controllers\SetupGlAccountsController.cs" />
     <Compile Include="Controllers\SetupGlTipesController.cs" />
@@ -299,6 +303,10 @@
     <Compile Include="Migrations\201810010333230_tambahakunsetid.Designer.cs">
       <DependentUpon>201810010333230_tambahakunsetid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810190158560_DbHutang.cs" />
+    <Compile Include="Migrations\201810190158560_DbHutang.Designer.cs">
+      <DependentUpon>201810190158560_DbHutang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -307,6 +315,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdersModel.cs" />
+    <Compile Include="Models\PayableModels.cs" />
     <Compile Include="Models\ReceivableModels.cs" />
     <Compile Include="Models\ViewsModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -829,6 +838,26 @@
     <Content Include="Views\Laporan\CetakCBTransaksi.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\SetupSupplier\Create.cshtml" />
+    <Content Include="Views\SetupSupplier\Delete.cshtml" />
+    <Content Include="Views\SetupSupplier\Details.cshtml" />
+    <Content Include="Views\SetupSupplier\Edit.cshtml" />
+    <Content Include="Views\SetupSupplier\Index.cshtml" />
+    <Content Include="Views\ApAkunSets\Create.cshtml" />
+    <Content Include="Views\ApAkunSets\Delete.cshtml" />
+    <Content Include="Views\ApAkunSets\Details.cshtml" />
+    <Content Include="Views\ApAkunSets\Edit.cshtml" />
+    <Content Include="Views\ApAkunSets\Index.cshtml" />
+    <Content Include="Views\ApDistribSets\Create.cshtml" />
+    <Content Include="Views\ApDistribSets\Delete.cshtml" />
+    <Content Include="Views\ApDistribSets\Details.cshtml" />
+    <Content Include="Views\ApDistribSets\Edit.cshtml" />
+    <Content Include="Views\ApDistribSets\Index.cshtml" />
+    <Content Include="Views\ApHutangHs\Create.cshtml" />
+    <Content Include="Views\ApHutangHs\Delete.cshtml" />
+    <Content Include="Views\ApHutangHs\Details.cshtml" />
+    <Content Include="Views\ApHutangHs\Edit.cshtml" />
+    <Content Include="Views\ApHutangHs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -897,6 +926,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810010333230_tambahakunsetid.resx">
       <DependentUpon>201810010333230_tambahakunsetid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810190158560_DbHutang.resx">
+      <DependentUpon>201810190158560_DbHutang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,60 @@
+﻿@model GlobalSoft.Models.ApDistribSet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Distribution Set</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AkunSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AkunSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlAkunID4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlAkunID4)
+        </dd>
+
+      
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AkunsetID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GlobalSoft.Models.ArCustomer>
+﻿@model IEnumerable<GlobalSoft.Models.ApSupplier>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Customer</h2>
+<h2>Supplier</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,14 +13,14 @@
     <div class="col-md-12">
         <div class="panel panel-primary list-panel" id="list-panel">
             <div class="panel-heading list-panel-heading">
-                <h1 class="panel-title list-panel-title">Setup Customer</h1>
+                <h1 class="panel-title list-panel-title">Setup Supplier</h1>
             </div>
             <div class="panel-body">
                 <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.CustomerName)
+                                @Html.DisplayNameFor(model => model.SupplierName)
                                 @*Html.ActionLink("Nama", "index", new { sortOrder = ViewBag.NameSortParm })*@
                             </th>
                             <th>
@@ -59,7 +59,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                    @Html.DisplayFor(modelItem => item.SupplierName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ShortName)
@@ -87,15 +87,15 @@
                                 </td>
 
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.CustomerID }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.SupplierID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.SupplierID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.SupplierID })
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-               
+
             </div>
         </div>
     </div>
@@ -107,9 +107,9 @@
     <script type="text/javascript">
 
 
-     $(document).ready(function () {
+        $(document).ready(function () {
 
-         $('#assets-data-table').DataTable();
-     });
+            $('#assets-data-table').DataTable();
+        });
     </script>
 }

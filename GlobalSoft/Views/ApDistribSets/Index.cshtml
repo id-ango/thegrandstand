@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GlobalSoft.Models.ApDistribSet>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    table, th, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+</style>
+<h2>Distribution Set</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AkunSet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunID1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunID2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunID3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GlAkunID4)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AkunSet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GlAkun4)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DistribID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DistribID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DistribID })
+        </td>
+    </tr>
+}
+
+</table>

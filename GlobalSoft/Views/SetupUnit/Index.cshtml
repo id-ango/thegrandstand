@@ -4,72 +4,99 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2></h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitNo)
-        </th>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Master Unit</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitNo)
+                            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.AptCategorie.Categorie)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.Lantai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AptStatus.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Inhouse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriceKPR)
-        </th>
-        @*     <th>
-            @Html.DisplayNameFor(model => model.StatOld)
-        </th>
-        *@
-        <th></th>
-    </tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AptCategorie.Categorie)
+                            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AptCategorie.Categorie)
-        </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lantai)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AptStatus.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Inhouse)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PriceKPR)
+                            </th>
+                            @*     <th>
+                                    @Html.DisplayNameFor(model => model.StatOld)
+                                </th>
+                            *@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UnitNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AptCategorie.Categorie)
+                                </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Lantai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AptStatus.Status)
-        </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lantai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AptStatus.Status)
+                                </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Inhouse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriceKPR)
-        </td>
-        @*       <td>
-            @Html.DisplayFor(modelItem => item.StatOld)
-        </td>
-        *@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.UnitID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.UnitID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.UnitID })
-        </td>
-    </tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Inhouse)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PriceKPR)
+                                </td>
+                                @*       <td>
+                                        @Html.DisplayFor(modelItem => item.StatOld)
+                                    </td>
+                                *@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.UnitID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.UnitID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.UnitID })
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#assets-data-table').DataTable();
+        });
+    </script>
 }
-
-</table>

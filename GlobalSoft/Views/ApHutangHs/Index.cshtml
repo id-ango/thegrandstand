@@ -1,0 +1,86 @@
+﻿@model IEnumerable<GlobalSoft.Models.ArHView>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    table, th, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+</style>
+
+<h2>Transaksi Hutang</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Bukti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </th>
+
+        <th>
+            @Html.DisplayName("Supplier")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JthTempo)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Jumlah)
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.Bukti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tanggal)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Keterangan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JthTempo)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Jumlah)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ArHID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ArHID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ArHID })
+            </td>
+        </tr>
+    }
+
+</table>

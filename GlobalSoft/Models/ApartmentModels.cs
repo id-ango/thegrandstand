@@ -309,6 +309,14 @@ namespace GlobalSoft.Models
         public DbSet<GlTransH> GlTransHs { get; set; }
         public DbSet<GlTransD> GlTransDs { get; set; }
         public DbSet<ArAkunSet> ArAkunSets { get; set; }
+        public DbSet<ApAkunSet> ApAkunSets { get; set; }
+        public DbSet<ApDistribSet> ApDistribSets { get; set; }
+        public DbSet<ApHutang> ApHutangs { get; set; }
+        public DbSet<ApHutangD> ApHutangDs { get; set; }
+        public DbSet<ApHutangH> ApHutangHs { get; set; }
+        public DbSet<ApTransD> ApTransDs { get; set; }
+        public DbSet<ApTransH> ApTransHs { get; set; }
+        public DbSet<ApSupplier> ApSuppliers { get; set; }
 
         //      public System.Data.Entity.DbSet<GlobalSoft.Models.TabularViewModel> TabularViewModels { get; set; }
     }
