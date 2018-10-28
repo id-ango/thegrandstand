@@ -39,7 +39,7 @@
                                 <td>@string.Format("{0:#,#.00}", order.Saldo)</td>
 
                                 <td>
-
+                                    @Html.ActionLink("Edit", "Edit", new { id = order.TranshID }) |
                                     @Html.ActionLink("Details", "Details", new { id = order.TranshID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = order.TranshID }) |
                                 </td>

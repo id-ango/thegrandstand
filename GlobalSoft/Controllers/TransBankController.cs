@@ -152,6 +152,25 @@ namespace GlobalSoft.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Edit(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CbTransH arTransH = db.CbTransHs.Find(id);
+
+            if (arTransH == null)
+            {
+                return HttpNotFound();
+            }
+            // List<ArTransH> OrderAndDetailList = arTransH;
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName",arTransH.BankID);
+            ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+            return View(arTransH);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
