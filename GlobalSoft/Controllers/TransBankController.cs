@@ -165,10 +165,35 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+            var trans = (from e in db.CbTransDs where e.TranshID == arTransH.TranshID select e).ToList();
+
+            OdTransH TransH = new OdTransH();
+            List<OdTransD> TransD = new List<OdTransD>();
+
+            TransH.TranshID = arTransH.TranshID;
+            TransH.Docno = arTransH.Docno;
+            TransH.Tanggal = arTransH.Tanggal;
+            TransH.Keterangan = arTransH.Keterangan;
+            TransH.Saldo = arTransH.Saldo;
+            foreach( var e in trans)
+            {
+                TransD.Add(new OdTransD
+                {
+                    TranshID = e.TranshID,
+                    TransdID = e.TransdID,
+                    TransNoID = e.TransNoID,
+                    Keterangan = e.Keterangan,
+                    Terima = e.Terima,
+                    Bayar = e.Bayar
+                });
+                                
+            }
+            TransH.OdTransDs = TransD;
+
             // List<ArTransH> OrderAndDetailList = arTransH;
-            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName",arTransH.BankID);
+            ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName", arTransH.BankID);
             ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            return View(arTransH);
+            return View(TransH);
         }
 
         protected override void Dispose(bool disposing)
