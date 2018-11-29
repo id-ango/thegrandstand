@@ -58,12 +58,33 @@
         </div>
 
         <div>
-            @{
-                foreach (var e in Model.OdTransDs)
-                {
-                    @e.Keterangan @e.Terima   @e.Bayar <br/>
-                };
-            }
+            <table id="detailsTable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width:30%">Transaksi</th>
+                        <th style="width:20%">Keterangan</th>
+                        <th style="width:15%">Terima</th>
+                        <th style="width:25%">Bayar</th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var e in Model.OdTransDs)
+                        {
+                    <tr id=@e.TransdID>
+                        <td>
+                            @Html.DropDownList("TransNo", null,  htmlAttributes: new { @class = "form-control", @id = "transid",@Value= @e.TransNoID, @option = se })
+                        </td>
+                        <td>   @Html.Editor("Ket" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
+                        <td>   @Html.Editor("Terima" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
+                        <td>   @Html.Editor("Bayar" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Bayar } })</td>
+                    </tr>
+                        };
+                    }
+                </tbody>
+            </table>
+
         </div>
     </div>
 }
