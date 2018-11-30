@@ -192,7 +192,7 @@ namespace GlobalSoft.Controllers
 
             // List<ArTransH> OrderAndDetailList = arTransH;
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName", arTransH.BankID);
-            ViewBag.TransNo = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+            ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
             return View(TransH);
         }
 

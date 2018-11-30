@@ -74,7 +74,7 @@
                         {
                     <tr id=@e.TransdID>
                         <td>
-                            @Html.DropDownList("TransNo", null,  htmlAttributes: new { @class = "form-control", @id = "transid",@Value= @e.TransNoID, @option = se })
+                            @Html.DropDownList("TransNoID",(SelectList)ViewBag.TransNoID,  htmlAttributes: new { @class = "form-control", @id = "transid"+ e.TransdID })
                         </td>
                         <td>   @Html.Editor("Ket" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
                         <td>   @Html.Editor("Terima" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
