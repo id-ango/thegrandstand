@@ -72,19 +72,38 @@
                     @{
                         foreach (var e in Model.OdTransDs)
                         {
-                    <tr id=@e.TransdID>
-                        <td>
-                            @Html.DropDownList("TransNoID",(SelectList)ViewBag.TransNoID,  htmlAttributes: new { @class = "form-control", @id = "transid"+ e.TransdID })
-                        </td>
-                        <td>   @Html.Editor("Ket" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
-                        <td>   @Html.Editor("Terima" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
-                        <td>   @Html.Editor("Bayar" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Bayar } })</td>
-                    </tr>
+
+                            <tr id=@e.TransdID>
+                                <td>
+                                    <select class="form-control" name="Transid_@e.TransdID" id="Transid_@e.TransdID">
+                                        @foreach (var t in ViewBag.TransDP)
+                                        {
+                                            <option value="@t.Value" @(t.Value == e.TransdID.ToString() ? "selected" : "")>@t.Text</option>
+                                        }
+                                    </select>
+
+                                    @*Html.DropDownList("Transid", (SelectList)ViewData["TransDP"], htmlAttributes: new { @class = "form-control", @id = "transid_@e.TransdID" })*@
+                                </td>
+                                <td>   @Html.Editor("Ket" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
+                                <td>   @Html.Editor("Terima" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
+                                <td>   @Html.Editor("Bayar" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Bayar } })</td>
+                            </tr>
                         };
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input class="btnAdd btn btn-default" type="button" id="btnAdd1" value="Add" />
+                        </td>
+                        <td>
+                            <input id="btnSubmit" type="button" value="Submit" class="btn btn-default" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
-
         </div>
     </div>
 }
@@ -92,3 +111,85 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section scripts
+{
+<script>
+
+    $("#btnAdd1").click(function () {
+        alert("testubg");
+        var td1 = '<td>@Html.DropDownList("TransDP",null, htmlAttributes: new { @class = "form-control", @id = "transid_@e.TransdID" })</td>';
+        var td2 = '<td>@Html.Editor("Keterangan", new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td3 = '<td>@Html.Editor("Terima", new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td4 = '<td>@Html.Editor("Bayar", new { htmlAttributes = new { @class = "form-control" } })</td>';
+  //      $('#SerialNo').attr('value', $('#SerialNo').val());
+  //      $('#Description').attr('value', $('#Description').val());
+  //      $('#Quantity').attr('value', $('#Quantity').val());
+  //      $('#Reason').attr('value', $('#Reason').val());
+  //      var td4 = document.getElementById('SerialNo').parentElement.outerHTML; //repeat
+  //      var td5 = document.getElementById('Description').parentElement.outerHTML; //repeat
+ //       var td6 = document.getElementById('Quantity').parentElement.outerHTML; //repeat
+ //       var td7 = document.getElementById('Reason').parentElement.outerHTML; //repeat
+ //       var td8 = '<td>@*Html.EditorFor(modelItem => modelItem.ExpectedReturnDate, new { htmlAttributes = new { @class = "form-control" } })</td>';
+ //       var td9 = '<td>@Html.EditorFor(modelItem => modelItem.Recipient, new { htmlAttributes = new { @class = "form-control" } })</td>';
+ //       var td10 = '<td>@Html.EditorFor(modelItem => modelItem.Type, new { htmlAttributes = new { @class = "form-control" } })</td>';
+ //       var td11 = '<td>@Html.EditorFor(modelItem => modelItem.ApprovedBy, new { htmlAttributes = new { @class = "form-control" } })</td>';
+  //      var td12 = '<td>@Html.EditorFor(modelItem => modelItem.HeadOfDepartment, new { htmlAttributes = new { @class = "form-control" } })</td>';*@
+//        $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + td9 + td10 + td11 + td12 + '</tr>');
+        $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + '</tr>');
+    });
+
+    function getAllData() {
+        var data = [];
+        $('tbody tr').each(function () {
+            var From = $(this).find('#From').val();
+            var Date = $(this).find('#Date').val();
+            var Department = $(this).find('#Department').val();
+            var SerialNo = $(this).find('#SerialNo').val();
+            var Description = $(this).find('#Description').val();
+            var Quantity = $(this).find('#Quantity').val();
+            var Reason = $(this).find('#Reason').val();
+            var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
+            var Recipient = $(this).find('#Recipient').val();
+            var Type = $(this).find('#Type').val();
+            var ApprovedBy = $(this).find('#ApprovedBy').val();
+            var HeadOfDepartment = $(this).find('#HeadOfDepartment').val();
+            var alldata = {
+                'From': From,
+                'Date': Date,
+                'Department': Department,
+                'SerialNo': SerialNo,
+                'Description': Description,
+                'Quantity': Quantity,
+                'Reason': Reason,
+                'ExpectedReturnDate': ExpectedReturnDate,
+                'Recipient': Recipient,
+                'Type': Type,
+                'ApprovedBy': ApprovedBy,
+                'HeadOfDepartment': HeadOfDepartment,
+            }
+            data.push(alldata);
+        });
+        console.log(data);
+        return data;
+    }
+
+    $('#btnSubmit').click(function () {
+        var data = JSON.stringify(getAllData());
+        $.ajax({
+            url: '/GatePass/SaveData',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ 'getepassdata': data }),
+            success: function () {
+                alert("Data Added Successfully");
+            },
+            error: function () {
+                alert("Error while inserting data");
+            }
+        });
+    });
+</script>
+}

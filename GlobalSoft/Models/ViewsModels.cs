@@ -169,6 +169,7 @@ namespace GlobalSoft.Models
         public DateTime Tanggal { get; set; }
 
         public int TransNoID { get; set; }
+        public string TransNo { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }
         public decimal Jumlah { get; set; }

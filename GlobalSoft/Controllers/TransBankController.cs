@@ -159,7 +159,7 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CbTransH arTransH = db.CbTransHs.Find(id);
+            CbTransH arTransH = db.CbTransHs.SingleOrDefault(x => x.TranshID == id);
 
             if (arTransH == null)
             {
@@ -182,7 +182,8 @@ namespace GlobalSoft.Controllers
                     TranshID = e.TranshID,
                     TransdID = e.TransdID,
                     TransNoID = e.TransNoID,
-                    Keterangan = e.Keterangan,
+                    TransNo = db.AptTrsNoes.SingleOrDefault(x => x.TransNoID == e.TransNoID).TransNo,
+                Keterangan = e.Keterangan,
                     Terima = e.Terima,
                     Bayar = e.Bayar
                 });
@@ -192,7 +193,9 @@ namespace GlobalSoft.Controllers
 
             // List<ArTransH> OrderAndDetailList = arTransH;
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName", arTransH.BankID);
-            ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+            //     ViewBag.TransDP = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+                 ViewBag.TransDP = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
+
             return View(TransH);
         }
 
