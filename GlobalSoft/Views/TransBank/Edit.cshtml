@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CbTransH</h4>
+        <h4>Kas/Bank</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TranshID)
@@ -51,11 +51,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <!--     <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+        -->
 
         <div>
             <table id="detailsTable" class="table">
@@ -75,7 +76,7 @@
 
                             <tr>
                                 <td>
-                                    <select class="form-control" name="Transid_@e.TransdID" id="Transid_@e.TransdID">
+                                    <select class="form-control" name="Transid" id="Transid">
                                         @foreach (var t in ViewBag.TransDP)
                                         {
                                             <option value="@t.Value" @(t.Value == e.TransdID.ToString() ? "selected" : "")>@t.Text</option>
@@ -84,9 +85,9 @@
 
                                     @*Html.DropDownList("Transid", (SelectList)ViewData["TransDP"], htmlAttributes: new { @class = "form-control", @id = "transid_@e.TransdID" })*@
                                 </td>
-                                <td>   @Html.Editor("Ket" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
-                                <td>   @Html.Editor("Terima" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
-                                <td>   @Html.Editor("Bayar" + e.TransdID, new { htmlAttributes = new { @class = "form-control", @Value = @e.Bayar } })</td>
+                                <td>   @Html.Editor("Ket", new { htmlAttributes = new { @class = "form-control", @Value = @e.Keterangan } })</td>
+                                <td>   @Html.Editor("Terima", new { htmlAttributes = new { @class = "form-control", @Value = @e.Terima } })</td>
+                                <td>   @Html.Editor("Bayar", new { htmlAttributes = new { @class = "form-control", @Value = @e.Bayar } })</td>
                                 <td> <a data-itemId="0" href="#" class="deleteItem">Remove</a> </td>
                             </tr>
                         };
@@ -94,16 +95,17 @@
                 </tbody>
                 <tfoot>
                     <tr>
+
                         <td>
-                      <!--      <input class="btnAdd btn btn-default" type="button" id="btnAdd1" value="Add" />
-                      -->
+                            <input id="btnSubmit" type="button" value="Simpan" class="btn btn-block" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <!--      <input class="btnAdd btn btn-default" type="button" id="btnAdd1" value="Add" />
+        -->
                             <a id="addToList" class="btn btn-primary">Add To List</a>
                         </td>
-                        <td>
-                            <input id="btnSubmit" type="button" value="Submit" class="btn btn-default" />
-                        </td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -118,17 +120,26 @@
 
 @section scripts
 {
-<script>
+    <script>
 
     $("#addToList").click(function (e) {
         e.preventDefault();
-
-        var td1 = '<td> @Html.Editor("Drop" , new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td1 = '<td>  @Html.Raw(Ajax.JavaScriptStringEncode(Html.DropDownList("Transid", (SelectList) ViewBag.TransDP, htmlAttributes: new { @class = "form-control" }).ToHtmlString()))</td>';
         var td2 = '<td> @Html.Editor("Ket" , new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td3 = '<td> @Html.Editor("Terima" , new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td4 = '<td> @Html.Editor("Bayar" , new { htmlAttributes = new { @class = "form-control" } })</td>';
         var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
         $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + td6+'</tr>');
+    });
+
+    $(document).on('click', 'a.deleteItem', function (e) {
+        e.preventDefault();
+        var $self = $(this);
+        if ($(this).attr('data-itemId') === "0") {
+            $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                $(this).remove();
+            });
+        }
     });
 
     function getAllData() {
@@ -182,5 +193,5 @@
             }
         });
     });
-</script>
+    </script>
 }
