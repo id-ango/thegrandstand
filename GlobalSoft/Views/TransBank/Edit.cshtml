@@ -194,4 +194,16 @@
         });
     });
     </script>
+    <script>
+        var currentBoxNumber = 0;
+        
+        $(document).on("keyup","#Terima",function (event) {
+            if (event.keyCode == 13) {
+                var b = $('#Bayar').val();
+                var c = $(this).parents("tr").index();
+               
+                alert($(this).val());
+            }
+        });
+    </script>
 }
