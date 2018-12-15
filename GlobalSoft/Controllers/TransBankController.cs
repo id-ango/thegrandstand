@@ -22,7 +22,7 @@ namespace GlobalSoft.Controllers
 
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
             ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            List<CbTransH> OrderAndDetailList = db.CbTransHs.ToList();
+            List<CbTransH> OrderAndDetailList = db.CbTransHs.OrderByDescending(x =>x.Tanggal).Take(100).ToList();
             return View(OrderAndDetailList);
         }
 
@@ -207,6 +207,60 @@ namespace GlobalSoft.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [Authorize(Roles = "Admin,Manager,Employee")]
+        public ActionResult EditData(int transhid, string docno, String keterangan, int bank, string tanggal, CbTransD[] order)
+        {
+            string result = "Error! Order Is Not Complete!";
+            if (docno != null && keterangan != null && order != null)
+            {
+                CbTransH arTransH = db.CbTransHs.Find(transhid);
+                db.CbTransHs.Remove(arTransH);
+                var arTransD = (from e in db.CbTransDs where e.TranshID == transhid select e ).ToList();
+                foreach( var y in arTransD)
+                {
+                    db.CbTransDs.Remove(y);
+                }
+                db.SaveChanges();
+
+                var cutomerId = Guid.NewGuid();
+                CbTransH model = new CbTransH();
+                model.GuidCb = cutomerId;
+                model.Docno = docno;
+                model.Keterangan = keterangan;
+                model.Tanggal = Convert.ToDateTime(tanggal);
+                model.BankID = bank;
+                decimal nJumlah = 0;
+
+                foreach (var t in order)
+                {
+                    nJumlah = nJumlah + (t.Terima - t.Bayar);
+                }
+
+                model.Saldo = nJumlah;
+                db.CbTransHs.Add(model);
+
+                foreach (var item in order)
+                {
+                    var orderId = Guid.NewGuid();
+                    CbTransD O = new CbTransD();
+                    O.GuidDb = orderId;
+                    O.Keterangan = item.Keterangan;
+                    O.Tanggal = model.Tanggal;
+                    O.TransNoID = item.TransNoID;
+                    O.Terima = item.Terima;
+                    O.Bayar = item.Bayar;
+                    O.Jumlah = item.Terima - item.Bayar;
+                    O.GuidCb = cutomerId;
+                    db.CbTransDs.Add(O);
+                }
+                db.SaveChanges();
+                result = "Success! Order Is Complete!";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
 

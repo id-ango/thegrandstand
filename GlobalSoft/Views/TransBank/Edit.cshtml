@@ -79,7 +79,7 @@
                                     <select class="form-control" name="Transid" id="Transid">
                                         @foreach (var t in ViewBag.TransDP)
                                         {
-                                            <option value="@t.Value" @(t.Value == e.TransdID.ToString() ? "selected" : "")>@t.Text</option>
+                                            <option value="@t.Value" @(t.Value == e.TransNoID.ToString() ? "selected" : "")>@t.Text</option>
                                         }
                                     </select>
 
@@ -95,17 +95,17 @@
                 </tbody>
                 <tfoot>
                     <tr>
-
-                        <td>
-                            <input id="btnSubmit" type="button" value="Simpan" class="btn btn-block" />
-                        </td>
-                        <td></td>
-                        <td></td>
                         <td>
                             <!--      <input class="btnAdd btn btn-default" type="button" id="btnAdd1" value="Add" />
         -->
                             <a id="addToList" class="btn btn-primary">Add To List</a>
                         </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input id="btnSubmit" type="button" value="Simpan" class="btn btn-block" />
+                        </td>
+
                     </tr>
                 </tfoot>
             </table>
@@ -126,8 +126,8 @@
         e.preventDefault();
         var td1 = '<td>  @Html.Raw(Ajax.JavaScriptStringEncode(Html.DropDownList("Transid", (SelectList) ViewBag.TransDP, htmlAttributes: new { @class = "form-control" }).ToHtmlString()))</td>';
         var td2 = '<td> @Html.Editor("Ket" , new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td3 = '<td> @Html.Editor("Terima" , new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td4 = '<td> @Html.Editor("Bayar" , new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td3 = '<td> @Html.Editor("Terima" , new { htmlAttributes = new { @class = "form-control", @Value = 0 } })</td>';
+        var td4 = '<td> @Html.Editor("Bayar" , new { htmlAttributes = new { @class = "form-control", @Value = 0 } })</td>';
         var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
         $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + td6+'</tr>');
     });
@@ -143,48 +143,44 @@
     });
 
     function getAllData() {
-        var data = [];
+        var orderArr = [];
         $('tbody tr').each(function () {
-            var From = $(this).find('#From').val();
-            var Date = $(this).find('#Date').val();
-            var Department = $(this).find('#Department').val();
-            var SerialNo = $(this).find('#SerialNo').val();
-            var Description = $(this).find('#Description').val();
-            var Quantity = $(this).find('#Quantity').val();
-            var Reason = $(this).find('#Reason').val();
-            var ExpectedReturnDate = $(this).find('#ExpectedReturnDate').val();
-            var Recipient = $(this).find('#Recipient').val();
-            var Type = $(this).find('#Type').val();
-            var ApprovedBy = $(this).find('#ApprovedBy').val();
-            var HeadOfDepartment = $(this).find('#HeadOfDepartment').val();
+            var transid = $(this).find('#Transid').val();
+            var ket = $(this).find('#Ket').val();
+            var terima = $(this).find('#Terima').val();
+            var bayar = $(this).find('#Bayar').val();
             var alldata = {
-                'From': From,
-                'Date': Date,
-                'Department': Department,
-                'SerialNo': SerialNo,
-                'Description': Description,
-                'Quantity': Quantity,
-                'Reason': Reason,
-                'ExpectedReturnDate': ExpectedReturnDate,
-                'Recipient': Recipient,
-                'Type': Type,
-                'ApprovedBy': ApprovedBy,
-                'HeadOfDepartment': HeadOfDepartment,
+                'TransNoID': transid,
+                'Keterangan': ket,
+                'Terima': terima,
+                'Bayar': bayar              
             }
-            data.push(alldata);
+            orderArr.push(alldata);
+         
         });
-        console.log(data);
+    //   
+        var data = {
+            transhid: $('#TranshID').val(),
+            docno: $("#Docno").val(),
+            keterangan: $("#Keterangan").val(),
+            tanggal: $("#Tanggal").val(),
+            bank: $("#BankID").val(),
+             order: orderArr
+        }
+    //    console.log(data);
+   //     alert(data);
         return data;
     }
 
     $('#btnSubmit').click(function () {
         var data = JSON.stringify(getAllData());
+     //   alert(data);
         $.ajax({
-            url: '/GatePass/SaveData',
+            url: '/TransBank/EditData',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ 'getepassdata': data }),
+            data: data,
             success: function () {
                 alert("Data Added Successfully");
             },
@@ -194,4 +190,36 @@
         });
     });
     </script>
+    <script>
+
+        $("#Terima").click(function (e) {
+            alert("tesing");
+        });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+
+        
+        
+    </script>
+
+    <script>
+        /*            document.getElementById("Docno").focus = function () { myFunction() };
+
+                    function myFunction() {
+                        var x = document.getElementById("Docno");
+                        x.value = x.value.toUpperCase();
+                    }
+        */
+        addEvent(document.getElementById('Bayar'), 'keyup', function () {
+            document.getElementById('Terima').value = 0;
+        });
+
+
+        function addEvent(ele, evnt, funct) {
+            if (ele.addEventListener) // W3C
+                return ele.addEventListener(evnt, funct, false);
+            else if (ele.attachEvent)  // IE
+                return ele.attachEvent("on" + evnt, funct);
+        }
+    </script>
+
 }
