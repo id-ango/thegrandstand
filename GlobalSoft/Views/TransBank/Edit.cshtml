@@ -97,7 +97,7 @@
                     <tr>
                         <td>
                             <!--      <input class="btnAdd btn btn-default" type="button" id="btnAdd1" value="Add" />
-        -->
+                            -->
                             <a id="addToList" class="btn btn-primary">Add To List</a>
                         </td>
                         <td></td>
@@ -115,11 +115,26 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    @Html.Hidden("RedirectTo", Url.Action("Index", "TransBank"))
 </div>
 
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        $(function () {
+            $("#Tanggal").datepicker({
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:' + (new Date().getFullYear() + 60)
+            });
+        });
+    </script>
     <script>
 
     $("#addToList").click(function (e) {
@@ -153,12 +168,12 @@
                 'TransNoID': transid,
                 'Keterangan': ket,
                 'Terima': terima,
-                'Bayar': bayar              
+                'Bayar': bayar
             }
             orderArr.push(alldata);
-         
+
         });
-    //   
+    //
         var data = {
             transhid: $('#TranshID').val(),
             docno: $("#Docno").val(),
@@ -174,6 +189,8 @@
 
     $('#btnSubmit').click(function () {
         var data = JSON.stringify(getAllData());
+        var url = $('#RedirectTo').val();
+
      //   alert(data);
         $.ajax({
             url: '/TransBank/EditData',
@@ -183,6 +200,7 @@
             data: data,
             success: function () {
                 alert("Data Added Successfully");
+                location.href = url;
             },
             error: function () {
                 alert("Error while inserting data");
@@ -194,11 +212,11 @@
 
         $("#Terima").click(function (e) {
             alert("tesing");
-        });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        });
 
 
-        
-        
+
+
     </script>
 
     <script>
