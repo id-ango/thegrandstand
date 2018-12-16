@@ -1,0 +1,84 @@
+﻿@model GlobalSoft.Models.CbTrans
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/Content/Tandaterima.css" />
+
+</head>
+
+<div class="container">
+
+
+    <div style="float:left;margin-left:20px;margin-top:20px">
+        <strong style="font-size:1.5em">The GrandStand</strong><br />
+        <span style="margin-top:0px;margin-bottom:0px;padding:0 0px 0px 0px">Jl. Raya Kupang Indah No. 9</span><br />
+        <span style="margin-top:0px;margin-bottom:0px;padding:0 0px 0px 0px">Surabaya</span>
+
+    </div>
+    <div class="judul">
+        <h1>Tanda Terima</h1>
+        <h4>@Model.NoRef</h4>
+    </div>
+
+</div>
+
+
+
+<div class="container">
+    <span style="margin-left:15px">Nama : @ViewBag.NamaCustomer</span>
+    <div class="sales">
+        <span style="margin-right:15px;text-align:right">@Model.AptMarketing.MarketingName</span>
+        <div>
+
+            <div class="container">
+                <table>
+                    <tr>
+                        <th colspan="2">Keterangan</th>
+                        <th>Jumlah</th>
+                    <tr>
+                    <tr>
+                        <td colspan="2">
+                            Bonus Unit @Model.AptUnit.UnitNo <br />                           
+                            Tipe @Model.AptUnit.AptCategorie.Categorie Luas @Model.AptUnit.AptCategorie.Luas M<sup>2</sup><br />
+                            @Model.Keterangan<br />
+                        </td>
+
+                        <td>@string.Format("{0:n0}", @Model.Payment)</td>
+                    </tr>
+                    <tr>
+                        <td>Mengetahui</td>
+                        <td>penerima</td>
+                        <td>kasir</td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div class="container">
+                <span><strong>Catatan:</strong></span><br />
+                <ul>
+                    <li>
+                        Pembayaran yang jatuh tempo pada hari libur, maka pembayarannya harus dilakukan setelah hari berikutnya
+                        (satu hari setelah hari libur tersebut)
+                    </li>
+                    <li>
+                        Tanda Terima ini sah sebagai bukti kwitansi pembayaran apabila pembayaran yang ditransfer
+                        sudah diterima di bank kami
+                    </li>
+                    <li> Apabila terjadi pembatalan maka uang yang telah dibayarkan menjadi milik/haknya perseroan</li>
+                    <li>
+                        Apabila pembayaran yang ditransfer diterima di rekening kami tidak sesuai dengan tanggal jatuh
+                        tempo (terjadi terlambat bayar) maka dikenakan denda 1 &permil; (1 per mil) perhari dikalikan besaran uang yang terlambat, apabila
+                        dalam masa 2 bulan masih belum juga ditransfer maka pembelian dianggap batal dan uang yang telah dibayarkan
+                        menjadi milik/hak nya perseroan.
+                    </li>
+                </ul>
+                <span><strong>Mohon tanda terima ini diserahkan kembali pada waktu tanda tangan Akta Jual Beli di Notaris</strong></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

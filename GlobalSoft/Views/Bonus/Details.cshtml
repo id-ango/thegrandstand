@@ -1,0 +1,80 @@
+﻿@model GlobalSoft.Models.CbTrans
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Booking Fee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoRef)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tanggal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tanggal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AptUnit.UnitNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptUnit.UnitNo)
+        </dd>
+        <dt>
+            Customer
+        </dt>
+
+        <dd>
+            @ViewBag.NamaCustomer
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptMarketing.MarketingName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptMarketing.MarketingName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AptPayment.PaymentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AptPayment.PaymentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keterangan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keterangan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Payment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Payment)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TransID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

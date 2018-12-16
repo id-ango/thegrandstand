@@ -40,14 +40,12 @@ namespace GlobalSoft.Controllers
             var aptTranss2 = db.AptTrsNoes.ToList();
 
             var Booking = (from e in aptTranss2
-                           join y in db.GlAccounts
-                           on e.GlAkunID equals y.GlAkunID
                            select new TrsnoVM
                            {
-                              TransNoID= e.TransNoID,
-                              TransNo = e.TransNo,
-                              GlAkunID = e.GlAkunID,
-                              GlAkunName = y.GlAkunName                               
+                               TransNoID = e.TransNoID,
+                               TransNo = e.TransNo,
+                               GlAkunID = e.GlAkunID,
+                               GlAkunName = (from y in db.GlAccounts where y.GlAkunID == e.GlAkunID select y.GlAkunName).FirstOrDefault()                              
                            }).ToList();
 
           
@@ -73,7 +71,7 @@ namespace GlobalSoft.Controllers
         // GET: SetupTrsNo/Create
         public ActionResult Create()
         {
-            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString()
@@ -95,7 +93,7 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlAkunID = db.GlAccounts.Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString()
@@ -116,7 +114,7 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString(),
@@ -139,7 +137,7 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlAkunID = db.GlAccounts.Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Where(p => p.GlAkunID == aptTrsNo.GlAkunID).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString()

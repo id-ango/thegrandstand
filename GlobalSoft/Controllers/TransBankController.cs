@@ -22,7 +22,7 @@ namespace GlobalSoft.Controllers
 
             ViewBag.BankID = new SelectList(db.CbBanks, "BankID", "BankName");
             ViewBag.TransNoID = new SelectList(db.AptTrsNoes, "TransNoID", "TransNo");
-            List<CbTransH> OrderAndDetailList = db.CbTransHs.OrderByDescending(x =>x.Tanggal).Take(100).ToList();
+            List<CbTransH> OrderAndDetailList = db.CbTransHs.OrderByDescending(x =>x.Tanggal).ToList();
             return View(OrderAndDetailList);
         }
 

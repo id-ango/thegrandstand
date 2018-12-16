@@ -35,14 +35,23 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Administrasi<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Booking Fee", "index", "BookingFee")</li>
+                            <li>@Html.ActionLink("Bonus", "index", "Bonus")</li>
                             <li>@Html.ActionLink("Surat Pesanan", "index", "SuratPesanan")</li>
-                            <li>@Html.ActionLink("Bayar Angsuran", "index", "TransAngsuran")</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("Customer", "index", "SetupCustomer")</li>
-                            <li>@Html.ActionLink("Cara Pembelian", "index", "SetupBayar")</li>
-                            <li>@Html.ActionLink("Pembayaran", "index", "SetupPayment")</li>
+                            <li>@Html.ActionLink("Setup Jenis Penjualan", "index", "SetupBayar")</li>
+                            <li>@Html.ActionLink("Setup Cara Bayar", "index", "SetupPayment")</li>
                             @* <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
                             *@
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Piutang<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Bayar Angsuran", "index", "TransAngsuran")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Setup Customer", "index", "SetupCustomer")</li>                                                                            
+                            <li>@Html.ActionLink("Setup AccountSet (AR)", "index", "ArAkunSets")</li>
+
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -50,19 +59,22 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Invoice", "index", "ApHutangHs")</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("Supplier", "index", "SetupSupplier")</li>
-
+                            <li>@Html.ActionLink("Setup Supplier", "index", "SetupSupplier")</li>
+                            <li>@Html.ActionLink("Setup AccountSet (AP)", "index", "ApAkunSets")</li>
+                            <li>@Html.ActionLink("Setup DistributionSet (AP)", "index", "ApDistribSets")</li>
 
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">KasBank<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Setup Bank", "index", "SetupBank")</li>
                             <li>@Html.ActionLink("Transaksi", "index", "TransBank")</li>
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Rek. Koran", "rekkoran", "Laporan")</li>
                             <li>@Html.ActionLink("Per-Transaksi", "LapCBTransaksi", "Laporan")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Setup Bank", "index", "SetupBank")</li>
+                            <li>@Html.ActionLink("Setup SourceCode", "index", "SetupTrsNo")</li>
 
 
                         </ul>
@@ -77,10 +89,7 @@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Setup Akun", "index", "SetupGlAccounts")</li>
                             <li>@Html.ActionLink("Setup Tipe Akun", "index", "SetupGlTipes")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Setup AccountSet (AR)", "index", "ArAkunSets")</li>
-                            <li>@Html.ActionLink("Setup AccountSet (AP)", "index", "ApAkunSets")</li>
-                            <li>@Html.ActionLink("Setup DistributionSet (AP)", "index", "ApDistribSets")</li>
+                           
                         </ul>
                     </li>
 
@@ -93,7 +102,6 @@
                             <li>@Html.ActionLink("Unit", "Index", "SetupUnit")</li>
                             <li>@Html.ActionLink("Agen", "index", "SetupAgen")</li>
                             <li>@Html.ActionLink("Marketing", "index", "SetupMarketing")</li>
-                            <li>@Html.ActionLink("Jenis Transaksi", "index", "SetupTrsNo")</li>
                             <li>@Html.ActionLink("Level Gedung", "index", "AptGedungs")</li>
                             @*    <li><a href="#">Reservasi</a></li> *@
                         </ul>

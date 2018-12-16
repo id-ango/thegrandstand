@@ -40,7 +40,7 @@ namespace GlobalSoft.Controllers
         // GET: SetupBank/Create
         public ActionResult Create()
         {
-            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x=>x.GlAkun).Select(p => new SelectListItem
       {
           Text = p.GlAkun + "-" + p.GlAkunName,
           Value = p.GlAkunID.ToString()
@@ -61,7 +61,7 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlAkunID = db.GlAccounts.Where(p=>p.GlAkunID == cbBank.GlAkunID).Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Where(p=>p.GlAkunID == cbBank.GlAkunID).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString()
@@ -82,7 +82,7 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString(),
@@ -107,7 +107,7 @@ namespace GlobalSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GlAkunID = db.GlAccounts.Select(p => new SelectListItem
+            ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,
                 Value = p.GlAkunID.ToString(),
