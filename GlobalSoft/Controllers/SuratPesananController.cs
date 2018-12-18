@@ -22,8 +22,7 @@ namespace GlobalSoft.Controllers
         {
             
             var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.AptBayar);
-            var aptTranss = from e in aptTranss2
-                            where e.AptTrsNo.TransNo.Trim() == "SuratPesanan"
+            var aptTranss = from e in aptTranss2                           
                             select e;
 
 
@@ -151,7 +150,6 @@ namespace GlobalSoft.Controllers
                 return HttpNotFound();
             }
             
-
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
@@ -249,7 +247,7 @@ namespace GlobalSoft.Controllers
                 return HttpNotFound();
             }
             var ListUM = (from e in db.CbTranss
-                            where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Contains("BookingFee") && e.PersonID == aptTrans.CustomerID
+                            where e.UnitID == aptTrans.UnitID  && e.PersonID == aptTrans.CustomerID
                             select e.Payment).ToList();
 
             var unitNo = db.AptUnits.Find(aptTrans.UnitID).UnitNo;
@@ -461,7 +459,7 @@ namespace GlobalSoft.Controllers
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
             var TransUTJ = db.CbTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
            var ListUangMuka = (from e in TransUTJ
-                               where e.UnitID == aptTrans.UnitID && e.AptTrsNo.TransNo.Contains("BookingFee") && e.PersonID == aptTrans.CustomerID
+                               where e.UnitID == aptTrans.UnitID && e.PersonID == aptTrans.CustomerID
                                select e).ToList();
 
             ViewBag.ListUangMuka = ListUangMuka;
