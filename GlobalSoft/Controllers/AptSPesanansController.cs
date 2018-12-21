@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GlobalSoft.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GlobalSoft.Controllers
 {
@@ -14,6 +17,108 @@ namespace GlobalSoft.Controllers
     public class AptSPesanansController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
+
+        public string LoadRecords()
+        {
+            string filter = RequestQueryString();
+
+            IEnumerable<AptSPesanan> records = db.AptSPesanans.ToList();
+             //   .SqlQuery("SELECT * FROM AptSPesanans " + filter);
+
+            var jsonData = JsonConvert.SerializeObject(records);
+            return jsonData;
+        }
+
+        protected string RequestQueryString(string query = "", string defaultorder = "SPesananID")
+        {
+            string filter = query;
+            var req = Request.Form["request"];
+            if (req == null) { return filter; }
+
+            JObject r = JObject.Parse(req);
+            int limit = (int)r["limit"];
+            int offset = (int)r["offset"];
+
+            JArray search = (JArray)r["search"]; // field + type + operator + value
+            if (search != null)
+            {
+                string SearchLogic = (string)r["searchLogic"];
+                foreach (JObject o in search.Children<JObject>())
+                {
+                    if (filter == query)
+                        filter += (query == "" ? "WHERE (" : " AND (") + " (" + SearchFilter(o) + ") ";
+                    else
+                        filter += SearchLogic + " (" + SearchFilter(o) + ") ";
+                }
+                filter += ")";
+            }
+
+            JArray sort = (JArray)r["sort"];
+            filter += SortFilter(sort, defaultorder);
+
+            return filter + " OFFSET " + offset +
+              " ROWS FETCH NEXT " + limit + " ROWS ONLY";
+        }
+
+        protected string SearchFilter(JObject o)
+        {
+            string field = (string)o["field"];
+            string opt = (string)o["operator"]; //'is', 'between', 'begins with', 'contains', 'ends with'
+
+            string val = (opt != "between" ? (string)o["value"] : "");
+
+            switch (opt)
+            {
+                case "is":
+                    val = FormatDate(val);
+                    return (field + " = '" + val + "'");
+                case "begins":
+                    return (field + " LIKE '" + val + "%'");
+                case "contains":
+                    return (field + " LIKE '%" + val + "%'");
+                case "ends":
+                    return (field + " LIKE '%" + val + "'");
+                case "before":
+                case "less":
+                    return (field + " < '" + FormatDate(val) + "'");
+                case "after":
+                case "more":
+                    return (field + " > '" + FormatDate(val) + "'");
+                case "between":
+                    string d1 = FormatDate((string)o["value"][0]);
+                    string d2 = FormatDate((string)o["value"][1]);
+                    return (field + " BETWEEN '" + d1 + "' AND '" + d2 + "'");
+                default: return "";
+            }
+        }
+
+        protected string SortFilter(JArray sort, string defaultorder)
+        {
+            if (sort == null)
+                return " ORDER BY " + defaultorder;
+
+            string ssql = "";
+            foreach (JObject o in sort.Children<JObject>())
+            {
+                string field = (string)o["field"];
+                string order = (string)o["direction"];
+                ssql += (ssql == "" ? " ORDER BY " : ", ");
+                ssql += field + (order == "asc" ? " ASC" : " DESC");
+            }
+            return ssql;
+        }
+
+        private string FormatDate(string input)
+        {
+            DateTime d;
+            if (DateTime.TryParseExact(input, "dd-MM-yyyy",
+                  CultureInfo.InvariantCulture,
+                  DateTimeStyles.None, out d))
+            {
+                return d.ToString("yyyy-MM-dd");
+            }
+            return input;
+        }
 
         // GET: AptSPesanans
         public ActionResult Index()

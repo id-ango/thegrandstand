@@ -17,12 +17,21 @@ namespace GlobalSoft.Controllers
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
+        public ActionResult CekCustomer(int Custid, int Unitid)
+        {
+            var allList = (from e in db.CbTranss
+                           where e.UnitID == Unitid
+                           select new { e.PersonID, e.MarketingID }).ToList().LastOrDefault();
+
+            return Json(allList, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: SuratPesanan
         public ActionResult Index()
         {
-            
+
             var aptTranss2 = db.AptTranss.Include(a => a.AptMarketing).Include(a => a.AptUnit).Include(a => a.AptBayar);
-            var aptTranss = from e in aptTranss2                           
+            var aptTranss = from e in aptTranss2
                             select e;
 
 
@@ -45,11 +54,11 @@ namespace GlobalSoft.Controllers
         }
 
         // GET: SuratPesanan/Create
-       
+
         public ActionResult Create()
         {
-            
-            
+
+
             var unitList = from e in db.AptUnits
                            where e.StatusID == 2
                            select e;
@@ -108,9 +117,9 @@ namespace GlobalSoft.Controllers
                 if (validUnit != null)     // jika tidak ketemu dengan unit yang hold
                 {
 
-                    
+
                     aptTrans.TransNoID = 2;        //surat Pesanan Transaksi
-                    aptTrans.TglSelesai =  FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal,aptTrans.Cicilan) ;
+                    aptTrans.TglSelesai = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, aptTrans.Cicilan);
                     //var CekID = db.AptPayments.FirstOrDefault(x => x.PaymentName.Trim() == "Tunai");
                     //                aptTrans.PaymentID 
                     aptTrans.PaymentID = 1;
@@ -149,7 +158,7 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             ViewBag.MarketingID = new SelectList(db.AptMarketings, "MarketingID", "MarketingName", aptTrans.MarketingID);
             ViewBag.BayarID = new SelectList(db.AptBayars, "BayarID", "CaraBayar", aptTrans.BayarID);
             ViewBag.UnitID = new SelectList(db.AptUnits, "UnitID", "UnitNo", aptTrans.UnitID);
@@ -166,7 +175,7 @@ namespace GlobalSoft.Controllers
         {
             aptTrans.TransNoID = 2;        //surat Pesanan Transaksi
             aptTrans.TglSelesai = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, aptTrans.Cicilan);
-           // var CekID = db.AptPayments.FirstOrDefault(x => x.PaymentName.Trim() == "Tunai");
+            // var CekID = db.AptPayments.FirstOrDefault(x => x.PaymentName.Trim() == "Tunai");
             //                aptTrans.PaymentID 
             aptTrans.PaymentID = 1;
 
@@ -201,7 +210,7 @@ namespace GlobalSoft.Controllers
         // POST: SuratPesanan/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles ="Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             AptTrans aptTrans = db.AptTranss.Find(id);
@@ -217,8 +226,8 @@ namespace GlobalSoft.Controllers
                  select e).ToList().ForEach(x => x.StatusID = 2);
             }
             List<AptSPesanan> aptsp = db.AptSPesanans.Where(e => e.KodeTrans == aptTrans.TransID).ToList();
-            foreach(var i in aptsp)
-               db.AptSPesanans.Remove(i);
+            foreach (var i in aptsp)
+                db.AptSPesanans.Remove(i);
 
             db.AptTranss.Remove(aptTrans);
             db.SaveChanges();
@@ -240,15 +249,15 @@ namespace GlobalSoft.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             AptTrans aptTrans = db.AptTranss.Find(id);
             if (aptTrans == null)
             {
                 return HttpNotFound();
             }
             var ListUM = (from e in db.CbTranss
-                            where e.UnitID == aptTrans.UnitID  && e.PersonID == aptTrans.CustomerID
-                            select e.Payment).ToList();
+                          where e.UnitID == aptTrans.UnitID && e.PersonID == aptTrans.CustomerID
+                          select e.Payment).ToList();
 
             var unitNo = db.AptUnits.Find(aptTrans.UnitID).UnitNo;
 
@@ -256,17 +265,17 @@ namespace GlobalSoft.Controllers
 
             if (ListUM != null)
             {
-                Uangmuka = ListUM.Sum();   
+                Uangmuka = ListUM.Sum();
             }
 
-      
+
             List<ArPiutang> Transaksi = new List<ArPiutang>();
             List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
 
             if (aptTrans.AptBayar.CaraBayar.Contains("InHouse"))
             {
-               
-                var cekNull = (from e in db.AptSPesanans where e.SPesanan==aptTrans.NoRef select e).Count();
+
+                var cekNull = (from e in db.AptSPesanans where e.SPesanan == aptTrans.NoRef select e).Count();
                 if (cekNull == 0)
                 {
                     //decimal PPN = (aptTrans.Piutang * (decimal)0.1);
@@ -285,7 +294,7 @@ namespace GlobalSoft.Controllers
                         var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
                         //     TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1,unitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID,Duedate=TglAngsuran });
+                        Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, unitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
 
                         if (i < 6)
                         {
@@ -300,12 +309,12 @@ namespace GlobalSoft.Controllers
                         }
 
                     };
-                    
-                        Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
+
+                    Transaksi.Add(new ArPiutang { LPB = aptTrans.NoRef, Keterangan = Ket7, Duedate = TglAwal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
 
                     foreach (var values in Transaksi2)
                     {
-                        
+
                         db.AptSPesanans.Add(values);
                         db.SaveChanges();
                     }
@@ -320,7 +329,7 @@ namespace GlobalSoft.Controllers
                     var dTgl1 = DateTime.Now;
                     var dTgl2 = DateTime.Now;
                     string Ket7 = " ";
-                    foreach ( var e in ListTrans)
+                    foreach (var e in ListTrans)
                     {
                         if (i <= 6)
                         {
@@ -330,7 +339,7 @@ namespace GlobalSoft.Controllers
 
                         else
                         {
-                            if (i==7)
+                            if (i == 7)
                             {
                                 dTgl1 = e.Tanggal;
                                 dTgl2 = e.Tanggal;
@@ -374,7 +383,7 @@ namespace GlobalSoft.Controllers
                         TglAngsuran = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, i);
                         //   TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
 
-                        
+
                         Transaksi2.Add(new AptSPesanan { SPesanan = aptTrans.NoRef, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, unitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = aptTrans.TransID, Duedate = TglAngsuran });
 
                         if (i < 6)
@@ -429,12 +438,12 @@ namespace GlobalSoft.Controllers
                             }
                             Ket7 = string.Format("Angsuran  sd {0} dr Tgl {1:d} sd Tgl {2:d}", i, dTgl1, e.Tanggal);
                             JumAngsur = JumAngsur + e.Jumlah;
-                            if (i == (nTotal-1))
+                            if (i == (nTotal - 1))
                             {
                                 Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = JumAngsur });
 
                             }
-                            if (i== nTotal)
+                            if (i == nTotal)
                             {
                                 Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Tanggal, Tanggal = aptTrans.Tanggal, Jumlah = e.Jumlah });
 
@@ -458,9 +467,9 @@ namespace GlobalSoft.Controllers
             ViewBag.UangMuka = Uangmuka;
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)aptTrans.Piutang);
             var TransUTJ = db.CbTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
-           var ListUangMuka = (from e in TransUTJ
-                               where e.UnitID == aptTrans.UnitID && e.PersonID == aptTrans.CustomerID
-                               select e).ToList();
+            var ListUangMuka = (from e in TransUTJ
+                                where e.UnitID == aptTrans.UnitID && e.PersonID == aptTrans.CustomerID
+                                select e).ToList();
 
             ViewBag.ListUangMuka = ListUangMuka;
             return View(aptTrans);
@@ -469,12 +478,12 @@ namespace GlobalSoft.Controllers
         public ActionResult Proses(int? id)
         {
             var aptTranss2 = (from e in db.AptSPesanans
-                              where e.KodeTrans == id && (e.Jumlah-e.Bayar-e.Diskon) != 0 
+                              where e.KodeTrans == id && (e.Jumlah - e.Bayar - e.Diskon) != 0
                               select e).ToList();
-           
-            
+
+
             return View(aptTranss2.ToList());
-            
+
         }
         [HttpPost]
         public ActionResult Saveuser(int id, string propertyName, string value)
@@ -490,7 +499,7 @@ namespace GlobalSoft.Controllers
                 object updateValue = value;
                 bool isValid = true;
 
-                 if (propertyName == "DueDate")
+                if (propertyName == "DueDate")
                 {
                     DateTime dob;
                     if (DateTime.TryParseExact(value, "dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out dob))
@@ -505,7 +514,7 @@ namespace GlobalSoft.Controllers
                 if (propertyName == "Jumlah")
                 {
                     Decimal Jumlah;
-                    if (Decimal.TryParse(value,out Jumlah))
+                    if (Decimal.TryParse(value, out Jumlah))
                     {
                         updateValue = Jumlah;
                     }
@@ -541,7 +550,7 @@ namespace GlobalSoft.Controllers
                             {
                                 e.UnitID
                             });
-                               
+
 
 
             return Json(listCust, JsonRequestBehavior.AllowGet);

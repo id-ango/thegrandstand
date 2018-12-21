@@ -73,7 +73,7 @@
                             @Html.ValidationMessageFor(model => model.BayarID, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                   
+
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Angsuran, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -184,5 +184,27 @@
             });
         });
     </script>
+    <script>
+        $('#UnitID').change(function (e) {
+            var row_num = $("#UnitID option:selected").val();
+            // alert("Nama Customer : " + row_num);
 
+            $.ajax({
+                type: "GET",
+                url: "/SuratPesanan/CekCustomer",
+                data: {
+                    Custid: 0,
+                    Unitid: row_num
+                },
+                success: function (data) {
+                   
+                    $("#CustomerID").val(data.PersonID);
+                    $("#MarketingID").val(data.MarketingID);
+                },
+                error: function () {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+    </script>
 }
