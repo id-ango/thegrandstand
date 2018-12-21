@@ -27,6 +27,7 @@
                             <th>Keterangan</th>
                             <th>Jumlah</th>
                             <th>Marketing</th>
+                            <th>Cara Bayar</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,11 +42,12 @@
                             <td>@asset.Keterangan</td>
                             <td>@asset.Payment</td>
                             <td>@asset.MarketingName</td>
+                            <td>@asset.PaymentName</td>
                             <td>
-                               
-                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |                             
+
+                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
-                                @Html.ActionLink("Print", "TandaTerima", new { id = asset.TransID }, new { target = "_blank" })
+                                @Html.ActionLink("Print", "Bonus", new { id = asset.TransID }, new { target = "_blank" })
                             </td>
                         </tr>
                         }

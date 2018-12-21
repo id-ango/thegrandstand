@@ -98,10 +98,14 @@ namespace GlobalSoft.Models
         [Display(Name ="Payment Credit")]
         public int GlAkunID4 { get; set; }
         public virtual GlAccount GlAkunI4 { get; set; }
+        [Display(Name = "Bonus Fee")]
+        public int GlAkunID5 { get; set; }
+        public virtual GlAccount GlAkunI5 { get; set; }
         public string GlAkun1 { get; set; }
         public string GlAkun2 { get; set; }
         public string GlAkun3 { get; set; }
         public string GlAkun4 { get; set; }
+        public string GlAkun5 { get; set; }
 
     }
 

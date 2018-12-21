@@ -27,6 +27,7 @@ namespace GlobalSoft.Controllers
                 i.GlAkun2 = (i.GlAkunID2 != 0) ? (dbgl.Find(i.GlAkunID2).GlAkun + " - " + dbgl.Find(i.GlAkunID2).GlAkunName) : "--Kode Akun--";
                 i.GlAkun3 = (i.GlAkunID3 != 0) ? (dbgl.Find(i.GlAkunID3).GlAkun + " - " + dbgl.Find(i.GlAkunID3).GlAkunName) : "--Kode Akun--";
                 i.GlAkun4 = (i.GlAkunID4 != 0) ? (dbgl.Find(i.GlAkunID4).GlAkun + " - " + dbgl.Find(i.GlAkunID4).GlAkunName) : "--Kode Akun--";
+                i.GlAkun5 = (i.GlAkunID5 != 0) ? (dbgl.Find(i.GlAkunID5).GlAkun + " - " + dbgl.Find(i.GlAkunID5).GlAkunName) : "--Kode Akun--";
             }
 
             return View(dbakun.ToList());
@@ -69,7 +70,8 @@ namespace GlobalSoft.Controllers
             ViewBag.GlAkunID2 = akunGl;
             ViewBag.GlAkunID3 = akunGl;
             ViewBag.GlAkunID4 = akunGl;
-            
+            ViewBag.GlAkunID5 = akunGl;
+
             return View();
         }
 
@@ -78,7 +80,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AkunsetID,AkunSet,GlAkunID1,GlAkunID2,GlAkunID3,GlAkunID4")] ArAkunSet arAkunSet)
+        public ActionResult Create([Bind(Include = "AkunsetID,AkunSet,GlAkunID1,GlAkunID2,GlAkunID3,GlAkunID4,GlAkunID5")] ArAkunSet arAkunSet)
         {
             if (ModelState.IsValid)
             {
@@ -121,6 +123,7 @@ namespace GlobalSoft.Controllers
             ViewBag.GlAkunID2 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID2.ToString() });
             ViewBag.GlAkunID3 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID3.ToString() });
             ViewBag.GlAkunID4 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID4.ToString() });
+            ViewBag.GlAkunID5 = akunGl.Select(p => new SelectListItem { Text = p.Text, Value = p.Value, Selected = p.Value == arAkunSet.GlAkunID5.ToString() });
 
 
             return View(arAkunSet);
@@ -131,7 +134,7 @@ namespace GlobalSoft.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AkunsetID,AkunSet,GlAkunID1,GlAkunID2,GlAkunID3,GlAkunID4")] ArAkunSet arAkunSet)
+        public ActionResult Edit([Bind(Include = "AkunsetID,AkunSet,GlAkunID1,GlAkunID2,GlAkunID3,GlAkunID4,,GlAkunID5")] ArAkunSet arAkunSet)
         {
             if (ModelState.IsValid)
             {

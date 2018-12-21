@@ -101,6 +101,7 @@ namespace GlobalSoft.Models
         public int UnitID { get; set; }         // Unit No 
         public virtual AptUnit AptUnit { get; set; }
 
+        [Required]
         public int PersonID { get; set; }         //customer atau Supplier
 
 
@@ -119,6 +120,7 @@ namespace GlobalSoft.Models
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
         public virtual AptPayment AptPayment { get; set; }
 
+        [Required]
         public int BankID { get; set; }
 
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan

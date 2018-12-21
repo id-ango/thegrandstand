@@ -39,6 +39,16 @@ namespace GlobalSoft
             //css  
             bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
                    "~/Content/jquery-ui.css"));
+
+            RegisterW2ui(bundles);
+        }
+
+        private static void RegisterW2ui(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/w2ui/js").Include(
+                  "~/Scripts/w2ui/w2ui-1.5.rc1.min.js"));
+            bundles.Add(new StyleBundle("~/w2ui/css").Include(
+                  "~/Content/w2ui/w2ui-1.5.rc1.min.css"));
         }
     }
 }

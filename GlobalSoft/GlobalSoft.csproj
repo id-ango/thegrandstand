@@ -224,6 +224,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812160636108_InitialCreate.cs" />
+    <Compile Include="Migrations\201812160636108_InitialCreate.Designer.cs">
+      <DependentUpon>201812160636108_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812190128597_bonusfee.cs" />
+    <Compile Include="Migrations\201812190128597_bonusfee.Designer.cs">
+      <DependentUpon>201812190128597_bonusfee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -590,6 +599,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Site.js" />
+    <Content Include="Content\w2ui-1.5.rc1.css" />
+    <Content Include="Scripts\w2ui\w2ui-1.5.rc1.js" />
+    <Content Include="Content\w2ui-1.5.rc1.min.css" />
+    <Content Include="Scripts\w2ui\w2ui-1.5.rc1.min.js" />
     <Content Include="Views\DashBoard\Json.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -786,13 +799,23 @@
     <Content Include="Views\Bonus\Edit.cshtml" />
     <Content Include="Views\Bonus\Index.cshtml" />
     <Content Include="Views\Bonus\TandaTerima.cshtml" />
+    <Content Include="Views\SuratPesanan\_CreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\w2ui\" />
     <Folder Include="Views\Fungsi\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812160636108_InitialCreate.resx">
+      <DependentUpon>201812160636108_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812190128597_bonusfee.resx">
+      <DependentUpon>201812190128597_bonusfee.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
