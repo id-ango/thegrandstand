@@ -44,7 +44,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control", @disabled = true })
                             @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.MarketingID, "Marketing", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("MarketingID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("MarketingID", null, htmlAttributes: new { @class = "form-control", @disabled = true })
                             @Html.ValidationMessageFor(model => model.MarketingID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,101 +65,166 @@
                         </div>
                     </div>
 
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.BayarID, "Cara Bayar", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="form-group" hidden>
+                        @Html.LabelFor(model => model.BayarID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("BayarID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.EditorFor(model => model.BayarID, new { htmlAttributes = new { @class = "form-control", @Value = 1 } })
                             @Html.ValidationMessageFor(model => model.BayarID, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Angsuran, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Hari BF", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Angsuran, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Angsuran, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                            @Html.Editor("HariBF", new { htmlAttributes = new { @class = "form-control", @Type = "number", @id = "HariBF", @Value = 1, @min = 1 } })
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Harga, "Sisa KPA", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Harga, new { htmlAttributes = new { @class = "form-control", @Value = "0" } })
-                            @Html.ValidationMessageFor(model => model.Harga, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Cicilan, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Cicilan, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Cicilan, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-6" style="background-color:lavender;">
+                <div class="col-sm-6">
+                    <div class="container">
 
-                    <div>
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">KPR</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Inhouse</a>
-                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Cash dddddddddddddddddddddddddddddddddddddddddddd                                                                                                                                                                                                                                                                                                                                                                                                                       </a>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#home">Cara Bayar</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#menu1">InHouse</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#menu2">KPA</a>
+                            </li>
+
+                        </ul>
+                        <br>
+
+
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade">
+                                <p>Tentukan Cara Pembayaran Customer, lewat Inhouse, KPA, ataupun Cash Keras</p>
                             </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div id="menu1" class="tab-pane fade">
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Piutang, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.Label("Harga Jual", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Piutang, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Piutang, "", new { @class = "text-danger" })
+                                        @Html.Editor("Jual", new { htmlAttributes = new { @class = "form-control", @id = "harga1" } })
+
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Angsuran, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.Label("Potong BF+Bonus", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Angsuran, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.Editor("Booking1", new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="form-group">
+                                    @Html.Label("Piutang", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("Piutang", new { htmlAttributes = new { @class = "form-control", @id = "Piutang1", @disabled = true } })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Cicilan", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("Cicilan", new { htmlAttributes = new { @class = "form-control", @id = "cicilan1", @Value = 1, @min = 1 } })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Angsuran, "Angsuran/Bulan", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Angsuran, new { htmlAttributes = new { @class = "form-control", @id = "angsuran1" } })
                                         @Html.ValidationMessageFor(model => model.Angsuran, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div id="menu2" class="tab-pane fade">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Harga, "Sisa KPA", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.Label("Harga Jual", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Harga, new { htmlAttributes = new { @class = "form-control", @Value = "0" } })
-                                        @Html.ValidationMessageFor(model => model.Harga, "", new { @class = "text-danger" })
+                                        @Html.Editor("Jual", new { htmlAttributes = new { @class = "form-control", @id = "harga2" } })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("KPA %", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-2" style="width:100px">
+                                        @Html.Editor("Persen", new { htmlAttributes = new { @class = "form-control", @Type = "number", @id = "persen2", @Value = 0 } })
+
+                                    </div>
+                                    <div class="col-md-2" style="width:210px">
+                                        @Html.Editor("SisaKPA", new { htmlAttributes = new { @class = "form-control", @id = "sisakpa" } })
+                                    </div>
+
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    @Html.Label("Uang Muka KPA", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("UangMuka", new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Potong BF+Bonus", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("Booking2", new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Piutang", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("Piutang", new { htmlAttributes = new { @class = "form-control", @id = "Piutang2", @disabled = true } })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Cicilan", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.Editor("Cicilan", new { htmlAttributes = new { @class = "form-control", @id = "cicilan2", @Value = 1, @min = 1 } })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Angsuran, "Angsuran/Bulan", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Angsuran, new { htmlAttributes = new { @class = "form-control", @id = "angsuran2" } })
+                                        @Html.ValidationMessageFor(model => model.Angsuran, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
 
-                            </div>
-                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Cicilan, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Cicilan, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Cicilan, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+
 
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
+
 }
 
 <div>
@@ -171,7 +236,6 @@
     @Styles.Render("~/Content/cssjqryUi")
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -197,9 +261,12 @@
                     Unitid: row_num
                 },
                 success: function (data) {
-                   
+                    var test = JSON.stringify(data);
+
                     $("#CustomerID").val(data.PersonID);
                     $("#MarketingID").val(data.MarketingID);
+                    $("#Booking1").val(data.Piutang);
+                    $("#Booking2").val(data.Piutang);
                 },
                 error: function () {
                     alert("Something went wrong in controller");
@@ -207,4 +274,77 @@
             });
         });
     </script>
+    <script>
+
+
+        function changeInhouse2() {
+            var row_num = $("#UnitID option:selected").val();
+            var row_cust = $("#CustomerID option:selected").val();
+            var row_harga = $("#harga1").val();
+            var row_cicil = $("#cicilan1").val();
+            var data1 = {
+                Custid: row_cust,
+                Unitid: row_num,
+                harga: row_harga,
+                cicil: row_cicil
+            };
+
+            $.ajax({
+                type: "GET",
+                url: "/SuratPesanan/CekBook",
+                data: data1,
+                success: function (result) {
+                    $("#angsuran1").val(result.Payment);
+                    $("#Piutang1").val(result.Harga);
+                    $("#Booking1").val(result.Piutang);
+
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+        };
+
+        function changeKPA() {
+            var row_num = $("#harga2").val();
+               var row_cicil = $("#cicilan2").val();
+              var row_booking = $("#Booking2").val();
+             
+            var persen = $("#persen2").val();
+
+            var testing = (row_num) * persen / 100;
+            var uangmuka = row_num - testing;
+            var piutang = uangmuka - row_booking;
+            var angsuran = piutang / row_cicil;
+
+            $("#sisakpa").val(testing);
+            $("#UangMuka").val(uangmuka);
+            $("#Piutang2").val(piutang);
+            $("#angsuran2").val(angsuran);
+
+
+        }
+
+        function changeInhouse() {
+
+            var row_bonus = $("#Booking1").val();
+            var row_harga = $("#harga1").val();
+            var row_cicil = $("#cicilan1").val();
+            var row_piutang = row_harga - row_bonus;
+
+            var testing = row_piutang / row_cicil;
+
+            $("#angsuran1").val(testing);
+            $("#Piutang1").val(row_piutang);
+
+        };
+
+        //   $("#cicilan1").change(function () { changeTotal() });
+        $("#cicilan1").change(function () { changeInhouse() });
+        $("#harga1").change("onkeydown", function () { changeInhouse() });
+        $("#persen2").change(function () { changeKPA() });
+        $("#Booking2").change(function () { changeKPA() });
+        $("#cicilan2").change(function () { changeKPA() });
+    </script>
+
 }

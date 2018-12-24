@@ -19,13 +19,45 @@ namespace GlobalSoft.Controllers
 
         public ActionResult CekCustomer(int Custid, int Unitid)
         {
-            var allList = (from e in db.CbTranss
+            var allList2 = (from e in db.CbTranss
                            where e.UnitID == Unitid
                            select new { e.PersonID, e.MarketingID }).ToList().LastOrDefault();
+
+            decimal Book1 = 0;
+
+            Book1 = (from e in db.CbTranss
+                     where (e.UnitID == Unitid && e.PersonID == allList2.PersonID) && (e.TransNoID == 1 || e.TransNoID == 2)
+                     select e.Payment).Sum();
+
+
+            CbTrans allList = new CbTrans();
+            allList.PersonID = allList2.PersonID;
+            allList.MarketingID = allList2.MarketingID;
+            allList.Piutang = Book1;
 
             return Json(allList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult CekBook(int Custid, int Unitid,decimal harga,int cicil)
+        {
+            decimal Book1 = 0;
+            Book1 = (from e in db.CbTranss
+                             where (e.UnitID == Unitid && e.PersonID == Custid) && (e.TransNoID == 1 || e.TransNoID == 2)
+                             select  e.Payment).Sum();
+
+            AptTrans allList = new AptTrans();
+                       
+
+            decimal total = (harga - Book1) / cicil;
+            Console.Write(Book1);
+            Console.WriteLine(total);
+
+           allList.Payment = total;
+            allList.Harga = (harga - Book1);
+            allList.Piutang = Book1;
+
+            return Json(allList, JsonRequestBehavior.AllowGet);
+        }
         // GET: SuratPesanan
         public ActionResult Index()
         {
