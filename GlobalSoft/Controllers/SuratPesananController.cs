@@ -20,8 +20,8 @@ namespace GlobalSoft.Controllers
         public ActionResult CekCustomer(int Custid, int Unitid)
         {
             var allList2 = (from e in db.CbTranss
-                           where e.UnitID == Unitid
-                           select new { e.PersonID, e.MarketingID }).ToList().LastOrDefault();
+                            where e.UnitID == Unitid
+                            select new { e.PersonID, e.MarketingID }).ToList().LastOrDefault();
 
             decimal Book1 = 0;
 
@@ -38,26 +38,36 @@ namespace GlobalSoft.Controllers
             return Json(allList, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CekBook(int Custid, int Unitid,decimal harga,int cicil)
+        public ActionResult CekBook(int Custid, int Unitid, decimal harga, int cicil)
         {
             decimal Book1 = 0;
             Book1 = (from e in db.CbTranss
-                             where (e.UnitID == Unitid && e.PersonID == Custid) && (e.TransNoID == 1 || e.TransNoID == 2)
-                             select  e.Payment).Sum();
+                     where (e.UnitID == Unitid && e.PersonID == Custid) && (e.TransNoID == 1 || e.TransNoID == 2)
+                     select e.Payment).Sum();
 
             AptTrans allList = new AptTrans();
-                       
+
 
             decimal total = (harga - Book1) / cicil;
             Console.Write(Book1);
             Console.WriteLine(total);
 
-           allList.Payment = total;
+            allList.Payment = total;
             allList.Harga = (harga - Book1);
             allList.Piutang = Book1;
 
             return Json(allList, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult CekUM(int Custid, int Unitid)
+        {
+            //  var TransUTJ = db.CbTranss.Include(c => c.AptUnit).Include(c => c.AptPayment).Include(c => c.AptTrsNo);
+            var ListUangMuka = (from e in db.CbTranss
+                                where e.UnitID == Unitid && e.PersonID == Custid
+                                select new { e.Keterangan, e.Payment, e.NoRef, e.AptPayment.PaymentName, e.Tanggal }).ToList();
+            return Json(ListUangMuka, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: SuratPesanan
         public ActionResult Index()
         {
@@ -162,7 +172,7 @@ namespace GlobalSoft.Controllers
                      select u).ToList().ForEach(x => x.StatusID = 3);
 
                     db.AptTranss.Add(aptTrans);
-                    db.SaveChanges();
+                    //   db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
@@ -588,5 +598,55 @@ namespace GlobalSoft.Controllers
             return Json(listCust, JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult PesananInHouse(int Unitid, int Custid, string UnitNo, decimal angsuran, DateTime tanggal, int cicilan, string noref)
+        {
+
+
+            var Tanggal = Convert.ToDateTime(tanggal);
+
+
+            var ListUM = (from e in db.CbTranss
+                          where e.UnitID == Unitid && e.PersonID == Custid
+                          select e.Payment).ToList();
+
+
+
+            decimal Uangmuka = 0;
+
+            if (ListUM != null)
+            {
+                Uangmuka = ListUM.Sum();
+            }
+
+
+            List<ArPiutang> Transaksi = new List<ArPiutang>();
+            List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
+
+
+
+            //decimal PPN = (aptTrans.Piutang * (decimal)0.1);
+            //  decimal PPN = 0;
+            //   decimal DPP = (aptTrans.Piutang + PPN) - Uangmuka;
+
+
+
+
+            var TglAwal = FungsiController.Fungsi.HitungAngsuran(Tanggal, 6);
+
+
+            for (int i = 0; i < cicilan; i++)
+            {
+                var TglAngsuran = FungsiController.Fungsi.HitungAngsuran(Tanggal, i);
+                //     TglAwal = FungsiController.Fungsi.HitungAngsuran(aptTrans.Tanggal, 7);
+
+                Transaksi2.Add(new AptSPesanan { SPesanan = noref, Keterangan = string.Format("Angsuran {0} Unit {1}", i + 1, UnitNo), Tanggal = TglAngsuran, Jumlah = angsuran, KodeTrans = 1, Duedate = TglAngsuran });
+
+            };
+
+            return Json(Transaksi2, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

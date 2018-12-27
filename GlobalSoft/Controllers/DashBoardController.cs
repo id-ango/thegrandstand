@@ -200,7 +200,7 @@ namespace GlobalSoft.Controllers
 
               var cbTrans = db.CbTranss.Include(a => a.AptTrsNo).Include(a => a.AptUnit).Include(a => a.AptMarketing);
               var ListCb = (from e in db.CbTranss
-                            where e.AptUnit.UnitNo == testUnit && e.AptTrsNo.TransNo.Contains("BookingFee")
+                            where e.AptUnit.UnitNo == testUnit && (e.TransNoID == 1 || e.TransNoID ==2)
                            select new UnitPiutang {
                                NoRef = e.NoRef,
                                Tanggal = e.Tanggal,

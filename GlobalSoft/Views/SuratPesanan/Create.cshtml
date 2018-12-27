@@ -28,15 +28,18 @@
                         @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @* Date: <input type="text" id="datepicker">*@
-                            @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", placeholder = "Tanggal Transaksi", @Value = DateTime.Now } })
+                            @*Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", type = "date-local", placeholder = "Tanggal Transaksi", @Value = DateTime.Now } })*@
+                            @Html.TextBoxFor(model => model.Tanggal, new { @class = "form-control", type = "date", placeholder = "Tanggal Transaksi", @Value = DateTime.Today.ToString("yyyy-MM-dd") })
                             @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
                         </div>
+                        @*Html.TextBoxFor(model => model.Tanggal, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })*@
+
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.UnitID, "Unit No", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("UnitID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("UnitID", null, "--UNIT--", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -44,7 +47,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control", @disabled = true })
+                            @Html.DropDownList("CustomerID", null,"-- CUSTOMER--", htmlAttributes: new { @class = "form-control", @disabled = true })
                             @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -52,7 +55,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.MarketingID, "Marketing", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("MarketingID", null, htmlAttributes: new { @class = "form-control", @disabled = true })
+                            @Html.DropDownList("MarketingID", null,"--MARKETING--", htmlAttributes: new { @class = "form-control", @disabled = true })
                             @Html.ValidationMessageFor(model => model.MarketingID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -74,9 +77,9 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.Label("Hari BF", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Tanggal SP", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.Editor("HariBF", new { htmlAttributes = new { @class = "form-control", @Type = "number", @id = "HariBF", @Value = 1, @min = 1 } })
+                            @Html.Editor("TglSP", new { htmlAttributes = new { @class = "form-control", @Type = "date", @id = "TglSP", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
 
                         </div>
                     </div>
@@ -146,7 +149,10 @@
                                         @Html.ValidationMessageFor(model => model.Angsuran, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
+                                <div>
+                                 
+                                    <button class="btn btn-default pull-left" id="prosesinhouse">Proses Inhouse</button>
+                                </div>
                             </div>
                             <div id="menu2" class="tab-pane fade">
                                 <div class="form-group">
@@ -205,9 +211,9 @@
                                         @Html.ValidationMessageFor(model => model.Angsuran, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
-
-
+                                <div>
+                                    
+                                </div>
 
                             </div>
 
@@ -221,7 +227,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Simpan" class="btn btn-default" />
         </div>
     </div>
 
@@ -229,7 +235,15 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+
 </div>
+<div id="list_container">
+
+</div>
+<div id="list_container2">
+
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryui")
@@ -240,14 +254,15 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $("#Tanggal").datepicker({
-                dateFormat: 'dd-mm-yy',
+            $("#anggal").datepicker({
+                dateFormat: 'yyyy-MM-dd',
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1900:' + (new Date().getFullYear() + 60)
             });
         });
     </script>
+
     <script>
         $('#UnitID').change(function (e) {
             var row_num = $("#UnitID option:selected").val();
@@ -273,6 +288,8 @@
                 }
             });
         });
+
+
     </script>
     <script>
 
@@ -307,9 +324,9 @@
 
         function changeKPA() {
             var row_num = $("#harga2").val();
-               var row_cicil = $("#cicilan2").val();
-              var row_booking = $("#Booking2").val();
-             
+            var row_cicil = $("#cicilan2").val();
+            var row_booking = $("#Booking2").val();
+
             var persen = $("#persen2").val();
 
             var testing = (row_num) * persen / 100;
@@ -347,4 +364,128 @@
         $("#cicilan2").change(function () { changeKPA() });
     </script>
 
+    <script>
+        $("#prosesinhouse").click(function (e) {
+            e.preventDefault();
+               
+            var row_num = $("#UnitID option:selected").val();
+            var row_cust = $("#CustomerID option:selected").val();
+            var unitno = $("#UnitID option:selected").text();
+            var angsuran = $("#angsuran1").val();
+            var tanggal = $("#TglSP").val();
+            var cicilan = $("#cicilan1").val();
+            var noref = $("#NoRef").val();
+
+            alert(row_num+' '+row_cust);
+            var data1 = {
+                Custid: row_cust,
+                Unitid: row_num
+                
+               
+            };
+
+            var data2 = {
+                Custid: row_cust,
+                Unitid: row_num,
+                UnitNo: unitno,
+                angsuran: angsuran,
+                tanggal: tanggal,
+                cicilan: cicilan,
+                noref: noref
+
+            };
+            alert(tanggal+' '+cicilan);
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/SuratPesanan/CekUM",
+                data: data1,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+                   
+                    alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Booking Fee/Bonus</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                       '<th>Bukti</th>' +                      
+                        '<th>Tanggal</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Jumlah</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + getDateIfDate(this.Tanggal) + '</td><td>' + this.Keterangan + '</td><td>' + this.Payment + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container").html(htmlResult);
+                },                                    
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+       
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/SuratPesanan/PesananInHouse",
+                data: data2,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+
+                    alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Angsuran</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                        '<th>Bukti</th>' +
+                        '<th>Tanggal</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Jumlah</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + this.SPesanan + '</td><td>' + getDateIfDate(this.Tanggal) + '</td><td>' + this.Keterangan + '</td><td>' + this.Jumlah + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container2").html(htmlResult);
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+
+        function getDateIfDate(d) {
+            var m = d.match(/\/Date\((\d+)\)\//);
+            return m ? (new Date(+m[1])).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' }) : d;
+        }
+
+       
+    </script>
+    
+  
 }
