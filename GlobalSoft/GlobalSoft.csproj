@@ -709,7 +709,6 @@
     <Content Include="Views\AptSPesanans\Index.cshtml" />
     <Content Include="Views\DashBoard\DsbUnit.cshtml" />
     <Content Include="Views\SetupBayar\Index2.cshtml" />
-    <Content Include="Views\SuratPesanan\Proses.cshtml" />
     <Content Include="Views\DashBoard\ListUnit.cshtml" />
     <Content Include="Views\DashBoard\List2Unit.cshtml" />
     <Content Include="Views\DashBoard\List3Unit.cshtml" />
@@ -799,7 +798,7 @@
     <Content Include="Views\Bonus\Edit.cshtml" />
     <Content Include="Views\Bonus\Index.cshtml" />
     <Content Include="Views\Bonus\TandaTerima.cshtml" />
-    <Content Include="Views\SuratPesanan\_CreatePartial.cshtml" />
+    <Content Include="Views\SuratPesanan\PesananInHouse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

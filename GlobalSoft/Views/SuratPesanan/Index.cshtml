@@ -45,18 +45,16 @@
                             <td>@asset.AptUnit.UnitNo</td>
                             <td>@asset.ArCustomer.CustomerName</td>
                             <td>@asset.Keterangan</td>
-                            <td>@asset.Harga</td>
-                            <td>@asset.Piutang</td>
-                            <td>@asset.Angsuran</td>
-                            <td>@asset.Payment</td>
+                            <td>@string.Format("{0:n0}", @asset.Harga)</td>
+                            <td>@string.Format("{0:n0}", @asset.Piutang)</td>
+                            <td>@string.Format("{0:n0}", @asset.Angsuran)</td>
+                            <td>@string.Format("{0:n0}", @asset.Payment)</td>
                             <td>@asset.Cicilan</td>
 
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
-                                @Html.ActionLink("Details", "Details", new { id = asset.TransID }) |
+                            <td>                              
+                                @Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
-                                @Html.ActionLink("Proses SP", "sPesanan", new { id = asset.TransID }, new { target = "_blank" }) |
-                                @Html.ActionLink("Edit Angsuran", "Proses", new { id = asset.TransID })
+                             
                             </td>
                         </tr>
                         }

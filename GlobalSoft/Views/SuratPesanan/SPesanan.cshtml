@@ -4,11 +4,23 @@
 }
 <head>
     <link rel="stylesheet" href="~/Content/SPesanan.css" />
-
+    <style type="text/css" media="print">
+        .dontprint {
+            display: none;
+        }
+    </style>
 </head>
+
+
+
+<div class="dontprint">
+    @Html.ActionLink("Back to List", "Index")
+  
+</div>
+
 <div class="judul">
     <H3>SURAT KONFIRMASI UNIT PESANAN</H3>
-    <h5>@Model.NoRef</h5>
+    <h3 style="margin-top:-15px">@Model.NoRef</h3>
 </div>
 <table>
     <tr><td width="10%">Nama</td><td>:</td><td width="50%">@Model.ArCustomer.CustomerName</td><td width="10%"></td><td></td><td></td></tr>
@@ -29,17 +41,17 @@
     <table style="width:80%">
         <tr><td width="30%">No Unit</td><td>:</td><td width="30%">@Model.AptUnit.UnitNo</td><td width="10%"></td><td></td><td></td></tr>
         <tr><td width="30%">Lantai</td><td>:</td><td width="30%">@Model.AptUnit.Lantai</td><td width="10%"></td><td></td><td></td></tr>
-        <tr><td width="30%">Tipe</td><td>:</td><td width="30%">@Model.AptUnit.AptCategorie.AptType.Tipe</td><td width="20%">Harga Jual</td><td>: </td><td width=" 20%">@string.Format("{0:n0}", @Model.Piutang)</td></tr>
+        <tr><td width="30%">Tipe</td><td>:</td><td width="30%">@Model.AptUnit.AptCategorie.AptType.Tipe</td><td width="20%">Harga Jual</td><td>: </td><td width=" 20%">@string.Format("{0:n0}", @Model.Harga)</td></tr>
     </table>
     <table style="width:80%">
         <tr><td width="30%">Luas Unit</td><td>:</td><td width="50%">@Model.AptUnit.AptCategorie.Luas M<sup>2</sup></td></tr>
-        <tr><td width="30%">Cara Pembayaran</td><td>:</td><td width="50%">@Model.AptBayar.CaraBayar</td></tr>
+        <tr><td width="30%">Cara Pembayaran</td><td>:</td><td width="50%">@(Model.BayarID == 1 ? "InHouse" : "KPA")</td></tr>
         <tr><td width="30%">Terbilang</td><td>:</td><td width="80%">@ViewBag.Num2Char</td></tr>
     </table>
 </div>
 <br />
 <div>
-    Bersama Surat Pemesanan ini, telah membayar Uang Booking Fee(**) sebesar: @string.Format("{0:n0}", @ViewBag.UangMuka)
+    Bersama Surat Pemesanan ini, telah membayar Uang Booking Fee serta CashBack (**) sebesar: @string.Format("{0:n0}", @ViewBag.UangMuka)
     @{
         foreach (var category in (ViewBag.ListUangMuka))
         {
@@ -48,7 +60,7 @@
                     <td width="20%">@string.Format("{0:d}", @category.Tanggal)</td>
                     <td width="30%">@category.NoRef</td>
                     <td width="40%">@category.AptPayment.PaymentName</td>
-                    <td width="40%">@string.Format("{0:n0}", @category.Payment)</td>
+                    <td width="40%" align="right">@string.Format("{0:n0}", @category.Payment)</td>
 
                 </tr>
             </table>
@@ -62,18 +74,34 @@
 
     Selanjutnya, Pemesan berkewajiban untuk membayar sebagai berikut:<br />
     @{
-        foreach (var Ujicoba in (ViewBag.ListTransaksi))
-        {
-            <table style=" width:80%;margin-left:20px;border:1px solid black; border-collapse:collapse">
-                <tr>
-                    <td style="width:40%;border:1px solid black;padding: 1px">@Ujicoba.Keterangan</td>
-                    <td style="width:20%;border:1px solid black;padding: 1px">@string.Format("{0:d}", @Ujicoba.Duedate)</td>
-                    <td style="width:20%;border:1px solid black;padding: 1px">@string.Format("{0:n0}", @Ujicoba.Jumlah)</td>
 
-                </tr>
+
+        decimal jumlah = 0;
+            <table style=" width:80%;margin-left:20px;border:1px solid black; border-collapse:collapse">
+                <tbody>
+                    @{ 
+
+                        foreach (var Ujicoba in (ViewBag.ListTransaksi))
+                        {
+                    <tr>
+                        <td style="width:40%;border:1px solid black;padding: 1px">@Ujicoba.Keterangan</td>
+                        <td style="width:20%;border:1px solid black;padding: 1px">@string.Format("{0:d}", @Ujicoba.Duedate)</td>
+                        <td style="width:20%;border:1px solid black;padding: 1px;text-align:right">@string.Format("{0:n0}", @Ujicoba.Jumlah)</td>
+
+                    </tr>
+                            jumlah = jumlah + Ujicoba.Jumlah;
+                        }
+                        }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td style="width:20%;border:1px solid black;padding: 1px;text-align:right"><strong>@string.Format("{0:n0}", @jumlah)</strong></td>
+                    </tr>
+                </tfoot>
             </table>
 
-        }
+       
     }
 </div><br />
 

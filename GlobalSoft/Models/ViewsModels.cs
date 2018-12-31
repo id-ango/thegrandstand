@@ -324,4 +324,34 @@ namespace GlobalSoft.Models
         public decimal Sisa { get; set; }            // Jumlah Pembayaran
 
     }
+
+    public class SpesananVM
+    {
+        [Key]
+        public int SPesananID { get; set; }         // ID Transaksi
+        [StringLength(20)]
+        public string SPesanan { get; set; }      // No Piutang
+
+        public string Tanggal { get; set; }
+        public string Duedate { get; set; }
+
+        // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
+        public int KodeTrans { get; set; }
+        [StringLength(20)]
+        public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
+        /// batas tutp
+
+        [StringLength(200)]
+        public string Keterangan { get; set; }       // keterangan uang angsuran unit 1010 
+        [StringLength(200)]
+        public string KetBayar { get; set; }       // keterangan uang angsuran unit 1010 
+
+        public decimal Jumlah { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Sisa { get; set; }
+        public decimal SldSisa { get; set; }
+        public decimal Diskon { get; set; }
+
+
+    }
 }

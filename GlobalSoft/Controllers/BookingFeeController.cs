@@ -91,7 +91,7 @@ namespace GlobalSoft.Controllers
 
             //     }
             var unitList = from e in db.AptUnits
-                           where e.StatusID == 1
+                           where e.StatusID <= 2
                            select e;
 
             var kodeno = "BF-";
