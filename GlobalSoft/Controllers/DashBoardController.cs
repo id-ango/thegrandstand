@@ -152,7 +152,7 @@ namespace GlobalSoft.Controllers
                  where e.UnitID == y.UnitID
                  select e).ForEach( x => { x.CustomerName = y.ArCustomer.CustomerName; x.MarketingName = y.AptMarketing.MarketingName;
                      x.PaymentName = y.AptBayar.CaraBayar;x.NoRef = y.NoRef;
-                     x.Piutang = y.Piutang;
+                     x.Piutang = y.Harga;
                      x.Sisa = y.Piutang;
                      x.CustomerID = y.CustomerID;
                  });

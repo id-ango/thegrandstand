@@ -191,7 +191,7 @@ namespace GlobalSoft.Models
 
         public decimal Piutang { get; set; }
 
-        public ICollection<AptSPesanan> AptSPesanan { get; set; }
+      //  public ICollection<AptSPesanan> AptSPesanan { get; set; }
     }
 
     public class AptBayar
@@ -236,7 +236,7 @@ namespace GlobalSoft.Models
 
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
         public int KodeTrans { get; set; }   
-        public virtual AptTrans AptTrans { get; set; }
+    //    public virtual AptTrans AptTrans { get; set; }
         [StringLength(20)]
         public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
         /// batas tutp
