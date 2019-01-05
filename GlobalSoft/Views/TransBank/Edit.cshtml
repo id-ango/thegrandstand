@@ -37,7 +37,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Tanggal, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Tanggal, new { htmlAttributes = new { @class = "form-control", @type="date" } })
                     @Html.ValidationMessageFor(model => model.Tanggal, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -127,7 +127,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script>
         $(function () {
-            $("#Tanggal").datepicker({
+            $("#gal").datepicker({
                 dateFormat: 'mm/dd/yy',
                 changeMonth: true,
                 changeYear: true,

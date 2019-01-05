@@ -91,7 +91,8 @@
                                 Tanggal
                             </label>
                             <div class="col-md-3">
-                                <input type="text" id="tanggal" name="tanggal" placeholder="Tanggal" class="form-control" value="@DateTime.Now" />
+                                
+                                <input type="date" id="tanggal" name="tanggal" placeholder="Tanggal" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             </div>
 
                             <label class="control-label col-md-2">
@@ -188,7 +189,7 @@
 
     <script>
         $(function () {
-            $("#tanggal").datepicker({
+            $("#ggal").datepicker({
                 dateFormat: 'mm/dd/yy',
                 changeMonth: true,
                 changeYear: true,
