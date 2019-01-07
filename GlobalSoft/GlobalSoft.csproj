@@ -790,6 +790,7 @@
     <Content Include="Views\Bonus\Index.cshtml" />
     <Content Include="Views\Bonus\TandaTerima.cshtml" />
     <Content Include="Views\SuratPesanan\PesananInHouse.cshtml" />
+    <Content Include="Views\TransAngsuran\BuktiTerima.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

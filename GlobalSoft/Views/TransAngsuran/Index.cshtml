@@ -42,9 +42,10 @@
                                 <td>@string.Format("{0:#,#.00}", asset.Jumlah)</td>
 
                                 <td>
-                                 
+
                                     @Html.ActionLink("Details", "Details", new { id = asset.ArHID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = asset.ArHID }) |
+                                    @Html.ActionLink("Tanda Terima", "BuktiTerima", new { id = asset.ArHID })
                                 </td>
                             </tr>
                         }

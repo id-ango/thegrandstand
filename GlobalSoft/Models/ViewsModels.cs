@@ -288,6 +288,7 @@ namespace GlobalSoft.Models
         [Display(Name = "Customer")]
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
+        public string Alamat { get; set; }
         public int MarketingID { get; set; }
         [Display(Name = "Unit")]
         public int UnitID { get; set; }

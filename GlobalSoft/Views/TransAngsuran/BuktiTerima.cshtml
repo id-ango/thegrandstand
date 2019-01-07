@@ -1,0 +1,102 @@
+﻿@model GlobalSoft.Models.ArHView
+@{
+    Layout = null;
+}
+
+<head>
+
+    @Styles.Render("~/Content/css")  
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <strong style="font-size:18px"><u>THE GRANDSTAND</u></strong><br />
+            <span style="font-size:12px;margin-bottom:0px;padding:0 0px 0px 0px">Jl. Raya Kupang Indah No. 9</span><br />
+            <span style="font-size:12px;margin-bottom:0px;padding:0 0px 0px 0px">Surabaya</span>
+
+        </div>
+        <div class="col-sm-4">
+            <h2 align="center"><u>BUKTI PENERIMAAN</u></h2><br />
+        </div>
+        <div class="col-sm-4">
+            <strong>Nomor :</strong>        <strong>@Model.Bukti</strong><br />
+            <strong>Tanggal :</strong>        <strong>@string.Format("{0:d}", @Model.Tanggal)</strong>
+
+        </div>
+    </div>
+
+
+    <div class="row" style="border:dashed">
+        <div class="col-sm-6">
+            <strong>Sudah Terima dari:</strong><br />
+            <span>@Model.CustomerName</span><br />
+            <span>@Model.Alamat</span><br />
+        </div>
+        <div class="col-sm-6">
+            <strong>Jumlah Yang Diterima Rp.</strong><br />
+            <div class="col-sm-6" align="center">
+                <span>@string.Format("{0:n2}", @Model.Jumlah)</span>
+            </div>
+            <div class="col-sm-6">
+                <span>@Model.BankName</span>
+            </div>
+            <hr />
+            <span>@Model.Jumlah</span>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Jth Tempo</th>
+                    <th>Keterangan</th>
+                    <th>Angsuran</th>
+                    <th>Bayar</th>
+                    <th>Sisa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">Keterangan</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4" align="center" style="background-color:pink">
+            <strong>Mengetahui</strong> <br /><br /><br /><br />
+        </div>
+        <div class="col-sm-4" align="center" style="background-color:yellow">
+            <strong>Penerima</strong> <br /><br /><br /><br />
+        </div>
+        <div class="col-sm-4" align="center" style="background-color:pink">
+            <strong>Konsumen</strong> <br /><br /><br /><br />
+        </div>
+
+    </div>
+
+    <span>Catatan</span><br />
+    <span style="font-size:10px">* Pembayaran dengan Cheque/Giro dianggap sah apabila jumlah tersebut telah diterima oleh Bank kami.</span>
+
+
+
+

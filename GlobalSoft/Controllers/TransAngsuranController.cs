@@ -338,5 +338,29 @@ namespace GlobalSoft.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult BuktiTerima(int id)
+        {
+            var Transaksi = (from e in db.ArTransHs
+                             join y in db.ArCustomers on e.CustomerID equals y.CustomerID where e.ArHID == id 
+                             select new ArHView
+                             {
+                                 ArHID = e.ArHID,
+                                 Bukti = e.Bukti,
+                                 Tanggal = e.Tanggal,
+                                 BankID = e.BankID,
+                                 BankName = (from r in db.CbBanks where r.BankID == e.BankID select r.BankName).FirstOrDefault(),
+                                 //                                BankName = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
+                                 CustomerID = e.CustomerID,
+                                 CustomerName = y.CustomerName,
+                                 Alamat = y.AlamatSekarang,
+                                 Keterangan = e.Keterangan,
+                                 Jumlah = e.Jumlah
+                             }).FirstOrDefault();
+
+
+
+            return View(Transaksi);
+        }
     }
 }
