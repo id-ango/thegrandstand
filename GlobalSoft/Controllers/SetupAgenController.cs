@@ -17,7 +17,24 @@ namespace GlobalSoft.Controllers
 
         // GET: SetupAgen
         public ActionResult Index()
-        {
+        { 
+         List<AptAgen> TipeGl = new List<AptAgen>();
+            TipeGl.Add(new AptAgen {AgenName = "Internal" });
+
+            var cekNull = (from e in db.AptAgens select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptAgens.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
+
             return View(db.AptAgens.ToList());
         }
 

@@ -90,8 +90,9 @@ namespace GlobalSoft.Controllers
             //        db.SaveChanges();
 
             //     }
+
             var unitList = from e in db.AptUnits
-                           where e.StatusID <= 2
+                           where e.StatusID == 2
                            select e;
 
             var kodeno = "BN-";

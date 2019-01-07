@@ -442,7 +442,7 @@ namespace GlobalSoft.Controllers
         }
 
         public ActionResult SaveOrder(string bukti, string keterangan, string tanggal, int row_num, int row_cust,
-                    decimal harga1, decimal piutang1, int cicil1, decimal angsuran1,
+                    int marketing, decimal harga1, decimal piutang1, int cicil1, decimal angsuran1,
                     decimal harga2, decimal piutang2, int cicil2, decimal angsuran2, decimal sisakpa,
                     string ref_this, SpesananVM[] order)
         {
@@ -456,14 +456,14 @@ namespace GlobalSoft.Controllers
 
                 //   var cutomerId = Guid.NewGuid();
 
-
+                
                 model.NoRef = bukti;
                 model.Keterangan = keterangan;
                 model.Tanggal = Convert.ToDateTime(tanggal);
                 model.TglSelesai = Convert.ToDateTime(tanggal);
                 model.UnitID = row_num;
                 model.CustomerID = row_cust;
-                model.MarketingID = 1;
+                model.MarketingID = marketing;
                 model.TransNoID = 1;
                 if (ref_this == "#menu1")
                 {
@@ -472,7 +472,7 @@ namespace GlobalSoft.Controllers
                     model.Angsuran = angsuran1;
                     model.Cicilan = cicil1;
                     model.Payment = 0;
-                    model.PaymentID = 1;
+                    model.PaymentID = 0;
                     model.BayarID = 1;
                 }
                 else
@@ -482,7 +482,7 @@ namespace GlobalSoft.Controllers
                     model.Angsuran = angsuran2;
                     model.Cicilan = cicil2;
                     model.Payment = sisakpa;
-                    model.PaymentID = 1;
+                    model.PaymentID = 0;
                     model.BayarID = 2;
                 }
 

@@ -472,7 +472,7 @@
             e.preventDefault();
 
             var row_num = $("#UnitID option:selected").val();
-            var row_cust = $("#CustomerID option:selected").val();
+            var row_cust = $("#CustomerID option:selected").val();           
             var unitno = $("#UnitID option:selected").text();
             var angsuran = $("#angsuran2").val();
             var tanggal = $("#TglSP").val();
@@ -607,7 +607,8 @@
                 keterangan: $("#Keterangan").val(),
                 tanggal: $("#Tanggal").val(),
                 row_num : $("#UnitID option:selected").val(),
-                row_cust : $("#CustomerID option:selected").val(),
+                row_cust: $("#CustomerID option:selected").val(),
+                marketing: $("#MarketingID option:selected").val(),
                 harga1: $("#harga1").val(),
                 piutang1: $("#piutang1").val(),
                 cicil1: $("#cicilan1").val(),

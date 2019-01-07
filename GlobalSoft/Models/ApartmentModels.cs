@@ -174,13 +174,13 @@ namespace GlobalSoft.Models
 
         [Display(Name ="Cara Bayar")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
-        public virtual AptPayment AptPayment { get; set; }
+     //   public virtual AptPayment AptPayment { get; set; }
 
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
 
-        public int TransNoID { get; set; }           // No Trans = 1-Booking Fee, 2-Surat Pesanan , 3-Batal
-        public virtual AptTrsNo AptTrsNo { get; set; }
+        public int TransNoID { get; set; }           // No Trans = 1-Surat Pesanan
+      //  public virtual AptTrsNo AptTrsNo { get; set; }
 
         public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
         public virtual AptBayar AptBayar { get; set; }
