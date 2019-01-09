@@ -59,7 +59,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button id="saveOrder" type="submit" class="btn btn-danger">Simpan Pembayaran</button>
+            <button id="saveOrder" type="submit" class="btn btn-danger" disabled>Simpan Pembayaran</button>
         </div>
     </div>
 </div>
@@ -92,6 +92,7 @@
                     Unitid: 0
                 },
                 success: function (data) {
+                    $("#saveOrder").removeAttr("disabled");
                     $("#list_container").html(data);
                 },
                 error: function () {

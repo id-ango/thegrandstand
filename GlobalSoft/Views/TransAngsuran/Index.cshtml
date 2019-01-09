@@ -45,7 +45,7 @@
 
                                     @Html.ActionLink("Details", "Details", new { id = asset.ArHID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = asset.ArHID }) |
-                                    @Html.ActionLink("Tanda Terima", "BuktiTerima", new { id = asset.ArHID })
+                                    @Html.ActionLink("Print", "BuktiTerima", new { id = asset.ArHID }, new { target = "_blank" })
                                 </td>
                             </tr>
                         }

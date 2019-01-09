@@ -298,6 +298,27 @@ namespace GlobalSoft.Models
         public decimal Piutang { get; set; }
         public decimal Unapplied { get; set; }
         public decimal Diskon { get; set; }
+        public virtual ICollection<ArDView> TransDetail { get; set; }
+    }
+
+    public class ArDView
+    {
+        [Key]
+        public int ArDID { get; set; }
+        public Guid ArDGd { get; set; }
+        public DateTime Tanggal { get; set; }
+        public DateTime? Duedate { get; set; }
+        public int SPesananID { get; set; }
+        public int CustomerID { get; set; }
+        public string Keterangan { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Diskon { get; set; }
+        public decimal Sisa { get; set; }
+        public Guid ArHGd { get; set; }
+        public int ArHID { get; set; }
+        public virtual ArHView ArHView { get; set; }
+
     }
 
     public class TrsnoVM

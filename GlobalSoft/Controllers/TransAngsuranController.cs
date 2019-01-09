@@ -191,7 +191,7 @@ namespace GlobalSoft.Controllers
             var allList = (from e in db.AptTranss
                            join
                            y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.CustomerID == Custid
+                           where e.CustomerID == Custid orderby y.Duedate
                            select new
                            {
                                e.UnitID,
@@ -214,7 +214,7 @@ namespace GlobalSoft.Controllers
                 allList = (from e in db.AptTranss
                            join
                            y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.CustomerID == Custid
+                           where e.CustomerID == Custid orderby y.Duedate
                            select new
                            {
                                e.UnitID,
@@ -237,7 +237,7 @@ namespace GlobalSoft.Controllers
                 allList = (from e in db.AptTranss
                            join
                            y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.UnitID == Unitid
+                           where e.UnitID == Unitid orderby y.Duedate
                            select new
                            {
                                e.UnitID,
@@ -323,6 +323,7 @@ namespace GlobalSoft.Controllers
                         O.Duedate = Convert.ToDateTime(item.Duedate);
                         O.SPesananID = item.SPesananID;
                         O.CustomerID = item.CustomerID;
+                        O.Piutang = item.Piutang;
                         O.Bayar = item.Bayar;
                         O.Diskon = item.Diskon;
                         O.ArHGd = cutomerId;
@@ -341,11 +342,14 @@ namespace GlobalSoft.Controllers
 
         public ActionResult BuktiTerima(int id)
         {
+            List<ArDView> TransD = new List<ArDView>();
+
             var Transaksi = (from e in db.ArTransHs
                              join y in db.ArCustomers on e.CustomerID equals y.CustomerID where e.ArHID == id 
                              select new ArHView
                              {
                                  ArHID = e.ArHID,
+                                 ArHGd = e.ArHGd,
                                  Bukti = e.Bukti,
                                  Tanggal = e.Tanggal,
                                  BankID = e.BankID,
@@ -355,10 +359,28 @@ namespace GlobalSoft.Controllers
                                  CustomerName = y.CustomerName,
                                  Alamat = y.AlamatSekarang,
                                  Keterangan = e.Keterangan,
-                                 Jumlah = e.Jumlah
-                             }).FirstOrDefault();
+                                 Jumlah = e.Jumlah,                                             
+        }).FirstOrDefault();
 
+var Detail = (from e in db.ArTransDs where e.ArHGd == Transaksi.ArHGd select e).ToList();
 
+            foreach (var item in Detail)
+            {
+                TransD.Add(new ArDView {
+
+                    
+                    Keterangan = item.Keterangan,
+                    Tanggal = item.Tanggal,
+                    Duedate = item.Duedate,
+                    SPesananID = item.SPesananID,
+                    CustomerID = item.CustomerID,
+                    Piutang = item.Piutang,
+                    Bayar = item.Bayar,
+                    Diskon = item.Diskon
+                });
+                
+            }
+            Transaksi.TransDetail = TransD;
 
             return View(Transaksi);
         }
