@@ -77,7 +77,7 @@
             <th>
                 <div style="padding:20px 50px">
 
-                    <span>@Model.Jumlah</span>
+                    <span>@ViewBag.Num2Char</span>
 
                 </div>
             </th>
@@ -110,9 +110,9 @@
                         <td>@nNo</td>
                         <td>@string.Format("{0:d}", @item.Duedate)</td>
                         <td>@item.Keterangan</td>
-                        <td>@item.Piutang</td>
-                        <td>@item.Bayar</td>
-                        <td>@item.Sisa</td>
+                        <td>@string.Format("{0:n2}", @item.Piutang)</td>
+                        <td>@string.Format("{0:n2}", @item.Bayar)</td>
+                        <td>@string.Format("{0:n2}", @item.Sisa)</td>
                     </tr>
 
                 }

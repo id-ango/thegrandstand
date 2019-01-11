@@ -1,0 +1,271 @@
+﻿@model GlobalSoft.Models.AptTrans
+
+@{
+    ViewBag.Title = "DisplayManager";
+}
+
+<h2>DisplayManager</h2>
+<h4></h4>
+<hr />
+
+<div class="form-group">
+    @Html.Label("Tanggal", htmlAttributes: new { @class = "control-label col-md-1", @style = "font-size:20px" })
+    <div class="col-md-2">
+        @Html.Editor("Tanggal", new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
+
+    </div>
+    <div class="col-md-9">
+
+        <button class="btn btn-default pull-left" id="proses">Proses</button>
+    </div>
+</div>
+<br />
+<br /><br />
+<div class="container">
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-id="1" data-toggle="tab" href="#menu1">Jatuh Tempo < 2 hari</a>
+        </li>
+        <li>
+            <a data-id="2" data-toggle="tab" href="#menu2">Jatuh Tempo < 1 hari</a>
+        </li>
+        <li>
+            <a data-id="3" data-toggle="tab" href="#menu3">Jatuh Tempo</a>
+        </li>
+        <li>
+            <a data-id="4" data-toggle="tab" href="#menu4">Setelah Jatuh Tempo</a>
+        </li>
+
+    </ul>
+    <br>
+
+
+    <div class="tab-content">
+
+        <div id="menu1" class="tab-pane fade">
+            <div id="list_container1">
+
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <div id="list_container2">
+
+            </div>
+
+
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <div id="list_container3">
+
+            </div>
+
+
+        </div>
+        <div id="menu4" class="tab-pane fade">
+            <div id="list_container4">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $("#proses").click(function (e) {
+            e.preventDefault();
+           
+            var tanggal = $("#Tanggal").val();
+       
+            var data2 = {                
+                tanggal: tanggal
+              
+
+            };
+          
+             //   alert(tanggal);
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/TransAngsuran/menu1",
+                data: data2,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+
+                    //    alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Booking Fee/Bonus</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                        '<th>Jth Tempo</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Customer</th>' +
+                        '<th>No SP</th>' +
+                        '<th>Piutang</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>'+ this.Jumlah + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container1").html(htmlResult);
+                    
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/TransAngsuran/menu2",
+                data: data2,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+
+                 //   alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Booking Fee/Bonus</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                        '<th>Jth Tempo</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Customer</th>' +
+                        '<th>No SP</th>' +
+                        '<th>Piutang</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container2").html(htmlResult);
+
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/TransAngsuran/menu3",
+                data: data2,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+
+                //    alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Booking Fee/Bonus</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                        '<th>Jth Tempo</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Customer</th>' +
+                        '<th>No SP</th>' +
+                        '<th>Piutang</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container3").html(htmlResult);
+
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/TransAngsuran/menu4",
+                data: data2,
+                dataType: "json",
+                success: function (result) {
+                    var test = JSON.stringify(result);
+
+                //    alert(test);
+                    var htmlResult = '<div class="row">' +
+                        '   <div class="col-md-8">' +
+                        '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                        '         <div class="panel-heading list-panel-heading">' +
+                        '            <h1 class="panel-title list-panel-title">Booking Fee/Bonus</h1>' +
+                        '       </div>' +
+                        '<div class="slider">' +
+                        '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                        '<tr>' +
+                        '<th>Jth Tempo</th>' +
+                        '<th>Keterangan</th>' +
+                        '<th>Customer</th>' +
+                        '<th>No SP</th>' +
+                        '<th>Piutang</th>' +
+                        '</tr>';
+                    //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+                    $.each(result, function () {
+                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                    });
+
+                    htmlResult += '</table>' +
+                        '</div>' +
+                        '  </div >' +
+                        '  </div >' +
+                        '</div >';
+                    $("#list_container4").html(htmlResult);
+
+                },
+                error: function (result) {
+                    alert("Something went wrong in controller");
+                }
+            });
+        });
+
+       
+        function getDateIfDate(d) {
+            var m = d.match(/\/Date\((\d+)\)\//);
+            return m ? (new Date(+m[1])).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' }) : d;
+        }
+
+    </script>
+
+}

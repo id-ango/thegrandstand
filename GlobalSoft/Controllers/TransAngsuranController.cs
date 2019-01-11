@@ -10,12 +10,12 @@ using GlobalSoft.Models;
 
 namespace GlobalSoft.Controllers
 {
-    [Authorize(Roles ="Admin,Manager,Employee")]
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class TransAngsuranController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
 
-        
+
 
         // GET: TransAngsuran
         public ActionResult Index()
@@ -26,7 +26,7 @@ namespace GlobalSoft.Controllers
                              {
                                  ArHID = e.ArHID,
                                  Bukti = e.Bukti,
-                                 Tanggal = e.Tanggal,                               
+                                 Tanggal = e.Tanggal,
                                  BankID = e.BankID,
                                  BankName = (from r in db.CbBanks where r.BankID == e.BankID select r.BankName).FirstOrDefault(),
                                  //                                BankName = db.CbBanks.Where(h =>h.BankID == e.BankID).FirstOrDefault(),
@@ -44,7 +44,7 @@ namespace GlobalSoft.Controllers
         // GET: TransAngsuran/Details/5
         public ActionResult Details(int? id)
         {
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -101,20 +101,20 @@ namespace GlobalSoft.Controllers
         // POST: TransAngsuran/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-  /*      [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArHID,ArHGd,Bukti,Tanggal,BankID,CustomerID,MarketingID,UnitID,Keterangan,JthTempo,Jumlah,Piutang,Unapplied,Diskon")] ArTransH arTransH)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ArTransHs.Add(arTransH);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        /*      [HttpPost]
+              [ValidateAntiForgeryToken]
+              public ActionResult Create([Bind(Include = "ArHID,ArHGd,Bukti,Tanggal,BankID,CustomerID,MarketingID,UnitID,Keterangan,JthTempo,Jumlah,Piutang,Unapplied,Diskon")] ArTransH arTransH)
+              {
+                  if (ModelState.IsValid)
+                  {
+                      db.ArTransHs.Add(arTransH);
+                      db.SaveChanges();
+                      return RedirectToAction("Index");
+                  }
 
-            return View(arTransH);
-        }
-*/
+                  return View(arTransH);
+              }
+      */
         // GET: TransAngsuran/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -150,7 +150,7 @@ namespace GlobalSoft.Controllers
         }
 
         // GET: TransAngsuran/Delete/5
-        [Authorize(Roles ="Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -191,7 +191,8 @@ namespace GlobalSoft.Controllers
             var allList = (from e in db.AptTranss
                            join
                            y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.CustomerID == Custid orderby y.Duedate
+                           where e.CustomerID == Custid
+                           orderby y.Duedate
                            select new
                            {
                                e.UnitID,
@@ -214,30 +215,8 @@ namespace GlobalSoft.Controllers
                 allList = (from e in db.AptTranss
                            join
                            y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.CustomerID == Custid orderby y.Duedate
-                           select new
-                           {
-                               e.UnitID,
-                               e.AptUnit.UnitNo,
-                               e.CustomerID,
-                               e.ArCustomer.CustomerName,
-                               e.Piutang,
-                               y.SPesananID,
-                               y.SPesanan,
-                               y.Duedate,
-                               y.Keterangan,                               
-                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
-                               y.Bayar,
-                               y.Diskon,
-                               y.Sisa
-                           });
-            }
-            else
-            {
-                allList = (from e in db.AptTranss
-                           join
-                           y in db.AptSPesanans on e.NoRef equals y.SPesanan
-                           where e.UnitID == Unitid orderby y.Duedate
+                           where e.CustomerID == Custid
+                           orderby y.Duedate
                            select new
                            {
                                e.UnitID,
@@ -249,7 +228,31 @@ namespace GlobalSoft.Controllers
                                y.SPesanan,
                                y.Duedate,
                                y.Keterangan,
-                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x =>x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                               y.Bayar,
+                               y.Diskon,
+                               y.Sisa
+                           });
+            }
+            else
+            {
+                allList = (from e in db.AptTranss
+                           join
+                           y in db.AptSPesanans on e.NoRef equals y.SPesanan
+                           where e.UnitID == Unitid
+                           orderby y.Duedate
+                           select new
+                           {
+                               e.UnitID,
+                               e.AptUnit.UnitNo,
+                               e.CustomerID,
+                               e.ArCustomer.CustomerName,
+                               e.Piutang,
+                               y.SPesananID,
+                               y.SPesanan,
+                               y.Duedate,
+                               y.Keterangan,
+                               Jumlah = y.Jumlah - db.ArTransDs.Where(x => x.SPesananID == y.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
                                y.Bayar,
                                y.Diskon,
                                y.Sisa
@@ -266,29 +269,29 @@ namespace GlobalSoft.Controllers
             foreach (var i in allList)
             {
                 if (i.Jumlah != 0)
-                { 
-                Transaksi.Add(new PiutangDetail
                 {
-                    UnitID = i.UnitID,
-                    UnitNo = i.UnitNo,
-                    CustomerID = i.CustomerID,
-                    CustomerName = i.CustomerName,
-                    SPesananID = i.SPesananID,
-                    SPesanan = i.SPesanan,
-                    Duedate = i.Duedate,
-                    Keterangan = i.Keterangan,
-                    Piutang = i.Jumlah,
-                    Bayar = i.Bayar,
-                    Diskon = i.Diskon,
-                    Sisa = i.Jumlah - i.Bayar - i.Diskon
-                });
-            }
+                    Transaksi.Add(new PiutangDetail
+                    {
+                        UnitID = i.UnitID,
+                        UnitNo = i.UnitNo,
+                        CustomerID = i.CustomerID,
+                        CustomerName = i.CustomerName,
+                        SPesananID = i.SPesananID,
+                        SPesanan = i.SPesanan,
+                        Duedate = i.Duedate,
+                        Keterangan = i.Keterangan,
+                        Piutang = i.Jumlah,
+                        Bayar = i.Bayar,
+                        Diskon = i.Diskon,
+                        Sisa = i.Jumlah - i.Bayar - i.Diskon
+                    });
+                }
                 //    Transaksi.Add(new PiutangDetail { SPesanan = i.NoRef, Duedate = i.Tanggal, Keterangan = i.Keterangan, Piutang = i.Piutang, Bayar = i.Payment });
             }
             return PartialView(Transaksi);
         }
 
-        public ActionResult SaveOrder(string bukti, String keterangan,  string tanggal, int bank, int customer, ArTransD[] order)
+        public ActionResult SaveOrder(string bukti, String keterangan, string tanggal, int bank, int customer, ArTransD[] order)
         {
             string result = "Error! Pembayaran Is Not Complete!";
             if (bukti != null && keterangan != null && order != null)
@@ -326,9 +329,10 @@ namespace GlobalSoft.Controllers
                         O.Piutang = item.Piutang;
                         O.Bayar = item.Bayar;
                         O.Diskon = item.Diskon;
+                        O.Sisa = item.Sisa;
                         O.ArHGd = cutomerId;
                         db.ArTransDs.Add(O);
-                 
+
 
                     }
                 }
@@ -345,7 +349,8 @@ namespace GlobalSoft.Controllers
             List<ArDView> TransD = new List<ArDView>();
 
             var Transaksi = (from e in db.ArTransHs
-                             join y in db.ArCustomers on e.CustomerID equals y.CustomerID where e.ArHID == id 
+                             join y in db.ArCustomers on e.CustomerID equals y.CustomerID
+                             where e.ArHID == id
                              select new ArHView
                              {
                                  ArHID = e.ArHID,
@@ -359,16 +364,18 @@ namespace GlobalSoft.Controllers
                                  CustomerName = y.CustomerName,
                                  Alamat = y.AlamatSekarang,
                                  Keterangan = e.Keterangan,
-                                 Jumlah = e.Jumlah,                                             
-        }).FirstOrDefault();
+                                 Jumlah = e.Jumlah,
+                             }).FirstOrDefault();
 
-var Detail = (from e in db.ArTransDs where e.ArHGd == Transaksi.ArHGd select e).ToList();
+
+            var Detail = (from e in db.ArTransDs where e.ArHGd == Transaksi.ArHGd select e).ToList();
 
             foreach (var item in Detail)
             {
-                TransD.Add(new ArDView {
+                TransD.Add(new ArDView
+                {
 
-                    
+
                     Keterangan = item.Keterangan,
                     Tanggal = item.Tanggal,
                     Duedate = item.Duedate,
@@ -376,13 +383,103 @@ var Detail = (from e in db.ArTransDs where e.ArHGd == Transaksi.ArHGd select e).
                     CustomerID = item.CustomerID,
                     Piutang = item.Piutang,
                     Bayar = item.Bayar,
-                    Diskon = item.Diskon
+                    Diskon = item.Diskon,
+                    Sisa = item.Sisa
                 });
-                
+
             }
             Transaksi.TransDetail = TransD;
-
+            ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)Transaksi.Jumlah);
             return View(Transaksi);
+        }
+
+        public ActionResult DisplayManager()
+        {
+            return View();
+        }
+
+        public ActionResult Menu1(string tanggal)
+        {
+            var duedate = Convert.ToDateTime(tanggal);
+            duedate = duedate.AddDays(2);
+         
+                     var allList = (from e in db.AptSPesanans 
+                                    join y in db.AptTranss on e.SPesanan equals y.NoRef
+                           where (e.Duedate == duedate)                          
+                           select new
+                           {
+                               e.Duedate,
+                               e.Keterangan,                               
+                               y.ArCustomer.CustomerName,                               
+                               e.SPesanan,
+                               Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID ).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                              
+                           }).ToList();
+            return Json(allList, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Menu2(string tanggal)
+        {
+            var duedate = Convert.ToDateTime(tanggal);
+            duedate = duedate.AddDays(1);
+
+            var allList = (from e in db.AptSPesanans
+                           join y in db.AptTranss on e.SPesanan equals y.NoRef
+                           where (e.Duedate == duedate)
+                           select new
+                           {
+                               e.Duedate,
+                               e.Keterangan,
+                               y.ArCustomer.CustomerName,
+                               e.SPesanan,
+                               Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID ).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+
+                           }).ToList();
+            return Json(allList, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Menu3(string tanggal)
+        {
+            var duedate = Convert.ToDateTime(tanggal);
+            //duedate = duedate.AddDays(2);
+
+            var allList = (from e in db.AptSPesanans
+                           join y in db.AptTranss on e.SPesanan equals y.NoRef
+                           where (e.Duedate == duedate)
+                           select new
+                           {
+                               e.Duedate,
+                               e.Keterangan,
+                               y.ArCustomer.CustomerName,
+                               e.SPesanan,
+                               Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+
+                           }).ToList();
+            return Json(allList, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Menu4(string tanggal)
+        {
+            var duedate = Convert.ToDateTime(tanggal);
+           // Duedate = duedate.AddDays(2);
+
+            var allList = (from e in db.AptSPesanans
+                           join y in db.AptTranss on e.SPesanan equals y.NoRef
+                           where (e.Duedate < duedate)
+                           select new
+                           {
+                               e.Duedate,
+                               e.Keterangan,
+                               y.ArCustomer.CustomerName,
+                               e.SPesanan,
+                               Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+
+                           }).ToList();
+            return Json(allList, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

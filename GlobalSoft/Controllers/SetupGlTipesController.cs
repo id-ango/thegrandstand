@@ -19,12 +19,13 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             List<GlTipe> TipeGl = new List<GlTipe>();
-            TipeGl.Add(new GlTipe { GlTipeName = "Receivable" });
-            TipeGl.Add(new GlTipe { GlTipeName = "Payable" });
             TipeGl.Add(new GlTipe { GlTipeName = "Bank and Cash" });
             TipeGl.Add(new GlTipe { GlTipeName = "Credit Card" });
+            TipeGl.Add(new GlTipe { GlTipeName = "Receivable" });
             TipeGl.Add(new GlTipe { GlTipeName = "Current Assets" });
             TipeGl.Add(new GlTipe { GlTipeName = "Non Current Assets" });
+            TipeGl.Add(new GlTipe { GlTipeName = "Depreciation" });
+            TipeGl.Add(new GlTipe { GlTipeName = "Payable" });                    
             TipeGl.Add(new GlTipe { GlTipeName = "Prepayments" });
             TipeGl.Add(new GlTipe { GlTipeName = "Fixed Assets" });
             TipeGl.Add(new GlTipe { GlTipeName = "Current Liabilities" });
@@ -32,7 +33,6 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new GlTipe { GlTipeName = "Current Year Earnings" });
             TipeGl.Add(new GlTipe { GlTipeName = "Other Income" });
             TipeGl.Add(new GlTipe { GlTipeName = "Income" });
-            TipeGl.Add(new GlTipe { GlTipeName = "Depreciation" });
             TipeGl.Add(new GlTipe { GlTipeName = "Expenses" });
             TipeGl.Add(new GlTipe { GlTipeName = "Cost of Revenue" });
             TipeGl.Add(new GlTipe { GlTipeName = "Equity" });

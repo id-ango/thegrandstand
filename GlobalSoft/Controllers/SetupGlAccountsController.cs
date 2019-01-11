@@ -25,15 +25,17 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new GlAccount { GlAkun = "1101.02", GlAkunName = "Kas Proyek" });
             TipeGl.Add(new GlAccount { GlAkun = "1101.03", GlAkunName = "Kas Foodcourt" });
             TipeGl.Add(new GlAccount { GlAkun = "1102.01", GlAkunName = "Bank Central Asia" });
-            TipeGl.Add(new GlAccount { GlAkun = "1102.02", GlAkunName = "Bmk Tabungan Negara" });
+            TipeGl.Add(new GlAccount { GlAkun = "1102.02", GlAkunName = "Bank Tabungan Negara" });
             TipeGl.Add(new GlAccount { GlAkun = "1102.03", GlAkunName = "CIMB " });
             TipeGl.Add(new GlAccount { GlAkun = "1102.04", GlAkunName = "CIMB Payroll " });
             TipeGl.Add(new GlAccount { GlAkun = "1102.05", GlAkunName = "Mandiri Giro" });
             TipeGl.Add(new GlAccount { GlAkun = "1102.06", GlAkunName = "Mandiri Tab" });
+            TipeGl.Add(new GlAccount { GlAkun = "1102.99", GlAkunName = "Kas/Bank Clearing" });
             TipeGl.Add(new GlAccount { GlAkun = "1103.01", GlAkunName = "Piutang Usaha" });
-            TipeGl.Add(new GlAccount { GlAkun = "1104.01", GlAkunName = "Piuang Lain-Lain" });
+            TipeGl.Add(new GlAccount { GlAkun = "1104.01", GlAkunName = "Piutang Lain-Lain" });
             TipeGl.Add(new GlAccount { GlAkun = "1104.02", GlAkunName = "Piutang Karyawan" });
             TipeGl.Add(new GlAccount { GlAkun = "1104.03", GlAkunName = "Piutang Pihak Ketiga" });
+            TipeGl.Add(new GlAccount { GlAkun = "1104.99", GlAkunName = "Receivable Clearing" });
             TipeGl.Add(new GlAccount { GlAkun = "1105.01", GlAkunName = "Biaya Dibayar Dimuka" });
             TipeGl.Add(new GlAccount { GlAkun = "1105.02", GlAkunName = "Asuransi Dibayar Dimuka" });
             TipeGl.Add(new GlAccount { GlAkun = "1106.01", GlAkunName = "PPN Masukan" });
@@ -82,6 +84,7 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new GlAccount { GlAkun = "2102.01", GlAkunName = "Hutang Lain-Lain" });
             TipeGl.Add(new GlAccount { GlAkun = "2102.02", GlAkunName = "Pemegang Saham" });
             TipeGl.Add(new GlAccount { GlAkun = "2102.03", GlAkunName = "Pihak Ketiga" });
+            TipeGl.Add(new GlAccount { GlAkun = "2102.99", GlAkunName = "Payable Clearing" });
             TipeGl.Add(new GlAccount { GlAkun = "2103.01", GlAkunName = "PPN Keluaran" });
             TipeGl.Add(new GlAccount { GlAkun = "2103.02", GlAkunName = "Pph 25/29" });
             TipeGl.Add(new GlAccount { GlAkun = "2103.03", GlAkunName = "Pph 21" });

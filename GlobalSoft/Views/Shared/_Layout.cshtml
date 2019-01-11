@@ -40,6 +40,7 @@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Setup Jenis Penjualan", "index", "SetupBayar")</li>
                             <li>@Html.ActionLink("Setup Cara Bayar", "index", "SetupPayment")</li>
+
                             @* <li>@Html.ActionLink("Syarat SKUP", "SKUP", "~/home", new { target = "_blank" })</li>
                             *@
                         </ul>
@@ -48,8 +49,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Piutang<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Bayar Angsuran", "index", "TransAngsuran")</li>
+                            <li>@Html.ActionLink("Display Manager", "displaymanager", "TransAngsuran")</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("Setup Customer", "index", "SetupCustomer")</li>                                                                            
+                            <li>@Html.ActionLink("Setup Customer", "index", "SetupCustomer")</li>
                             <li>@Html.ActionLink("Setup AccountSet (AR)", "index", "ArAkunSets")</li>
 
                         </ul>
