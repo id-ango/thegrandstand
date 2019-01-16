@@ -30,6 +30,7 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new GlAccount { GlAkun = "1102.04", GlAkunName = "CIMB Payroll " });
             TipeGl.Add(new GlAccount { GlAkun = "1102.05", GlAkunName = "Mandiri Giro" });
             TipeGl.Add(new GlAccount { GlAkun = "1102.06", GlAkunName = "Mandiri Tab" });
+            TipeGl.Add(new GlAccount { GlAkun = "1102.07", GlAkunName = "MayBank" });
             TipeGl.Add(new GlAccount { GlAkun = "1102.99", GlAkunName = "Kas/Bank Clearing" });
             TipeGl.Add(new GlAccount { GlAkun = "1103.01", GlAkunName = "Piutang Usaha" });
             TipeGl.Add(new GlAccount { GlAkun = "1104.01", GlAkunName = "Piutang Lain-Lain" });
@@ -114,6 +115,8 @@ namespace GlobalSoft.Controllers
             TipeGl.Add(new GlAccount { GlAkun = "4101.14", GlAkunName = "Penjualan Sapphire E" });
             TipeGl.Add(new GlAccount { GlAkun = "4101.15", GlAkunName = "Penjualan Diamond A" });
             TipeGl.Add(new GlAccount { GlAkun = "4101.16", GlAkunName = "Penjualan Diamond B" });
+            TipeGl.Add(new GlAccount { GlAkun = "4201.01", GlAkunName = "Bonus - Priority Pass" });
+            TipeGl.Add(new GlAccount { GlAkun = "4251.01", GlAkunName = "Pembayaran Diskon" });
             TipeGl.Add(new GlAccount { GlAkun = "5101.01", GlAkunName = "HPP Emerald A" });
             TipeGl.Add(new GlAccount { GlAkun = "5101.02", GlAkunName = "HPP Emerald B" });
             TipeGl.Add(new GlAccount { GlAkun = "5101.03", GlAkunName = "HPP Emerald C" });

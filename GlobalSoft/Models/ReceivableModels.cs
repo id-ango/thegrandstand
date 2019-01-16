@@ -71,7 +71,7 @@ namespace GlobalSoft.Models
         public decimal Sisa { get; set; }
         public decimal SldSisa { get; set; }
         public decimal Diskon { get; set; }
-
+        public string ShortName { get; set; }
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
 
@@ -118,9 +118,10 @@ namespace GlobalSoft.Models
 
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
+        public string ShortName { get; set; }
 
         public int BankID { get; set; }
-
+        public string kodebank { get; set; }
 
         public int? UnitID { get; set; }
         public virtual AptUnit AptUnit { get; set; }
@@ -176,15 +177,23 @@ namespace GlobalSoft.Models
         public int BankID { get; set; }
         [Display(Name ="Customer")]
         public int CustomerID { get; set; }
+        public string ShortName { get; set; }
+
         public int MarketingID { get; set; }
+        public string KodeMarketing { get; set; }
+
         [Display(Name = "Unit")]
         public int UnitID { get; set; }
+        public string KodeUnit { get; set; }
+
         public string Keterangan { get; set; }
         public DateTime? JthTempo { get; set; }
         public decimal Jumlah { get; set; }
         public decimal Piutang { get; set; }
         public decimal Unapplied { get; set; }
         public decimal Diskon { get; set; }
+        public bool Posted { get; set; } = false;
+        public string Createdby { get; set; }
         public virtual ICollection<ArTransD> TransDetail { get; set; }
     }
 
@@ -196,7 +205,9 @@ namespace GlobalSoft.Models
         public DateTime Tanggal { get; set; }
         public DateTime? Duedate { get; set; }
         public int SPesananID { get; set; }
+        public string NoSpesanan { get; set; }
         public int CustomerID { get; set; }
+        public string ShortName { get; set; }
         public string Keterangan { get; set; }
         public decimal Piutang { get; set; }
         public decimal Bayar { get; set; }

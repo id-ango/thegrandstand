@@ -26,7 +26,8 @@ namespace GlobalSoft.Models
         public int GlTipeID { get; set; }                   // Cash/bank      
 
         public int GlGroupID { get; set; }
-      
+        public int JenisAkun { get; set; } = 1;    //1 neraca 2 rugilaba 3 laba ditahan
+
 
         public virtual ICollection<CbBank> CbBank { get; set; }
         
@@ -80,6 +81,8 @@ namespace GlobalSoft.Models
         public decimal Debet { get; set; }
         public decimal Kredit { get; set; }
         public decimal Saldo { get; set; }
+        public bool Posted { get; set; } = false;
+        public string Createdby { get; set; }
         public virtual ICollection<GlTransD> GlDetail { get; set; }
     }
 

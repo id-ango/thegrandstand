@@ -456,11 +456,13 @@ namespace GlobalSoft.Controllers
 
                 //   var cutomerId = Guid.NewGuid();
 
-                
+                var CutomerId = Guid.NewGuid();
+
+                model.SpesananGd = CutomerId;
                 model.NoRef = bukti;
                 model.Keterangan = keterangan;
                 model.Tanggal = Convert.ToDateTime(tanggal);
-                model.TglSelesai = Convert.ToDateTime(tanggal);
+                model.TglSelesai = Convert.ToDateTime(tanggal);              
                 model.UnitID = row_num;
                 model.CustomerID = row_cust;
                 model.MarketingID = marketing;
@@ -495,6 +497,7 @@ namespace GlobalSoft.Controllers
 
                         AptSPesanan O = new AptSPesanan();
                         O.SPesanan = model.NoRef;
+                        O.SpesananGd = CutomerId;
                         O.Keterangan = item.Keterangan;
                         O.Tanggal = Convert.ToDateTime(tanggal);
                         O.Duedate = Convert.ToDateTime(item.Duedate);

@@ -18,6 +18,33 @@ namespace GlobalSoft.Controllers
         // GET: SetupBank
         public ActionResult Index()
         {
+            List<CbBank> TipeGl = new List<CbBank>();
+            TipeGl.Add(new CbBank { BankName = "CIMB NIAGA",GlAkunID=1 });
+            TipeGl.Add(new CbBank { BankName = "BCA", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "CIMB PAYROLL", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "MANDIRI GIRO", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "MANDIRI TAB. BISNIS", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "BTN", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "MAYBANK", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "KAS", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "KAS BESAR", GlAkunID = 1 });
+
+
+            var cekNull = (from e in db.CbBanks select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.CbBanks.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
+
+
             var cbBanks = db.CbBanks.Include(c => c.GlAccount);
             return View(cbBanks.ToList());
         }
@@ -82,6 +109,7 @@ namespace GlobalSoft.Controllers
             {
                 return HttpNotFound();
             }
+         
             ViewBag.GlAkunID = db.GlAccounts.OrderBy(x => x.GlAkun).Select(p => new SelectListItem
             {
                 Text = p.GlAkun + "-" + p.GlAkunName,

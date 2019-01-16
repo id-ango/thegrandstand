@@ -150,6 +150,7 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         [Display(Name ="No Ref")]
         public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
+        public Guid SpesananGd { get; set; }
 
         [Display(Name ="Tanggal")]
       
@@ -162,10 +163,11 @@ namespace GlobalSoft.Models
       
         public int CustomerID { get; set; }
         public virtual ArCustomer ArCustomer { get; set; }
+        public string ShortName { get; set; }
 
-       
         public int MarketingID { get; set; }
         public virtual AptMarketing AptMarketing { get; set; }
+        public string KodeMarketin { get; set; }
 
         [StringLength(250)]
         public string Keterangan { get; set; }
@@ -218,7 +220,7 @@ namespace GlobalSoft.Models
         [Display(Name ="Jenis Transaksi")]
         public string TransNo { get; set; }                // Uang "Tanda Jadi","Surat Pesanan"
         public int GlAkunID { get; set; }
-        
+        public string SourceCode { get; set; }
 
         public virtual ICollection<AptTrans> AptTrans { get; set; }
         public virtual ICollection<CbTrans> CbTrans { get; set; }
@@ -229,14 +231,17 @@ namespace GlobalSoft.Models
         [Key]
         public int SPesananID { get; set; }         // ID Transaksi
         [StringLength(20)]
-        public string SPesanan { get; set; }      // No Piutang
+        public string SPesanan { get; set; }      // No Ref
+        public Guid SpesananGd { get; set; }
 
         public DateTime Tanggal { get; set; }
         public DateTime Duedate { get; set; }
 
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
-        public int KodeTrans { get; set; }   
-    //    public virtual AptTrans AptTrans { get; set; }
+        public int KodeTrans { get; set; } = 0;
+        //    public virtual AptTrans AptTrans { get; set; }
+        public string NoBukti { get; set; }
+
         [StringLength(20)]
         public string LPB { get; set; }        // jadi jurnal kalau ada pembayaran
         /// batas tutp

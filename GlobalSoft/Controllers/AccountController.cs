@@ -138,7 +138,7 @@ namespace GlobalSoft.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+       [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))

@@ -18,6 +18,7 @@ namespace GlobalSoft.Models
         [StringLength(50)]
         [Display(Name = "Rekening Bank")]
         public string BankAccount { get; set; }
+        public string kodebank { get; set; }
 
         public int BankType { get; set; }    // 1: Bank, 2:Cash 3:Kasbon
         public decimal Saldo { get; set; }
@@ -45,13 +46,14 @@ namespace GlobalSoft.Models
         public int BankID { get; set; }
         public virtual CbBank Bank1 { get; set; }
 
-        public int BankID2 { get; set; }
-       
+        public int BankID2 { get; set; } = 0;
 
+        public string kodebank { get; set; }
         public DateTime Tanggal { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }
-       
+        public bool Posted { get; set; } = false;
+        public string Createdby { get; set; }
         public decimal Saldo { get; set; }
         public virtual ICollection<CbTransD> CbTransDs { get; set; }
 
@@ -72,6 +74,7 @@ namespace GlobalSoft.Models
         
         public int TransNoID { get; set; }
         public virtual AptTrsNo AptTrsNo { get; set; }
+        public string SourceCode { get; set; }
 
         [StringLength(250)]
         public string Keterangan { get; set; }
@@ -119,9 +122,10 @@ namespace GlobalSoft.Models
         [Display(Name = "Pembayaran")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
         public virtual AptPayment AptPayment { get; set; }
+        public string kodebayar { get; set; }
 
-        [Required]
         public int BankID { get; set; }
+        public string kodebank { get; set; }
 
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
