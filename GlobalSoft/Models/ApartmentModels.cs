@@ -167,7 +167,7 @@ namespace GlobalSoft.Models
 
         public int MarketingID { get; set; }
         public virtual AptMarketing AptMarketing { get; set; }
-        public string KodeMarketin { get; set; }
+        public string KodeMarketing { get; set; }
 
         [StringLength(250)]
         public string Keterangan { get; set; }
@@ -176,13 +176,13 @@ namespace GlobalSoft.Models
 
         [Display(Name ="Cara Bayar")]
         public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
-     //   public virtual AptPayment AptPayment { get; set; }
+        public virtual AptPayment AptPayment { get; set; }
 
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali
 
         public int TransNoID { get; set; }           // No Trans = 1-Surat Pesanan
-      //  public virtual AptTrsNo AptTrsNo { get; set; }
+        public virtual AptTrsNo AptTrsNo { get; set; }
 
         public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
         public virtual AptBayar AptBayar { get; set; }
@@ -193,7 +193,7 @@ namespace GlobalSoft.Models
 
         public decimal Piutang { get; set; }
 
-      //  public ICollection<AptSPesanan> AptSPesanan { get; set; }
+        public ICollection<AptSPesanan> AptSPesanan { get; set; }
     }
 
     public class AptBayar
@@ -238,8 +238,9 @@ namespace GlobalSoft.Models
         public DateTime Duedate { get; set; }
 
         // ini adalah field untuk hubungan dengan AptTrans yang generate hubungan surat pesanan dengan detailnya
-        public int KodeTrans { get; set; } = 0;
-        //    public virtual AptTrans AptTrans { get; set; }
+        public int KodeTrans { get; set; } 
+        public virtual AptTrans AptTrans { get; set; }
+
         public string NoBukti { get; set; }
 
         [StringLength(20)]

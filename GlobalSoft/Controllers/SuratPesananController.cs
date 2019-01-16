@@ -440,6 +440,7 @@ namespace GlobalSoft.Controllers
             }
             return PartialView(Transaksi2);
         }
+      
 
         public ActionResult SaveOrder(string bukti, string keterangan, string tanggal, int row_num, int row_cust,
                     int marketing, decimal harga1, decimal piutang1, int cicil1, decimal angsuran1,
