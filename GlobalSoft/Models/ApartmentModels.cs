@@ -97,12 +97,14 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int MarketingID { get; set; }
-
+        public string KodeMarketing { get; set; }
         [StringLength(100), Display(Name = "Marketing")]
         public string MarketingName { get; set; }
 
-        [StringLength(20), Display(Name = "Telpon")]
+        [StringLength(100), Display(Name = "Telpon")]
         public string Phone { get; set; }
+        public string Alamat { get; set; }
+        public string KodeAgen { get; set; }
 
         [Display(Name = "Agen")]
         public int AgenID { get; set; }
@@ -116,10 +118,12 @@ namespace GlobalSoft.Models
     {
         [Key]
         public int AgenID { get; set; }
+        public string KodeAgen { get; set; }
 
         [StringLength(100)]
         [Display(Name = "Nama Agen")]
         public string AgenName { get; set; }
+        public string Alamat { get; set; }
 
         [StringLength(20), Display(Name = "Telpon")]
         public string Phone { get; set; }

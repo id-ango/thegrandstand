@@ -18,11 +18,33 @@ namespace GlobalSoft.Controllers
         // GET: SetupTrsNo
         public ActionResult Index()
         {
-            List<AptTrsNo> TipeGl = new List<AptTrsNo>
-            {
-                 new AptTrsNo { TransNo="BookingFee"},
-                 new AptTrsNo { TransNo = "SuratPesanan" }
-            };
+            List<AptTrsNo> TipeGl = new List<AptTrsNo>();
+
+            TipeGl.Add(new AptTrsNo { SourceCode = "", TransNo = "BookingFee" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "", TransNo = "SuratPesanan" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "AR", TransNo = "ANGSURAN" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B1", TransNo = "Kas" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B2", TransNo = "Biaya Bank CIMB" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B3", TransNo = "Biaya bank BCA" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B4", TransNo = "Biaya Bank CIMB Payroll" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B5", TransNo = "Biaya Bank Mandiri Giro" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B6", TransNo = "Biaya Bank Mandiri Tab Bisnis" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B7", TransNo = "BTN" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "B8", TransNo = "Biaya Bank MYBANK" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "BF", TransNo = "BOOKING FEE" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "CB", TransNo = "KAS/BANK CLEARING" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "CF", TransNo = "COMPLIMENT FEE" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "CP", TransNo = "CREDIT PROFIT/HIBAH" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "P", TransNo = "Pendapatan lain" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "P2", TransNo = "PEMASUKAN DARI CATTURA" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "P3", TransNo = "PENDAPATAN BUNGA" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "P4", TransNo = "PENDAPATAN PAJAK BUNGA" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "S1", TransNo = "SETORAN DR PUSAT" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "T1", TransNo = "PPH 21" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "T2", TransNo = "PPH 23" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "T3", TransNo = "PPH 4(2)" });
+            TipeGl.Add(new AptTrsNo { SourceCode = "T4", TransNo = "PPN" });
+
 
             var cekNull = (from e in db.AptTrsNoes select e).Count();
             if (cekNull == 0)

@@ -18,6 +18,40 @@ namespace GlobalSoft.Controllers
         // GET: SetupMarketing
         public ActionResult Index()
         {
+            List<AptMarketing> TipeGl = new List<AptMarketing>();
+
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10001", MarketingName = "YANTH", Alamat = "SURABAYA", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10002", MarketingName = "ACI", Alamat = "  PUNCAK KERTAJAYA SURABAYA", Phone = "081222223027" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10003", MarketingName = "BAMBANG", Alamat = "RUKO PLASA SEGI 8 BLOK A NO 810 SURABAYA", Phone = "083876118198" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10004", MarketingName = "LIEM IVO VERONICA SWIEJAYA", Alamat = "citrawandutamulia@yahoo.com", Phone = "085230003233" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10005", MarketingName = "NITA RIVIDA", Alamat = "SURABAYA", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10006", MarketingName = "Bpk Candra S", Alamat = "", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10007", MarketingName = "ERLINDA WONGSO", Alamat = " SURABAYA", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10008", MarketingName = "WELLY TUNGGAL", Alamat = " tongwelly@yahoo.com", Phone = "081221345777" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10009", MarketingName = "PATRICK", Alamat = "patrickjs.propnex@yahoo.com", Phone = "08118880067" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10010", MarketingName = "MARIYATI", Alamat = "", Phone = "081336476292" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10011", MarketingName = "GANDA SAPUTRA", Alamat = "stefanus.ganda@gmail.com", Phone = "0811335323" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10012", MarketingName = "VICKY WIRONTONO SUSENO", Alamat = " KANTOR : XM 1ST HOME EASTLEAD AGEN : XM VISIONVickyws @live.com", Phone = "08170717262" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10013", MarketingName = "Bpk HENRY", Alamat = "", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10014", MarketingName = "KEZIA HANDAYANI", Alamat = "", Phone = "0818576020" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10015", MarketingName = "ZAHRIDA DINNANDA PARAMESWARI", Alamat = "  ZAHRIDA.PARAMESWARI@GMAIL.COM", Phone = "081234128532" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10016", MarketingName = "ERRY SOEWITO", Alamat = "  BUMIARJO 3/7 SURABAYA", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10017", MarketingName = "DEWI", Alamat = "", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10018", MarketingName = "SRI DWI YANTI", Alamat = "  BABATAN INDAH A13/4", Phone = "081515227772" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10019", MarketingName = "YONI ALWI HASAN", Alamat = "  JL BERINGIN 1 GEDANGAN", Phone = "081334262929" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "10020", MarketingName = "APRIMA LINA PRIBADI", Alamat = "  KEDUNG KLINTER 1/32 A", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "C0001", MarketingName = "CYNTHIA M TOMASOA", Alamat = "  GRIYA BABATAN MUKTI 4-53/ N-37", Phone = "081233900276" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "E0001", MarketingName = "ERIC SETIAWAN HANDIKO", Alamat = "  DUKUH KUPANG BARAT 25/15", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "E0002", MarketingName = "ESTHER", Alamat = "SURABAYA", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "H0001", MarketingName = "HARIYANTO", Alamat = "  WONOKROMO 6/3-C", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "L0001", MarketingName = "BOONY STEVANUS / LUCKY", Alamat = "  BRIGHT_LAU85@YAHOO.COM", Phone = "082233881147" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "M0001", MarketingName = "MERY", Alamat = "", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "R0001", MarketingName = "RICHARD HARRIS YOEWONO", Alamat = "  JL JERUK VI/27 PCI", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "R0002", MarketingName = "RUDIMARKI LUKITO", Alamat = "  KEDUNG COWEK NO 105", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "S0001", MarketingName = "SISILIA GUNAWAN", Alamat = "  KEDUNGDORO 128", Phone = "" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "S0002", MarketingName = "SUGENG SANTOSO", Alamat = "", Phone = "08161817204" });
+            TipeGl.Add(new AptMarketing { KodeMarketing = "Y0001", MarketingName = "YULIANA", Alamat = "SURABAYA", Phone = "" });
+
             var aptMarketings = db.AptMarketings.Include(a => a.AptAgen);
             return View(aptMarketings.ToList());
         }
