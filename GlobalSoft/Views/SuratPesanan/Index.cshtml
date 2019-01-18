@@ -51,10 +51,11 @@
                             <td>@string.Format("{0:n0}", @asset.Payment)</td>
                             <td>@asset.Cicilan</td>
 
-                            <td>                              
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
                                 @Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
-                             
+                                @Html.ActionLink("Delete", "Delete", new { id = asset.TransID })
+
                             </td>
                         </tr>
                         }

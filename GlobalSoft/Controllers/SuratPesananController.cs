@@ -252,7 +252,7 @@ namespace GlobalSoft.Controllers
         // POST: SuratPesanan/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin,Manager")]        
         public ActionResult DeleteConfirmed(int id)
         {
             AptTrans aptTrans = db.AptTranss.Find(id);
@@ -269,7 +269,7 @@ namespace GlobalSoft.Controllers
            //      where e.UnitID == aptTrans.UnitID
            //      select e).ToList().ForEach(x => x.StatusID = 2);
            // }
-            List<AptSPesanan> aptsp = db.AptSPesanans.Where(e => e.KodeTrans == aptTrans.TransID).ToList();
+            List<AptSPesanan> aptsp = db.AptSPesanans.Where(e => e.SPesanan == aptTrans.NoRef).ToList();
            // foreach (var i in aptsp)
            //     db.AptSPesanans.Remove(i);
             db.AptSPesanans.RemoveRange(aptsp);
@@ -475,7 +475,7 @@ namespace GlobalSoft.Controllers
                     model.Angsuran = angsuran1;
                     model.Cicilan = cicil1;
                     model.Payment = 0;
-                    model.PaymentID = 0;
+                    model.PaymentID = 2;
                     model.BayarID = 1;
                 }
                 else
@@ -485,7 +485,7 @@ namespace GlobalSoft.Controllers
                     model.Angsuran = angsuran2;
                     model.Cicilan = cicil2;
                     model.Payment = sisakpa;
-                    model.PaymentID = 0;
+                    model.PaymentID = 2;
                     model.BayarID = 2;
                 }
 
@@ -521,5 +521,124 @@ namespace GlobalSoft.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult EditPesanan(string noref)
+        {
+
+          var  Transaksi = (from e in db.AptSPesanans
+                              where e.SPesanan == noref
+                              select new {
+                                  e.SPesananID,
+                                  e.Duedate,
+                                  e.Keterangan,
+                                  Sisa = db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                                  Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                                  e.SpesananGd                                  
+                              }).ToList();
+
+            List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
+
+            foreach (var i in Transaksi)
+            {
+                if (i.Sisa == 0)
+                {
+                    Transaksi2.Add(new AptSPesanan
+                    {
+
+                        SPesananID = i.SPesananID,
+                        Duedate = i.Duedate,
+                        Keterangan = i.Keterangan,
+                        Jumlah = i.Jumlah,
+                        SpesananGd = i.SpesananGd
+
+                    });
+                }
+            }
+                return PartialView(Transaksi2);
+        }
+
+        public ActionResult SimpanEdit(string bukti, string keterangan, string tanggal, int row_num, int row_cust,
+             int marketing,  AptSPesanan[] order)
+        {
+            string result = "Error! Surat Pesanan Is Not Complete!";
+            AptTrans model = new AptTrans();
+
+            if (bukti != null && order != null)
+            {
+                (from y in db.AptTranss
+                  where y.NoRef == bukti
+                  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; });
+
+                var Transaksi = (from e in db.AptSPesanans
+                                 where e.SPesanan == bukti
+                                 select new
+                                 {
+                                     e.SPesananID,
+                                     e.Duedate,
+                                     e.Keterangan,
+                                     Sisa = db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                                     Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
+                                     e.SpesananGd
+                                 }).ToList();
+
+                List<AptSPesanan> Transaksi2 = new List<AptSPesanan>();
+
+                foreach (var i in Transaksi)
+                {
+                    if (i.Sisa == 0)
+                    {
+                        Transaksi2.Add(new AptSPesanan
+                        {
+
+                            SPesananID = i.SPesananID,
+                            Duedate = i.Duedate,
+                            Keterangan = i.Keterangan,
+                            Jumlah = i.Jumlah,
+                            SpesananGd = i.SpesananGd
+
+                        });
+                    }
+                }
+
+
+                foreach (var e in Transaksi2)
+                {
+                   AptSPesanan MauHapus =  db.AptSPesanans.Find(e.SPesananID);
+                    db.AptSPesanans.Remove(MauHapus);
+                }
+                
+
+                db.SaveChanges();
+              
+                foreach (var e in order)
+                {
+                   // (from y in db.AptSPesanans
+                   //  where y.SPesananID == e.SPesananID
+                   //  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; });
+
+                   
+                    AptSPesanan O = new AptSPesanan();
+                    O.SpesananGd = e.SpesananGd;
+                    O.Keterangan = e.Keterangan;
+                    O.Duedate = e.Duedate;
+                    O.Jumlah = e.Jumlah;
+                    O.Tanggal = Convert.ToDateTime(tanggal);
+                    O.SPesanan = bukti;
+                    db.AptSPesanans.Add(O);
+                }
+                db.SaveChanges();
+
+            }
+               
+
+                //   var cutomerId = Guid.NewGuid();
+
+                
+                result = "Success! Edit Pembayaran Is Complete!";
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

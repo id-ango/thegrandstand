@@ -565,9 +565,11 @@
       
     </script>
     <script>
-    
+        var url = $('#RedirectTo').val();
+
         function saveOrder(data) {
-          
+           
+
             return $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -577,7 +579,7 @@
                 success: function (result) {                   
                     alert(result);
                   
-                   // location.href = url;
+              //      location.href = url;
                     //location.reload(true);
                 },
                 error: function () {
@@ -622,11 +624,12 @@
                 order: orderArr
             });
             var test = JSON.stringify(data);
-            alert(test);
+          //  alert(test);
 
             $.when(saveOrder(test)).then(function (response) {
                 cetak();
                 console.log(response);
+                location.href = url;
             }).fail(function (err) {
                 console.log(err);
             });

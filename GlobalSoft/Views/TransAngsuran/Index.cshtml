@@ -45,7 +45,8 @@
 
                                     @Html.ActionLink("Details", "Details", new { id = asset.ArHID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = asset.ArHID }) |
-                                    @Html.ActionLink("Print", "BuktiTerima", new { id = asset.ArHID }, new { target = "_blank" })
+                                    @Html.ActionLink("Tanda Terima", "BuktiTerima", new { noref = @asset.Bukti, cetak = 2 }, new { target = "_blank" })
+                            
                                 </td>
                             </tr>
                         }

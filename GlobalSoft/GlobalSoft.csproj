@@ -668,7 +668,7 @@
     <Content Include="Views\SuratPesanan\Create.cshtml" />
     <Content Include="Views\SuratPesanan\Delete.cshtml" />
     <Content Include="Views\SuratPesanan\Details.cshtml" />
-    <Content Include="Views\SuratPesanan\Edit.cshtml" />
+    <Content Include="Views\SuratPesanan\Edit-old.cshtml" />
     <Content Include="Views\SuratPesanan\Index.cshtml" />
     <Content Include="Views\Home\TandaTerima.cshtml" />
     <Content Include="Views\BookingFee\TandaTerima.cshtml" />
@@ -793,6 +793,8 @@
     <Content Include="Views\TransAngsuran\BuktiTerima.cshtml" />
     <Content Include="Views\TransAngsuran\DisplayManager.cshtml" />
     <Content Include="Views\Laporan\LapBookingFee.cshtml" />
+    <Content Include="Views\SuratPesanan\Edit.cshtml" />
+    <Content Include="Views\SuratPesanan\EditPesanan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

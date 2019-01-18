@@ -149,6 +149,7 @@
 //        alert(data);
 
         $.when(saveOrder(data)).then(function (response) {
+            cetak();
             console.log(response);
             location.href = url;
         }).fail(function (err) {
@@ -156,5 +157,12 @@
         });
     });
 
+    function cetak() {
+        var noref = $("#Bukti").val();
+        var cetak = 2;
+        var url = "/TransAngsuran/BuktiTerima?noref=" + noref + "&cetak=2";
+        window.open(url);
+
+    }
 </script>
 

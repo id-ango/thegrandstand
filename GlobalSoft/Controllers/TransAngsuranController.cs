@@ -343,14 +343,14 @@ namespace GlobalSoft.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult BuktiTerima(int id)
+       
+        public ActionResult BuktiTerima(string noref, int cetak)
         {
             List<ArDView> TransD = new List<ArDView>();
 
             var Transaksi = (from e in db.ArTransHs
                              join y in db.ArCustomers on e.CustomerID equals y.CustomerID
-                             where e.ArHID == id
+                             where e.Bukti == noref
                              select new ArHView
                              {
                                  ArHID = e.ArHID,
@@ -390,6 +390,10 @@ namespace GlobalSoft.Controllers
             }
             Transaksi.TransDetail = TransD;
             ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)Transaksi.Jumlah);
+            if (cetak == 1)
+                return Json("Success", JsonRequestBehavior.AllowGet);
+
+          
             return View(Transaksi);
         }
 
