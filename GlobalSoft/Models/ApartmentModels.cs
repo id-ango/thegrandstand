@@ -139,6 +139,7 @@ namespace GlobalSoft.Models
         [StringLength(20)]
         [Display(Name = "Cara Bayar")]
         public string PaymentName { get; set; }
+        public string KodeBank { get; set; }
 
         public int BankID { get; set; }
         public virtual CbBank CbBank { get; set; }
@@ -160,7 +161,7 @@ namespace GlobalSoft.Models
       
         public DateTime  Tanggal { get; set; }       // Tanggal Transaksi
 
-        
+        public string Unit { get; set; }
         public int   UnitID { get; set; }         // Unit No 
         public virtual AptUnit AptUnit { get; set; }
 

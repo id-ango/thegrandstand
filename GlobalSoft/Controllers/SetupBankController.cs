@@ -19,15 +19,15 @@ namespace GlobalSoft.Controllers
         public ActionResult Index()
         {
             List<CbBank> TipeGl = new List<CbBank>();
-            TipeGl.Add(new CbBank { BankName = "CIMB NIAGA",GlAkunID=1 });
-            TipeGl.Add(new CbBank { BankName = "BCA", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "CIMB PAYROLL", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "MANDIRI GIRO", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "MANDIRI TAB. BISNIS", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "BTN", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "MAYBANK", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "KAS", GlAkunID = 1 });
-            TipeGl.Add(new CbBank { BankName = "KAS BESAR", GlAkunID = 1 });
+            TipeGl.Add(new CbBank { BankName = "CIMB NIAGA",GlAkunID=1,KodeBank="B1" });
+            TipeGl.Add(new CbBank { BankName = "BCA", GlAkunID = 1, KodeBank = "B2" });
+            TipeGl.Add(new CbBank { BankName = "CIMB PAYROLL", GlAkunID = 1, KodeBank = "B3" });
+            TipeGl.Add(new CbBank { BankName = "MANDIRI GIRO", GlAkunID = 1, KodeBank = "B4" });
+            TipeGl.Add(new CbBank { BankName = "MANDIRI TAB. BISNIS", GlAkunID = 1, KodeBank = "B5" });
+            TipeGl.Add(new CbBank { BankName = "BTN", GlAkunID = 1, KodeBank = "B6" });
+            TipeGl.Add(new CbBank { BankName = "MAYBANK", GlAkunID = 1, KodeBank = "B7" });
+            TipeGl.Add(new CbBank { BankName = "KAS", GlAkunID = 1, KodeBank = "K1" });
+            TipeGl.Add(new CbBank { BankName = "KAS BESAR", GlAkunID = 1, KodeBank = "K2" });
 
 
             var cekNull = (from e in db.CbBanks select e).Count();

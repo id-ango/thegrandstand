@@ -18,7 +18,7 @@ namespace GlobalSoft.Models
         [StringLength(50)]
         [Display(Name = "Rekening Bank")]
         public string BankAccount { get; set; }
-        public string kodebank { get; set; }
+        public string KodeBank { get; set; }
 
         public int BankType { get; set; }    // 1: Bank, 2:Cash 3:Kasbon
         public decimal Saldo { get; set; }
@@ -100,14 +100,15 @@ namespace GlobalSoft.Models
         [Display(Name = "Tanggal")]
         public DateTime Tanggal { get; set; }       // Tanggal Transaksi
 
-
+        public string Unit { get; set; }
         public int UnitID { get; set; }         // Unit No 
         public virtual AptUnit AptUnit { get; set; }
 
         [Required]
         public int PersonID { get; set; }         //customer atau Supplier
+        public string ShortCode { get; set; }
 
-
+        public string KodeMarketing { get; set; }
         public int MarketingID { get; set; }
         public virtual AptMarketing AptMarketing { get; set; }
 
@@ -125,7 +126,7 @@ namespace GlobalSoft.Models
         public string kodebayar { get; set; }
 
         public int BankID { get; set; }
-        public string kodebank { get; set; }
+        public string KodeBank { get; set; }
 
         public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
         public int Cicilan { get; set; }                // cicil berapa kali

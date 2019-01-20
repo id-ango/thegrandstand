@@ -11,4 +11,5 @@ namespace GlobalSoft.DAL
         public string Roles { get; set; }
         public string Password { get; set; }
     }
+
 }

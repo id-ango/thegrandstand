@@ -224,6 +224,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901201115247_InitialCreate.cs" />
+    <Compile Include="Migrations\201901201115247_InitialCreate.Designer.cs">
+      <DependentUpon>201901201115247_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901201611590_unitaptTrans.cs" />
+    <Compile Include="Migrations\201901201611590_unitaptTrans.Designer.cs">
+      <DependentUpon>201901201611590_unitaptTrans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
     <Compile Include="Models\CashBankModels.cs" />
@@ -803,6 +812,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901201115247_InitialCreate.resx">
+      <DependentUpon>201901201115247_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901201611590_unitaptTrans.resx">
+      <DependentUpon>201901201611590_unitaptTrans.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

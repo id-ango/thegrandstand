@@ -18,6 +18,26 @@ namespace GlobalSoft.Controllers
         // GET: SetupPayment
         public ActionResult Index()
         {
+            List<AptPayment> TipeGl = new List<AptPayment>();
+            TipeGl.Add(new AptPayment { PaymentName = "TUNAI",  KodeBank = "K2", BankID= 9});
+            TipeGl.Add(new AptPayment { PaymentName = "DEBET CIMB", KodeBank = "B1", BankID = 1 });
+            TipeGl.Add(new AptPayment { PaymentName = "DEBET BCA", KodeBank = "B2", BankID = 2 });
+            TipeGl.Add(new AptPayment { PaymentName = "DEBET MANDIRI", KodeBank = "B5", BankID = 5 });
+
+            var cekNull = (from e in db.AptPayments select e).Count();
+            if (cekNull == 0)
+            {
+
+
+                foreach (var values in TipeGl)
+                {
+                    db.AptPayments.Add(values);
+                    db.SaveChanges();
+                }
+
+
+            }
+
             var AptBayar = db.AptPayments.Include(a => a.CbBank);
             return View(AptBayar.ToList());
         }
