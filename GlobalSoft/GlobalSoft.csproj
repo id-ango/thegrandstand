@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201901201611590_unitaptTrans.Designer.cs">
       <DependentUpon>201901201611590_unitaptTrans.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901221046058_tambahbukti.cs" />
+    <Compile Include="Migrations\201901221046058_tambahbukti.Designer.cs">
+      <DependentUpon>201901221046058_tambahbukti.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentModels.cs" />
@@ -819,6 +823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901201611590_unitaptTrans.resx">
       <DependentUpon>201901201611590_unitaptTrans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221046058_tambahbukti.resx">
+      <DependentUpon>201901221046058_tambahbukti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

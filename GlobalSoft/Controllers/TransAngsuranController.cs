@@ -305,13 +305,16 @@ namespace GlobalSoft.Controllers
                 model.BankID = bank;
                 model.CustomerID = customer;
                 decimal nJumlah = 0;
+                decimal nDiskon = 0;
 
                 foreach (var t in order)
                 {
-                    nJumlah = nJumlah + (t.Bayar + t.Diskon);
+                    nJumlah = nJumlah + (t.Bayar);
+                    nDiskon = nDiskon + t.Diskon;
                 }
 
                 model.Jumlah = nJumlah;
+                model.Diskon = nDiskon;
                 db.ArTransHs.Add(model);
 
                 foreach (var item in order)

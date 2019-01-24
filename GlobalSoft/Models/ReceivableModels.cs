@@ -208,6 +208,8 @@ namespace GlobalSoft.Models
         public string NoSpesanan { get; set; }
         public int CustomerID { get; set; }
         public string ShortName { get; set; }
+        public string Dokumen { get; set; }
+        public string Bukti { get; set; }
         public string Keterangan { get; set; }
         public decimal Piutang { get; set; }
         public decimal Bayar { get; set; }
