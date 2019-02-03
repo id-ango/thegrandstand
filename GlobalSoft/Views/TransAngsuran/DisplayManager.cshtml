@@ -243,8 +243,10 @@
                         '</tr>';
                     //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
                     $.each(result, function () {
-                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
-                    });
+                        if (this.Jumlah != 0) {
+                            htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        }
+                        });
 
                     htmlResult += '</table>' +
                         '</div>' +

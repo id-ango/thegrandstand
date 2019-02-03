@@ -485,6 +485,7 @@ namespace GlobalSoft.Controllers
                                Jumlah = e.Jumlah - db.ArTransDs.Where(x => x.SPesananID == e.SPesananID).Select(x => x.Bayar + x.Diskon).DefaultIfEmpty(0).Sum(),
 
                            }).ToList();
+            
             return Json(allList, JsonRequestBehavior.AllowGet);
 
         }

@@ -808,6 +808,7 @@
     <Content Include="Views\Laporan\LapBookingFee.cshtml" />
     <Content Include="Views\SuratPesanan\Edit.cshtml" />
     <Content Include="Views\SuratPesanan\EditPesanan.cshtml" />
+    <Content Include="Views\TransBank\BuktiKasBank.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

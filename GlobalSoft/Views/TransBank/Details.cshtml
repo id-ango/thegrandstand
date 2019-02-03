@@ -51,7 +51,7 @@
                                             <th>Bayar</th>
                                         </tr>
                                         @{
-                                            var totalBill = 0;
+                                            decimal totalBill = 0;
                                         }
                                         @foreach (var order in Model.CbTransDs)
                                         {
@@ -62,7 +62,7 @@
                                                 <td>@order.Terima</td>
                                                 <td>@order.Bayar</td>
                                             </tr>
-                                            totalBill = totalBill + @Convert.ToInt32(order.Terima-order.Bayar);
+                                            totalBill = totalBill + (order.Terima-order.Bayar);
                                         }
                                     </tbody>
                                 </table>
