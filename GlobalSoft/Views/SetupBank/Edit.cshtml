@@ -24,16 +24,7 @@
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BankAccount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-   
- 
     <div class="form-group">
         @Html.LabelFor(model => model.GlAkunID, "Kode Akun", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -41,6 +32,20 @@
             @Html.ValidationMessageFor(model => model.GlAkunID, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("Tipe", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <strong>Bank</strong>
+            @Html.RadioButtonFor(model => model.BankAccount, "Bank", new { htmlAttributes = new { @class = "form-control" } })
+            <strong>Kas</strong>
+            @Html.RadioButtonFor(model => model.BankAccount, "Kas", new { htmlAttributes = new { @class = "form-control" } })
+            <strong>Bonus</strong>
+            @Html.RadioButtonFor(model => model.BankAccount, "Bonus", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

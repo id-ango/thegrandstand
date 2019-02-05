@@ -260,6 +260,51 @@ namespace GlobalSoft.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult BuktiKasBank(string noref, int cetak)
+        {
+            List<OdTransD> TransD = new List<OdTransD>();
+
+            var Transaksi = (from e in db.CbTransHs                            
+                             where e.Docno == noref
+                             select new OdTransH
+                             {
+                                 TranshID = e.TranshID,
+                                 Docno = e.Docno,
+                                 Tanggal = e.Tanggal,
+                                 BankID = e.BankID,
+                                 BankName = (from r in db.CbBanks where r.BankID == e.BankID select r.BankName).FirstOrDefault(),
+                                 KodeBank = (from r in db.CbBanks where r.BankID == e.BankID select r.BankAccount).FirstOrDefault(),                                                             
+                                 Keterangan = e.Keterangan,
+                                Saldo = e.Saldo,
+                             }).FirstOrDefault();
+
+
+            var Detail = (from e in db.CbTransDs where e.TranshID == Transaksi.TranshID select e).ToList();
+
+            foreach (var item in Detail)
+            {
+                TransD.Add(new OdTransD
+                {
+
+                    TransNoID = item.TransNoID,
+                    TransNo = (from r in db.AptTrsNoes where r.TransNoID == item.TransNoID select r.TransNo).FirstOrDefault(),
+                    Keterangan = item.Keterangan,
+                    Tanggal = item.Tanggal,                  
+                    Jumlah = item.Jumlah,
+                    Bayar = item.Bayar,
+                    Terima = item.Terima
+                   
+                });
+
+            }
+            Transaksi.OdTransDs = TransD;
+           // ViewBag.Num2Char = FungsiController.Fungsi.NumberToText((long)Transaksi.Jumlah);
+            if (cetak == 1)
+                return Json("Success", JsonRequestBehavior.AllowGet);
+
+
+            return View(Transaksi);
+        }
 
     }
 }

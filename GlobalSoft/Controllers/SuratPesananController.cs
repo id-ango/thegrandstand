@@ -198,11 +198,11 @@ namespace GlobalSoft.Controllers
                            where e.StatusID == 2
                            select e;
 
-            var kodeno = "SP-";
+            var kodeno = "SP-788";
             string thnbln = DateTime.Now.ToString("yyMM");
-            string xbukti = kodeno + thnbln;
+            string xbukti = kodeno;  //   + thnbln;
             var maxvalue = "";
-            var maxlist = db.AptTranss.Where(x => x.NoRef.Substring(0, 7).Equals(xbukti)).ToList();
+            var maxlist = db.AptTranss.Where(x => x.NoRef.Substring(0, 6).Equals(xbukti)).ToList();
             if (maxlist != null)
             {
                 maxvalue = maxlist.Max(x => x.NoRef);
@@ -210,20 +210,20 @@ namespace GlobalSoft.Controllers
             }
 
             //            var maxvalue = (from e in db.CbTransHs where  e.Docno.Substring(0, 7) == kodeno + thnbln select e).Max();
-            string nourut = "000";
+            string nourut = "0000";
             if (maxvalue == null)
             {
-                nourut = "000";
+                nourut = "0000";
             }
             else
             {
-                nourut = maxvalue.Substring(7, 3);
+                nourut = maxvalue.Substring(6, 4);
             }
 
             //  nourut =Convert.ToString(Int32.Parse(nourut) + 1);
 
 
-            string cAngNo = kodeno + thnbln + (Int32.Parse(nourut) + 1).ToString("000");
+            string cAngNo = kodeno  + (Int32.Parse(nourut) + 1).ToString("0000");
             // var maxvalue = (from e in db.AptTranss where e.NoRef.Substring(0, 7) == "ANG" + cAngNo select e.NoRef.Max()).FirstOrDefault();
             string cNoref = cAngNo;
 
@@ -425,49 +425,56 @@ namespace GlobalSoft.Controllers
                 foreach (var e in ListTrans)
                 {
                     Total += e.Jumlah;
-
-                    if (i <= 6)
+                    if (cetak != 3)
                     {
-                        Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = e.Jumlah });
+                        if (i <= 6)
+                        {
+                            Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = e.Jumlah });
 
+                        }
+
+                        else
+                        {
+                            JumAngsur = JumAngsur + e.Jumlah;
+
+                            if (i == 7)
+                            {
+                                Ket7 = string.Format("{0} dr Tgl {1:d} ", e.Keterangan.Trim(), e.Duedate);
+
+                            }
+
+                            switch (ref_menu)
+                            {
+                                case 1:
+                                    if (i == cekNull)
+                                    {
+                                        Ket7 = Ket7 + string.Format("sd {0} ", e.Keterangan.Trim());
+                                        Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = JumAngsur });
+
+                                    };
+                                    break;
+                                case 2:
+                                    if (i == (cekNull - 1))
+                                    {
+                                        Ket7 = Ket7 + string.Format("sd {0} ", e.Keterangan.Trim());
+                                        Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = JumAngsur });
+
+                                    };
+                                    if (i == cekNull)
+                                    {
+                                        Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = e.Jumlah });
+
+                                    };
+                                    break;
+                            }
+
+
+
+                        }
                     }
-
                     else
                     {
-                        JumAngsur = JumAngsur + e.Jumlah;
-
-                        if (i == 7)
-                        {
-                            Ket7 = string.Format("{0} dr Tgl {1:d} ", e.Keterangan.Trim(), e.Duedate);
-
-                        }
-
-                        switch (ref_menu)
-                        {
-                            case 1:
-                                if (i == cekNull)
-                                {
-                                    Ket7 = Ket7 + string.Format("sd {0} ", e.Keterangan.Trim());
-                                    Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = JumAngsur });
-
-                                };
-                                break;
-                            case 2:
-                                if (i == (cekNull - 1))
-                                {
-                                    Ket7 = Ket7 +  string.Format("sd {0} ", e.Keterangan.Trim());
-                                    Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = Ket7, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = JumAngsur });
-
-                                };
-                                if (i == cekNull)
-                                {
-                                    Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = e.Jumlah });
-
-                                };
-                                break;
-                        }
-
-
+                        Transaksi.Add(new ArPiutang { LPB = e.SPesanan, Keterangan = e.Keterangan, Duedate = e.Duedate, Tanggal = e.Tanggal, Jumlah = e.Jumlah });
 
                     }
                     i++;

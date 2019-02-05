@@ -54,8 +54,8 @@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = asset.TransID }) |
                                 @Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = asset.TransID })
-
+                                @Html.ActionLink("Delete", "Delete", new { id = asset.TransID }) |
+                                @Html.ActionLink("Lampiran", "SPesanan", new { noref = @asset.NoRef, cetak = 3 }, new { target = "_blank" })
                             </td>
                         </tr>
                         }

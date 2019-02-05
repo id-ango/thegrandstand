@@ -809,6 +809,11 @@
     <Content Include="Views\SuratPesanan\Edit.cshtml" />
     <Content Include="Views\SuratPesanan\EditPesanan.cshtml" />
     <Content Include="Views\TransBank\BuktiKasBank.cshtml" />
+    <Content Include="Views\LaporanPiutangs\Create.cshtml" />
+    <Content Include="Views\LaporanPiutangs\Delete.cshtml" />
+    <Content Include="Views\LaporanPiutangs\Details.cshtml" />
+    <Content Include="Views\LaporanPiutangs\Edit.cshtml" />
+    <Content Include="Views\LaporanPiutangs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

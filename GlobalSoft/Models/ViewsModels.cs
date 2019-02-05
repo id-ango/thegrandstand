@@ -147,6 +147,8 @@ namespace GlobalSoft.Models
         public string Docno { get; set; }
         public int BankID { get; set; }
         public int BankID2 { get; set; }
+        public string BankName { get; set; }
+        public string KodeBank { get; set; }
         public DateTime Tanggal { get; set; }
         [StringLength(250)]
         public string Keterangan { get; set; }
@@ -368,12 +370,14 @@ namespace GlobalSoft.Models
         [StringLength(200)]
         public string KetBayar { get; set; }       // keterangan uang angsuran unit 1010 
 
-        public decimal Jumlah { get; set; }
-        public decimal Bayar { get; set; }
-        public decimal Sisa { get; set; }
+        public decimal Jumlah { get; set; }       // Harga
+        public decimal Bayar { get; set; }            // booking fee
+        public decimal Sisa { get; set; }             // bonus
         public decimal SldSisa { get; set; }
         public decimal Diskon { get; set; }
 
 
     }
+
+   
 }

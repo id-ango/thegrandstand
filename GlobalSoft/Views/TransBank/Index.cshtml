@@ -42,7 +42,7 @@
                                     @Html.ActionLink("Edit", "Edit", new { id = order.TranshID }) |
                                     @Html.ActionLink("Details", "Details", new { id = order.TranshID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = order.TranshID }) |
-                                   
+                                    @Html.ActionLink("Cetak", "BuktiKasBank", new { noref = @order.Docno, cetak = 2 }, new { target = "_blank" })
                                 </td>
                             </tr>
                         }
@@ -246,6 +246,7 @@
                 data: data,
                 success: function (result) {
                     alert(result);
+                    cetak();
                     location.reload(true);
                 },
                 error: function () {
@@ -281,12 +282,20 @@
             });
             //            alert(data);
 
-            $.when(saveOrder(data)).then(function (response) {
+            $.when(saveOrder(data)).then(function (response) {               
                 console.log(response);
             }).fail(function (err) {
                 console.log(err);
             });
         });
+
+        function cetak() {
+            var noref = $("#docno").val();
+            var cetak = 2;
+            var url = "/TransBank/BuktiKasBank?noref=" + noref + "&cetak=2";
+            window.open(url);
+
+        }
     </script>
     <script>
         function uppercaseF(a) {

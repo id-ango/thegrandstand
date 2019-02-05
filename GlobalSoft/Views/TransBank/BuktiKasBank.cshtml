@@ -1,4 +1,4 @@
-﻿@model GlobalSoft.Models.ArHView
+﻿@model GlobalSoft.Models.OdTransH
 @{
     Layout = null;
 }
@@ -19,6 +19,8 @@
     @Html.ActionLink("Back to List", "Index")
 
 </div>
+
+
 <div class="container-fluid">
     <table style="width:100%">
         <tr>
@@ -32,12 +34,12 @@
             <th style="width:40%">
 
                 <div align="center" style="padding:20px 50px">
-                    <h3 align="center"><u>BUKTI KAS/BANK</u></h3><br />
+                    <h3 align="center"><u>Bukti @Model.KodeBank @((@Model.Saldo<0) ? "Keluar" : "Masuk") </u></h3><br />
                 </div>
             </th>
             <th style="width:30%">
                 <div style="padding:20px 50px">
-                    <strong>Nomor   :</strong>        <span>@Model.Bukti</span><br />
+                    <strong>Nomor   :</strong>        <span>@Model.Docno</span><br />
                     <strong>Tanggal :</strong>        <span>@string.Format("{0:d}", @Model.Tanggal)</span>
 
                 </div>
@@ -47,103 +49,63 @@
     </table>
 </div>
 <div class="container-fluid">
-    <table style="width:100%;border:solid">
-        <tr>
-            <th style="width:50%">
-                <strong>Sudah Terima dari:</strong><br />
-            </th>
-            <th style="width:50%;border:solid">
-                <strong>Jumlah Yang Diterima Rp.</strong><br />
-            </th>
-        </tr>
-        <tr>
-            <th rowspan="2" style="width:50%">
-                <div style="padding:20px 50px">
-                    <span>@Model.CustomerName</span><br />
-                    <span>@Model.Alamat</span><br />
-                </div>
-            </th>
-            <th style="width:50%;border:solid">
-                <div style="padding:20px 50px">
+    @{
+        decimal nJumlah = 0;
 
-                    <span style="margin-left:50px">@string.Format("{0:n2}", @Model.Jumlah)</span>
-                    <span style="margin-left:100px">@Model.BankName</span>
+        <table style="width:100%">
+            <thead style="border:solid ">
+                <tr>
+                    <th style="width:auto">No</th>
+                    <th  style="width:auto"><span style="margin-right:15px;text-align:center">Keterangan</span> </th>
+                    <th style="width:auto">Jumlah</th>
+                </tr>
+            </thead>
+            <tbody style="border:solid">
 
-                </div>
-            </th>
+                @{
+                    decimal nNo = 0;
 
-        </tr>
-        <tr>
-            <th>
-                <div style="padding:20px 50px">
 
-                    <span>@ViewBag.Num2Char</span>
-
-                </div>
-            </th>
-        </tr>
-    </table>
-</div>
-<br />
-<div class="container-fluid">
-
-    <table style="width:100%">
-        <thead style="border:solid">
-            <tr>
-                <th style="width:auto">No</th>
-                <th style="width:auto">Jth Tempo</th>
-                <th style="width:auto">Keterangan</th>
-                <th style="width:auto">Angsuran</th>
-                <th style="width:auto">Bayar</th>
-                <th style="width:auto">Sisa</th>
-            </tr>
-        </thead>
-        <tbody style="border:solid">
-
-            @{
-                decimal nNo = 0;
-
-                foreach (var item in Model.TransDetail)
-                {
-                    nNo = nNo + 1;
-                    <tr>
-                        <td>@nNo</td>
-                        <td>@string.Format("{0:d}", @item.Duedate)</td>
-                        <td>@item.Keterangan</td>
-                        <td>@string.Format("{0:n2}", @item.Piutang)</td>
-                        <td>@string.Format("{0:n2}", @item.Bayar)</td>
-                        <td>@string.Format("{0:n2}", @item.Sisa)</td>
-                    </tr>
-
-                }
-                if (nNo < 8)
-                {
-                    for (var i = nNo; i < 8; i++)
+                    foreach (var item in Model.OdTransDs)
                     {
+                        nNo = nNo + 1;
+                        nJumlah = nJumlah + ((item.Terima) - (item.Bayar));
+
                         <tr>
-                            <td style="color:white">. </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td>@nNo</td>
+                            <td>@item.Keterangan</td>
+                            <td>@string.Format("{0:n2}", (item.Terima - item.Bayar))</td>
                         </tr>
 
                     }
-                }
+                    if (nNo < 8)
+                    {
+                        for (var i = nNo; i < 8; i++)
+                        {
+                            <tr>
+                                <td style="color:white">. </td>
+                                <td> </td>
+                                <td> </td>                                
+                            </tr>
 
-            };
-        </tbody>
-        <tbody>
-            <tr>.</tr>
-        </tbody>
-        <tfoot style="border:solid">
+                        }
+                    }
 
-            <tr>
-                <td colspan="6">@Model.Keterangan</td>
-            </tr>
-        </tfoot>
-    </table>
+                };
+            </tbody>
+            <tbody>
+                <tr>.</tr>
+            </tbody>
+            <tfoot style="border:solid">
+
+                <tr>
+                    <td colspan="2">@Model.Keterangan</td>
+                    <td>@string.Format("{0:n2}", @nJumlah)</td>
+                </tr>
+            </tfoot>
+
+        </table>
+    }
 </div>
 <br />
 
@@ -162,16 +124,14 @@
             </th>
             <th style="width:33%;border:solid">
                 <div align="center">
-                    <strong>Konsumen</strong> <br /><br /><br /><br />
+                    <strong>Kasir</strong> <br /><br /><br /><br />
                 </div>
             </th>
         </tr>
     </table>
 </div>
-<div class="container-fluid">
-    <span>Catatan</span><br />
-    <span style="font-size:10px">* Pembayaran dengan Cheque/Giro dianggap sah apabila jumlah tersebut telah diterima oleh Bank kami.</span>
-</div>
+<br />
+<br />
 
 
 

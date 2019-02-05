@@ -71,7 +71,7 @@ namespace GlobalSoft.Models
 
         [DisplayFormat(DataFormatString ="{0:n0}")]
         public decimal Inhouse { get; set; }
-        [DisplayFormat(DataFormatString = "{0:n0}"),Display(Name ="KPR")]
+        [DisplayFormat(DataFormatString = "{0:n0}"),Display(Name ="KPA")]
         public decimal PriceKPR { get; set; }
         public int StatOld { get; set; } = 0;
 
@@ -328,7 +328,6 @@ namespace GlobalSoft.Models
         public DbSet<ApTransD> ApTransDs { get; set; }
         public DbSet<ApTransH> ApTransHs { get; set; }
         public DbSet<ApSupplier> ApSuppliers { get; set; }
-
         //      public System.Data.Entity.DbSet<GlobalSoft.Models.TabularViewModel> TabularViewModels { get; set; }
     }
 }
