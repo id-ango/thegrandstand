@@ -196,6 +196,7 @@
     <Compile Include="Controllers\FungsiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaporanController.cs" />
+    <Compile Include="Controllers\LaporanPiutangController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -809,11 +810,7 @@
     <Content Include="Views\SuratPesanan\Edit.cshtml" />
     <Content Include="Views\SuratPesanan\EditPesanan.cshtml" />
     <Content Include="Views\TransBank\BuktiKasBank.cshtml" />
-    <Content Include="Views\LaporanPiutangs\Create.cshtml" />
-    <Content Include="Views\LaporanPiutangs\Delete.cshtml" />
-    <Content Include="Views\LaporanPiutangs\Details.cshtml" />
-    <Content Include="Views\LaporanPiutangs\Edit.cshtml" />
-    <Content Include="Views\LaporanPiutangs\Index.cshtml" />
+    <Content Include="Views\LaporanPiutang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

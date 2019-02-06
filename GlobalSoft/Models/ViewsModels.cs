@@ -379,5 +379,52 @@ namespace GlobalSoft.Models
 
     }
 
-   
+    public class LaporanPiutangVM
+    {
+        [Key]
+        public int TransID { get; set; }    // sama dengan no kodetrans ArPiutang
+        public int SPesananID { get; set; }
+        [StringLength(20)]
+        [Display(Name = "No Ref")]
+        public string NoRef { get; set; }    //sama dengan no Dokumen di AptSPesanan
+        public Guid SpesananGd { get; set; }
+        [Display(Name = "Tanggal")]
+        public DateTime Tanggal { get; set; }       // Tanggal Transaksi
+
+        public string UnitNo { get; set; }
+        public int UnitID { get; set; }         // Unit No 
+        
+        public int CustomerID { get; set; }    
+        public string CustomerName { get; set; }
+
+        public int MarketingID { get; set; }       
+        public string MarketingName { get; set; }
+
+        [StringLength(250)]
+        public string Keterangan { get; set; }
+        [Display(Name = "Jumlah Bayar")]
+        public decimal Payment { get; set; }            // Jumlah Pembayaran
+
+        [Display(Name = "Cara Bayar")]
+        public int PaymentID { get; set; }                // jenis pembayaran Tunai,Debet
+        public string PaymentName { get; set; }
+
+        public DateTime TglSelesai { get; set; }        // tanggal selesai cicilan
+        public int Cicilan { get; set; }                // cicil berapa kali
+
+        public int TransNoID { get; set; }           // No Trans = 1-Surat Pesanan
+        public virtual AptTrsNo AptTrsNo { get; set; }
+
+        public int BayarID { get; set; }         // 1-Inhouse,2-KPR,3-Tunai
+        public virtual AptBayar AptBayar { get; set; }
+
+        public decimal Harga { get; set; }
+        public decimal BookingFee { get; set; }
+        public decimal BonusFee { get; set; }
+        public decimal Piutang { get; set; }
+        public decimal Bayar { get; set; }
+        public decimal Sisa { get; set; }
+
+
+    }
 }

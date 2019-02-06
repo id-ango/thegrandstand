@@ -76,16 +76,16 @@
     <script>
         $("#proses").click(function (e) {
             e.preventDefault();
-           
+
             var tanggal = $("#Tanggal").val();
-       
-            var data2 = {                
+
+            var data2 = {
                 tanggal: tanggal
-              
+
 
             };
-          
-             //   alert(tanggal);
+
+            //   alert(tanggal);
 
             $.ajax({
                 type: "GET",
@@ -114,7 +114,9 @@
                         '</tr>';
                     //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
                     $.each(result, function () {
-                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>'+ this.Jumlah + '</td></tr>';
+                        if (this.Jumlah != 0) {
+                            htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        }
                     });
 
                     htmlResult += '</table>' +
@@ -123,7 +125,7 @@
                         '  </div >' +
                         '</div >';
                     $("#list_container1").html(htmlResult);
-                    
+
                 },
                 error: function (result) {
                     alert("Something went wrong in controller");
@@ -139,7 +141,7 @@
                 success: function (result) {
                     var test = JSON.stringify(result);
 
-                 //   alert(test);
+                    //   alert(test);
                     var htmlResult = '<div class="row">' +
                         '   <div class="col-md-8">' +
                         '      <div class="panel panel-primary list-panel" id="list-panel">' +
@@ -157,7 +159,9 @@
                         '</tr>';
                     //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
                     $.each(result, function () {
-                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        if (this.Jumlah != 0) {
+                            htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        }
                     });
 
                     htmlResult += '</table>' +
@@ -182,7 +186,7 @@
                 success: function (result) {
                     var test = JSON.stringify(result);
 
-                //    alert(test);
+                    //    alert(test);
                     var htmlResult = '<div class="row">' +
                         '   <div class="col-md-8">' +
                         '      <div class="panel panel-primary list-panel" id="list-panel">' +
@@ -200,7 +204,9 @@
                         '</tr>';
                     //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
                     $.each(result, function () {
-                        htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        if (this.Jumlah != 0) {
+                            htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
+                        }
                     });
 
                     htmlResult += '</table>' +
@@ -225,7 +231,7 @@
                 success: function (result) {
                     var test = JSON.stringify(result);
 
-                //    alert(test);
+                    //    alert(test);
                     var htmlResult = '<div class="row">' +
                         '   <div class="col-md-8">' +
                         '      <div class="panel panel-primary list-panel" id="list-panel">' +
@@ -246,7 +252,7 @@
                         if (this.Jumlah != 0) {
                             htmlResult += '<tr><td>' + getDateIfDate(this.Duedate) + '</td><td>' + this.Keterangan + '</td><td>' + this.CustomerName + '</td><td>' + this.SPesanan + '</td><td>' + this.Jumlah + '</td></tr>';
                         }
-                        });
+                    });
 
                     htmlResult += '</table>' +
                         '</div>' +
@@ -262,7 +268,7 @@
             });
         });
 
-       
+
         function getDateIfDate(d) {
             var m = d.match(/\/Date\((\d+)\)\//);
             return m ? (new Date(+m[1])).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' }) : d;
