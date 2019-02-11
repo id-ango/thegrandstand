@@ -48,7 +48,7 @@ namespace GlobalSoft.Controllers
 
 
         }
-        [Authorize(Roles = "Admin,Manager,Employee,Marketing")]
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public ActionResult List3Unit()
         {
             var aptUnits = db.AptUnits.Include(a => a.AptCategorie).Include(a => a.AptStatus);
@@ -64,7 +64,7 @@ namespace GlobalSoft.Controllers
             return View(listUnit);
            
         }
-        [Authorize(Roles = "Admin,Manager,Employee,Marketing")]
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public ActionResult List2Unit()
         {
           // TabularViewModel TabelView = new TabularViewModel();
@@ -343,6 +343,7 @@ namespace GlobalSoft.Controllers
             return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public ActionResult Tabular()
         {
             // TabularViewModel TabelView = new TabularViewModel();
@@ -423,6 +424,249 @@ namespace GlobalSoft.Controllers
 
                              });
             return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Admin,Manager,Employee,Marketing")]
+        public ActionResult DaftarUnit()
+        {
+           
+            
+                var PodiumLevel = (from w in db.AptUnits
+                                 where ( w.Lantai == 5 )
+                                 select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit = (from t in PodiumLevel
+                            select new MyGedung
+                            {
+                                Gedung = "Podium Level",
+                                GedungID = 1,
+                                Lantai1 = t.Lantai,
+                                UnitID1 = t.UnitID,
+                                UnitNo1 = t.UnitNo,
+                                Categorie1 = t.AptCategorie.Categorie,
+                                CategorieID1 = t.CategorieID,
+                                Luas1 = t.AptCategorie.Luas,
+                                Status1 = t.AptStatus.Status,
+                                StatusID1 = t.StatusID
+
+                                }).ToList();
+
+            // var LowLevel = (from w in db.AptUnits
+            //                  where (w.Lantai == 1)
+            //                    select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            ViewBag.Level1 = ListUnit.ToList();
+
+            var LowLevel7 = (from w in db.AptUnits
+                               where (w.Lantai == 7)
+                               select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit7 = (from t in LowLevel7
+                            select new MyGedung
+                            {
+                                Gedung = "Low Level",
+                                GedungID = 2,
+                                Lantai1 = t.Lantai,
+                                UnitID1 = t.UnitID,
+                                UnitNo1 = t.UnitNo,
+                                Categorie1 = t.AptCategorie.Categorie,
+                                CategorieID1 = t.CategorieID,
+                                Luas1 = t.AptCategorie.Luas,
+                                Status1 = t.AptStatus.Status,
+                                StatusID1 = t.StatusID
+
+                            }).ToList();
+            ViewBag.Level2 = ListUnit7.ToList();
+            var LowLevel8 = (from w in db.AptUnits
+                             where (w.Lantai == 8)
+                             select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit8 = (from t in LowLevel8
+                             select new MyGedung
+                             {
+                                 Gedung = "Low Level",
+                                 GedungID = 2,
+                                 Lantai1 = t.Lantai,
+                                 UnitID1 = t.UnitID,
+                                 UnitNo1 = t.UnitNo,
+                                 Categorie1 = t.AptCategorie.Categorie,
+                                 CategorieID1 = t.CategorieID,
+                                 Luas1 = t.AptCategorie.Luas,
+                                 Status1 = t.AptStatus.Status,
+                                 StatusID1 = t.StatusID
+
+                             }).ToList();
+            ViewBag.Level3 = ListUnit8.ToList();
+
+            var LowLevel9 = (from w in db.AptUnits
+                             where (w.Lantai == 9)
+                             select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit9 = (from t in LowLevel9
+                             select new MyGedung
+                             {
+                                 Gedung = "Low Level",
+                                 GedungID = 2,
+                                 Lantai1 = t.Lantai,
+                                 UnitID1 = t.UnitID,
+                                 UnitNo1 = t.UnitNo,
+                                 Categorie1 = t.AptCategorie.Categorie,
+                                 CategorieID1 = t.CategorieID,
+                                 Luas1 = t.AptCategorie.Luas,
+                                 Status1 = t.AptStatus.Status,
+                                 StatusID1 = t.StatusID
+
+                             }).ToList();
+            ViewBag.Level4 = ListUnit9.ToList();
+
+            var LowLevel10 = (from w in db.AptUnits
+                             where (w.Lantai == 10)
+                             select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit10 = (from t in LowLevel10
+                             select new MyGedung
+                             {
+                                 Gedung = "Low Level",
+                                 GedungID = 2,
+                                 Lantai1 = t.Lantai,
+                                 UnitID1 = t.UnitID,
+                                 UnitNo1 = t.UnitNo,
+                                 Categorie1 = t.AptCategorie.Categorie,
+                                 CategorieID1 = t.CategorieID,
+                                 Luas1 = t.AptCategorie.Luas,
+                                 Status1 = t.AptStatus.Status,
+                                 StatusID1 = t.StatusID
+
+                             }).ToList();
+            ViewBag.Level5 = ListUnit10.ToList();
+
+            var LowLevel11 = (from w in db.AptUnits
+                             where (w.Lantai == 11)
+                             select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit11 = (from t in LowLevel11
+                             select new MyGedung
+                             {
+                                 Gedung = "Low Level",
+                                 GedungID = 2,
+                                 Lantai1 = t.Lantai,
+                                 UnitID1 = t.UnitID,
+                                 UnitNo1 = t.UnitNo,
+                                 Categorie1 = t.AptCategorie.Categorie,
+                                 CategorieID1 = t.CategorieID,
+                                 Luas1 = t.AptCategorie.Luas,
+                                 Status1 = t.AptStatus.Status,
+                                 StatusID1 = t.StatusID
+
+                             }).ToList();
+            ViewBag.Level6 = ListUnit11.ToList();
+
+            var LowLevel12 = (from w in db.AptUnits
+                              where (w.Lantai == 12)
+                              select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit12 = (from t in LowLevel12
+                              select new MyGedung
+                              {
+                                  Gedung = "Medium Level",
+                                  GedungID = 3,
+                                  Lantai1 = t.Lantai,
+                                  UnitID1 = t.UnitID,
+                                  UnitNo1 = t.UnitNo,
+                                  Categorie1 = t.AptCategorie.Categorie,
+                                  CategorieID1 = t.CategorieID,
+                                  Luas1 = t.AptCategorie.Luas,
+                                  Status1 = t.AptStatus.Status,
+                                  StatusID1 = t.StatusID
+
+                              }).ToList();
+            ViewBag.Level7 = ListUnit12.ToList();
+
+            var LowLevel15 = (from w in db.AptUnits
+                              where (w.Lantai == 15)
+                              select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit15 = (from t in LowLevel15
+                              select new MyGedung
+                              {
+                                  Gedung = "Medium Level",
+                                  GedungID = 3,
+                                  Lantai1 = t.Lantai,
+                                  UnitID1 = t.UnitID,
+                                  UnitNo1 = t.UnitNo,
+                                  Categorie1 = t.AptCategorie.Categorie,
+                                  CategorieID1 = t.CategorieID,
+                                  Luas1 = t.AptCategorie.Luas,
+                                  Status1 = t.AptStatus.Status,
+                                  StatusID1 = t.StatusID
+
+                              }).ToList();
+            ViewBag.Level8 = ListUnit15.ToList();
+
+            var LowLevel16 = (from w in db.AptUnits
+                              where (w.Lantai == 16)
+                              select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit16 = (from t in LowLevel16
+                              select new MyGedung
+                              {
+                                  Gedung = "Medium Level",
+                                  GedungID = 3,
+                                  Lantai1 = t.Lantai,
+                                  UnitID1 = t.UnitID,
+                                  UnitNo1 = t.UnitNo,
+                                  Categorie1 = t.AptCategorie.Categorie,
+                                  CategorieID1 = t.CategorieID,
+                                  Luas1 = t.AptCategorie.Luas,
+                                  Status1 = t.AptStatus.Status,
+                                  StatusID1 = t.StatusID
+
+                              }).ToList();
+            ViewBag.Level9 = ListUnit16.ToList();
+
+            var LowLevel27 = (from w in db.AptUnits
+                              where (w.Lantai == 27)
+                              select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit27= (from t in LowLevel27
+                              select new MyGedung
+                              {
+                                  Gedung = "High Level",
+                                  GedungID = 4,
+                                  Lantai1 = t.Lantai,
+                                  UnitID1 = t.UnitID,
+                                  UnitNo1 = t.UnitNo,
+                                  Categorie1 = t.AptCategorie.Categorie,
+                                  CategorieID1 = t.CategorieID,
+                                  Luas1 = t.AptCategorie.Luas,
+                                  Status1 = t.AptStatus.Status,
+                                  StatusID1 = t.StatusID
+
+                              }).ToList();
+            ViewBag.Level10 = ListUnit27.ToList();
+
+            var LowLevel28 = (from w in db.AptUnits
+                              where (w.Lantai == 28)
+                              select w).OrderBy(w => w.Lantai).ThenBy(w => w.UnitNo).ToList();
+
+            var ListUnit28 = (from t in LowLevel28
+                              select new MyGedung
+                              {
+                                  Gedung = "High Level",
+                                  GedungID = 4,
+                                  Lantai1 = t.Lantai,
+                                  UnitID1 = t.UnitID,
+                                  UnitNo1 = t.UnitNo,
+                                  Categorie1 = t.AptCategorie.Categorie,
+                                  CategorieID1 = t.CategorieID,
+                                  Luas1 = t.AptCategorie.Luas,
+                                  Status1 = t.AptStatus.Status,
+                                  StatusID1 = t.StatusID
+
+                              }).ToList();
+            ViewBag.Level11 = ListUnit28.ToList();
+
+            return View(ListUnit.ToList());
         }
     }
 }

@@ -119,6 +119,7 @@
 
         <button class="btn btn-danger pull-left" id="saveOrder">SIMPAN</button>
 
+
     </div>
 </div>
 
@@ -134,7 +135,7 @@
 
     <script>
         $(document).ready(function () {
-          //  e.preventDefault();
+            //  e.preventDefault();
 
             var noref = $("#NoRef").val();
 
@@ -148,7 +149,7 @@
             //    alert(ref_this + refa);
             //    alert(tanggal + ' ' + cicilan);
 
-       //     alert(JSON.stringify(data2));
+            //     alert(JSON.stringify(data2));
 
             $.ajax({
                 type: "GET",
@@ -174,10 +175,10 @@
 
 
     </script>
-    
 
-   <script>
-       var url = $('#RedirectTo').val();
+
+    <script>
+        var url = $('#RedirectTo').val();
 
         function saveOrder(data) {
 
@@ -210,7 +211,7 @@
                     duedate: $(this).find(".duedate input").val(),
                     keterangan: $(this).find(".keterangan input").val(),
                     jumlah: $(this).find(".jumlah input").val(),
-                    spesananid: $(this).find('td:eq(3)').html()            
+                    spesananid: $(this).find('td:eq(3)').html()
                 });
             });
 
@@ -221,11 +222,11 @@
                 tanggal: $("#Tanggal").val(),
                 row_num: $("#UnitID option:selected").val(),
                 row_cust: $("#CustomerID option:selected").val(),
-                marketing: $("#MarketingID option:selected").val(),               
+                marketing: $("#MarketingID option:selected").val(),
                 order: orderArr
             });
             var test = JSON.stringify(data);
-           // alert(test);
+            // alert(test);
 
             $.when(saveOrder(test)).then(function (response) {
                 cetak();
@@ -245,15 +246,32 @@
 
         }
 
-       $(document).on('click', 'a.deleteItem', function (e) {
-           e.preventDefault();
-           var $self = $(this);
-           if ($(this).attr('data-itemId') === "0") {
-               $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-                   $(this).remove();
-               });
-           }
-       });
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') === "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+
+
     </script>
+
+    <script>
+     $("#addToList").click(function (e) {
+         e.preventDefault();
+         alert("testing");
+        var td2 = '<td class="duedate"> @Html.TextBox("Duedate", "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })</td>";
+        var td3 = '<td class="keterangan">  @Html.Editor("Keterangan", new { htmlAttributes = new { @class = "form-control" } })</td>';
+        var td4 = '<td class="jumlah"> @Html.Editor("Jumlah", new { htmlAttributes = new { @class = "form-control", @type = "number" } })</td>';
+        var td5 = '<td hidden> </td>'
+        var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
+        $("tbody").append('<tr>' + td2 + td3 + td4 +td5 + td6+'</tr>');
+        });
+    </script>
+
 }
 

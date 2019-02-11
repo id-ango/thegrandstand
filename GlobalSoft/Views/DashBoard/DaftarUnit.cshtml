@@ -1,0 +1,445 @@
+﻿@model IEnumerable<GlobalSoft.Models.MyGedung>
+
+@{
+    ViewBag.Title = "DaftarUnit";
+
+}
+
+<h2>PODIUM LEVEL</h2>
+@{
+
+    <table>
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level1)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>LOW LEVEL</h2>
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level2)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level3)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level4)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level5)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table>
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level6)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>MEDIUM LEVEL</h2>
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th style="text-align:center">Lantai</th>
+                <th style="text-align:center">Nomor</th>
+                <th style="text-align:center">Tipe</th>
+                <th style="text-align:center">Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level7)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid;text-align:center">@tList.Lantai1</td>
+                    <td style="border:solid;text-align:center">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level8)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table>
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level9)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<h2>HIGH LEVEL</h2>
+@{
+    <table style="float:left">
+        <thead>
+            <tr>
+                <th style="text-align:center">Lantai</th>
+                <th style="text-align:center">Nomor</th>
+                <th style="text-align:center">Tipe</th>
+                <th style="text-align:center">Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level10)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid;text-align:center">@tList.Lantai1</td>
+                    <td style="border:solid;text-align:center">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@{
+    <table>
+        <thead>
+            <tr>
+                <th>Lantai</th>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Luas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tList in ViewBag.Level11)
+            {
+
+                string Warna = "background-color:white";
+                switch (tList.StatusID1)
+                {
+                    case 1:
+                        Warna = "background-color:white";
+                        break;
+                    case 2:
+                        Warna = "background-color:yellow";
+                        break;
+                    case 3:
+                        Warna = "background-color:red";
+                        break;
+                }
+
+
+                <tr style="border:solid ; @Warna ">
+                    <td style="border:solid">@tList.Lantai1</td>
+                    <td style="border:solid">@tList.UnitNo1</td>
+                    <td style="border:solid">@tList.Categorie1</td>
+                    <td style="border:solid">@tList.Luas1</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

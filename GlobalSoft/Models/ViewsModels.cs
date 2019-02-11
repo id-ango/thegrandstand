@@ -276,6 +276,62 @@ namespace GlobalSoft.Models
 
     }
 
+    public class MyGedung
+    {
+        public int MyGedungID { get; set; }      
+        public int GedungID { get; set; }
+        [Display(Name = "Level")]
+        public string Gedung { get; set; }
+        [Display(Name = "Lantai")]
+        public int Lantai1 { get; set; }
+        public int UnitID1 { get; set; }         // Unit No 
+        [Display(Name = "Nomor")]       
+        public string UnitNo1 { get; set; }
+        public int CategorieID1 { get; set; }
+        [Display(Name = "Tipe")]
+        public string Categorie1 { get; set; }
+        public int StatusID1 { get; set; }       
+        public string Status1 { get; set; }
+        [Display(Name = "Ukuran")]
+        public decimal Luas1 { get; set; }
+        [Display(Name = "Lantai")]
+        public int Lantai2 { get; set; }
+        public int UnitID2 { get; set; }         // Unit No 
+        [Display(Name = "Nomor")]
+        public string UnitNo2 { get; set; }
+        public int CategorieID2 { get; set; }
+        [Display(Name = "Tipe")]
+        public string Categorie2 { get; set; }
+        public int StatusID2 { get; set; }
+        public string Status2 { get; set; }
+        [Display(Name = "Ukuran")]
+        public decimal Luas2 { get; set; }
+        [Display(Name = "Lantai")]
+        public int Lantai3 { get; set; }
+        public int UnitID3 { get; set; }         // Unit No 
+        [Display(Name = "Nomor")]
+        public string UnitNo3 { get; set; }
+        public int CategorieID3 { get; set; }
+        [Display(Name = "Tipe")]
+        public string Categorie3 { get; set; }
+        public int StatusID3 { get; set; }
+        public string Status3 { get; set; }
+        [Display(Name = "Ukuran")]
+        public decimal Luas3 { get; set; }
+        [Display(Name = "Lantai")]
+        public int Lantai4 { get; set; }       
+        public int UnitID4 { get; set; }         // Unit No 
+        [Display(Name = "Nomor")]
+        public string UnitNo4 { get; set; }
+        public int CategorieID4 { get; set; }
+        [Display(Name = "Tipe")]
+        public string Categorie4 { get; set; }
+        public int StatusID4 { get; set; }
+        public string Status4 { get; set; }
+        [Display(Name = "Ukuran")]
+        public decimal Luas4 { get; set; }
+    }
+
     public class ArHView
     {
         public int ArHID { get; set; }

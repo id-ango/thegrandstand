@@ -811,6 +811,7 @@
     <Content Include="Views\SuratPesanan\EditPesanan.cshtml" />
     <Content Include="Views\TransBank\BuktiKasBank.cshtml" />
     <Content Include="Views\LaporanPiutang\Index.cshtml" />
+    <Content Include="Views\DashBoard\DaftarUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
