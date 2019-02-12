@@ -22,6 +22,9 @@
                       decimal nJumlah = 0;
                       decimal nBooking = 0;
                       decimal nBonus = 0;
+                      decimal nPiutang = 0;
+                      decimal nBayar = 0;
+                      decimal nSisa = 0;
 
                     <thead>
                         <tr>
@@ -46,7 +49,11 @@
                             {
                                 nJumlah = nJumlah + asset.Harga;
                                 nBonus = nBonus + asset.BonusFee;
-                                nBooking = nBonus + asset.BookingFee;
+                                nBooking = nBooking + asset.BookingFee;
+                                nPiutang = nPiutang + asset.Piutang;
+                                nBayar = nBayar + asset.Bayar;
+                                nSisa = nSisa + (nPiutang-nBayar);
+
                             <tr>
                                 <td>@asset.NoRef</td>
                                 <td>@asset.Tanggal</td>
@@ -59,12 +66,12 @@
                                 <td>@string.Format("{0:n0}", @asset.BonusFee)</td>
                                 <td>@string.Format("{0:n0}", @asset.Piutang)</td>
                                 <td>@string.Format("{0:n0}", @asset.Bayar)</td>
-                                <td>@string.Format("{0:n0}", @asset.Sisa)</td>
+                                <td>@string.Format("{0:n0}", @asset.Piutang - @asset.Bayar)</td>
 
                                
                                 <td>
-                                    @Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |
-                                    @Html.ActionLink("Lampiran", "SPesanan", new { noref = @asset.NoRef, cetak = 3 }, new { target = "_blank" })
+                                    @*Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |*@
+                                    @*Html.ActionLink("Lampiran", "SPesanan", new { noref = @asset.NoRef, cetak = 3 }, new { target = "_blank" })*@
                                 </td>
                             </tr>
 
@@ -82,9 +89,9 @@
                             <td>@string.Format("{0:n0}", @nJumlah)</td>
                             <td>@string.Format("{0:n0}", @nBooking)</td>
                             <td>@string.Format("{0:n0}", @nBonus)</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>@string.Format("{0:n0}", @nPiutang)</td>
+                            <td>@string.Format("{0:n0}", @nBayar)</td>
+                            <td>@string.Format("{0:n0}", @nSisa)</td>
                         </tr>
                     </tfoot>
                       }

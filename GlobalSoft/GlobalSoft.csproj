@@ -415,6 +415,7 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\main.index.css" />
+    <Content Include="Content\MasterStyleSheet.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\SKUP.css" />
     <Content Include="Content\SPesanan.css" />

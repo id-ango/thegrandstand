@@ -11,6 +11,7 @@ using WebGrease.Css.Extensions;
 
 namespace GlobalSoft.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Employee")]
     public class LaporanPiutangController : Controller
     {
         private GlobalsoftDBContext db = new GlobalsoftDBContext();
@@ -53,8 +54,13 @@ namespace GlobalSoft.Controllers
                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, CustomerID = e.PersonID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = e.Keterangan ?? "Booking Fee" };
 
             var ListSp = from e in db.AptSPesanans
-                         join y in db.AptTranss on e.SPesanan equals y.NoRef
-                         select new UnitPiutang { NoRef = e.SPesanan, Tanggal = e.Duedate, UnitID = y.UnitID, UnitNo = y.AptUnit.UnitNo, Angsuran = e.Jumlah, Bayar = e.Bayar, Keterangan = e.Keterangan };
+                         join y in db.AptTranss on e.SpesananGd equals y.SpesananGd
+                         select new UnitPiutang { NoRef = e.SPesanan, Tanggal = e.Duedate, UnitID = y.UnitID, CustomerID = y.CustomerID, Angsuran = e.Jumlah, Bayar = e.Bayar, Keterangan = e.Keterangan };
+
+            var ListByr = from e in db.ArTransDs
+                         join y in db.AptSPesanans on e.SPesananID equals y.SPesananID
+                         join t in db.AptTranss on y.SpesananGd equals t.SpesananGd
+                         select new UnitPiutang { NoRef = e.Bukti, Tanggal = e.Tanggal, UnitID = t.UnitID, CustomerID = e.CustomerID, Angsuran = e.Piutang, Bayar = e.Bayar+e.Diskon, Keterangan = e.Keterangan };
 
             foreach (var y in ListCb)
             {
@@ -75,6 +81,24 @@ namespace GlobalSoft.Controllers
                  });
             }
 
+            foreach (var y in ListSp)
+            {
+                (from e in Trans1
+                 where e.UnitID == y.UnitID && e.CustomerID == y.CustomerID
+                 select e).ForEach(x =>
+                 {
+                     x.Piutang = x.Piutang + y.Angsuran;
+                 });
+            }
+            foreach (var y in ListByr)
+            {
+                (from e in Trans1
+                 where e.UnitID == y.UnitID && e.CustomerID == y.CustomerID
+                 select e).ForEach(x =>
+                 {
+                     x.Bayar = x.Bayar + y.Bayar;
+                 });
+            }
             return View(Trans1);
         }
     }

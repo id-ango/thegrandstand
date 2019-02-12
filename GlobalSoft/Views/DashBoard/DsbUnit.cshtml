@@ -29,17 +29,33 @@
                     <tbody>
                         @foreach (var asset in Model)
                         {
-                        <tr>
-                            <td>@asset.UnitNo</td>
-                            <td>@asset.Lantai</td>
-                            <td>@asset.AptCategorie.Categorie</td>
-                            <td>@asset.AptStatus.Status</td>
-                            <td>@string.Format("{0:#,#.00}", asset.Inhouse)</td>
-                            <td>@string.Format("{0:#,#.00}", asset.PriceKPR)</td>
-                            
-                        </tr>
-                        }
-                    </tbody>
+                            string Warna = "background-color:white";
+                            switch (asset.StatusID)
+                            {
+                                case 1:
+                                    Warna = "background-color:white";
+                                    break;
+                                case 2:
+                                    Warna = "background-color:yellow";
+                                    break;
+                                case 3:
+                                    Warna = "background-color:red";
+                                    break;
+                            }
+
+
+                          
+                            <tr style="@Warna">
+                                <td>@asset.UnitNo</td>
+                                <td>@asset.Lantai</td>
+                                <td>@asset.AptCategorie.Categorie</td>
+                                <td>@asset.AptStatus.Status</td>
+                                <td>@string.Format("{0:#,#.00}", asset.Inhouse)</td>
+                                <td>@string.Format("{0:#,#.00}", asset.PriceKPR)</td>
+
+                            </tr>
+                            }
+                        </tbody>
                 </table>
             </div>
         </div>
