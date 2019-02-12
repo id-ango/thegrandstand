@@ -25,6 +25,7 @@ namespace GlobalSoft.Controllers
                                                     select new LaporanPiutangVM
                                                     {
                                                         SpesananGd = e.SpesananGd,
+                                                        Tanggal = e.Tanggal,
                                                         NoRef = e.NoRef,
                                                         TransID = e.TransID,
                                                         TransNoID = e.TransNoID,
@@ -54,12 +55,12 @@ namespace GlobalSoft.Controllers
                          select new UnitPiutang { NoRef = e.NoRef, Tanggal = e.Tanggal, UnitID = e.UnitID, CustomerID = e.PersonID, UnitNo = e.AptUnit.UnitNo, Angsuran = 0, Bayar = e.Payment, Keterangan = e.Keterangan ?? "Booking Fee" };
 
             var ListSp = from e in db.AptSPesanans
-                         join y in db.AptTranss on e.SpesananGd equals y.SpesananGd
+                         join y in db.AptTranss on e.SPesanan equals y.NoRef
                          select new UnitPiutang { NoRef = e.SPesanan, Tanggal = e.Duedate, UnitID = y.UnitID, CustomerID = y.CustomerID, Angsuran = e.Jumlah, Bayar = e.Bayar, Keterangan = e.Keterangan };
 
             var ListByr = from e in db.ArTransDs
                          join y in db.AptSPesanans on e.SPesananID equals y.SPesananID
-                         join t in db.AptTranss on y.SpesananGd equals t.SpesananGd
+                         join t in db.AptTranss on y.SPesanan equals t.NoRef
                          select new UnitPiutang { NoRef = e.Bukti, Tanggal = e.Tanggal, UnitID = t.UnitID, CustomerID = e.CustomerID, Angsuran = e.Piutang, Bayar = e.Bayar+e.Diskon, Keterangan = e.Keterangan };
 
             foreach (var y in ListCb)
