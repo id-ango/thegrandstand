@@ -91,7 +91,7 @@
                             <td>@string.Format("{0:n0}", @nBonus)</td>
                             <td>@string.Format("{0:n0}", @nPiutang)</td>
                             <td>@string.Format("{0:n0}", @nBayar)</td>
-                            <td>@string.Format("{0:n0}", @nSisa)</td>
+                            <td>@string.Format("{0:n0}", (@nPiutang - @nBayar))</td>
                         </tr>
                     </tfoot>
                       }
