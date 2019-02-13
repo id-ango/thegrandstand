@@ -220,8 +220,6 @@
     <Compile Include="Controllers\TransBankController.cs" />
     <Compile Include="Controllers\TransLedgerController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="DAL\Repository.cs" />
-    <Compile Include="DAL\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
