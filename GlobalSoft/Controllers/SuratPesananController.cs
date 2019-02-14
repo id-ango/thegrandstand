@@ -573,7 +573,7 @@ namespace GlobalSoft.Controllers
             {
                 (from y in db.AptTranss
                   where y.NoRef == bukti
-                  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; x.BayarID = carabayar });
+                  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; x.BayarID = carabayar; });
 
                 var Transaksi = (from e in db.AptSPesanans
                                  where e.SPesanan == bukti
