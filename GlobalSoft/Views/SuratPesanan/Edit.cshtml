@@ -69,10 +69,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group" hidden>
-                        @Html.LabelFor(model => model.BayarID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="form-group" >
+                        @Html.LabelFor(model => model.BayarID,"Cara Bayar", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BayarID, new { htmlAttributes = new { @class = "form-control", @Value = 1 } })
+                        
+                            @Html.DropDownList("BayarID", null, "--Cara Bayar--", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.BayarID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -223,6 +224,7 @@
                 row_num: $("#UnitID option:selected").val(),
                 row_cust: $("#CustomerID option:selected").val(),
                 marketing: $("#MarketingID option:selected").val(),
+                carabayar: $("#BayarID option:selected").val(),
                 order: orderArr
             });
             var test = JSON.stringify(data);
@@ -261,17 +263,28 @@
     </script>
 
     <script>
-     $("#addToList").click(function (e) {
-         e.preventDefault();
-         alert("testing");
-        var td2 = '<td class="duedate"> @Html.TextBox("Duedate", "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })</td>";
-        var td3 = '<td class="keterangan">  @Html.Editor("Keterangan", new { htmlAttributes = new { @class = "form-control" } })</td>';
-        var td4 = '<td class="jumlah"> @Html.Editor("Jumlah", new { htmlAttributes = new { @class = "form-control", @type = "number" } })</td>';
-        var td5 = '<td hidden> </td>'
-        var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
-        $("tbody").append('<tr>' + td2 + td3 + td4 +td5 + td6+'</tr>');
-        });
+        function addList() {        
+                var td2 = '<td class="duedate">  @Html.Raw(Ajax.JavaScriptStringEncode(Html.TextBox("Duedate", "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date"}).ToHtmlString()))</td>';
+                  var td3 = '<td class="keterangan"> @Html.Raw(Ajax.JavaScriptStringEncode(Html.Editor("Keterangan", new { htmlAttributes = new { @class = "form-control" } }).ToHtmlString()))</td>';
+                 var td4 = '<td class="jumlah"> @Html.Raw(Ajax.JavaScriptStringEncode(Html.Editor("Jumlah", new { htmlAttributes = new { @class = "form-control", @type = "number" } }).ToHtmlString()))</td>';
+                  var td5 = '<td hidden> </td>';
+                  var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
+                 $("tbody").append('<tr>' + td2 + td3 + td4 +td5 + td6+'</tr>');
+
+        }
     </script>
 
+    <script>
+    //    $("#addToList").click(function (e) {
+    //        e.preventDefault();
+    //        alert("testing");
+            //     var td2 = '<td class="duedate">  Html.Raw(Ajax.JavaScriptStringEncode(Html.TextBox("Duedate", "{0:yyyy-MM-dd}", new { class = "form-control", type = "date" }).ToHtmlString()))</td>';
+            //      var td3 = '<td class="keterangan"> Html.Raw(Ajax.JavaScriptStringEncode(Html.Editor("Keterangan", new { htmlAttributes = new { class = "form-control" } }).ToHtmlString()))</td>';
+            //      var td4 = '<td class="jumlah"> Html.Raw(Ajax.JavaScriptStringEncode(Html.Editor("Jumlah", new { htmlAttributes = new { class = "form-control", type = "number" } }).ToHtmlString()))</td>';
+            //      var td5 = '<td hidden> </td>';
+            //      var td6 = '<td> <a data-itemId="0" href="#" class="deleteItem">Remove</a></td>';
+            //      $("tbody").append('<tr>' + td2 + td3 + td4 +td5 + td6+'</tr>');
+    //    });
+    </script>
 }
 

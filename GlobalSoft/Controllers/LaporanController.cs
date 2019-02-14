@@ -347,7 +347,7 @@ namespace GlobalSoft.Controllers
             ViewBag.Tgl2 = Tanggal2;
             ViewBag.Kode = KodeBank;
 
-            return View(Transaksi.OrderBy(x => x.Tanggal).ThenBy(x =>x.Jumlah));
+            return View(Transaksi.OrderBy(x => x.Tanggal));
         }
 
         
