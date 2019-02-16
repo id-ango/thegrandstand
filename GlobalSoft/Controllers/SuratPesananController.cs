@@ -564,7 +564,7 @@ namespace GlobalSoft.Controllers
         }
 
         public ActionResult SimpanEdit(string bukti, string keterangan, string tanggal, int row_num, int row_cust,
-             int marketing, int carabayar,  AptSPesanan[] order)
+             int marketing, int carabayar, decimal harga, AptSPesanan[] order)
         {
             string result = "Error! Surat Pesanan Is Not Complete!";
             AptTrans model = new AptTrans();
@@ -573,7 +573,7 @@ namespace GlobalSoft.Controllers
             {
                 (from y in db.AptTranss
                   where y.NoRef == bukti
-                  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; x.BayarID = carabayar; });
+                  select y).ToList().ForEach(x => { x.Tanggal = Convert.ToDateTime(tanggal); x.Keterangan = keterangan; x.BayarID = carabayar; x.Harga = harga; });
 
                 var Transaksi = (from e in db.AptSPesanans
                                  where e.SPesanan == bukti
