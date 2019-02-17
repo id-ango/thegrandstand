@@ -19,31 +19,31 @@ namespace GlobalSoft.Controllers
         // GET: LaporanPiutang
         public ActionResult Index()
         {
-             var ListPiutang = db.AptTranss.ToList();
+            var ListPiutang = db.AptTranss.ToList();
 
-             var Trans1 = (from e in ListPiutang
-                                                    select new LaporanPiutangVM
-                                                    {
-                                                        SpesananGd = e.SpesananGd,
-                                                        Tanggal = e.Tanggal,
-                                                        NoRef = e.NoRef,
-                                                        TransID = e.TransID,
-                                                        TransNoID = e.TransNoID,
-                                                        BayarID = e.BayarID,
-                                                        CustomerID = e.CustomerID,
-                                                        MarketingID = e.MarketingID,
-                                                        UnitID = e.UnitID,
-                                                        PaymentName = db.AptBayars.Find(e.BayarID).CaraBayar,
-                                                        CustomerName = db.ArCustomers.Find(e.CustomerID).CustomerName,
-                                                        MarketingName = db.AptMarketings.Find(e.MarketingID).MarketingName,
-                                                        UnitNo = db.AptUnits.Find(e.UnitID).UnitNo,
-                                                        Harga = e.Harga,
-                                                        BookingFee = 0,
-                                                        BonusFee = 0,
-                                                        Piutang = 0,
-                                                        Bayar = 0,
-                                                        Sisa = 0
-                                                    }).ToList();
+            var Trans1 = (from e in ListPiutang
+                          select new LaporanPiutangVM
+                          {
+                              SpesananGd = e.SpesananGd,
+                              Tanggal = e.Tanggal,
+                              NoRef = e.NoRef,
+                              TransID = e.TransID,
+                              TransNoID = e.TransNoID,
+                              BayarID = e.BayarID,
+                              CustomerID = e.CustomerID,
+                              MarketingID = e.MarketingID,
+                              UnitID = e.UnitID,
+                              PaymentName = db.AptBayars.Find(e.BayarID).CaraBayar,
+                              CustomerName = db.ArCustomers.Find(e.CustomerID).CustomerName,
+                              MarketingName = db.AptMarketings.Find(e.MarketingID).MarketingName,
+                              UnitNo = db.AptUnits.Find(e.UnitID).UnitNo,
+                              Harga = e.Harga,
+                              BookingFee = 0,
+                              BonusFee = 0,
+                              Piutang = 0,
+                              Bayar = 0,
+                              Sisa = 0
+                          }).ToList();
 
 
             var ListCb = from e in db.CbTranss
@@ -59,9 +59,9 @@ namespace GlobalSoft.Controllers
                          select new UnitPiutang { NoRef = e.SPesanan, Tanggal = e.Duedate, UnitID = y.UnitID, CustomerID = y.CustomerID, Angsuran = e.Jumlah, Bayar = e.Bayar, Keterangan = e.Keterangan };
 
             var ListByr = from e in db.ArTransDs
-                         join y in db.AptSPesanans on e.SPesananID equals y.SPesananID
-                         join t in db.AptTranss on y.SPesanan equals t.NoRef
-                         select new UnitPiutang { NoRef = e.Bukti, Tanggal = e.Tanggal, UnitID = t.UnitID, CustomerID = e.CustomerID, Angsuran = e.Piutang, Bayar = e.Bayar+e.Diskon, Keterangan = e.Keterangan };
+                          join y in db.AptSPesanans on e.SPesananID equals y.SPesananID
+                          join t in db.AptTranss on y.SPesanan equals t.NoRef
+                          select new UnitPiutang { NoRef = e.Bukti, Tanggal = e.Tanggal, UnitID = t.UnitID, CustomerID = e.CustomerID, Angsuran = e.Piutang, Bayar = e.Bayar + e.Diskon, Keterangan = e.Keterangan };
 
             foreach (var y in ListCb)
             {
@@ -101,6 +101,34 @@ namespace GlobalSoft.Controllers
                  });
             }
             return View(Trans1);
+        }
+
+        public ActionResult LapPiutang(string noref)
+        {
+            var ListPiutang = db.AptSPesanans.Where(x =>x.SPesanan == noref).ToList();
+
+            var ListBayar = (from e in ListPiutang
+                             join y in db.ArTransDs
+                             on e.SPesananID equals y.SPesananID
+                             join t in db.ArTransHs
+                             on y.ArHID equals t.ArHID
+                             select new { t.Bukti,y.Tanggal,y.Keterangan,y.Bayar,y.Diskon }).ToList();
+
+            List<CbTrans> Transaksi = new List<CbTrans>();
+
+            foreach(var e in ListPiutang)
+            {
+
+                Transaksi.Add(new CbTrans { NoRef = e.SPesanan, Tanggal = e.Duedate, Keterangan = e.Keterangan, Jumlah = e.Jumlah });
+            };
+            foreach(var e in ListBayar)
+            {
+                Transaksi.Add(new CbTrans { NoRef = e.Bukti, Tanggal = e.Tanggal, Keterangan = e.Keterangan, Bayar = e.Bayar,Diskon = e.Diskon });
+
+            }
+            ViewBag.KartuPiutang = noref;
+            ViewBag.Piutang = db.AptTranss.Where(x => x.NoRef == noref).Select(x => x.Harga).FirstOrDefault();
+            return View(Transaksi.OrderBy(x => x.Tanggal));
         }
     }
 }

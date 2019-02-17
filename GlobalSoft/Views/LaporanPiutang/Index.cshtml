@@ -3,6 +3,16 @@
 @{
     ViewBag.Title = "Laporan Piutang";
 }
+<style>
+   
+    div.slider {
+        display: none;
+    }
+
+    table.dataTable tbody td.no-padding {
+        padding: 0;
+    }
+</style>
 
 <h2>Laporan Piutang</h2>
 
@@ -18,83 +28,81 @@
             </div>
             <div class="panel-body">
                 <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
-                  @{ 
-                      decimal nJumlah = 0;
-                      decimal nBooking = 0;
-                      decimal nBonus = 0;
-                      decimal nPiutang = 0;
-                      decimal nBayar = 0;
-                      decimal nSisa = 0;
+                    @{
+                        decimal nJumlah = 0;
+                        decimal nBooking = 0;
+                        decimal nBonus = 0;
+                        decimal nPiutang = 0;
+                        decimal nBayar = 0;
+                        decimal nSisa = 0;
 
-                    <thead>
-                        <tr>
-                            <th>No. Bukti</th>
-                            <th>Tanggal</th>
-                            <th>Unit</th>
-                            <th>Customer</th>
-                            <th>Marketing</th>
-                            <th>Tipe</th>
-                            <th>Harga Jual</th>
-                            <th>Booking Fee</th>
-                            <th>Bonus</th>
-                            <th>Piutang</th>
-                            <th>Bayar</th>
-                            <th>Sisa</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ 
-                            foreach (var asset in Model)
-                            {
-                                nJumlah = nJumlah + asset.Harga;
-                                nBonus = nBonus + asset.BonusFee;
-                                nBooking = nBooking + asset.BookingFee;
-                                nPiutang = nPiutang + asset.Piutang;
-                                nBayar = nBayar + asset.Bayar;
-                                nSisa = nSisa + (nPiutang-nBayar);
-
+                        <thead>
                             <tr>
-                                <td>@asset.NoRef</td>
-                                <td>@asset.Tanggal</td>
-                                <td>@asset.UnitNo</td>
-                                <td>@asset.CustomerName</td>
-                                <td>@asset.MarketingName</td>
-                                <td>@asset.PaymentName</td>
-                                <td>@string.Format("{0:n0}", @asset.Harga)</td>
-                                <td>@string.Format("{0:n0}", @asset.BookingFee)</td>
-                                <td>@string.Format("{0:n0}", @asset.BonusFee)</td>
-                                <td>@string.Format("{0:n0}", @asset.Piutang)</td>
-                                <td>@string.Format("{0:n0}", @asset.Bayar)</td>
-                                <td>@string.Format("{0:n0}", @asset.Piutang - @asset.Bayar)</td>
+                                <th>No. Bukti</th>
+                                <th>Tanggal</th>
+                                <th>Unit</th>
+                                <th>Customer</th>
+                                <th>Marketing</th>
+                                <th>Tipe</th>
+                                <th>Harga Jual</th>
+                                <th>Booking Fee</th>
+                                <th>Bonus</th>
+                                <th>Piutang</th>
+                                <th>Bayar</th>
+                                <th>Sisa</th>
 
-                               
-                                <td>
-                                    @*Html.ActionLink("Cetak", "SPesanan", new { noref = @asset.NoRef, cetak = 2 }, new { target = "_blank" }) |*@
-                                    @*Html.ActionLink("Lampiran", "SPesanan", new { noref = @asset.NoRef, cetak = 3 }, new { target = "_blank" })*@
-                                </td>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var asset in Model)
+                                {
+                                    nJumlah = nJumlah + asset.Harga;
+                                    nBonus = nBonus + asset.BonusFee;
+                                    nBooking = nBooking + asset.BookingFee;
+                                    nPiutang = nPiutang + asset.Piutang;
+                                    nBayar = nBayar + asset.Bayar;
+                                    nSisa = nSisa + (nPiutang - nBayar);
+
+                                    <tr>
+                                        <td>@asset.NoRef</td>
+                                        <td>@asset.Tanggal</td>
+                                        <td>@asset.UnitNo</td>
+                                        <td>@asset.CustomerName</td>
+                                        <td>@asset.MarketingName</td>
+                                        <td>@asset.PaymentName</td>
+                                        <td>@string.Format("{0:n0}", @asset.Harga)</td>
+                                        <td>@string.Format("{0:n0}", @asset.BookingFee)</td>
+                                        <td>@string.Format("{0:n0}", @asset.BonusFee)</td>
+                                        <td>@string.Format("{0:n0}", @asset.Piutang)</td>
+                                        <td>@string.Format("{0:n0}", @asset.Bayar)</td>
+                                        <td>
+                                            @string.Format("{0:n0}", @asset.Piutang - @asset.Bayar) <br />
+                                            @Html.ActionLink("Kartu Piutang", "LapPiutang", new { noref = @asset.NoRef }, new { target = "_blank" })
+
+                                        </td>
+                                    </tr>
 
                                 }
                             }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>@string.Format("{0:n0}", @nJumlah)</td>
-                            <td>@string.Format("{0:n0}", @nBooking)</td>
-                            <td>@string.Format("{0:n0}", @nBonus)</td>
-                            <td>@string.Format("{0:n0}", @nPiutang)</td>
-                            <td>@string.Format("{0:n0}", @nBayar)</td>
-                            <td>@string.Format("{0:n0}", (@nPiutang - @nBayar))</td>
-                        </tr>
-                    </tfoot>
-                      }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>@string.Format("{0:n0}", @nJumlah)</td>
+                                <td>@string.Format("{0:n0}", @nBooking)</td>
+                                <td>@string.Format("{0:n0}", @nBonus)</td>
+                                <td>@string.Format("{0:n0}", @nPiutang)</td>
+                                <td>@string.Format("{0:n0}", @nBayar)</td>
+                                <td>@string.Format("{0:n0}", (@nPiutang - @nBayar))</td>
+                            </tr>
+                        </tfoot>
+                    }
                 </table>
             </div>
         </div>
@@ -107,13 +115,108 @@
     <script type="text/javascript">
 
 
-     $(document).ready(function () {
+        $(document).ready(function () {
 
-         $('#assets-data-table').DataTable();
-     });
+            $('#assets-data-table').DataTable();
+        });
+    </script>
+
+
+    <script type="text/javascript">
+
+
+        /* Formatting function for row details - modify as you need */
+
+
+
+        function format(d) {
+            var htmlResult = '<div class="row">' +
+                '   <div class="col-md-8">' +
+                '      <div class="panel panel-primary list-panel" id="list-panel">' +
+                '         <div class="panel-heading list-panel-heading">' +
+                '            <h1 class="panel-title list-panel-title">Rincian Angsuran</h1>' +
+                '       </div>' +
+                '<div class="slider">' +
+                '<table id="example" class="table table-striped table-bordered display nowrap row-border hover order-column" style="width:100%">' +
+                '<tr>' +
+                '<th>Bukti</th>' +
+                '<th>Tanggal</th> ' +
+                '<th>Keterangan</th>' +
+                '<th>Debet</th>' +
+                '<th>Kredit</th>' +
+                '</tr>';
+            //     htmlResult += '<tr><td>' + Testing + '</td></tr>';
+            $.each(d, function () {
+                //             htmlResult += '<tr><td>' + Testing +'</td></tr>';
+                //           htmlResult += '<tr><td>' + this.UnitNo + '</td><td>' + this.Lantai + '</td><td>' + this.Categorie + '</td><td>' + this.Status + '</td><td>' + this.Inhouse + '</td></tr>';
+                htmlResult += '<tr><td>' + this.NoRef + '</td><td>' + this.TglString + '</td><td>' + this.Keterangan + '</td><td>' + this.Angsuran + '</td><td>' + this.Bayar + '</td></tr>';
+                //             htmlResult += '<tr><td>' + this.StudentName + '</td><td>' + this.StudentSurname + '</td><td>' + this.StudentNumber + '</td></tr>';
+            });
+
+            htmlResult += '</table>' +
+                '</div>' +
+                '  </div >' +
+                '  </div >' +
+                '</div >';
+            return htmlResult;
+        }
+
+
+
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                "ajax": "../dashboard/GetUnit",
+                "type": "POST",
+                "datatype": "json",
+                "columns": [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "UnitNo" },
+                    { "data": "Lantai" },
+                    { "data": "Categorie" },
+                    { "data": "Status" },
+                    { "data": "CustomerName" },
+                    { "data": "MarketingName" },
+                    { "data": "PaymentName" },
+                    { "data": "Piutang", render: $.fn.dataTable.render.number(',', '.', 2, '') },
+                    { "data": "Pembayaran", render: $.fn.dataTable.render.number(',', '.', 2, '') },
+                    { "data": "Sisa", render: $.fn.dataTable.render.number(',', '.', 2, '') }
+                ],
+                "order": [[1, 'asc']]
+
+            });
+
+
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child('<p><center>Loading...</center></p>', 'no-padding').show();
+                    tr.addClass('shown');
+                    $('div.slider', row.child()).slideDown();
+                                  $.getJSON('../LaporanPiutang/GetDetail/?unitNo=' + row.data().UnitNo, function (data2) {
+                        $('td', row.child()).html(format(data2));
+                        $('div.slider', row.child()).show();
+                    });
+                }
+            });
+        });
+
+
     </script>
 }
-
 
 
 
